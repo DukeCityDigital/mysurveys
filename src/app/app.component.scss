@@ -1,0 +1,43 @@
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.example-tab-icon {
+  margin-right: 8px;
+}
+
+.box {
+  padding: 8px;
+}
+
+.leftbox {
+  border-right: 1px solid grey;
+  width: 340px;
+}
+.rightbox {
+  border-left: 1px solid grey;
+  min-width: 240px;
+  width: 240px;
+  text-align: left;
+}
+
+.middlebox {
+  text-align: left;
+  padding: 6px;
+}
+
+.button-column {
+  flex-direction: row;
+  display: grid;
+  text-align: left;
+}
+.button-column > div {
+  display: grid;
+}
+
+ul {
+  padding-inline-start: 4px;
+}
