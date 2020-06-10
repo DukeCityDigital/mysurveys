@@ -1,0 +1,53 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+  //   border: 1px solid blue;
+  //   padding: 2px;
+}
+.mat-form-field-infix {
+  //   border: 1px solid blue;
+}
+.login-form {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.login-form input {
+  // border: 1px solid #8297ac;
+  // border-radius: 4px;
+  //   padding: 2px;
+  //   font-size: 16px;
+}
+.login-form .example-full-width {
+}
+
+#login-card {
+}
+
+.tip {
+  font-size: 14px;
+  margin: 4px;
+  display: block;
+}
+.login-footer {
+  font-size: 12px;
+  margin-top: 22px;
+}
+
+.button {
+  font-size: 24px;
+  padding: 6px 16px;
+}
+
+.createbutton {
+  background: #2ebc4f;
+  color: white;
+
+  border: 1px solid lightgrey;
+  margin-top: 22px;
+}

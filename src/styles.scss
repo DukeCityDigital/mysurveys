@@ -1,8 +1,19 @@
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto+Slab&family=Ruda:wght@600&display=swap");
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  // font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Roboto Slab", serif !important;
+}
 :host {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+  //   Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
   color: #333;
   box-sizing: border-box;
@@ -17,6 +28,7 @@ h4,
 h5,
 h6 {
   margin: 8px 0;
+  font-family: "Ruda", sans-serif !important;
 }
 
 p {
@@ -29,7 +41,7 @@ p {
 
 .toolbar {
   height: 60px;
-  margin: -8px;
+  // margin: -8px;
   display: flex;
   align-items: center;
   background-color: #1976d2;
@@ -93,9 +105,9 @@ a:hover {
 
 .terminal::before {
   content: "\2022 \2022 \2022";
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
+  left: 300px;
   height: 4px;
   background: rgb(58, 58, 58);
   color: #c2c3c4;
@@ -113,6 +125,36 @@ a:hover {
   margin: 0;
 }
 
+.centerheader {
+  padding: 22px 22px 0 22px;
+  text-align: center;
+  // font-size: 1.5rem;
+}
+
+.debug {
+  // position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 1px solid lightgrey;
+  background: orange;
+  color: black;
+  font-family: monospace;
+  padding: 4px;
+}
+
+.mat-drawer-container {
+  background-color: none !important;
+}
+
+.TODO {
+  background: pink;
+  font-family: monospace;
+}
+
+/* Responsive Styles */
+/* Responsive Styles */
+/* Responsive Styles */
 /* Responsive Styles */
 @media screen and (max-width: 767px) {
   .card-container > *:not(.circle-link),
@@ -129,15 +171,6 @@ img {
     display: none;
     visibility: hidden;
   }
-}
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .active {

@@ -1,3 +1,7 @@
+6.8.2020
+bnuild cmd working w/refresh
+ng build --prod --output-hashing=none
+
 # Scifriends
 
 installed ng 8

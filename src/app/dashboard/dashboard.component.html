@@ -1,0 +1,25 @@
+<mat-card>
+    <h1 style="text-transform:capitalize;">{{currentUser.role}} Dashboard</h1>
+
+    <div *ngIf="currentUser && currentUser.role ==='participant'">
+        [ <a href="#">Invitations</a>]&nbsp;
+        [<a href="#">Statistics</a>]&nbsp;
+        [<a href="#">Profile</a>]&nbsp;
+        <hr>
+        No pending invitations
+    </div>
+
+    <div *ngIf="currentUser && currentUser.role ==='administrator'">
+
+        <hr>
+        <button mat-stroked-button>Begin by inviting researchers and giving quotas</button>
+    </div>
+
+    <div *ngIf="currentUser && currentUser.role ==='researcher'">
+
+        <hr>
+        <button mat-stroked-button>Begin by creating a project</button>
+    </div>
+
+
+</mat-card>

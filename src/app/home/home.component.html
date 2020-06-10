@@ -1,0 +1,22 @@
+<div class="centerheader">
+    <div style="padding:22px;">
+        <h1>Please log in below. </h1>
+        <h2>
+            If you need to fill out the questionnaire and create an account, please<a [routerLink]="'/questionnaire'">
+                visit
+                that page</a>
+        </h2>
+        <app-login></app-login>
+
+
+
+        <mat-card *ngIf="showGdpr" style="font-size:15px;margin-top:22px;">
+            This website uses cookies to ensure you get the best experience on our website.
+            <a [routerLink]="'/privacy'">Learn More</a>
+            <button style="margin:0 10px;" (click)="acknowledgeGDPR()" mat-stroked-button
+                color="primary">Accept</button>
+
+
+        </mat-card>
+    </div>
+</div>

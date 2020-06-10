@@ -10,12 +10,12 @@
 }
 
 .box {
-  padding: 8px;
+  // padding: 8px;
 }
 
 .leftbox {
   border-right: 1px solid grey;
-  width: 340px;
+  width: 200px;
 }
 .rightbox {
   border-left: 1px solid grey;
@@ -25,8 +25,19 @@
 }
 
 .middlebox {
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
   text-align: left;
-  padding: 6px;
+  // padding: 6px;
+  height: 100%;
+}
+
+.middlebox div {
+  margin: 44px;
 }
 
 .button-column {
@@ -40,4 +51,25 @@
 
 ul {
   padding-inline-start: 4px;
+}
+
+.loginstatus {
+  background: lightgrey;
+}
+
+.sidenav-footer {
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 6px;
+}
+
+.sidenav-link {
+  border-bottom: 1px solid #1976d2;
+  cursor: pointer;
+  // background: rgba(55, 89, 238, 0.479);
+  text-transform: capitalize;
 }

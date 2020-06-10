@@ -1,0 +1,47 @@
+.shortConsent {
+  //   border: 1px solid blue;
+  padding: 4px;
+}
+
+.shortConsent p {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.consentContent {
+  border: 1px solid black;
+  padding: 12px;
+  //   font-family: "Times New Roman", Times, serif;
+}
+.consentContent p {
+  text-align: left;
+}
+
+.info {
+  text-align: center;
+}
+.info p {
+  font-size: 20px;
+}
+
+.qualificationForm {
+  padding: 4px;
+  border: 1px solid lightgrey;
+}
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+form {
+  padding: 6px;
+}
+
+.surveyActual {
+  background: white;
+  padding: 6px;
+}

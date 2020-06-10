@@ -1,59 +1,43 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <span style="margin-left:40px;margin-top:6px;">SciFriends V2 testing / development interface</span>
+  <span style="margin-left:40px"><a style="color:white;" [routerLink]="'home'">Web Survey (SciFriends
+      2.0)</a> </span>
   <div class="spacer"></div>
-  <!-- <button (click)="setStep(0)" mat-raised-button color="accent">draft walkthrough</button> -->
-  <!-- <button (click)="setStep(0)" mat-button color="accent">other project info</button> -->
 </div>
 <mat-sidenav-container class="example-container" style="margin-top:60px;">
   <mat-sidenav opened mode="side" class="box leftbox">
-    <h3>Steps</h3>
-    <p>The main concepts or participant touchpoints in the project. Click a button below to view status</p>
-    <div class="button-column">
-      <div *ngFor="let step of steps;let i = index;">
-        {{i}}.
-        <!-- {{step.name}} -->
-        <button [ngClass]="{'active':i == selectedStep}" (click)="setStep(i)" mat-stroked-button
-          color="{{step.color ? step.color : 'primary'}}">
-          {{step.name}}
-        </button>
-      </div>
-    </div>
+    <mat-list style="padding-top:0;">
+      <mat-list-item style="background:aliceblue;font-size:12px;border-bottom:1px solid #1976d2" *ngIf="currentUser">
+        {{currentUser.email ? currentUser.email : null}}
+      </mat-list-item>
+      <mat-list-item routerLink="home" class="sidenav-link">
+        Home
+      </mat-list-item>
+    </mat-list>
+
+    <mat-list style="padding-top:0;" *ngIf="currentUser">
+      <mat-list-item routerLink="{{link.link}}" *ngFor="let link of links[currentUser.role]" class="sidenav-link">
+        {{link.name}}
+      </mat-list-item>
+      <mat-list-item>
+        <a *ngIf="currentUser" (click)="logout()" href="/" style="cursor:pointer;line-height:inherit;" color="warn"
+          mat-button>Logout</a><br>
+
+      </mat-list-item>
+      <mat-list-item>
+        <a color="primary" style="cursor:pointer;line-height:inherit;" mat-button href="privacy">Privacy
+          Disclaimer</a>
+
+      </mat-list-item>
+
+
+    </mat-list>
+
   </mat-sidenav>
-  <div class=" box middlebox">
-    <div *ngFor="let step of steps;let i = index;">
-      <div *ngIf="i == selectedStep">
-        <mat-card>
-          <div style="position:absolute;right:2px;top:2px;height:32px;">
-            <!-- Role: {{step.role}} -->
-          </div>
-          <h3>{{step.name}}</h3>
-          <i style="font-size:12px;"> Step: {{i}}</i>
-          <br>
-          {{step.description}}
-        </mat-card>
-        <mat-toolbar [ngStyle]="{'background-color':step.bgColor}">{{step.pageTitle}}</mat-toolbar>
-        <div [innerHTML]="step.html">
-        </div>
-      </div>
-    </div>
+  <div class="box middlebox">
+    <router-outlet></router-outlet>
   </div>
-  <mat-sidenav opened mode="side" class="box rightbox" position="end">
-    <div *ngFor="let step of steps;let i = index;">
-      <div *ngIf="i == selectedStep">
-        <h3>Assets</h3>
-        <ul *ngFor="let asset of step.assets">
-          <li>{{asset}}</li>
-        </ul>
-        <div>
-          Data: {{step.data}}
-        </div>
-        <div>
-          Discussion:
-          {{step.discussion}}
-        </div>
-      </div>
-    </div>
-  </mat-sidenav>
+  <!-- <mat-sidenav opened mode="side" class="box rightbox" position="end">
+    content opened
+  </mat-sidenav> -->
 </mat-sidenav-container>
-<router-outlet></router-outlet>

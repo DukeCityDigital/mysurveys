@@ -1,0 +1,25 @@
+<div class="centerheader">
+    <h1>Login</h1>
+    <!-- <button class="TODO" (click)="test()">test</button> -->
+    <mat-card id="login-card">
+        <form class="login-form main-login-card" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+            <mat-form-field class="login-field">
+                <input [pattern]="emailPattern" type="email" email formControlName="email" matInput required
+                    placeholder="&nbsp;Email">
+                <mat-error *ngIf=" f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="login-field">
+                <input placeholder="&nbsp;Password" type="password" formControlName="password" matInput required>
+            </mat-form-field>
+            <br>
+            <button [disabled]="!loginForm.valid" mat-stroked-button type="submit">Submit</button>
+            <div [hidden]="!errors.length" style="margin:22px;color:#c80000;">
+                <span class="tip" *ngFor="let error of errors">
+                    {{error}}
+                </span>
+            </div>
+        </form>
+    </mat-card>
+</div>

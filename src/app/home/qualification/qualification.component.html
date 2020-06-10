@@ -1,0 +1,128 @@
+<div *ngIf="!submitted" class="surveyActual">
+    <!-- <button mat-stroked-button (click)="testOne()" class="TODO">Dev->qualified</button> -->
+    <div class="centerheader">
+        <h1>Welcome!</h1>
+        <!-- <div class="debug">
+            {{qualificationForm.value | json}}
+            {{'qual' + isQualified(qualificationForm)}}
+        </div> -->
+    </div>
+    <div class="info">
+        <p>We need to get your opinion on a few things to make sure you're a good fit for the study. First, please read
+            the consent form
+            below.</p>
+        <div class="consentContent">
+            By clicking the checkbox below you acknowledge that you consent to the collection of data<br>
+            <br>
+            <div class="TODO">
+                [Consent language here]
+            </div>
+            <br>
+            <mat-checkbox [(ngModel)]="accepted_short_consent">I consent</mat-checkbox>
+        </div>
+        <mat-card *ngIf="!accepted_short_consent">
+            <h2>You must consent to proceed</h2>
+        </mat-card>
+        <div [@openClose]="accepted_short_consent ? 'open' : 'closed'" class="open-close-container">
+            <form [hidden]="!accepted_short_consent" [formGroup]="qualificationForm" (ngSubmit)="onSubmit()">
+                <h2>Thanks for your consent!</h2>
+                <p>Please answer the following questions</p>
+                <div class="shortConsent">
+
+                    <label id="example-radio-group-label">Do any children under the age of 18 currently live in your
+                        household?</label>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                        formControlName="parents">
+                        <mat-radio-button class="example-radio-button" value="true">
+                            Yes
+                        </mat-radio-button>
+                        <mat-radio-button class="example-radio-button" value="false">
+                            No
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <hr>
+                    <p>Scientists have added genes to certain food crops to make them insect resistant and herbicide
+                        tolerant.
+                        These are called genetically modified (GM) crops. Examples of GM crops in the U.S. include some
+                        corn, soybeans, and canola. The next question is about GM food made from these crops.
+                    </p>
+                    <label id="example-radio-group-labelgm">Do you think it is unsafe or fsafe to eat GM food?
+                        Select the number that comes closest to your views </label>
+
+                    <mat-radio-group aria-labelledby="example-radio-group-labelgm" class="example-radio-group"
+                        formControlName="gm">
+                        <mat-radio-button *ngFor="let response of possibleResponses" class="example-radio-button"
+                            value="{{response.value}}">
+                            {{response.value}} {{response.name}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <hr>
+                    <p>
+                        A vaccine imitates an infection without inducing the disease, and
+                        leads the immune system to develop immunity to that disease. The next question is about vaccines
+                        currently recommended for children (childhood vaccines), such as the Measles, mumps, rubella
+                        (MMR)
+                        vaccine or the Tetanus, diphtheria, and pertussis (Tdap) vaccine.
+                    </p>
+                    <label id="example-radio-group-label">Do you think childhood vaccines are unsafe or safe for healthy
+                        children?
+                        Select the number that comes closest to your views </label>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                        formControlName="vac">
+                        <mat-radio-button *ngFor="let response of possibleResponses" class="example-radio-button"
+                            value="{{response.value}}">
+                            {{response.value}} {{response.name}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <hr>
+                    <p>Do you live in the U.S.?</p>
+                    <!-- <label id="example-radio-group-labellocation">Do you live in the U.S.?
+                    </label> -->
+                    <mat-radio-group aria-labelledby="example-radio-group-labelus" class="example-radio-group"
+                        formControlName="us">
+                        <mat-radio-button class="example-radio-button" value="true">
+                            Yes
+                        </mat-radio-button>
+                        <mat-radio-button class="example-radio-button" value="false">
+                            No
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <hr>
+                    <p>
+                        To complete the study and earn payment you will need to recruit two of your friends to answer
+                        questions as well. Is this OK with you?
+                    </p>
+                    <mat-radio-group required aria-labelledby="example-radio-group-labelfriends"
+                        class="example-radio-group" formControlName="friends">
+                        <mat-radio-button class="example-radio-button" value="true">
+                            Yes
+                        </mat-radio-button>
+                        <mat-radio-button class="example-radio-button" value="false">
+                            No
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <hr>
+                <button mat-stroked-button [disabled]="!qualificationForm.valid" color="primary"
+                    type="submit">Submit</button>
+                <br><br><br><br>
+            </form>
+
+        </div>
+    </div>
+</div>
+<mat-card *ngIf="!qualified && submitted">
+    <h2> Thank you for your submission, unfortunately you don't fit the study criteria - thank you for your interest
+        however!
+        <span class="TODO">direct elsewhere? helpful info</span>
+    </h2>
+</mat-card>
+<div *ngIf="qualified && submitted">
+    <mat-card style="text-align:center;margin:12px 0;" color="primary">
+        <mat-icon style="color:green;font-size:44px;">check_circle_outline</mat-icon>
+        <h2> Great - it looks like you're qualified to participate. Let's get your information and email verified.
+        </h2>
+    </mat-card>
+
+    <app-verification></app-verification>
+</div>
