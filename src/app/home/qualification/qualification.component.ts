@@ -67,7 +67,7 @@ export class QualificationComponent implements OnInit {
 
   toggle() {
     this.isOpen = !this.isOpen;
-  }
+}
 
   /**
    * Show if a user is qualified
@@ -84,10 +84,10 @@ export class QualificationComponent implements OnInit {
     let vacOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
 
     if (
-      f.us === "true" &&
-      f.parents === "true" &&
-      f.friends === "true" &&
-      vacOk &&
+      (f.us === "true" &&
+        f.parents === "true" &&
+        f.friends === "true" &&
+        vacOk) ||
       gmOk
     ) {
       qualified = true;

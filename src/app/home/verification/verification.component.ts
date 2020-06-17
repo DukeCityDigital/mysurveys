@@ -9,30 +9,13 @@ import { ActivatedRoute } from "@angular/router";
 import { EmailPattern, PasswordPattern } from "@app/core/helpers/patterns";
 import { RegistrationService } from "@app/core/services/registration.service";
 import { AuthService } from "@app/core/services/auth.service";
-
+import { CustomValidators } from "@app/core/helpers/custom-validators";
 @Component({
   selector: "app-verification",
   templateUrl: "./verification.component.html",
   styleUrls: ["./verification.component.scss"],
 })
 export class VerificationComponent implements OnInit {
-  emailVerificationForm = this.formBuilder.group({
-    email: new FormControl("", [Validators.required, Validators.email]),
-    password: new FormControl("", [
-      Validators.required,
-      Validators.pattern(
-        "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}"
-      ),
-    ]),
-    recaptchaReactive: new FormControl(null, Validators.required),
-  });
-  submitted = false;
-  constructor(
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private registrationService: RegistrationService,
-    private authService: AuthService
-  ) {}
   emailPattern = EmailPattern;
   passwordPattern = PasswordPattern;
   registered = false;
@@ -41,6 +24,50 @@ export class VerificationComponent implements OnInit {
   emailLinked = false;
   emailLinkFoundAndHandled = false;
   emailLinkNotFound = false;
+  emailVerificationForm: FormGroup;
+  submitted = false;
+
+  createSignupForm(): FormGroup {
+    return this.formBuilder.group({
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: [
+        null,
+        Validators.compose([
+          Validators.required,
+          // check whether the entered password has a number
+          CustomValidators.patternValidator(/\d/, {
+            hasNumber: true,
+          }),
+          // check whether the entered password has upper case letter
+          CustomValidators.patternValidator(/[A-Z]/, {
+            hasCapitalCase: true,
+          }),
+          // check whether the entered password has a lower case letter
+          CustomValidators.patternValidator(/[a-z]/, {
+            hasSmallCase: true,
+          }),
+          // check whether the entered password has a special character
+          CustomValidators.patternValidator(
+            /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+            {
+              hasSpecialCharacters: true,
+            }
+          ),
+          Validators.minLength(8),
+        ]),
+      ],
+      recaptchaReactive: new FormControl(null, Validators.required),
+    });
+  }
+
+  constructor(
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private registrationService: RegistrationService,
+    private authService: AuthService
+  ) {
+    this.emailVerificationForm = this.createSignupForm();
+  }
 
   public reactiveForm: FormGroup = new FormGroup({});
   errors = [];
@@ -119,4 +146,9 @@ export class VerificationComponent implements OnInit {
 
     // return this.authService.login(email, password);
   }
+}
+
+
+export interface ValidationResult {
+  [key: string]: boolean;
 }

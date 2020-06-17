@@ -51,3 +51,23 @@
   border: 1px solid lightgrey;
   margin-top: 22px;
 }
+
+.is-invalid {
+  color: red;
+}
+.login-errors .material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+#login-errors {
+  display: inline-grid;
+  margin: 12px 0;
+}
+.valid {
+  color: #00864e;
+}
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+}

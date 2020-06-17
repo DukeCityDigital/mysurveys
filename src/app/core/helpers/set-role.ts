@@ -5,6 +5,7 @@ export function SetRole(user: User) {
   let decodedJwtJsonData = window.atob(jwtData);
   let decodedJwtData = JSON.parse(decodedJwtJsonData);
   user.role = decodedJwtData.roles[0];
+
   user.email = decodedJwtData.email;
   return user;
 }
