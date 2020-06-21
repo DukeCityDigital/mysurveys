@@ -9,10 +9,33 @@ import { DashboardComponent } from "@app/dashboard/dashboard.component";
 import { AuthGuard } from "@app/core/helpers/auth.guard";
 import { Role } from "@app/core/models/role";
 import { SelectionTableComponent } from "@app/core/components/selection-table/selection-table.component";
+import { SettingsComponent } from "@app/core/components/settings/settings.component";
+import { ProjectsComponent } from "@app/core/components/projects/projects.component";
+import { CreateComponent } from "@app/core/components/projects/create/create.component";
+
 const routes: Routes = [
   {
     path: "dashboard",
     component: DashboardComponent,
+    children: [
+      {
+        path: "settings",
+        component: SettingsComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Role.administrator] },
+      },
+      {
+        path: "projects",
+        loadChildren: () =>
+          import(`./core/components/projects/projects.module`).then(
+            (m) => m.ProjectsModule
+          ),
+        // component: ProjectsComponent,
+        // canActivate: [AuthGuard],
+        // // children: [{ path: "create", component: CreateComponent }],
+        // data: { roles: [Role.administrator, Role.researcher] },
+      },
+    ],
     canActivate: [AuthGuard],
   },
   {
@@ -42,6 +65,14 @@ const routes: Routes = [
   { path: "verify/:code", component: VerificationComponent },
 
   { path: "", redirectTo: "home", pathMatch: "full" },
+  {
+    path: "Projects",
+    loadChildren: () =>
+      import("./core/components/projects/projects.module").then(
+        (m) => m.ProjectsModule
+      ),
+  },
+  { path: "**", component: HomeComponent },
 ];
 
 @NgModule({

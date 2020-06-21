@@ -30,7 +30,7 @@ export class AppComponent {
     ],
 
     administrator: [
-      { name: "main page", link: "/", icon: "" },
+      // { name: "main page", link: "/", icon: "" },
       { name: "add researchers", link: "/", icon: "" },
       { name: "add quotas", link: "/", icon: "" },
       { name: "show users", link: "/", icon: "" },

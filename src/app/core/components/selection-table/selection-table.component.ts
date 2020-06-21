@@ -32,7 +32,7 @@ export class SelectionTableComponent implements OnInit {
   dataSource = new MatTableDataSource<User>(this.USERS);
   selection = new SelectionModel<User>(true, []);
 
-  constructor(private authService: AuthService) {}
+constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.users().subscribe((r: any) => {

@@ -10,16 +10,12 @@
     </div>
 
     <div *ngIf="currentUser && currentUser.role ==='administrator'">
-
         <hr>
         <button mat-stroked-button>Begin by inviting researchers and giving quotas</button>
     </div>
-
     <div *ngIf="currentUser && currentUser.role ==='researcher'">
-
         <hr>
         <button mat-stroked-button>Begin by creating a project</button>
     </div>
-
-
 </mat-card>
+<router-outlet></router-outlet>

@@ -1,15 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
-  FormBuilder,
   Validators,
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { EmailPattern, PasswordPattern } from "@app/core/helpers/patterns";
-import { RegistrationService } from "@app/core/services/registration.service";
-import { AuthService } from "@app/core/services/auth.service";
 import { CustomValidators } from "@app/core/helpers/custom-validators";
+import { EmailPattern, PasswordPattern } from "@app/core/helpers/patterns";
+import { AuthService } from "@app/core/services/auth.service";
+import { RegistrationService } from "@app/core/services/registration.service";
+
 @Component({
   selector: "app-verification",
   templateUrl: "./verification.component.html",
@@ -118,7 +119,7 @@ export class VerificationComponent implements OnInit {
       },
       (error) => {
         console.log("Error", error);
-        if (error.status == 404) {
+        if (error) {
           this.errors.push("Record not found");
           this.emailLinkNotFound = true;
         } else {
@@ -131,23 +132,23 @@ export class VerificationComponent implements OnInit {
   register(email: string, password: string) {
     return this.registrationService.register(email, password).subscribe(
       (data) => {
-        console.log("POST Request is successful ", data);
+        // console.log("POST Request is successful ", data);
         this.registered = true;
       },
       (error) => {
-        console.log("Error", error);
-        if (error.status == 409) {
+        if (error.status == 500) {
           this.errors.push("A user exists with that email address");
+        } else if (error.status == 500) {
+          this.errors.push("That email is in use");
         } else {
-          this.errors.push("There has been an error");
+          this.errors.push("That email is in use");
         }
       }
     );
 
-    // return this.authService.login(email, password);
+    return this.authService.login(email, password);
   }
 }
-
 
 export interface ValidationResult {
   [key: string]: boolean;

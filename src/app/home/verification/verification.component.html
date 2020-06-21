@@ -13,14 +13,7 @@
             <mat-form-field class="example-full-width">
                 <input placeholder="&nbsp;Password" type="password" formControlName="password" matInput required>
 
-                <!-- <div [hidden]="!errors.length" style="color:#c80000;font-weight:bold;">
-                    <ul class="tip">
-                        <li *ngFor="let error of errors">{{error}}</li>
-                    </ul>
-                </div> -->
                 <div id="login-errors">
-
-
                     <label
                         [ngClass]="emailVerificationForm.controls['password'].hasError('required') || emailVerificationForm.controls['password'].hasError('minlength')  ? 'is_invalid' : 'valid'">
                         <i class="material-icons">{{ emailVerificationForm.controls['password'].hasError('required') ||
@@ -61,6 +54,15 @@
                 </div>
 
             </mat-form-field>
+
+            <div [hidden]="!errors.length" style="color:#c80000;font-weight:bold;">
+                <div class="tip">
+                    <div *ngFor="let error of errors">{{error}}</div>&nbsp;
+                </div>
+                <!-- <ul >
+                    <li *ngFor="let error of errors">{{error}}</li>
+                </ul> -->
+            </div>
             <re-captcha formControlName="recaptchaReactive"></re-captcha>
             <button class="button createbutton" [disabled]="!emailVerificationForm.valid" mat-stroked-button
                 type="submit">Create Account</button>
@@ -79,12 +81,12 @@
 </mat-card>
 <mat-card *ngIf="emailLinkAttempt !== false && emailLinkNotFound !==true && emailLinkFoundAndHandled !==true"
     style="text-align:center;" color="primary">
-    <mat-icon style="color:green;font-size:44px;">search</mat-icon>
+    <mat-icon style="color:green;font-size:44px;vertical-align:initial ;">search</mat-icon>
     <h2>Checking verification code
     </h2>
 </mat-card>
 <mat-card *ngIf="emailLinkFoundAndHandled !== false" style="text-align:center;" color="primary">
-    <mat-icon style="color:green;font-size:44px;">search</mat-icon>
+    <mat-icon style="color:green;font-size:44px;vertical-align:initial ;">check_circle_outline</mat-icon>
     <h2>Verification code confirmed, your account has been created
     </h2>
     <p>
@@ -93,7 +95,7 @@
     </p>
 </mat-card>
 <mat-card *ngIf="emailLinkNotFound ===true" style="text-align:center;" color="primary">
-    <mat-icon style="color:red;font-size:44px;">error_outline</mat-icon>
+    <mat-icon style="color:red;font-size:44px;vertical-align:initial">error_outline</mat-icon>
     <h2>We couldn't find that verification code, please try again.<br><br> If you keep getting an error, try
         copying
         and pasting the URL of the verification link in the browser instead of clicking it.
