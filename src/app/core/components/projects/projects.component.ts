@@ -10,12 +10,22 @@ import { Project } from "@app/core/models/project.model";
 export class ProjectsComponent implements OnInit {
   projects: Project[] = [];
 
-  constructor(private pService: ProjectService) {}
+  constructor(public pService: ProjectService) {}
 
   ngOnInit(): void {
-    this.pService.getAll().subscribe((data: Project[]) => {
+    this.pService.getAll().subscribe((data: any) => {
       console.log(data);
-      this.projects = data;
+      this.projects = data.data;
     });
+  }
+
+  delete(id) {
+    let test = confirm("Are you sure you want to delete the project?");
+    if (test) {
+      return this.pService.delete(id).subscribe((response) => {
+        var index = this.projects.findIndex((x) => x.id == id);
+        this.projects.splice(index, 1);
+      });
+    }
   }
 }

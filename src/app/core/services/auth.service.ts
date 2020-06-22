@@ -50,6 +50,10 @@ export class AuthService {
           localStorage.setItem("access_token", JSON.parse(u).access_token);
           user = SetRole(user);
           this.currentUserSubject.next(user);
+          setTimeout(() => {
+            confirm("Your token will expire in 6 minutes");
+            // alert('Your token will expire in 6 minutes');
+          }, (3600 * 100) / 4);
           return user;
         })
       );

@@ -12,7 +12,7 @@ import { Project } from "@app/core/models/project.model";
 @Injectable({
   providedIn: "root",
 })
-export class ProjectService {
+export class AdminService {
   constructor(private httpClient: HttpClient) {}
   httpOptions = {
     headers: new HttpHeaders({
@@ -23,44 +23,12 @@ export class ProjectService {
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
 
-  get(id): Observable<Project> {
+  getSettings(): Observable<any> {
     return this.httpClient
-      .get<Project>(this.apiServer + "/projects/" + id)
+      .get<any>(this.apiServer + "/settings")
       .pipe(catchError(this.errorHandler));
   }
 
-  getAll(): Observable<Project[]> {
-    return this.httpClient
-      .get<Project[]>(this.apiServer + "/projects")
-      .pipe(catchError(this.errorHandler));
-  }
-
-  create(Project): Observable<Project> {
-    return this.httpClient
-      .post<Project>(
-        this.apiServer + "/projects",
-        JSON.stringify(Project),
-        this.httpOptions
-      )
-      .pipe(catchError(this.errorHandler));
-  }
-  delete(id) {
-    console.log("pdelete", id);
-    return this.httpClient.delete<any>(
-      this.apiServer + "/projects/" + id,
-      this.httpOptions
-    );
-
-    // return this.httpClient
-    //   .delete<Project>(this.apiServer + "/projects/" + id, this.httpOptions)
-    //   .pipe(catchError(this.errorHandler));
-  }
-  update(project: Project): Observable<any> {
-    return this.httpClient.put<any>(
-      this.apiServer + "/projects/" + project.id,
-      project
-    );
-  }
   errorHandler(error) {
     let errorMessage = "";
     if (error.error instanceof ErrorEvent) {

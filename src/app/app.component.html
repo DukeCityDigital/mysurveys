@@ -10,7 +10,7 @@
       <mat-list-item style="background:aliceblue;font-size:12px;border-bottom:1px solid #1976d2" *ngIf="currentUser">
         {{currentUser.email ? currentUser.email : null}}
       </mat-list-item>
-      <mat-list-item routerLink="home" class="sidenav-link">
+      <mat-list-item routerLink="home" class="sidenav-link" *ngIf="!currentUser">
         Home
       </mat-list-item>
     </mat-list>

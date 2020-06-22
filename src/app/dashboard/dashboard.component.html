@@ -11,11 +11,15 @@
 
     <div *ngIf="currentUser && currentUser.role ==='administrator'">
         <hr>
-        <button mat-stroked-button>Begin by inviting researchers and giving quotas</button>
+        <button [routerLink]="'/dashboard/settings'" mat-stroked-button>Begin by inviting researchers and giving
+            quotas</button>
     </div>
     <div *ngIf="currentUser && currentUser.role ==='researcher'">
         <hr>
-        <button mat-stroked-button>Begin by creating a project</button>
+        <button [routerLink]="'/dashboard/projects'" mat-stroked-button>View Projects</button>
+        <button [routerLink]="'/dashboard/projects/create'" mat-stroked-button>Create Project</button>
+
+
     </div>
 </mat-card>
 <router-outlet></router-outlet>

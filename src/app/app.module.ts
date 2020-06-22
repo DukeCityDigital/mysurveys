@@ -15,6 +15,7 @@ import { ErrorInterceptor } from "@app/core/helpers/error.interceptor";
 import { JwtModule } from "@auth0/angular-jwt";
 import { SelectionTableComponent } from "./core/components/selection-table/selection-table.component";
 import { MaterialBaseModule } from "@app/core/components/material-base/material-base.module";
+import { SettingsModule } from "@app/core/components/settings/settings.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { MaterialBaseModule } from "@app/core/components/material-base/material-
     HttpClientModule,
     MaterialBaseModule,
     DashboardModule,
+    SettingsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,

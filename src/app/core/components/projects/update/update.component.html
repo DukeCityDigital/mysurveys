@@ -1,0 +1,67 @@
+<mat-card>
+    <mat-card-title>Edit Project</mat-card-title>
+    <!-- {{editForm.value | json}} -->
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" style="display:grid;">
+        <div [hidden]="true">
+            <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id">
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>End of project</mat-label>
+            <input formControlName="defaultend" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Link to external study</mat-label>
+            <input matInput type="text" formControlName="link" placeholder="link" name="link" class="form-control"
+                id="">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Link method</mat-label>
+            <mat-select placeholder="Link method" formControlName="link_method" name="link_method">
+                <mat-option value="Direct">
+                    Login Required L.R. - simple link
+                </mat-option>
+                <mat-option value="Login">
+                    L.R. Link with named paramters
+                </mat-option>
+                <mat-option value="LoginInfo">
+                    L.R. Link with Unipark-style paramters
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>responsible_person</mat-label>
+            <input matInput type="text" formControlName="responsible_person" placeholder="responsible_person"
+                name="responsible_person" class="form-control" id="responsible_person">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Desired sample size</mat-label>
+            <input matInput type="number" formControlName="desired_sample_size" placeholder="desired_sample_size"
+                name="desired_sample_size" class="form-control" id="desired_sample_size">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Desired number of Invitations</mat-label>
+            <input matInput type="number" formControlName="desired_num_invitations"
+                placeholder="desired_num_invitations" name="desired_num_invitations" class="form-control"
+                id="desired_num_invitations">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-select placeholder="Payout type" formControlName="payout_type" name="payout_type">
+                <mat-label>Payout size</mat-label>
+                <mat-option value="Fixed">
+                    Fixed
+                </mat-option>
+                <mat-option value="Variable">
+                    Variable
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label> Project title:</mat-label>
+            <input matInput type="text" formControlName="project_title" placeholder="project_title" name="project_title"
+                class="form-control" id="project_title">
+        </mat-form-field>
+        <button [disabled]="editForm.value.errors" mat-stroked-button color="primary">Update</button>
+    </form>
+</mat-card>

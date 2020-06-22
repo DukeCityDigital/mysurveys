@@ -1,2 +1,32 @@
-<p>projects works!</p>
 <router-outlet></router-outlet>
+<mat-card>
+    <mat-card-title>
+        Projects
+    </mat-card-title>
+    <a mat-stroked-button [routerLink]="'create'">Create new project</a>
+    <table style="background:whitesmoke;border:1px solid blue;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Creation Date</th>
+                <th>Creator</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of projects">
+                <td>{{p.id}}</td>
+                <td>{{p.project_title}}</td>
+                <td>{{p.state}}</td>
+                <td>{{p.created_at}}</td>
+                <td>{{p.creator_userid}}</td>
+                <td>
+                    <button type="button" [routerLink]="['update/', p.id]">Update</button>
+                    <button type="button" (click)="delete(p.id)">Remove</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</mat-card>

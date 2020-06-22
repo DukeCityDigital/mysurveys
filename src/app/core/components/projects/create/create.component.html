@@ -1,1 +1,11 @@
-<p>create works!</p>
+<mat-card>
+    <mat-card-title>Create Project</mat-card-title>
+    <hr>
+    <form [formGroup]="projectForm" (ngSubmit)="submitForm()" novalidate class="formbox">
+        <div class="form-group">
+            <label>Project Title: </label>
+            <input mat-input type="text" formControlName="project_title" class="form-control" maxlength="20">
+        </div>
+        <button mat-stroked-button type="submit">Submit</button>
+    </form>
+</mat-card>
