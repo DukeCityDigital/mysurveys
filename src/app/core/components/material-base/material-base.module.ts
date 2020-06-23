@@ -10,6 +10,9 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
 import { MatTableModule } from "@angular/material/table";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatInputModule } from "@angular/material/input";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+
 @NgModule({
   declarations: [],
   imports: [
@@ -25,6 +28,9 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
     MatCardModule,
     MatDividerModule,
     MatListModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     MatTabsModule,
@@ -38,6 +44,9 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
     MatCardModule,
     MatDividerModule,
     MatListModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class MaterialBaseModule {}

@@ -16,12 +16,19 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { SelectionTableComponent } from "./core/components/selection-table/selection-table.component";
 import { MaterialBaseModule } from "@app/core/components/material-base/material-base.module";
 import { SettingsModule } from "@app/core/components/settings/settings.module";
+import { PasswordResetComponent } from "./core/components/password-reset/password-reset.component";
+import {
+  RecaptchaModule,
+  RecaptchaFormsModule,
+  RECAPTCHA_SETTINGS,
+} from "ng-recaptcha";
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PrivacyComponent,
     SelectionTableComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +40,8 @@ import { SettingsModule } from "@app/core/components/settings/settings.module";
     MaterialBaseModule,
     DashboardModule,
     SettingsModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,
@@ -44,6 +53,12 @@ import { SettingsModule } from "@app/core/components/settings/settings.module";
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })

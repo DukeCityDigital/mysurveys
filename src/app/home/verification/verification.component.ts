@@ -57,7 +57,7 @@ export class VerificationComponent implements OnInit {
           Validators.minLength(8),
         ]),
       ],
-      recaptchaReactive: new FormControl(null, Validators.required),
+      // recaptchaReactive: new FormControl(null, Validators.required),
     });
   }
 
@@ -76,6 +76,7 @@ export class VerificationComponent implements OnInit {
     //check if passed param
     this.route.paramMap.subscribe((params: any) => {
       if (params.params.hasOwnProperty("code") && params.params.code !== "") {
+        this.authService.logout();
         this.emailLinkAttempt = true;
         this.checkVerificationCode(params.params.code);
       }

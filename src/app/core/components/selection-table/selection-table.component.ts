@@ -28,11 +28,25 @@ import {
 })
 export class SelectionTableComponent implements OnInit {
   USERS: any;
-  displayedColumns: string[] = ["select", "id", "name", "email"];
+  displayedColumns: string[] = [
+    "select",
+    "id",
+    "name",
+    "email",
+    "created_at",
+    "last_login",
+    "last_update",
+    "banned",
+    "banned_reason",
+    "banned_date",
+    "activated",
+    "registration_key",
+    // TODO switch for nickname
+  ];
   dataSource = new MatTableDataSource<User>(this.USERS);
   selection = new SelectionModel<User>(true, []);
 
-constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.users().subscribe((r: any) => {

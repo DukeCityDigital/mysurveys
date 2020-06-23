@@ -18,6 +18,13 @@ export class RegistrationService {
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
 
+  requestReset(email: string) {
+    let API_URL = `${environment.apiUrl}/auth/reset_password_request`;
+    return this.http.post<any>(API_URL, {
+      email,
+    });
+  }
+
   checkVerificationCode(code: string) {
     let API_URL = `${environment.apiUrl}/auth/check_verification_code`;
     return this.http.post<any>(API_URL, {

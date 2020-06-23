@@ -29,6 +29,12 @@ export class AdminService {
       .pipe(catchError(this.errorHandler));
   }
 
+  inviteResearcher(data): Observable<any> {
+    return this.httpClient
+      .post<any>(this.apiServer + "/invite_researcher", data)
+      .pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error) {
     let errorMessage = "";
     if (error.error instanceof ErrorEvent) {

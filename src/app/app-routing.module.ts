@@ -12,7 +12,8 @@ import { SelectionTableComponent } from "@app/core/components/selection-table/se
 import { SettingsComponent } from "@app/core/components/settings/settings.component";
 import { ProjectsComponent } from "@app/core/components/projects/projects.component";
 import { CreateComponent } from "@app/core/components/projects/create/create.component";
-
+import { PasswordResetComponent } from "@app/core/components/password-reset/password-reset.component";
+import { ChangePasswordComponent } from "@app/core/components/change-password/change-password.component";
 const routes: Routes = [
   {
     path: "dashboard",
@@ -63,6 +64,8 @@ const routes: Routes = [
   { path: "create", component: VerificationComponent },
 
   { path: "verify/:code", component: VerificationComponent },
+  { path: "password-reset", component: PasswordResetComponent },
+  { path: "change-password/:id", component: ChangePasswordComponent },
 
   { path: "", redirectTo: "home", pathMatch: "full" },
   {
