@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://websurvey/public/api",
+  apiUrl: "http://localhost/sfinstitute/websurvey-backend/public/api",
   // apiUrl: "http://apptest1.com/backend/public/api",
 };
 

@@ -11,7 +11,7 @@ import { AuthService as AuthenticationService } from "@app/core/services/auth.se
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private authenticationService: AuthenticationService) { }
 
   intercept(
     request: HttpRequest<any>,
@@ -19,10 +19,12 @@ export class JwtInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
     let currentUser = this.authenticationService.currentUserValue;
-    if (currentUser && currentUser.token) {
+    console.log(currentUser);
+    const idToken = localStorage.getItem("access_token");
+    if (currentUser) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${currentUser.token}`,
+          Authorization: `Bearer ${idToken}`,
         },
       });
     }

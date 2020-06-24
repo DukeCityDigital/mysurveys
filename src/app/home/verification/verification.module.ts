@@ -6,12 +6,13 @@ import { MatInputModule } from "@angular/material/input";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-
+RouterModule
 import {
   RecaptchaModule,
   RecaptchaFormsModule,
   RECAPTCHA_SETTINGS,
 } from "ng-recaptcha";
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [VerificationComponent],
   imports: [
@@ -24,6 +25,7 @@ import {
     RecaptchaModule,
     RecaptchaFormsModule,
     MatIconModule,
+    RouterModule
   ],
   exports: [VerificationComponent],
   providers: [
@@ -35,4 +37,4 @@ import {
     },
   ],
 })
-export class VerificationModule {}
+export class VerificationModule { }

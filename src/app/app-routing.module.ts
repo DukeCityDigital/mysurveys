@@ -32,9 +32,9 @@ const routes: Routes = [
             (m) => m.ProjectsModule
           ),
         // component: ProjectsComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         // // children: [{ path: "create", component: CreateComponent }],
-        // data: { roles: [Role.administrator, Role.researcher] },
+        data: { roles: [Role.administrator, Role.researcher] },
       },
     ],
     canActivate: [AuthGuard],
@@ -58,6 +58,8 @@ const routes: Routes = [
 
   { path: "home", component: HomeComponent },
   { path: "login", component: LoginComponent },
+  { path: "login/:email", component: LoginComponent },
+
 
   { path: "privacy", component: PrivacyComponent },
   // todo remove
@@ -82,4 +84,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

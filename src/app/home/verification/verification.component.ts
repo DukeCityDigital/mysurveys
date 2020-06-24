@@ -27,6 +27,7 @@ export class VerificationComponent implements OnInit {
   emailLinkNotFound = false;
   emailVerificationForm: FormGroup;
   submitted = false;
+  userEmail: string;
 
   createSignupForm(): FormGroup {
     return this.formBuilder.group({
@@ -92,8 +93,8 @@ export class VerificationComponent implements OnInit {
   test() {
     this.register(
       "phil22" +
-        Math.random().toString().split(".")[1].slice(1, 5) +
-        "@dukecitydigital.com",
+      Math.random().toString().split(".")[1].slice(1, 5) +
+      "@dukecitydigital.com",
       "Testpass12!"
     );
   }
@@ -112,6 +113,7 @@ export class VerificationComponent implements OnInit {
       (data) => {
         console.log("check code data", data);
         if (!data.error) {
+          this.userEmail = data.user.email;
           this.emailLinkFoundAndHandled = true;
           return true;
         } else {

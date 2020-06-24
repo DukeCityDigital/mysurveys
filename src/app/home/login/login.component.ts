@@ -38,6 +38,12 @@ export class LoginComponent implements OnInit {
         // ),
       ]),
     });
+    this.route.paramMap.subscribe((params: any) => {
+      if (params.params.hasOwnProperty("email") && params.params.email !== "") {
+        this.loginForm.patchValue({ email: params.params.email });
+      }
+    });
+
     // get return url from route parameters or default to '/'
     this.returnUrl =
       this.route.snapshot.queryParams["returnUrl"] || "/dashboard";
