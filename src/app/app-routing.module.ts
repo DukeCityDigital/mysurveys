@@ -14,6 +14,9 @@ import { ProjectsComponent } from "@app/core/components/projects/projects.compon
 import { CreateComponent } from "@app/core/components/projects/create/create.component";
 import { PasswordResetComponent } from "@app/core/components/password-reset/password-reset.component";
 import { ChangePasswordComponent } from "@app/core/components/change-password/change-password.component";
+import { VerifyEmailComponent } from './home/verify-email/verify-email.component';
+VerifyEmailComponent
+
 const routes: Routes = [
   {
     path: "dashboard",
@@ -66,10 +69,13 @@ const routes: Routes = [
   { path: "create", component: VerificationComponent },
 
   { path: "verify/:code", component: VerificationComponent },
+
+  { path: "verify-email", component: VerifyEmailComponent },
+
+
   { path: "password-reset", component: PasswordResetComponent },
   { path: "change-password/:id", component: ChangePasswordComponent },
 
-  { path: "", redirectTo: "home", pathMatch: "full" },
   {
     path: "Projects",
     loadChildren: () =>
@@ -77,6 +83,8 @@ const routes: Routes = [
         (m) => m.ProjectsModule
       ),
   },
+  { path: "", redirectTo: "home", pathMatch: "full" },
+
   { path: "**", component: HomeComponent },
 ];
 

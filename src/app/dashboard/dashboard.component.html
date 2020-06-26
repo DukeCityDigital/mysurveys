@@ -1,25 +1,29 @@
 <mat-card>
-    <h1 style="text-transform:capitalize;">{{currentUser.role}} Dashboard</h1>
+  <h1 style="text-transform: capitalize;">{{ user.role }} Dashboard</h1>
 
-    <div *ngIf="currentUser && currentUser.role ==='participant'">
-        [ <a href="#">Invitations</a>]&nbsp;
-        [<a href="#">Statistics</a>]&nbsp;
-        [<a href="#">Profile</a>]&nbsp;
-        <hr>
-        No pending invitations
-    </div>
+  <div *ngIf="user && user.role === 'participant'">
+    [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a
+      href="#"
+      >Profile</a
+    >]&nbsp;
+    <hr />
+    No pending invitations
+  </div>
 
-    <div *ngIf="currentUser && currentUser.role ==='administrator'">
-        <hr>
-        <button [routerLink]="'/dashboard/settings'" mat-stroked-button>Begin by inviting researchers and giving
-            quotas</button>
-    </div>
-    <div *ngIf="currentUser && currentUser.role ==='researcher'">
-        <hr>
-        <button [routerLink]="'/dashboard/projects'" mat-stroked-button>View Projects</button>
-        <button [routerLink]="'/dashboard/projects/create'" mat-stroked-button>Create Project</button>
-
-
-    </div>
+  <div *ngIf="user && user.role === 'administrator'">
+    <hr />
+    <button [routerLink]="'/dashboard/settings'" mat-stroked-button>
+      Begin by inviting researchers and giving quotas
+    </button>
+  </div>
+  <div *ngIf="user && user.role === 'researcher'">
+    <hr />
+    <button [routerLink]="'/dashboard/projects'" mat-stroked-button>
+      View Projects
+    </button>
+    <button [routerLink]="'/dashboard/projects/create'" mat-stroked-button>
+      Create Project
+    </button>
+  </div>
 </mat-card>
 <router-outlet></router-outlet>

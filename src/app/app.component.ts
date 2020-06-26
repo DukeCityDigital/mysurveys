@@ -8,7 +8,7 @@ import { AuthService as AuthenticationService } from "@app/core/services/auth.se
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  currentUser;
+  public user;
   navLinks = [];
 
   links = {
@@ -49,15 +49,22 @@ export class AppComponent {
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
-    this.authenticationService.currentUser.subscribe(
-      (x) => (this.currentUser = x)
+    // this.user = this.authenticationService.userValue;
+
+    this.authenticationService.user.subscribe(
+      (x) => (this.user = x)
     );
-    this.navLinks = [];
-    if (this.currentUser && this.links[this.currentUser.role])
-      this.navLinks.push(this.links[this.currentUser.role]);
+    console.log(this.user)
+    // this.navLinks = [];
+    // console.log(this.user);
+    // if (this.user && this.links[this.user.role]) {
+    //   this.navLinks.push(this.links[this.user.role]);
+    // } else {
+    //   this.navLinks = [];
+    // }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   logout() {
     this.authenticationService.logout();

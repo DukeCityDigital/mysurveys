@@ -9,11 +9,12 @@ import { Router, RouterModule, ActivatedRoute } from "@angular/router";
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit {
-  currentUser;
+  user;
 
   constructor(private router: Router, private authService: AuthService) {
-    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
-    this.currentUser.role = GetRole(this.currentUser);
+    this.authService.user.subscribe((x) => (this.user = x));
+    console.log('fix setting role in dashboard')
+    // this.user.role = GetRole(this.user);
   }
 
   ngOnInit(): void {

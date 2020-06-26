@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormBuilder, Validators } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import { EmailPattern, PasswordPattern } from "@app/core/helpers/patterns";
 import { AuthService } from "@app/core/services/auth.service";
 @Component({
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     // redirect to home if already logged in
-    if (this.authService.currentUserValue) {
+    if (this.authService.userValue) {
       this.router.navigate(["/dashboard"]);
     }
   }
@@ -74,7 +74,15 @@ export class LoginComponent implements OnInit {
       this.loginForm.value.email,
       this.loginForm.value.password
     ).subscribe(
-      (data) => {
+      (data: any) => {
+        console.log(data);
+        if (data.mustVerify && data.email) {
+          const navigationExtras: NavigationExtras = { state: { example: data.email } };
+          console.log('route to verify', navigationExtras)
+          this.router.navigate(['/verify-email'], navigationExtras);
+          return;
+
+        }
         this.router.navigate([this.returnUrl]);
       },
       (error) => {

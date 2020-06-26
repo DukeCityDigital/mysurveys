@@ -1,0 +1,14 @@
+<mat-card style="text-align: center;">
+  <mat-card-title>Please verify your email address</mat-card-title>
+  <p>
+    Before you can continue, we need you to verify your email address
+  </p>
+  <p *ngIf="example">
+    An email containing verification instructions was sent to {{ example }}
+  </p>
+  <p *ngIf="!example">
+    An email containing verification instructions was sent to the provided email
+    addresss
+  </p>
+  <button mat-stroked-button>Resend Verification Email</button>
+</mat-card>

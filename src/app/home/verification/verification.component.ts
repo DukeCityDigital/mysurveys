@@ -24,6 +24,8 @@ export class VerificationComponent implements OnInit {
 
   emailLinked = false;
   emailLinkFoundAndHandled = false;
+  emailLinkFoundAndHandledResearcher = false;
+
   emailLinkNotFound = false;
   emailVerificationForm: FormGroup;
   submitted = false;
@@ -33,30 +35,7 @@ export class VerificationComponent implements OnInit {
     return this.formBuilder.group({
       email: new FormControl("", [Validators.required, Validators.email]),
       password: [
-        null,
-        Validators.compose([
-          Validators.required,
-          // check whether the entered password has a number
-          CustomValidators.patternValidator(/\d/, {
-            hasNumber: true,
-          }),
-          // check whether the entered password has upper case letter
-          CustomValidators.patternValidator(/[A-Z]/, {
-            hasCapitalCase: true,
-          }),
-          // check whether the entered password has a lower case letter
-          CustomValidators.patternValidator(/[a-z]/, {
-            hasSmallCase: true,
-          }),
-          // check whether the entered password has a special character
-          CustomValidators.patternValidator(
-            /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
-            {
-              hasSpecialCharacters: true,
-            }
-          ),
-          Validators.minLength(8),
-        ]),
+
       ],
       // recaptchaReactive: new FormControl(null, Validators.required),
     });
@@ -101,10 +80,10 @@ export class VerificationComponent implements OnInit {
 
   onSubmit() {
     this.errors = [];
-    console.log("submitted");
+    console.log("submitted", this.emailVerificationForm.value);
     this.register(
       this.emailVerificationForm.value.email,
-      this.emailVerificationForm.value.password
+      this.emailVerificationForm.value.password.password
     );
   }
 
@@ -113,8 +92,15 @@ export class VerificationComponent implements OnInit {
       (data) => {
         console.log("check code data", data);
         if (!data.error) {
-          this.userEmail = data.user.email;
-          this.emailLinkFoundAndHandled = true;
+          if (data.user.roles[0].name === 'researcher') {
+            this.emailLinkFoundAndHandledResearcher = true;
+
+          } else {
+            this.emailLinkFoundAndHandled = true;
+            this.authService.quickLogin(data)
+
+          }
+          // this.userEmail = data.user.email;
           return true;
         } else {
           return false;

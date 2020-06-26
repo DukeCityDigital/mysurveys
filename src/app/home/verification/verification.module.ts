@@ -13,8 +13,12 @@ import {
   RECAPTCHA_SETTINGS,
 } from "ng-recaptcha";
 import { RouterModule } from '@angular/router';
+import { SetPasswordComponent } from '@app/core/components/set-password/set-password.component';
+import { PasswordFormModule } from '@app/core/components/password-form/password-form.module';
+SetPasswordComponent
+PasswordFormModule
 @NgModule({
-  declarations: [VerificationComponent],
+  declarations: [VerificationComponent, SetPasswordComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -25,7 +29,8 @@ import { RouterModule } from '@angular/router';
     RecaptchaModule,
     RecaptchaFormsModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    PasswordFormModule
   ],
   exports: [VerificationComponent],
   providers: [

@@ -11,20 +11,21 @@ import { SetRole } from "@app/core/helpers/set-role";
   providedIn: "root",
 })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private userSubject: BehaviorSubject<User>;
+  public user: Observable<User>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem("currentUser"))
+    this.userSubject = new BehaviorSubject<User>(
+      JSON.parse(localStorage.getItem("user"))
     );
 
-    this.currentUser = this.currentUserSubject.asObservable();
+    this.user = this.userSubject.asObservable();
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+  public get userValue(): User {
+    return this.userSubject.value;
   }
+
 
   // TODO remove
   test() {
@@ -45,26 +46,56 @@ export class AuthService {
       .pipe(
         map((user) => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem("currentUser", JSON.stringify(user));
+          localStorage.setItem("user", JSON.stringify(user));
           let u = JSON.stringify(user);
           localStorage.setItem("access_token", JSON.parse(u).access_token);
           user = SetRole(user);
           console.log(user);
-          this.currentUserSubject.next(user);
-          setTimeout(() => {
-            confirm("Your token will expire in 6 minutes");
-            // alert('Your token will expire in 6 minutes');
-          }, (3600 * 100) / 4);
+          this.userSubject.next(user);
+
           return user;
         })
       );
   }
 
+  quickLogin(user: User) {
+
+    // store user details and jwt token in local storage to keep user logged in between page refreshes
+    localStorage.setItem("user", JSON.stringify(user));
+    let u = JSON.stringify(user);
+    localStorage.setItem("access_token", JSON.parse(u).access_token);
+    user = SetRole(user);
+    console.log(user);
+    this.userSubject.next(user);
+    setTimeout(() => {
+      confirm("Your token will expire in 6 minutes");
+      // alert('Your token will expire in 6 minutes');
+    }, (3600 * 100) / 4);
+    return user;
+
+  }
+
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem("currentUser");
+    localStorage.removeItem("user");
     localStorage.removeItem("access_token");
 
-    this.currentUserSubject.next(null);
+    this.userSubject.next(null);
+
+  }
+  update(id, params) {
+    return this.http.put(`${environment.apiUrl}/users/${id}`, params)
+      .pipe(map(x => {
+        // update stored user if the logged in user updated their own record
+        if (id == this.userValue.id) {
+          // update local storage
+          const user = { ...this.userValue, ...params };
+          localStorage.setItem('user', JSON.stringify(user));
+
+          // publish updated user to subscribers
+          this.userSubject.next(user);
+        }
+        return x;
+      }));
   }
 }

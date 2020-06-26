@@ -22,6 +22,9 @@ import {
   RecaptchaFormsModule,
   RECAPTCHA_SETTINGS,
 } from "ng-recaptcha";
+RouterModule
+import { VerifyEmailComponent } from './home/verify-email/verify-email.component';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +32,7 @@ import {
     PrivacyComponent,
     SelectionTableComponent,
     PasswordResetComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,7 @@ import {
     SettingsModule,
     RecaptchaModule,
     RecaptchaFormsModule,
+    RouterModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,
@@ -62,7 +67,7 @@ import {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 export function jwtTokenGetter() {
   return localStorage.getItem("access_token");
 }
