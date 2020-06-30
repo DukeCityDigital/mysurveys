@@ -160,6 +160,25 @@ a:hover {
 .formbox button {
   margin-top: 12px;
 }
+
+.alert {
+  // margin-right: 12px;
+  background: white;
+  padding: 4px;
+}
+
+.alert-success {
+  color: green;
+}
+.alert-danger {
+  color: red;
+}
+.alert-info {
+  color: white;
+}
+.alert-warning {
+  color: orange;
+}
 /* Responsive Styles */ /* Responsive Styles */ /* Responsive Styles */ /* Responsive Styles */
 /* Responsive Styles */
 /* Responsive Styles */

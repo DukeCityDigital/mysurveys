@@ -1,167 +1,35 @@
-<div
-  class="centerheader"
-  *ngIf="registered !== true && emailLinkAttempt !== true"
->
+<div class="centerheader" *ngIf="registered !== true && emailLinkAttempt !== true">
   <h1>Create your account</h1>
   <hr />
 
   <!-- <button class="TODO" (click)="test()">test</button> -->
   <mat-card id="login-card">
-    <form
-      class="example-form login-form"
-      (ngSubmit)="onSubmit()"
-      [formGroup]="emailVerificationForm"
-    >
+    <form class="example-form login-form" (ngSubmit)="onSubmit()" [formGroup]="emailVerificationForm">
       <div>
         <label for="email">Email</label>
 
-        <input
-          [pattern]="emailPattern"
-          type="email"
-          id="email"
-          name="email"
-          email
-          formControlName="email"
-          matInput
-          required
-          placeholder="&nbsp;Email"
-          class="example-full-width"
-        />
+        <input [pattern]="emailPattern" type="email" id="email" name="email" email formControlName="email" matInput
+          required placeholder="&nbsp;Email" class="example-full-width" />
         <mat-error *ngIf="f.email.errors" class="invalid-feedback">
           <div *ngIf="f.email.errors.required">Email is required</div>
         </mat-error>
       </div>
 
       <!-- <mat-form-field appearance="outline"> -->
-      <app-password-form
-        formControlName="password"
-        id="password"
-      ></app-password-form>
+      <app-password-form formControlName="password" id="password"></app-password-form>
       <!-- </mat-form-field> -->
 
-      <!-- <mat-form-field class="example-full-width">
-        <input
-          placeholder="&nbsp;Password"
-          type="password"
-          formControlName="password"
-          matInput
-          required
-        />
 
-        <div id="login-errors">
-          <label
-            [ngClass]="
-              emailVerificationForm.controls['password'].hasError('required') ||
-              emailVerificationForm.controls['password'].hasError('minlength')
-                ? 'is_invalid'
-                : 'valid'
-            "
-          >
-            <i class="material-icons">{{
-              emailVerificationForm.controls["password"].hasError("required") ||
-              emailVerificationForm.controls["password"].hasError("minlength")
-                ? "cancel"
-                : "check_circle"
-            }}</i>
-            Must be at least 8 characters!
-          </label>
-          <label
-            [ngClass]="
-              emailVerificationForm.controls['password'].hasError('required') ||
-              emailVerificationForm.controls['password'].hasError('hasNumber')
-                ? 'is_invalid'
-                : 'valid'
-            "
-          >
-            <i class="material-icons">{{
-              emailVerificationForm.controls["password"].hasError("required") ||
-              emailVerificationForm.controls["password"].hasError("hasNumber")
-                ? "cancel"
-                : "check_circle"
-            }}</i>
-            Must contain at least 1 number!
-          </label>
-
-          <label
-            [ngClass]="
-              emailVerificationForm.controls['password'].hasError('required') ||
-              emailVerificationForm.controls['password'].hasError(
-                'hasCapitalCase'
-              )
-                ? 'is_invalid'
-                : 'valid'
-            "
-          >
-            <i class="material-icons">{{
-              emailVerificationForm.controls["password"].hasError("required") ||
-              emailVerificationForm.controls["password"].hasError(
-                "hasCapitalCase"
-              )
-                ? "cancel"
-                : "check_circle"
-            }}</i>
-            Must contain at least 1 capital letter.
-          </label>
-
-          <label
-            [ngClass]="
-              emailVerificationForm.controls['password'].hasError('required') ||
-              emailVerificationForm.controls['password'].hasError(
-                'hasSmallCase'
-              )
-                ? 'is_invalid'
-                : 'valid'
-            "
-          >
-            <i class="material-icons">{{
-              emailVerificationForm.controls["password"].hasError("required") ||
-              emailVerificationForm.controls["password"].hasError(
-                "hasSmallCase"
-              )
-                ? "cancel"
-                : "check_circle"
-            }}</i>
-            Must contain at least 1 lowercase letter.
-          </label>
-          <label
-            [ngClass]="
-              emailVerificationForm.controls['password'].hasError('required') ||
-              emailVerificationForm.controls['password'].hasError(
-                'hasSpecialCharacters'
-              )
-                ? 'is_invalid'
-                : 'valid'
-            "
-          >
-            <i class="material-icons">{{
-              emailVerificationForm.controls["password"].hasError("required") ||
-              emailVerificationForm.controls["password"].hasError(
-                "hasSpecialCharacters"
-              )
-                ? "cancel"
-                : "check_circle"
-            }}</i>
-            Must contain at least 1 special character
-          </label>
-        </div>
-      </mat-form-field> -->
 
       <div [hidden]="!errors.length" style="color: #c80000; font-weight: bold;">
         <div class="tip">
           <div *ngFor="let error of errors">{{ error }}</div>
           &nbsp;
         </div>
-        <!-- <ul >
-                    <li *ngFor="let error of errors">{{error}}</li>
-                </ul> -->
+
       </div>
       <!-- <re-captcha formControlName="recaptchaReactive"></re-captcha> -->
-      <button
-        class="button createbutton"
-        [disabled]="!emailVerificationForm.valid"
-        mat-stroked-button
-        type="submit"
-      >
+      <button class="button createbutton" [disabled]="!emailVerificationForm.valid" mat-stroked-button type="submit">
         Create Account
       </button>
     </form>
@@ -172,54 +40,34 @@
   </mat-card>
 </div>
 <mat-card *ngIf="registered" style="text-align: center;" color="primary">
-  <mat-icon style="color: green; font-size: 44px; vertical-align: initial;"
-    >check_circle_outline</mat-icon
-  >
+  <mat-icon style="color: green; font-size: 44px; vertical-align: initial;">check_circle_outline</mat-icon>
   <h2>
     We've received your request to create an account. Please check your email
     for a verification link.
   </h2>
 </mat-card>
-<mat-card
-  *ngIf="
+<mat-card *ngIf="
     emailLinkAttempt !== false &&
     emailLinkNotFound !== true &&
-    emailLinkFoundAndHandled !== true
-  "
-  style="text-align: center;"
-  color="primary"
->
-  <mat-icon style="color: green; font-size: 44px; vertical-align: initial;"
-    >search</mat-icon
-  >
+    emailLinkFoundAndHandled !== true &&
+    emailLinkFoundAndHandledResearcher !== true
+
+  " style="text-align: center;" color="primary">
+  <mat-icon style="color: green; font-size: 44px; vertical-align: initial;">search</mat-icon>
   <h2>Checking verification code</h2>
 </mat-card>
-<mat-card
-  *ngIf="emailLinkFoundAndHandledResearcher !== false"
-  style="text-align: center;"
-  color="primary"
->
-  <mat-icon style="color: green; font-size: 44px; vertical-align: initial;"
-    >check_circle_outline</mat-icon
-  >
+<mat-card *ngIf="emailLinkFoundAndHandledResearcher !== false" style="text-align: center;" color="primary">
+  <mat-icon style="color: green; font-size: 44px; vertical-align: initial;">check_circle_outline</mat-icon>
   <h2>
-    Verification code confirmed, your account has been created. Please specify a
-    password
+    Verification code confirmed, your account has been created.
   </h2>
-  <app-set-password></app-set-password>
-  <!-- <p>
-    You may now log in.
+  <p>
+    You may now log in. Please set a new password after doing so.
     <a [routerLink]="'/login/' + userEmail">Login</a>
-  </p> -->
+  </p>
 </mat-card>
-<mat-card
-  *ngIf="emailLinkFoundAndHandled !== false"
-  style="text-align: center;"
-  color="primary"
->
-  <mat-icon style="color: green; font-size: 44px; vertical-align: initial;"
-    >check_circle_outline</mat-icon
-  >
+<mat-card *ngIf="emailLinkFoundAndHandled !== false" style="text-align: center;" color="primary">
+  <mat-icon style="color: green; font-size: 44px; vertical-align: initial;">check_circle_outline</mat-icon>
   <h2>
     Verification code confirmed, your account has been created and you are now
     logged in.
@@ -230,14 +78,8 @@
     <a [routerLink]="'/login/' + userEmail">Login</a>
   </p> -->
 </mat-card>
-<mat-card
-  *ngIf="emailLinkNotFound === true"
-  style="text-align: center;"
-  color="primary"
->
-  <mat-icon style="color: red; font-size: 44px; vertical-align: initial;"
-    >error_outline</mat-icon
-  >
+<mat-card *ngIf="emailLinkNotFound === true" style="text-align: center;" color="primary">
+  <mat-icon style="color: red; font-size: 44px; vertical-align: initial;">error_outline</mat-icon>
   <h2>
     We couldn't find that verification code, please try again.<br /><br />
     If you keep getting an error, try copying and pasting the URL of the

@@ -26,15 +26,11 @@ export class AuthService {
     return this.userSubject.value;
   }
 
-
   // TODO remove
   test() {
     return this.http.get<User>(`${environment.apiUrl}/test`).subscribe((r) => {
       console.log(r);
     });
-  }
-  users() {
-    return this.http.get<User>(`${environment.apiUrl}/users`);
   }
 
   login(email: string, password: string) {
@@ -58,8 +54,16 @@ export class AuthService {
       );
   }
 
-  quickLogin(user: User) {
+  resendVerificationCode(email: string) {
+    return this.http.post<User>(
+      `${environment.apiUrl}/auth/resend_verification_email`,
+      {
+        email: email,
+      }
+    );
+  }
 
+  quickLogin(user: User) {
     // store user details and jwt token in local storage to keep user logged in between page refreshes
     localStorage.setItem("user", JSON.stringify(user));
     let u = JSON.stringify(user);
@@ -67,12 +71,10 @@ export class AuthService {
     user = SetRole(user);
     console.log(user);
     this.userSubject.next(user);
-    setTimeout(() => {
-      confirm("Your token will expire in 6 minutes");
-      // alert('Your token will expire in 6 minutes');
-    }, (3600 * 100) / 4);
+    // setTimeout(() => {
+    //   alert('Your token will expire in 6 minutes');
+    // }, (3600 * 100) / 4);
     return user;
-
   }
 
   logout() {
@@ -81,21 +83,21 @@ export class AuthService {
     localStorage.removeItem("access_token");
 
     this.userSubject.next(null);
-
   }
   update(id, params) {
-    return this.http.put(`${environment.apiUrl}/users/${id}`, params)
-      .pipe(map(x => {
+    return this.http.put(`${environment.apiUrl}/users/${id}`, params).pipe(
+      map((x) => {
         // update stored user if the logged in user updated their own record
         if (id == this.userValue.id) {
           // update local storage
           const user = { ...this.userValue, ...params };
-          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem("user", JSON.stringify(user));
 
           // publish updated user to subscribers
           this.userSubject.next(user);
         }
         return x;
-      }));
+      })
+    );
   }
 }

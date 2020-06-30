@@ -12,6 +12,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatInputModule } from "@angular/material/input";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 @NgModule({
   declarations: [],
@@ -31,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    MatExpansionModule,
   ],
   exports: [
     MatTabsModule,

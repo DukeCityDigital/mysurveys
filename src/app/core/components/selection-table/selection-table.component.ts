@@ -10,6 +10,7 @@ import {
   transition,
   trigger,
 } from "@angular/animations";
+import { ProjectService } from "@app/core/services/project.service";
 
 @Component({
   selector: "app-selection-table",
@@ -46,10 +47,13 @@ export class SelectionTableComponent implements OnInit {
   dataSource = new MatTableDataSource<User>(this.USERS);
   selection = new SelectionModel<User>(true, []);
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private projectService: ProjectService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.authService.users().subscribe((r: any) => {
+    this.projectService.users().subscribe((r: any) => {
       console.log(r);
       this.dataSource.data = r.users;
       // this.USERS = r.users;

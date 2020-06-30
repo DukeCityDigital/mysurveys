@@ -1,12 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { EmailPattern, PasswordPattern } from "@app/core/helpers/patterns";
 import { AdminService } from "@app/core/services/admin.service";
+
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from "@angular/forms";
+import { AlertService } from "../_alert";
 @Component({
   selector: "app-invite",
   templateUrl: "./invite.component.html",
@@ -18,6 +20,7 @@ export class InviteComponent implements OnInit {
   message = "";
 
   constructor(
+    public alertService: AlertService,
     private adminService: AdminService,
     private formBuilder: FormBuilder
   ) {
@@ -39,7 +42,9 @@ export class InviteComponent implements OnInit {
     return this.adminService
       .inviteResearcher(this.inviteForm.value)
       .subscribe((data) => {
-        this.message = "Successfully sent";
+        this.alertService.success("Successfully sent", {
+          id: "alert-1",
+        });
       });
   }
 }

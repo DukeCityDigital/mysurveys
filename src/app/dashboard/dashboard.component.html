@@ -1,11 +1,8 @@
 <mat-card>
   <h1 style="text-transform: capitalize;">{{ user.role }} Dashboard</h1>
-
+  <a [routerLink]="'/dashboard/profile'">Profile</a>
   <div *ngIf="user && user.role === 'participant'">
-    [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a
-      href="#"
-      >Profile</a
-    >]&nbsp;
+    [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a href="#">Profile</a>]&nbsp;
     <hr />
     No pending invitations
   </div>

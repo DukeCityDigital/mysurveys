@@ -25,6 +25,13 @@ export class RegistrationService {
     });
   }
 
+  checkChangePasswordCode(code: string) {
+    let API_URL = `${environment.apiUrl}/auth/check_change_password_code`;
+    return this.http.post<any>(API_URL, {
+      code,
+    });
+  }
+
   checkVerificationCode(code: string) {
     let API_URL = `${environment.apiUrl}/auth/check_verification_code`;
     return this.http.post<any>(API_URL, {

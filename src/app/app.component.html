@@ -1,24 +1,21 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <span style="margin-left: 40px;"
-    ><a style="color: white;" [routerLink]="'home'"
-      >Web Survey (SciFriends 2.0)</a
-    >
+  <mat-icon (click)="sidenav.toggle()" style="margin-left:12px;cursor:pointer;">menu</mat-icon>
+  <span style=" margin-left: 40px;"><a style="color: white;" [routerLink]="'home'">Web Survey (SciFriends 2.0)</a>
   </span>
   <div class="spacer"></div>
+  <alert id="alert"></alert>
+
 </div>
 <mat-sidenav-container class="example-container" style="margin-top: 60px;">
-  <mat-sidenav opened mode="side" class="box leftbox">
+  <mat-sidenav #sidenav [(opened)]="opened" mode="side" class="box leftbox">
     <mat-list style="padding-top: 0;">
-      <mat-list-item
-        style="
+      <mat-list-item style="
           background: aliceblue;
           font-size: 12px;
           border-bottom: 1px solid #1976d2;
-        "
-        *ngIf="user"
-      >
-        {{ user ? " logged in." : "Not logged in." }}
+        " *ngIf="user">
+        {{ user && user.email ? " Logged in as " + user.email : "Not logged in." }}
         <a *ngIf="!user.email" [routerLink]="'/create'">Sign up!</a>
       </mat-list-item>
       <mat-list-item routerLink="home" class="sidenav-link" *ngIf="!user">
@@ -27,37 +24,22 @@
     </mat-list>
 
     <mat-list style="padding-top: 0;" *ngIf="user">
-      <mat-list-item
-        [disabled]="user.mustVerify"
-        routerLink="{{ link.link }}"
-        *ngFor="let link of links[user.role]"
-        class="sidenav-link"
-      >
+      <mat-list-item [disabled]="user.mustVerify" routerLink="{{ link.link }}" *ngFor="let link of links[user.role]"
+        class="sidenav-link">
         {{ link.name }}
       </mat-list-item>
       <mat-list-item>
-        <a
-          *ngIf="user"
-          (click)="logout()"
-          href="/"
-          style="cursor: pointer; line-height: inherit;"
-          color="warn"
-          mat-button
-          >Logout</a
-        ><br />
+        <a (click)="logout()" href="/" style="cursor: pointer; line-height: inherit;" color="warn"
+          mat-button>Logout</a><br />
       </mat-list-item>
-      <mat-list-item>
-        <a
-          color="primary"
-          style="cursor: pointer; line-height: inherit;"
-          mat-button
-          [routerLink]="'privacy'"
-          >Privacy Disclaimer</a
-        >
-      </mat-list-item>
+
     </mat-list>
+    <a color="primary" style="cursor: pointer; line-height: inherit;position:absolute;bottom:12px" mat-button
+      [routerLink]="'privacy'">Privacy
+      Disclaimer</a>
   </mat-sidenav>
   <div class="box middlebox">
+    <alert id="motd"></alert>
     <router-outlet></router-outlet>
   </div>
   <!-- <mat-sidenav opened mode="side" class="box rightbox" position="end">

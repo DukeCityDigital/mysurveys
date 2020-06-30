@@ -12,6 +12,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { SelectionTableModule } from "../selection-table/selection-table.module";
 
 @NgModule({
   declarations: [ProjectsComponent, CreateComponent, UpdateComponent],
@@ -26,6 +28,8 @@ import { MatSelectModule } from "@angular/material/select";
     MatNativeDateModule,
     MatInputModule,
     MatSelectModule,
+    MatExpansionModule,
+    SelectionTableModule,
   ],
 })
 export class ProjectsModule {}

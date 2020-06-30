@@ -10,6 +10,7 @@ import { CustomValidators } from "@app/core/helpers/custom-validators";
 import { EmailPattern, PasswordPattern } from "@app/core/helpers/patterns";
 import { AuthService } from "@app/core/services/auth.service";
 import { RegistrationService } from "@app/core/services/registration.service";
+import { AlertService } from "@app/core/components/_alert";
 
 @Component({
   selector: "app-verification",
@@ -34,14 +35,13 @@ export class VerificationComponent implements OnInit {
   createSignupForm(): FormGroup {
     return this.formBuilder.group({
       email: new FormControl("", [Validators.required, Validators.email]),
-      password: [
-
-      ],
+      password: [],
       // recaptchaReactive: new FormControl(null, Validators.required),
     });
   }
 
   constructor(
+    private alertService: AlertService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private registrationService: RegistrationService,
@@ -72,8 +72,8 @@ export class VerificationComponent implements OnInit {
   test() {
     this.register(
       "phil22" +
-      Math.random().toString().split(".")[1].slice(1, 5) +
-      "@dukecitydigital.com",
+        Math.random().toString().split(".")[1].slice(1, 5) +
+        "@dukecitydigital.com",
       "Testpass12!"
     );
   }
@@ -92,15 +92,14 @@ export class VerificationComponent implements OnInit {
       (data) => {
         console.log("check code data", data);
         if (!data.error) {
-          if (data.user.roles[0].name === 'researcher') {
-            this.emailLinkFoundAndHandledResearcher = true;
-
-          } else {
+          if (data.role === "participant") {
             this.emailLinkFoundAndHandled = true;
-            this.authService.quickLogin(data)
 
+            this.authService.quickLogin(data);
+          } else {
+            this.emailLinkFoundAndHandledResearcher = true;
           }
-          // this.userEmail = data.user.email;
+          this.userEmail = data.user.email;
           return true;
         } else {
           return false;
@@ -114,6 +113,7 @@ export class VerificationComponent implements OnInit {
         } else {
           this.errors.push("There has been an error");
         }
+        this.alertService.error(error.error.message);
       }
     );
   }
@@ -123,15 +123,20 @@ export class VerificationComponent implements OnInit {
       (data) => {
         // console.log("POST Request is successful ", data);
         this.registered = true;
+        this.alertService.success("Successfully registered", {
+          autoClose: true,
+        });
       },
       (error) => {
+        console.log(error);
         if (error.status == 500) {
           this.errors.push("A user exists with that email address");
         } else if (error.status == 500) {
-          this.errors.push("That email is in use");
+          this.errors.push(error);
         } else {
           this.errors.push("That email is in use");
         }
+        this.alertService.error(error, { autoClose: true });
       }
     );
 

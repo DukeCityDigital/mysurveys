@@ -17,6 +17,10 @@ export class ChangePasswordComponent implements OnInit {
   changePasswordForm: FormGroup;
 
   codeConfirmed: boolean = false;
+  codeConfirmedAndLoggedIn: boolean = false;
+
+  codeFailed: boolean;
+  errors = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -27,15 +31,46 @@ export class ChangePasswordComponent implements OnInit {
     this.changePasswordForm = this.createChangePasswordForm();
   }
 
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      if (params.params.hasOwnProperty("code") && params.params.code !== "") {
+        this.authService.logout();
+        this.checkChangePasswordCode(params.params.code);
+      }
+    });
+  }
+
   createChangePasswordForm(): FormGroup {
     return this.formBuilder.group({
       email: new FormControl("", [Validators.required, Validators.email]),
       // recaptchaReactive: new FormControl(null, Validators.required),
     });
   }
+  checkChangePasswordCode(code: string) {
+    this.registrationService.checkChangePasswordCode(code).subscribe(
+      (data) => {
+        console.log("check code data", data);
+        if (!data.error) {
+          this.codeConfirmed = true;
+          this.authService.quickLogin(data);
+          return true;
+        } else {
+          return false;
+        }
+      },
+      (error) => {
+        console.log("Error", error);
+        if (error) {
+          this.errors.push("Record not found");
+          this.codeFailed = true;
+        } else {
+          this.errors.push("There has been an error");
+        }
+      }
+    );
+  }
+
   get f() {
     return this.changePasswordForm.controls;
   }
-
-  ngOnInit(): void {}
 }

@@ -9,6 +9,8 @@ import {
 } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { Project } from "@app/core/models/project.model";
+import { User } from "@app/core/models/user";
+
 @Injectable({
   providedIn: "root",
 })
@@ -22,6 +24,12 @@ export class ProjectService {
   private apiServer = environment.apiUrl;
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
+
+  users() {
+    return this.httpClient
+      .get<User>(`${environment.apiUrl}/users`)
+      .pipe(catchError(this.errorHandler));
+  }
 
   get(id): Observable<Project> {
     return this.httpClient

@@ -22,17 +22,22 @@ import {
   RecaptchaFormsModule,
   RECAPTCHA_SETTINGS,
 } from "ng-recaptcha";
-RouterModule
-import { VerifyEmailComponent } from './home/verify-email/verify-email.component';
-import { RouterModule } from '@angular/router';
+RouterModule;
+import { VerifyEmailComponent } from "./home/verify-email/verify-email.component";
+import { RouterModule } from "@angular/router";
+import { ChangePasswordComponent } from "./core/components/change-password/change-password.component";
+import { AlertModule } from "@app/core/components/_alert";
+import { ProfileModule } from "./core/components/profile/profile.module";
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PrivacyComponent,
-    SelectionTableComponent,
+    // SelectionTableComponent,
     PasswordResetComponent,
     VerifyEmailComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +52,8 @@ import { RouterModule } from '@angular/router';
     RecaptchaModule,
     RecaptchaFormsModule,
     RouterModule,
+    AlertModule,
+    ProfileModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,
@@ -67,7 +74,7 @@ import { RouterModule } from '@angular/router';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 export function jwtTokenGetter() {
   return localStorage.getItem("access_token");
 }

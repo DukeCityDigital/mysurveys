@@ -7,6 +7,8 @@ import {
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { RegistrationService } from "@app/core/services/registration.service";
+import { AuthService } from "@app/core/services/auth.service";
+
 
 @Component({
   selector: "app-password-reset",
@@ -18,15 +20,26 @@ export class PasswordResetComponent implements OnInit {
   submitted = false;
   message: string;
 
+
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private registrationService: RegistrationService
+    private registrationService: RegistrationService,
+    private authService: AuthService
+
   ) {
     this.resetForm = this.createResetForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      if (params.params.hasOwnProperty("code") && params.params.code !== "") {
+        this.authService.logout();   
+      }
+    });
+  }
+
+
 
   createResetForm(): FormGroup {
     return this.formBuilder.group({

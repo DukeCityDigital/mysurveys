@@ -4,11 +4,13 @@
     Before you can continue, we need you to verify your email address
   </p>
   <p *ngIf="example">
-    An email containing verification instructions was sent to {{ example }}
+    An email containing verification instructions was previously sent to {{ example }}
   </p>
   <p *ngIf="!example">
     An email containing verification instructions was sent to the provided email
     addresss
   </p>
-  <button mat-stroked-button>Resend Verification Email</button>
+  <a *ngIf="!example" [routerLink]="'/password-reset'">Password reset</a>
+  <button *ngIf="example" (click)="resendVerificationEmail()" mat-stroked-button>Resend Verification Email</button>
+  <h3 *ngIf="submitted">Request Received</h3>
 </mat-card>

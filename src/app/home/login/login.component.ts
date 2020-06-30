@@ -76,12 +76,13 @@ export class LoginComponent implements OnInit {
     ).subscribe(
       (data: any) => {
         console.log(data);
-        if (data.mustVerify && data.email) {
-          const navigationExtras: NavigationExtras = { state: { example: data.email } };
-          console.log('route to verify', navigationExtras)
-          this.router.navigate(['/verify-email'], navigationExtras);
+        if (data.mustVerifyEmailAddress && data.email) {
+          const navigationExtras: NavigationExtras = {
+            state: { example: data.email },
+          };
+          console.log("route to verify", navigationExtras);
+          this.router.navigate(["/verify-email"], navigationExtras);
           return;
-
         }
         this.router.navigate([this.returnUrl]);
       },

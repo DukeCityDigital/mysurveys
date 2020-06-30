@@ -6,17 +6,17 @@ import { MatInputModule } from "@angular/material/input";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-RouterModule
+RouterModule;
 import {
   RecaptchaModule,
   RecaptchaFormsModule,
   RECAPTCHA_SETTINGS,
 } from "ng-recaptcha";
-import { RouterModule } from '@angular/router';
-import { SetPasswordComponent } from '@app/core/components/set-password/set-password.component';
-import { PasswordFormModule } from '@app/core/components/password-form/password-form.module';
-SetPasswordComponent
-PasswordFormModule
+import { RouterModule } from "@angular/router";
+import { SetPasswordComponent } from "@app/core/components/set-password/set-password.component";
+import { PasswordFormModule } from "@app/core/components/password-form/password-form.module";
+SetPasswordComponent;
+PasswordFormModule;
 @NgModule({
   declarations: [VerificationComponent, SetPasswordComponent],
   imports: [
@@ -30,7 +30,7 @@ PasswordFormModule
     RecaptchaFormsModule,
     MatIconModule,
     RouterModule,
-    PasswordFormModule
+    PasswordFormModule,
   ],
   exports: [VerificationComponent],
   providers: [
@@ -42,4 +42,4 @@ PasswordFormModule
     },
   ],
 })
-export class VerificationModule { }
+export class VerificationModule {}

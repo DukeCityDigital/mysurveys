@@ -14,8 +14,10 @@ import { ProjectsComponent } from "@app/core/components/projects/projects.compon
 import { CreateComponent } from "@app/core/components/projects/create/create.component";
 import { PasswordResetComponent } from "@app/core/components/password-reset/password-reset.component";
 import { ChangePasswordComponent } from "@app/core/components/change-password/change-password.component";
-import { VerifyEmailComponent } from './home/verify-email/verify-email.component';
-VerifyEmailComponent
+import { VerifyEmailComponent } from "./home/verify-email/verify-email.component";
+import { ProfileComponent } from "./core/components/profile/profile.component";
+
+VerifyEmailComponent;
 
 const routes: Routes = [
   {
@@ -25,8 +27,7 @@ const routes: Routes = [
       {
         path: "settings",
         component: SettingsComponent,
-        canActivate: [AuthGuard],
-        data: { roles: [Role.administrator] },
+        // data: { roles: [Role.administrator] },
       },
       {
         path: "projects",
@@ -35,9 +36,12 @@ const routes: Routes = [
             (m) => m.ProjectsModule
           ),
         // component: ProjectsComponent,
-        canActivate: [AuthGuard],
         // // children: [{ path: "create", component: CreateComponent }],
-        data: { roles: [Role.administrator, Role.researcher] },
+        // data: { roles: [Role.administrator, Role.researcher] },
+      },
+      {
+        path: "profile",
+        component: ProfileComponent,
       },
     ],
     canActivate: [AuthGuard],
@@ -63,7 +67,6 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "login/:email", component: LoginComponent },
 
-
   { path: "privacy", component: PrivacyComponent },
   // todo remove
   { path: "create", component: VerificationComponent },
@@ -72,18 +75,18 @@ const routes: Routes = [
 
   { path: "verify-email", component: VerifyEmailComponent },
 
-
   { path: "password-reset", component: PasswordResetComponent },
-  { path: "change-password/:id", component: ChangePasswordComponent },
+  { path: "change-password/:code", component: ChangePasswordComponent },
 
-  {
-    path: "Projects",
-    loadChildren: () =>
-      import("./core/components/projects/projects.module").then(
-        (m) => m.ProjectsModule
-      ),
-  },
-  { path: "", redirectTo: "home", pathMatch: "full" },
+  // {
+  //   path: "Projects",
+  //   loadChildren: () =>
+  //     import("./core/components/projects/projects.module").then(
+  //       (m) => m.ProjectsModule
+  //     ),
+  // },
+
+  { path: "", redirectTo: "/home", pathMatch: "full" },
 
   { path: "**", component: HomeComponent },
 ];
@@ -92,4 +95,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
