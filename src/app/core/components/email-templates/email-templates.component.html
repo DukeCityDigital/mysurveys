@@ -1,0 +1,25 @@
+<h3>Email Templates</h3>
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let t of templates">
+        <mat-expansion-panel-header>
+            <mat-panel-title>{{t.subject}} </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form id="emailTemplate">
+            <mat-form-field appearance="outline" style="width:100%;">
+                <mat-label>Subject</mat-label>
+                <input matInput placeholder="Subject" value={{t.subject}}>
+                <mat-hint>Email Subject</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width:100%;">
+                <mat-label>Body</mat-label>
+                <!-- <input matInput placeholder="Body" value={{t.body}}> -->
+                <textarea matInput rows="25">
+                    {{t.body}}
+                </textarea>
+                <mat-hint>Email Body</mat-hint>
+            </mat-form-field>
+            <button mat-stroked-button>Update*</button>
+        </form>
+
+    </mat-expansion-panel>
+</mat-accordion>

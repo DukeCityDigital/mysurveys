@@ -4,6 +4,7 @@ import { SelectionTableComponent } from "@app/core/components/selection-table/se
 import { MatTableModule } from "@angular/material/table";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MaterialBaseModule } from "../material-base/material-base.module";
+import { MatSortModule } from "@angular/material/sort";
 
 @NgModule({
   declarations: [SelectionTableComponent],
@@ -12,6 +13,7 @@ import { MaterialBaseModule } from "../material-base/material-base.module";
     MatTableModule,
     MatCheckboxModule,
     MaterialBaseModule,
+    MatSortModule,
   ],
   exports: [SelectionTableComponent],
 })

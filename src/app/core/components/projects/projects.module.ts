@@ -14,6 +14,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { SelectionTableModule } from "../selection-table/selection-table.module";
+import { EmailTemplatesModule } from "../email-templates/email-templates.module";
 
 @NgModule({
   declarations: [ProjectsComponent, CreateComponent, UpdateComponent],
@@ -30,6 +31,7 @@ import { SelectionTableModule } from "../selection-table/selection-table.module"
     MatSelectModule,
     MatExpansionModule,
     SelectionTableModule,
+    EmailTemplatesModule,
   ],
 })
 export class ProjectsModule {}

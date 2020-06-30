@@ -39,11 +39,12 @@ export class RegistrationService {
     });
   }
 
-  register(email: string, password: string) {
+  register(email: string, password: string, qualificationForm?: any) {
     let API_URL = `${environment.apiUrl}/auth/register`;
     return this.http.post<any>(API_URL, {
       email,
       password,
+      qualificationForm,
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -22,6 +22,7 @@ export class VerificationComponent implements OnInit {
   passwordPattern = PasswordPattern;
   registered = false;
   emailLinkAttempt = false;
+  @Input("qualificationForm") qualificationForm: any;
 
   emailLinked = false;
   emailLinkFoundAndHandled = false;
@@ -83,7 +84,8 @@ export class VerificationComponent implements OnInit {
     console.log("submitted", this.emailVerificationForm.value);
     this.register(
       this.emailVerificationForm.value.email,
-      this.emailVerificationForm.value.password.password
+      this.emailVerificationForm.value.password.password,
+      this.qualificationForm.value
     );
   }
 
@@ -118,27 +120,29 @@ export class VerificationComponent implements OnInit {
     );
   }
 
-  register(email: string, password: string) {
-    return this.registrationService.register(email, password).subscribe(
-      (data) => {
-        // console.log("POST Request is successful ", data);
-        this.registered = true;
-        this.alertService.success("Successfully registered", {
-          autoClose: true,
-        });
-      },
-      (error) => {
-        console.log(error);
-        if (error.status == 500) {
-          this.errors.push("A user exists with that email address");
-        } else if (error.status == 500) {
-          this.errors.push(error);
-        } else {
-          this.errors.push("That email is in use");
+  register(email: string, password: string, qualificationForm?: any) {
+    return this.registrationService
+      .register(email, password, qualificationForm)
+      .subscribe(
+        (data) => {
+          // console.log("POST Request is successful ", data);
+          this.registered = true;
+          this.alertService.success("Successfully registered", {
+            autoClose: true,
+          });
+        },
+        (error) => {
+          console.log(error);
+          if (error.status == 500) {
+            this.errors.push("A user exists with that email address");
+          } else if (error.status == 500) {
+            this.errors.push(error);
+          } else {
+            this.errors.push("That email is in use");
+          }
+          this.alertService.error(error, { autoClose: true });
         }
-        this.alertService.error(error, { autoClose: true });
-      }
-    );
+      );
 
     return this.authService.login(email, password);
   }

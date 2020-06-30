@@ -4,7 +4,8 @@
     </mat-card-title>
     {{dataSource.data.length}} records
     <hr>
-    <p>Demographics will be visible via columns, sorting and filtering for participants</p>
+    <p>Participants will only be visible with safeid during production; Demographics will be visible via columns,
+        sorting and filtering for participants</p>
     <button mat-stroked-button>
         Preview Selection
     </button>
@@ -12,7 +13,7 @@
     <!-- a) click to show only participants etc . -> will reveal needed columns w/ demos  -->
 
 </mat-card>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table matSort matSortDirection="asc" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
@@ -28,20 +29,58 @@
         </td>
     </ng-container>
 
-
-    <!-- Position Column -->
+    <!-- <ng-container *ngFor="let col of participantColumns" [matColumnDef]="col">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ col }} </th>
+        <td mat-cell *matCellDef="let element"> {{ element[col] }} </td>
+    </ng-container> -->
     <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <th mat-header-cell *matHeaderCellDef> ID. </th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
+    <ng-container matColumnDef="first_name">
+        <th mat-header-cell *matHeaderCellDef> First name </th>
+        <td mat-cell *matCellDef="let element"> {{element.first_name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="family_name">
+        <th mat-header-cell *matHeaderCellDef> Family name </th>
+        <td mat-cell *matCellDef="let element"> {{element.family_name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="birthyear">
+        <th mat-header-cell *matHeaderCellDef> Birth Year</th>
+        <td mat-cell *matCellDef="let element"> {{element.birthyear}} </td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="qualification_parents">
+        <th mat-header-cell *matHeaderCellDef> Parent?</th>
+        <td mat-cell *matCellDef="let element"> {{element.qualification_parents}} </td>
+    </ng-container>
+    <ng-container matColumnDef="qualification_friends">
+        <th mat-header-cell *matHeaderCellDef> Friends?</th>
+        <td mat-cell *matCellDef="let element"> {{element.qualification_friends}} </td>
+    </ng-container> -->
+    <ng-container matColumnDef="qualification_gm">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> GM score</th>
+        <td mat-cell *matCellDef="let element"> {{element.qualification_gm}} </td>
+    </ng-container>
+    <ng-container matColumnDef="qualification_vac">
+        <th mat-header-cell *matHeaderCellDef> Vaccination score</th>
+        <td mat-cell *matCellDef="let element"> {{element.qualification_vac}} </td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="qualification_us">
+        <th mat-header-cell *matHeaderCellDef> In US?</th>
+        <td mat-cell *matCellDef="let element"> {{element.qualification_us}} </td>
+    </ng-container> -->
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
+    <!-- Position Column -->
+    <!-- <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container> -->
+
+    <!-- <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
         <td mat-cell *matCellDef="let element"> {{element.email}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef> email</th>
         <td mat-cell *matCellDef="let element"> {{element.email}} </td>
@@ -77,14 +116,10 @@
     <ng-container matColumnDef="registration_key">
         <th mat-header-cell *matHeaderCellDef> registration_key</th>
         <td mat-cell *matCellDef="let element"> {{element.registration_key }} </td>
-    </ng-container>
-    <!--   
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef> Symbol </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
     </ng-container> -->
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+
+    <tr mat-header-row *matHeaderRowDef="participantColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: participantColumns;" (click)="selection.toggle(row)">
     </tr>
 </table>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { SelectionModel } from "@angular/cdk/collections";
 import { MatTableDataSource } from "@angular/material/table";
 import { AuthService } from "@app/core/services/auth.service";
@@ -11,7 +11,8 @@ import {
   trigger,
 } from "@angular/animations";
 import { ProjectService } from "@app/core/services/project.service";
-
+import { ParticipantService } from "@app/core/services/participant.service";
+import { MatSort } from "@angular/material/sort";
 @Component({
   selector: "app-selection-table",
   templateUrl: "./selection-table.component.html",
@@ -33,6 +34,13 @@ export class SelectionTableComponent implements OnInit {
     "select",
     "id",
     "name",
+    "birthyear",
+    "safeid",
+    "qualification_parents",
+    "qualification_friends",
+    "qualification_gm",
+    "qualification_vac",
+    "qualification_us",
     "email",
     "created_at",
     "last_login",
@@ -44,19 +52,68 @@ export class SelectionTableComponent implements OnInit {
     "registration_key",
     // TODO switch for nickname
   ];
+  participantColumns: string[] = [
+    "select",
+
+    "id",
+    "first_name",
+    "family_name",
+    "birthyear",
+    // "qualification_parents",
+    // "qualification_friends",
+    "qualification_gm",
+    "qualification_vac",
+    // "qualification_us",
+
+    // "safeid",
+    // "year",
+
+    // "email",
+    // "created_at",
+    // "last_login",
+    // "last_update",
+    // "banned",
+    // "banned_reason",
+    // "banned_date",
+    // "activated",
+    // "registration_key",
+    // TODO switch for nickname
+  ];
+
+  // participantColumns: any[] = [
+  // { name: "ID", value: "id", type: "" },
+  // { name: "Safe ID", value: "safeid", type: "" },
+  // { name: "Year", value: "year", type: "" },
+  // { name: "Qualification-Parents", value: "qualification_parents", type: "" },
+  // { name: "Qualification-Friends", value: "qualification_friends", type: "" },
+
+  // "id",
+  // "safeid",
+  // "year",
+  // "qualification_parents",
+  // "qualification_friends",
+  // "qualification_gm",
+  // "qualification_vac",
+  // "qualification_us",
+  // ];
+
   dataSource = new MatTableDataSource<User>(this.USERS);
   selection = new SelectionModel<User>(true, []);
-
+  @ViewChild(MatSort) sort: MatSort;
   constructor(
+    private participantService: ParticipantService,
     private projectService: ProjectService,
     private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.projectService.users().subscribe((r: any) => {
+    // this.projectService.users().subscribe((r: any) => {
+    //   console.log(r);
+    //   this.dataSource.data = r.users;
+    // });
+    this.participantService.getAll().subscribe((r: any) => {
       console.log(r);
-      this.dataSource.data = r.users;
-      // this.USERS = r.users;
+      this.dataSource.data = r.data;
     });
   }
 
