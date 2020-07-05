@@ -19,6 +19,8 @@ export class InviteComponent implements OnInit {
   emailPattern = EmailPattern;
   message = "";
 
+  ngOnInit(): void {}
+
   constructor(
     public alertService: AlertService,
     private adminService: AdminService,
@@ -27,7 +29,6 @@ export class InviteComponent implements OnInit {
     this.inviteForm = this.createInviteForm();
   }
 
-  ngOnInit(): void {}
   createInviteForm(): FormGroup {
     return this.formBuilder.group({
       nickname: new FormControl("", [Validators.required]),
@@ -42,9 +43,7 @@ export class InviteComponent implements OnInit {
     return this.adminService
       .inviteResearcher(this.inviteForm.value)
       .subscribe((data) => {
-        this.alertService.success("Successfully sent", {
-          id: "alert-1",
-        });
+        this.alertService.success("Successfully sent", { autoClose: true });
       });
   }
 }
