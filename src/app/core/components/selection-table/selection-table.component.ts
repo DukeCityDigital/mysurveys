@@ -30,6 +30,14 @@ import { MatSort } from "@angular/material/sort";
 })
 export class SelectionTableComponent implements OnInit {
   USERS: any;
+  selectedUSERS = [
+    {
+      safeid: "4#$34",
+      birthyear: 1977,
+      qualification_gm: 3,
+      qualification_vac: 3,
+    },
+  ];
   displayedColumns: string[] = [
     "select",
     "id",
@@ -55,8 +63,8 @@ export class SelectionTableComponent implements OnInit {
   participantColumns: string[] = [
     "select",
 
-    "id",
-    "first_name",
+    // "id",
+    // "first_name",
     "family_name",
     "birthyear",
     // "qualification_parents",
@@ -99,6 +107,7 @@ export class SelectionTableComponent implements OnInit {
 
   dataSource = new MatTableDataSource<User>(this.USERS);
   selection = new SelectionModel<User>(true, []);
+
   @ViewChild(MatSort) sort: MatSort;
   constructor(
     private participantService: ParticipantService,
@@ -124,11 +133,24 @@ export class SelectionTableComponent implements OnInit {
     return numSelected === numRows;
   }
 
+  isAllSelectionSelected() {
+    const numSelected = this.selectedUSERS.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  isInSelection() {}
+
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.data.forEach((row) => this.selection.select(row));
+  masterToggle(checked?: boolean) {
+    console.log("mastertoggle", checked, this.isAllSelected());
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      this.clearSelectedUsers();
+    } else {
+      this.dataSource.data.forEach((row) => this.selection.select(row));
+      this.dataSource.data.forEach((row) => this.addToSelection(row, true));
+    }
   }
 
   /** The label for the checkbox on the passed row */
@@ -139,5 +161,29 @@ export class SelectionTableComponent implements OnInit {
     return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
       row.id + 1
     }`;
+  }
+
+  clearSelectedUsers() {
+    this.selectedUSERS = [];
+  }
+
+  addToSelection(row?, checked?) {
+    if (this.selectedUSERS.indexOf(row) < 0 && checked) {
+      this.selectedUSERS.push(row);
+    } else {
+      this.remove(row);
+    }
+  }
+
+  remove(participant) {
+    //remove participant from table in UI
+
+    this.dataSource.data.forEach((row) => {
+      if (row.id === participant.id) {
+        this.selection.deselect(row);
+      }
+    });
+
+    this.selectedUSERS.splice(this.selectedUSERS.indexOf(participant), 1);
   }
 }

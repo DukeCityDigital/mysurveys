@@ -5,6 +5,9 @@ table.blueTable {
   text-align: left;
   border-collapse: collapse;
 }
+table.blueTable th {
+  height: 48px;
+}
 table.blueTable td,
 table.blueTable th {
   border: 1px solid #aaaaaa;
@@ -12,6 +15,9 @@ table.blueTable th {
 }
 table.blueTable tbody td {
   font-size: 13px;
+}
+table.blueTable tr {
+  height: 48px;
 }
 table.blueTable tr:nth-child(even) {
   background: #d0e4f5;

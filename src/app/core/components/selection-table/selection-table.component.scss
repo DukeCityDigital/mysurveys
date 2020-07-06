@@ -2,5 +2,17 @@
   overflow: initial;
 }
 table {
-  width: 100%;
+  // width: 100%;
+}
+
+.participants {
+  border: 1px solid grey;
+}
+.participantsAll {
+  width: 69%;
+  float: left;
+}
+
+.participantsSelected {
+  width: 24%;
 }

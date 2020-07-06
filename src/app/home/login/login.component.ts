@@ -55,7 +55,6 @@ export class LoginComponent implements OnInit {
       password: pass,
     });
     this.onSubmit();
-    // this.register("phil@dukecitydigital.com", "testpass12");
   }
 
   login(email: string, password: string) {
@@ -84,6 +83,9 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/verify-email"], navigationExtras);
           return;
         }
+        if (data.role === "administrator")
+          this.returnUrl = "dashboard/settings";
+        if (data.role === "researcher") this.returnUrl = "dashboard/projects";
         this.router.navigate([this.returnUrl]);
       },
       (error) => {

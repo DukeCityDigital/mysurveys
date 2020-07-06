@@ -11,4 +11,6 @@ export class Project {
   exp_payout?: number;
   max_payout?: number;
   project_title?: string;
+  defaultstart?: string;
+  defaultend?: string;
 }

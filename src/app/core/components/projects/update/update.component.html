@@ -1,8 +1,11 @@
 <mat-card *ngIf="project">
     {{project | json}}
-    <mat-card-title>Project Status</mat-card-title>
-    <h2>Title: {{project.project_title}}</h2>
+    <mat-card-title>Title: {{project.project_title}}</mat-card-title>
     <b>Quota: <code>{{project.quota | currency}}</code></b>
+    <br>
+    <b>The project is scheduled to begin at: <code>{{project.defaultstart | date: 'short'}}</code></b>
+
+    <hr>
     <div>
         The project is <b>{{project.state ==='Open' ? 'Open' : 'Closed'}}</b> for participants
     </div>
@@ -45,6 +48,15 @@
     </div>
 
     <mat-tab-group dynamicHeight>
+        <mat-tab label="Select participants">
+
+
+            <mat-card>
+                <mat-card-title>Select participants</mat-card-title>
+                <app-selection-table>
+                </app-selection-table>
+            </mat-card>
+        </mat-tab>
         <mat-tab label="Edit Project">
             <mat-card>
                 <mat-card-title>Edit Project 💼</mat-card-title>
@@ -53,6 +65,12 @@
                     <div [hidden]="true">
                         <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id">
                     </div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Planned project start</mat-label>
+                        <input formControlName="defaultstart" matInput [matDatepicker]="picker2">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>End of project</mat-label>
                         <input formControlName="defaultend" matInput [matDatepicker]="picker">
@@ -63,7 +81,12 @@
                         <mat-label>Link to external study</mat-label>
                         <input matInput type="text" formControlName="link" placeholder="link" name="link"
                             class="form-control" id="">
+
                     </mat-form-field>
+                    <span style="width:100%;margin-left:5px;">
+                        Test Link: <code> <a href="{{editForm.value.link}}">{{editForm.value.link}}</a></code>
+                    </span>
+
                     <mat-form-field appearance="outline">
                         <mat-label>Link method</mat-label>
                         <mat-select placeholder="Link method" formControlName="link_method" name="link_method">
@@ -79,7 +102,7 @@
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
-                        <mat-label>responsible_person</mat-label>
+                        <mat-label>Responsible Person</mat-label>
                         <input matInput type="text" formControlName="responsible_person"
                             placeholder="responsible_person" name="responsible_person" class="form-control"
                             id="responsible_person">
@@ -97,8 +120,9 @@
                             id="desired_num_invitations">
                     </mat-form-field>
                     <mat-form-field appearance="outline">
+                        <mat-label>Payout size</mat-label>
+
                         <mat-select placeholder="Payout type" formControlName="payout_type" name="payout_type">
-                            <mat-label>Payout size</mat-label>
                             <mat-option value="Fixed">
                                 Fixed
                             </mat-option>
@@ -158,14 +182,6 @@
                 <app-email-templates></app-email-templates>
             </mat-card>
         </mat-tab>
-        <mat-tab label="Select participants">
 
-
-            <mat-card>
-                <mat-card-title>Select participants</mat-card-title>
-                <app-selection-table>
-                </app-selection-table>
-            </mat-card>
-        </mat-tab>
 
     </mat-tab-group>

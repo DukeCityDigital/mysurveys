@@ -51,10 +51,10 @@ export class UpdateComponent implements OnInit {
           exp_payout: d.exp_payout,
           desired_sample_size: d.desired_sample_size,
           desired_num_invitations: d.desired_num_invitations,
-
           name: d.name,
           id: d.id,
           defaultend: new Date(d.defaultend),
+          defaultstart: new Date(d.defaultstart),
         };
         console.log(c);
         this.editForm.patchValue(c);
@@ -73,6 +73,7 @@ export class UpdateComponent implements OnInit {
       desired_num_invitations: [""],
       payout_type: [""],
       defaultend: [""],
+      defaultstart: [""],
     });
   }
 

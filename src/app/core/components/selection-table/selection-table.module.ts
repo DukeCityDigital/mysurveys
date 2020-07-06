@@ -5,6 +5,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MaterialBaseModule } from "../material-base/material-base.module";
 import { MatSortModule } from "@angular/material/sort";
+import { MatSliderModule } from "@angular/material/slider";
 
 @NgModule({
   declarations: [SelectionTableComponent],
@@ -14,6 +15,7 @@ import { MatSortModule } from "@angular/material/sort";
     MatCheckboxModule,
     MaterialBaseModule,
     MatSortModule,
+    MatSliderModule,
   ],
   exports: [SelectionTableComponent],
 })

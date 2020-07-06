@@ -32,7 +32,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           // location.reload(true);
         } else if (err.status === 403) {
           this.alertService.error(err.error.message);
-          this.router.navigate(["/home"]);
+          this.authenticationService.logout();
+          this.router.navigate(["/"]);
         }
         this.alertService.error(err.error.message);
 
