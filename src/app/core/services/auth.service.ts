@@ -26,6 +26,12 @@ export class AuthService {
     return this.userSubject.value;
   }
 
+  public localhost(): boolean {
+    return (
+      location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    );
+  }
+
   // TODO remove
   test() {
     return this.http.get<User>(`${environment.apiUrl}/test`).subscribe((r) => {

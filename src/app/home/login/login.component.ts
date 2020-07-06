@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router
@@ -48,11 +48,11 @@ export class LoginComponent implements OnInit {
     this.returnUrl =
       this.route.snapshot.queryParams["returnUrl"] || "/dashboard";
   }
-
-  test() {
+  quickLogin(email, pass = "Testpass12!") {
+    // this.authService.login(email,pass)
     this.loginForm.patchValue({
-      email: "phil@dukecitydigital.com",
-      password: "testpass12",
+      email: email,
+      password: pass,
     });
     this.onSubmit();
     // this.register("phil@dukecitydigital.com", "testpass12");

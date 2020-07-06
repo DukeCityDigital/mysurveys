@@ -28,6 +28,8 @@ import { RouterModule } from "@angular/router";
 import { ChangePasswordComponent } from "./core/components/change-password/change-password.component";
 import { AlertModule } from "@app/core/components/_alert";
 import { ProfileModule } from "./core/components/profile/profile.module";
+import { CheckMaxLevelsComponent } from './core/components/check-max-levels/check-max-levels.component';
+import { CheckExpectedLevelsComponent } from './core/components/check-expected-levels/check-expected-levels.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { ProfileModule } from "./core/components/profile/profile.module";
     PasswordResetComponent,
     VerifyEmailComponent,
     ChangePasswordComponent,
+    CheckMaxLevelsComponent,
+    CheckExpectedLevelsComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,7 @@ import { AlertService } from "./core/components/_alert";
 export class AppComponent {
   public user;
   navLinks = [];
-  opened: boolean;
+  opened: boolean = true;
 
   links = {
     base: [{ name: "other links?", link: "/", icon: "" }],

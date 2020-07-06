@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ProjectService } from "@app/core/services/project.service";
 import { Router } from "@angular/router";
 import { first } from "rxjs/operators";
+import { AlertService } from "../../_alert";
 
 export interface updateForm {
   defaultend: string;
@@ -20,6 +21,7 @@ export class UpdateComponent implements OnInit {
   editForm: FormGroup;
 
   constructor(
+    private alertService: AlertService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -37,6 +39,7 @@ export class UpdateComponent implements OnInit {
       this.pService.get(+id).subscribe((data: any) => {
         console.log(data);
         let d = data.data;
+        this.project = d;
         let c = {
           project_title: d.project_title,
           description: d.description,
@@ -73,6 +76,10 @@ export class UpdateComponent implements OnInit {
     });
   }
 
+  public parseInt(string) {
+    return parseInt(string);
+  }
+
   onSubmit() {
     this.editForm.value.defaultend = new Date(this.editForm.value.defaultend);
     this.pService
@@ -80,9 +87,13 @@ export class UpdateComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          if (data.status === 200) {
-            alert("User updated successfully.");
-            this.router.navigate(["list-user"]);
+          console.log(data);
+          if (data.success) {
+            this.alertService.success("Updated successfully", {
+              autoClose: true,
+            });
+            // this.router.navigate(["list-user"]);
+            this.project = data.data;
           } else {
             alert(data.message);
           }

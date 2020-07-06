@@ -1,8 +1,8 @@
-﻿<div style="text-align:center;">
-    <div *ngIf="alerts.length && alerts[0].id!=='motd'">
-        <div *ngFor="let alert of alerts" class="{{cssClass(alert)}}">
+﻿<div style="text-align:center;" class="default-alert">
+    <div *ngIf="alerts.length && alerts[0].id!=='motd'" style="display:flex;">
+        <div *ngFor="let alert of alerts" class="{{cssClass(alert)}}" class="alert-inner">
             <!-- <mat-icon class="close" (click)="removeAlert(alert)">close</mat-icon> -->
-            <a class="close" (click)="removeAlert(alert)">&times;</a>
+            <a style="cursor:pointer;" class="close" (click)="removeAlert(alert)">X</a>&nbsp;&nbsp;&nbsp;
             <span [innerHTML]="alert.message"></span>
             <!-- <button mat-button>Basic</button> -->
 

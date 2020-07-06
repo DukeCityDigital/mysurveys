@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
 
   getMotd() {
     this.userService.motd().subscribe((r) => {
-      console.log(r);
       this.alertService.success(r.data, {
         id: "motd",
         keepAfterRouteChange: true,
@@ -37,10 +36,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     // this.alertService.warn("alert service", { id: "alert" });
     var hidemotd = sessionStorage.getItem("hidemotd");
-    console.log(hidemotd);
 
     if (!hidemotd || hidemotd === "false") {
-      console.log("fouynd motd");
       this.getMotd();
     }
 

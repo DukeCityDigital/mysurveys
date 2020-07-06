@@ -23,7 +23,7 @@
                 <td>{{p.created_at}}</td>
                 <td>{{p.creator_userid}}</td>
                 <td>
-                    <button type="button" [routerLink]="['update/', p.id]">Update</button>
+                    <button type="button" [routerLink]="['update/', p.id]">View</button>
                     <button type="button" (click)="delete(p.id)">Remove</button>
                 </td>
             </tr>

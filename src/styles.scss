@@ -1,7 +1,7 @@
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto+Slab&family=Ruda:wght@600&display=swap");
-
+@import "./assets/styles/blueTable.css";
 html,
 body {
   height: 100%;
@@ -170,7 +170,8 @@ a:hover {
 .alert-success {
   color: green;
 }
-.alert-danger {
+.alert-danger,
+.error {
   color: red;
 }
 .alert-info {

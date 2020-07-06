@@ -1,3 +1,11 @@
+<div class="dev" *ngIf="authService.localhost()">
+    <button (click)="quickLogin('admin@scifriends.edu');">Admin</button>
+
+    <button (click)="quickLogin('researcher@scifriends.edu');">Researcher</button>
+    <button (click)="quickLogin('participant@scifriends.edu');">Participant</button>
+
+
+</div>
 <div class="centerheader">
     <h1>Login</h1>
     <!-- <button class="TODO" (click)="test()">test</button> -->

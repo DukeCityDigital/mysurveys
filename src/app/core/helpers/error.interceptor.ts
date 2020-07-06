@@ -9,10 +9,12 @@ import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { AuthService as AuthenticationService } from "@app/core/services/auth.service";
 import { AlertService } from "../components/_alert";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
+    private router: Router,
     private alertService: AlertService,
     private authenticationService: AuthenticationService
   ) {}
@@ -30,6 +32,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           // location.reload(true);
         } else if (err.status === 403) {
           this.alertService.error(err.error.message);
+          this.router.navigate(["/home"]);
         }
         this.alertService.error(err.error.message);
 
