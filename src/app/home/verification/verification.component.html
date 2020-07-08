@@ -1,7 +1,7 @@
 <div class="centerheader" *ngIf="registered !== true && emailLinkAttempt !== true">
   <h1>Create your account</h1>
   <hr />
-  <div class="TODO">
+  <div class="TODO" *ngIf="qualificationForm">
     {{qualificationForm.value}}
   </div>
 
@@ -11,8 +11,8 @@
       <div>
         <label for="email">Email</label>
 
-        <input [pattern]="emailPattern" type="email" id="email" name="email" email formControlName="email" matInput
-          required placeholder="&nbsp;Email" class="example-full-width" />
+        <input style="border:1px solid black;" [pattern]="emailPattern" type="email" id="email" name="email" email
+          formControlName="email" matInput required placeholder="&nbsp;Email" class="example-full-width" />
         <mat-error *ngIf="f.email.errors" class="invalid-feedback">
           <div *ngIf="f.email.errors.required">Email is required</div>
         </mat-error>

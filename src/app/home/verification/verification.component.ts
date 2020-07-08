@@ -81,7 +81,9 @@ export class VerificationComponent implements OnInit {
 
   onSubmit() {
     this.errors = [];
-    console.log("submitted", this.emailVerificationForm.value);
+    if (!this.qualificationForm) {
+      this.alertService.error("You must fill out the qualification form first");
+    }
     this.register(
       this.emailVerificationForm.value.email,
       this.emailVerificationForm.value.password.password,
@@ -92,7 +94,6 @@ export class VerificationComponent implements OnInit {
   checkVerificationCode(code: string) {
     this.registrationService.checkVerificationCode(code).subscribe(
       (data) => {
-        console.log("check code data", data);
         if (!data.error) {
           if (data.role === "participant") {
             this.emailLinkFoundAndHandled = true;

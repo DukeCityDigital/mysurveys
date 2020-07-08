@@ -25,6 +25,16 @@ export class RegistrationService {
     });
   }
 
+  resetPassword(email: string, password: string, token: string) {
+    console.log(password, token);
+    let API_URL = `${environment.apiUrl}/auth/reset_password`;
+    return this.http.post<any>(API_URL, {
+      email,
+      password,
+      token,
+    });
+  }
+
   checkChangePasswordCode(code: string) {
     let API_URL = `${environment.apiUrl}/auth/check_change_password_code`;
     return this.http.post<any>(API_URL, {

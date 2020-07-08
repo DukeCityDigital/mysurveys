@@ -28,8 +28,9 @@ import { RouterModule } from "@angular/router";
 import { ChangePasswordComponent } from "./core/components/change-password/change-password.component";
 import { AlertModule } from "@app/core/components/_alert";
 import { ProfileModule } from "./core/components/profile/profile.module";
-import { CheckMaxLevelsComponent } from './core/components/check-max-levels/check-max-levels.component';
-import { CheckExpectedLevelsComponent } from './core/components/check-expected-levels/check-expected-levels.component';
+import { CheckMaxLevelsComponent } from "./core/components/check-max-levels/check-max-levels.component";
+import { CheckExpectedLevelsComponent } from "./core/components/check-expected-levels/check-expected-levels.component";
+import { PasswordFormModule } from "./core/components/password-form/password-form.module";
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { CheckExpectedLevelsComponent } from './core/components/check-expected-l
     RouterModule,
     AlertModule,
     ProfileModule,
+    PasswordFormModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,

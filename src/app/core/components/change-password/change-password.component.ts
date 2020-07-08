@@ -5,9 +5,11 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { RegistrationService } from "@app/core/services/registration.service";
 import { AuthService } from "@app/core/services/auth.service";
+import { AlertService } from "../_alert";
+
 @Component({
   selector: "app-change-password",
   templateUrl: "./change-password.component.html",
@@ -18,15 +20,19 @@ export class ChangePasswordComponent implements OnInit {
 
   codeConfirmed: boolean = false;
   codeConfirmedAndLoggedIn: boolean = false;
+  token: string;
+  email: string;
 
   codeFailed: boolean;
   errors = [];
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private registrationService: RegistrationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertService: AlertService
   ) {
     this.changePasswordForm = this.createChangePasswordForm();
   }
@@ -36,22 +42,40 @@ export class ChangePasswordComponent implements OnInit {
       if (params.params.hasOwnProperty("code") && params.params.code !== "") {
         this.authService.logout();
         this.checkChangePasswordCode(params.params.code);
+        this.token = params.params.code;
       }
     });
   }
 
+  onSubmit() {
+    this.errors = [];
+    return this.registrationService
+      .resetPassword(
+        this.email,
+        this.changePasswordForm.value.password.password,
+        this.token
+      )
+      .subscribe((r: any) => {
+        if (r.access_token) {
+          this.authService.quickLogin(r);
+          this.alertService.success("Logged in");
+          this.router.navigate(["/home"]);
+        }
+      });
+  }
+
   createChangePasswordForm(): FormGroup {
     return this.formBuilder.group({
-      email: new FormControl("", [Validators.required, Validators.email]),
-      // recaptchaReactive: new FormControl(null, Validators.required),
+      password: new FormControl("", [Validators.required]),
     });
   }
   checkChangePasswordCode(code: string) {
     this.registrationService.checkChangePasswordCode(code).subscribe(
       (data) => {
-        console.log("check code data", data);
         if (!data.error) {
+          this.email = data.email;
           this.codeConfirmed = true;
+          this.alertService.success("Logged in");
           this.authService.quickLogin(data);
           return true;
         } else {
