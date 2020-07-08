@@ -175,6 +175,13 @@ export class SelectionTableComponent implements OnInit {
     }
   }
 
+  filterData(filterValue) {
+    console.log(filterValue);
+    // filterValue = filterValue.trim(); // Remove whitespace
+    // filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
   remove(participant) {
     //remove participant from table in UI
 

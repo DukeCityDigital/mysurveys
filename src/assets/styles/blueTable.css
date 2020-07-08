@@ -23,6 +23,7 @@ table.blueTable tr:nth-child(even) {
   background: #d0e4f5;
 }
 table.blueTable thead {
+  color: white;
   background: #1c6ea4;
   background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1c6ea4 100%);
   background: -webkit-linear-gradient(
