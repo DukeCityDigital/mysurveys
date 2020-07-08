@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
     private userService: UserService
   ) {
     this.authService.user.subscribe((x) => (this.user = x));
-    console.log("fix setting role in dashboard");
     // this.user.role = GetRole(this.user);
   }
 

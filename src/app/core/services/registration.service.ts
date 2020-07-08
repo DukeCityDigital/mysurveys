@@ -26,7 +26,6 @@ export class RegistrationService {
   }
 
   resetPassword(email: string, password: string, token: string) {
-    console.log(password, token);
     let API_URL = `${environment.apiUrl}/auth/reset_password`;
     return this.http.post<any>(API_URL, {
       email,

@@ -75,7 +75,6 @@ export class AuthService {
     let u = JSON.stringify(user);
     localStorage.setItem("access_token", JSON.parse(u).access_token);
     user = SetRole(user);
-    console.log(user);
     this.userSubject.next(user);
     // setTimeout(() => {
     //   alert('Your token will expire in 6 minutes');

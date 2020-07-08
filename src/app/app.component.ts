@@ -55,7 +55,6 @@ export class AppComponent {
     // this.user = this.authenticationService.userValue;
 
     this.authenticationService.user.subscribe((x) => (this.user = x));
-    console.log(this.user);
   }
 
   ngOnInit(): void {}
