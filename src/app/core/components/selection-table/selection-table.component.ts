@@ -3,6 +3,7 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { MatTableDataSource } from "@angular/material/table";
 import { AuthService } from "@app/core/services/auth.service";
 import { User } from "@app/core/models/user";
+import { Sort } from "@angular/material/sort";
 import {
   animate,
   state,
@@ -13,6 +14,9 @@ import {
 import { ProjectService } from "@app/core/services/project.service";
 import { ParticipantService } from "@app/core/services/participant.service";
 import { MatSort } from "@angular/material/sort";
+import { AlertService } from "../_alert";
+import { Router, Route, ActivatedRoute } from "@angular/router";
+
 @Component({
   selector: "app-selection-table",
   templateUrl: "./selection-table.component.html",
@@ -30,14 +34,8 @@ import { MatSort } from "@angular/material/sort";
 })
 export class SelectionTableComponent implements OnInit {
   USERS: any;
-  selectedUSERS = [
-    {
-      safeid: "4#$34",
-      birthyear: 1977,
-      qualification_gm: 3,
-      qualification_vac: 3,
-    },
-  ];
+  project_id: number;
+  selectedUSERS = [];
   displayedColumns: string[] = [
     "select",
     "id",
@@ -62,68 +60,113 @@ export class SelectionTableComponent implements OnInit {
   ];
   participantColumns: string[] = [
     "select",
-
-    // "id",
-    // "first_name",
     "family_name",
     "birthyear",
-    // "qualification_parents",
-    // "qualification_friends",
+
     "qualification_gm",
     "qualification_vac",
-    // "qualification_us",
-
-    // "safeid",
-    // "year",
-
-    // "email",
-    // "created_at",
-    // "last_login",
-    // "last_update",
-    // "banned",
-    // "banned_reason",
-    // "banned_date",
-    // "activated",
-    // "registration_key",
-    // TODO switch for nickname
   ];
 
-  // participantColumns: any[] = [
-  // { name: "ID", value: "id", type: "" },
-  // { name: "Safe ID", value: "safeid", type: "" },
-  // { name: "Year", value: "year", type: "" },
-  // { name: "Qualification-Parents", value: "qualification_parents", type: "" },
-  // { name: "Qualification-Friends", value: "qualification_friends", type: "" },
-
-  // "id",
-  // "safeid",
-  // "year",
-  // "qualification_parents",
-  // "qualification_friends",
-  // "qualification_gm",
-  // "qualification_vac",
-  // "qualification_us",
-  // ];
+  sortedData: any[];
 
   dataSource = new MatTableDataSource<User>(this.USERS);
   selection = new SelectionModel<User>(true, []);
+
+  filterYear: string;
+  maxYear: number = 2010;
+  minYear: number = 1930;
+  users = [];
 
   @ViewChild(MatSort) sort: MatSort;
   constructor(
     private participantService: ParticipantService,
     private projectService: ProjectService,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertService: AlertService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      this.project_id = params.get("id");
+      if (this.project_id) {
+        this.projectService
+          .getSelection({ project_id: this.project_id })
+          .subscribe((r) => {
+            console.log(r);
+            this.selectedUSERS = r.data;
+          });
+      }
+
+      // if (params.params.hasOwnProperty("code") && params.params.code !== "") {
+      //   this.authService.logout();
+
+      // }
+    });
     // this.projectService.users().subscribe((r: any) => {
     //   console.log(r);
     //   this.dataSource.data = r.users;
     // });
     this.participantService.getAll().subscribe((r: any) => {
       console.log(r);
+      r.data.forEach((element) => {
+        element.safeID =
+          Math.random().toString(36).substring(2, 5) +
+          Math.random().toString(36).substring(2, 5);
+      });
+      this.users = r.data;
+      this.sortedData = this.users.slice();
       this.dataSource.data = r.data;
     });
+  }
+
+  public saveSelection() {
+    let ids = [];
+    this.selectedUSERS.forEach((element) => {
+      ids.push(element.id);
+    });
+
+    let post = { project_id: this.project_id, users: ids };
+    console.log(post);
+    this.projectService.createSelection(post).subscribe((r) => {
+      console.log(r);
+      this.alertService.success(r.data, { autoClose: true });
+    });
+  }
+
+  public makeSafeID() {
+    return (
+      Math.random().toString(36).substring(2, 4) +
+      Math.random().toString(36).substring(2, 4)
+    );
+  }
+
+  sortData(sort: Sort) {
+    console.log("sortdata", sort);
+    const data = this.users.slice();
+    if (!sort.active || sort.direction === "") {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === "asc";
+      switch (sort.active) {
+        case "qualification_gm":
+          return compare(a.qualification_gm, b.qualification_gm, isAsc);
+        case "qualification_vac":
+          return compare(a.qualification_vac, b.qualification_vac, isAsc);
+        case "family_name":
+          return compare(a.family_name, b.family_name, isAsc);
+        case "birthyear":
+          return compare(a.birthyear, b.birthyear, isAsc);
+        default:
+          return 0;
+      }
+    });
+    function compare(a: number | string, b: number | string, isAsc: boolean) {
+      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -175,11 +218,18 @@ export class SelectionTableComponent implements OnInit {
     }
   }
 
-  filterData(filterValue) {
+  filterData(filterValue?, position?) {
+    this.dataSource.filterPredicate = function customFilter(
+      data,
+      filter: string
+    ): boolean {
+      console.log(data.birthyear, this.maxYear, this.minYear);
+      return data.birthyear < this.maxYear && this.birthyear > this.minYear;
+    };
     console.log(filterValue);
     // filterValue = filterValue.trim(); // Remove whitespace
     // filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
+    this.dataSource.filter = filterValue.toString();
   }
 
   remove(participant) {

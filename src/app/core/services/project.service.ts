@@ -52,6 +52,16 @@ export class ProjectService {
       )
       .pipe(catchError(this.errorHandler));
   }
+  getSelection(post): Observable<any> {
+    return this.httpClient
+      .post<any>(this.apiServer + "/get_selection", post, this.httpOptions)
+      .pipe(catchError(this.errorHandler));
+  }
+  createSelection(post): Observable<any> {
+    return this.httpClient
+      .post<any>(this.apiServer + "/create_selection", post, this.httpOptions)
+      .pipe(catchError(this.errorHandler));
+  }
   delete(id) {
     console.log("pdelete", id);
     return this.httpClient.delete<any>(

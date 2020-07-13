@@ -25,7 +25,7 @@ export class AppComponent {
       { name: "home", link: "/dashboard/projects", icon: "" },
       { name: "projects", link: "dashboard/projects", icon: "" },
 
-      { name: "selection", link: "selection", icon: "" },
+      // { name: "selection", link: "selection", icon: "" },
 
       { name: "account information", link: "/dashboard/profile", icon: "" },
     ],

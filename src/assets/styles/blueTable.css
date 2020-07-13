@@ -17,7 +17,7 @@ table.blueTable tbody td {
   font-size: 13px;
 }
 table.blueTable tr {
-  height: 48px;
+  height: 56px;
 }
 table.blueTable tr:nth-child(even) {
   background: #d0e4f5;
