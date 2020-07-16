@@ -121,6 +121,12 @@ export class SelectionTableComponent implements OnInit {
   }
 
   public saveSelection() {
+    let r = window.confirm(
+      "Are you sure you wish to save the selection?  It will overwrite the previous selection"
+    );
+    if (r !== true) {
+      return false;
+    }
     let ids = [];
     this.selectedUSERS.forEach((element) => {
       ids.push(element.id);
@@ -187,11 +193,15 @@ export class SelectionTableComponent implements OnInit {
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle(checked?: boolean) {
     console.log("mastertoggle", checked, this.isAllSelected());
+
     if (this.isAllSelected()) {
+      // console.log("allselected");
       this.selection.clear();
       this.clearSelectedUsers();
     } else {
-      this.dataSource.data.forEach((row) => this.selection.select(row));
+      this.dataSource.data.forEach((row) => {
+        this.selection.select(row);
+      });
       this.dataSource.data.forEach((row) => this.addToSelection(row, true));
     }
   }

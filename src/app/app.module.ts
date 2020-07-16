@@ -24,7 +24,7 @@ import {
 } from "ng-recaptcha";
 RouterModule;
 import { VerifyEmailComponent } from "./home/verify-email/verify-email.component";
-import { RouterModule } from "@angular/router";
+import { RouterModule, Router, ActivatedRoute } from "@angular/router";
 import { ChangePasswordComponent } from "./core/components/change-password/change-password.component";
 import { AlertModule } from "@app/core/components/_alert";
 import { ProfileModule } from "./core/components/profile/profile.module";
@@ -70,7 +70,12 @@ import { PasswordFormModule } from "./core/components/password-form/password-for
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+      deps: [Router, ActivatedRoute],
+    },
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {

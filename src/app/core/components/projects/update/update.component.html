@@ -1,52 +1,130 @@
-<mat-card *ngIf="project" style="padding:0;">
+<mat-card style="padding:0;">
     {{project | json}}
-    <mat-card-title>Title: {{project.project_title}}</mat-card-title>
-    <b>Quota: <code>{{project.quota | currency}}</code></b>
-    <br>
-    <b>The project is scheduled to begin at: <code>{{project.defaultstart | date: 'short'}}</code></b>
+    <mat-card-title>Title: {{project ? project.project_title : null}}</mat-card-title>
+    <div class="projectinfo">
 
-    <hr>
-    <div>
-        The project is <b>{{project.state ==='Open' ? 'Open' : 'Closed'}}</b> for participants
-    </div>
-    <div *ngIf="project.link_method ==='Direct'; else fixed">
-        The project link method is <b>Direct</b>
-        <br>
-        You wish to have a sample size of <b>{{project.desired_sample_size}}</b> participants,
-        with a maximum of <b> {{project.desired_num_invitations}}</b> invitations
-        <br>
+        <table class="infotable" *ngIf="project">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
 
-    </div>
-    <ng-template #fixed>
-        The payout type is <b>Fixed</b>
-    </ng-template>
+            <tbody>
+                <tr>
+                    <td>Project State</td>
+                    <td>{{project.state}}</td>
+                </tr>
+                <tr>
+                    <td>Quota: </td>
+                    <td>{{project.quota | currency}}</td>
 
-    <div *ngIf=" !project.quota || parseInt(project.quota) <= 0;else quota">
-        <span class="error"> You have no quota with which to pay participants, only the administrator can change the
-            quota. </span>
+                </tr>
+                <tr>
+                    <td>Scheduled to begin: (defaultstart) </td>
+                    <td>{{project.defaultstart | date: 'short'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        Project state
+                    </td>
+                    <td>
+                        {{project.state ==='Open' ? 'Open' : 'Closed'}}
+                    </td>
+                </tr>
+                <tr *ngIf="project.link_method ==='Direct'; else fixed">
+                    <td>
+                        The project link method is <b>Direct</b>
+                        <br>
+                        You wish to have a sample size of <b>{{project.desired_sample_size}}</b> participants,
+                        with a maximum of <b> {{project.desired_num_invitations}}</b> invitations
+                        <br>
+                    </td>
+                </tr>
+                <ng-template #fixed>
+                    The payout type is <b>Fixed</b>
+                </ng-template>
+
+                <tr *ngIf=" !project.quota || parseInt(project.quota) <= 0;else quota">
+                    <span class="error"> You have no quota with which to pay participants, only the
+                        administrator can change the
+                        quota. </span>
+                </tr>
+                <ng-template #quota>
+                    Your quota for the project is {{project.quota}}
+                </ng-template>
+                <tr *ngIf="project.link_method ==='Direct'">
+                    The link method is <strong>Direct</strong>. There are no automatic payments.
+                    You wish to have a sample size of {{project.desired_sample_size}} participants,
+                    with a maximum of {{project.desired_num_invitations}} invitations.
+                </tr>
+                <tr *ngIf="project.payout_type ==='Fixed'">Payout type is <b>Fixed</b>
+                </tr>
+                <tr *ngIf="project.payout_type !== 'Fixed' && project.payout_type !=='Variable'">
+                    <td>Payout
+                        type is
+                        'Variable'.</td>
+                </tr>
+                <tr *ngIf="project.exp_payout > project.max_payout">
+                    <td>
+                        <span class="error">The expected payout ({{project.exp_payout}}) is larger than the maximum
+                            payout
+                            {{project.max_payout}} </span></td>
+                </tr>
+                <tr class="error">Warn if selected participants fewer than the desired sample size</tr>
+                <tr>
+                    <td> Status on reminders and participants completed survey etc. ..</td>
+
+                </tr>
+                <tr *ngIf="project.state ==='Design'">
+                    <h2 class="primary success"> This project is in the design stage, you may select participants
+                    </h2>
+                </tr>
+                <tr>
+                    <td>
+                        Number of selected participants: {{totalParticipants}}
+                    </td>
+                    <td>
+                        Desired sample size: {{project.desired_sample_size}}
+                    </td>
+                </tr>
+                <tr *ngIf="totalParticipants > parseInt(project.desired_sample_size); else moreParticipants">
+                    <mat-icon>check</mat-icon> You have the desired number of participants
+                </tr>
+                <ng-template #moreParticipants>
+                    <td class="error" colspan="3">
+                        <h2>You need more participants to satisfy your target sample size</h2>
+                    </td>
+                </ng-template>
+
+            </tbody>
+        </table>
     </div>
-    <ng-template #quota>
-        Your quota for the project is {{project.quota}}
-    </ng-template>
-    <div *ngIf="project.link_method ==='Direct'">
+
+
+
+    <!-- <div *ngIf="project.link_method ==='Direct'">
         The link method is <strong>Direct</strong>. There are no automatic payments.
         You wish to have a sample size of {{project.desired_sample_size}} participants,
         with a maximum of {{project.desired_num_invitations}} invitations.
     </div>
-    <ng-template *ngIf="project.payout_type ==='Fixed'">Payout type is <b>Fixed</b></ng-template>
-    <ng-template *ngIf="project.payout_type !== 'Fixed' && project.payout_type !=='Variable'">Payout type is
-        'Variable'. <br> </ng-template>
+    <ng-template *ngIf=" project.payout_type==='Fixed'">Payout type is <b>Fixed</b></ng-template> -->
+    <!-- <ng-template *ngIf=" project.payout_type !=='Fixed' && project.payout_type !=='Variable'">Payout
+        type is
+        'Variable'. <br> </ng-template> -->
 
 
-    <div *ngIf="project.exp_payout > project.max_payout">
-        <span class="error">The expected payout ({{project.exp_payout}}) is larger than the maximum payout
-            {{project.max_payout}} </span>
-    </div>
-    <h2 class="error">Warn if selected participants fewer than the desired sample size</h2>
+    <!-- <div *ngIf=" project.exp_payout> project.max_payout">
+                    <span class="error">The expected payout ({{project.exp_payout}}) is larger than the maximum
+                        payout
+                        {{project.max_payout}} </span>
+    </div> -->
+    <!-- <h2 class="error">Warn if selected participants fewer than the desired sample size</h2>
     <div>
-        Status on reminders and participants completed survey etc. ..
-    </div>
+    </div> -->
     <mat-tab-group dynamicHeight>
+
         <mat-tab label="Select participants">
             <mat-card>
                 <mat-card-title>Select participants</mat-card-title>
@@ -54,6 +132,18 @@
                 </app-selection-table>
             </mat-card>
         </mat-tab>
+        <mat-tab label="Manage selection">
+            <mat-card>
+                <mat-card-title>Manage selection</mat-card-title>
+                <div *ngIf="participants">
+                    <app-manage-participants [project]="project" [participants]="participants">
+                    </app-manage-participants>
+                </div>
+
+
+            </mat-card>
+        </mat-tab>
+
         <mat-tab label="Edit Project">
             Edit Project 💼
             <!-- {{editForm.value | json}} -->
@@ -80,7 +170,8 @@
 
                 </mat-form-field>
                 <span style="width:100%;margin-left:5px;">
-                    Test Link: <code> <a href="{{editForm.value.link}}">{{editForm.value.link}}</a></code>
+                    Test Link:
+                    <code> <a href="{{editForm.value.link}}">{{editForm.value.link}}</a></code>
                 </span>
 
                 <mat-form-field appearance="outline">
@@ -127,9 +218,24 @@
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
+                    <mat-label>Max payout</mat-label>
+                    <input matInput type="number" formControlName="max_payout" placeholder="max_payout"
+                        name="max_payout" class="form-control" id="max_payout">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Expected payout</mat-label>
+                    <input matInput type="number" formControlName="exp_payout" placeholder="exp_payout"
+                        name="exp_payout" class="form-control" id="exp_payout">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
                     <mat-label> Project title:</mat-label>
                     <input matInput type="text" formControlName="project_title" placeholder="project_title"
                         name="project_title" class="form-control" id="project_title">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label> Description:</mat-label>
+                    <input matInput type="text" formControlName="description" placeholder="Description"
+                        name="description" class="form-control" id="description">
                 </mat-form-field>
                 <button [disabled]="editForm.value.errors" mat-stroked-button color="primary">Update</button>
             </form>

@@ -17,19 +17,12 @@
           <div *ngIf="f.email.errors.required">Email is required</div>
         </mat-error>
       </div>
-
-      <!-- <mat-form-field appearance="outline"> -->
       <app-password-form formControlName="password" id="password"></app-password-form>
-      <!-- </mat-form-field> -->
-
-
-
       <div [hidden]="!errors.length" style="color: #c80000; font-weight: bold;">
         <div class="tip">
           <div *ngFor="let error of errors">{{ error }}</div>
           &nbsp;
         </div>
-
       </div>
       <!-- <re-captcha formControlName="recaptchaReactive"></re-captcha> -->
       <button class="button createbutton" [disabled]="!emailVerificationForm.valid" mat-stroked-button type="submit">

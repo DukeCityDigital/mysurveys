@@ -3,6 +3,8 @@ import { FormControl, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import { EmailPattern, PasswordPattern } from "@app/core/helpers/patterns";
 import { AuthService } from "@app/core/services/auth.service";
+import { AlertService } from "@app/core/components/_alert";
+
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -16,6 +18,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(
+    private alertService: AlertService,
     public authService: AuthService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -89,7 +92,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate([this.returnUrl]);
       },
       (error) => {
-        this.errors.push(error);
+        console.log(error);
+        this.alertService.error("Invalid Login", { autoClose: true });
+        this.errors.push(error.statusText);
         this.loading = false;
       }
     );

@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatTableModule } from "@angular/material/table";
 
 import { ProjectsRoutingModule } from "./projects-routing.module";
 import { ProjectsComponent } from "./projects.component";
@@ -15,9 +16,18 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { SelectionTableModule } from "../selection-table/selection-table.module";
 import { EmailTemplatesModule } from "../email-templates/email-templates.module";
+import { ManageParticipantsComponent } from "../manage-participants/manage-participants.component";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSortModule } from "@angular/material/sort";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 @NgModule({
-  declarations: [ProjectsComponent, CreateComponent, UpdateComponent],
+  declarations: [
+    ProjectsComponent,
+    CreateComponent,
+    UpdateComponent,
+    ManageParticipantsComponent,
+  ],
   imports: [
     CommonModule,
     ProjectsRoutingModule,
@@ -32,6 +42,10 @@ import { EmailTemplatesModule } from "../email-templates/email-templates.module"
     MatExpansionModule,
     SelectionTableModule,
     EmailTemplatesModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule,
+    MatProgressBarModule,
   ],
 })
 export class ProjectsModule {}

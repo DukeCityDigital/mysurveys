@@ -10,20 +10,30 @@ import {
 import { environment } from "../../../environments/environment";
 import { Project } from "@app/core/models/project.model";
 import { User } from "@app/core/models/user";
+import { ErrorHandler } from "../helpers/error.request";
 
 @Injectable({
   providedIn: "root",
 })
 export class ProjectService {
   constructor(private httpClient: HttpClient) {}
+
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
     }),
   };
+
+  errorHandler = ErrorHandler;
   private apiServer = environment.apiUrl;
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
+
+  participants(sort: string, order: string, page: number): Observable<any> {
+    return this.httpClient
+      .get<User>(`${environment.apiUrl}/users`)
+      .pipe(catchError(this.errorHandler));
+  }
 
   users() {
     return this.httpClient
@@ -78,17 +88,5 @@ export class ProjectService {
       this.apiServer + "/projects/" + project.id,
       project
     );
-  }
-  errorHandler(error) {
-    let errorMessage = "";
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
   }
 }

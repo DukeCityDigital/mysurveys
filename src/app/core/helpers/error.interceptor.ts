@@ -9,13 +9,14 @@ import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { AuthService as AuthenticationService } from "@app/core/services/auth.service";
 import { AlertService } from "../components/_alert";
-import { Router } from "@angular/router";
+import { Router, RouterStateSnapshot } from "@angular/router";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
+    private state: RouterStateSnapshot,
     private router: Router,
-    private alertService: AlertService,
+    public alertService: AlertService,
     private authenticationService: AuthenticationService
   ) {}
   intercept(
@@ -30,12 +31,14 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.alertService.error("There has been an error");
           this.authenticationService.logout();
           // location.reload(true);
-        } else if (err.status === 403) {
-          this.alertService.error(err.error.message);
+        } else if (err.status === 403 || err.status === 404) {
+          // this.alertService.error(err.error.message);
           this.authenticationService.logout();
-          this.router.navigate(["/"]);
+          this.router.navigate(["/"], {
+            queryParams: { returnUrl: this.state.url },
+          });
         }
-        this.alertService.error(err.error.message);
+        this.alertService.error(err.message, { autoClose: true });
 
         const error = err.error.message || err.statusText;
         return throwError(error);

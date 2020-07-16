@@ -4,8 +4,6 @@
     </mat-card-title>
     {{dataSource.data.length}} records
     <hr>
-    <p>Participants will only be visible with safeid during production; Demographics will be visible via columns,
-        sorting and filtering for participants</p>
     <!-- <button mat-stroked-button>
         Preview Selection
     </button> -->
@@ -26,13 +24,11 @@
 </mat-card>
 <table class="participants participantsAll" matSort (matSortChange)="sortData($event)" matSortDirection="asc" mat-table
     [dataSource]="sortedData">
-
-
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle($event.checked) : null"
-                [checked]="selection.hasValue() && isAllSelected()"
+            <!-- [checked]="selection.hasValue() && isAllSelected()" -->
+            <mat-checkbox (change)="$event ? masterToggle($event.checked) : null" [checked]=" isAllSelected()"
                 [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
             </mat-checkbox>
         </th>

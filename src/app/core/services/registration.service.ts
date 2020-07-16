@@ -34,6 +34,25 @@ export class RegistrationService {
     });
   }
 
+  changePasswordRequest(post: any) {
+    let API_URL = `${environment.apiUrl}/auth/change_password_request`;
+    return this.http.post<any>(API_URL, post);
+  }
+
+  changeEmailRequest(email: string) {
+    let API_URL = `${environment.apiUrl}/auth/change_email_request`;
+    return this.http.post<any>(API_URL, {
+      email,
+    });
+  }
+
+  checkChangeEmailCode(token: string) {
+    let API_URL = `${environment.apiUrl}/auth/change_email_verify`;
+    return this.http.post<any>(API_URL, {
+      token,
+    });
+  }
+
   checkChangePasswordCode(code: string) {
     let API_URL = `${environment.apiUrl}/auth/check_change_password_code`;
     return this.http.post<any>(API_URL, {

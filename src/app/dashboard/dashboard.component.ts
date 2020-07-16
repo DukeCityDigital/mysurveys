@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
     this.userService.motd().subscribe((r) => {
       this.alertService.success(r.data, {
         id: "motd",
+        autoClose: false,
         keepAfterRouteChange: true,
       });
     });

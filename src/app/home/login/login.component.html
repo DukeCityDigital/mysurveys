@@ -23,11 +23,11 @@
             </mat-form-field>
             <br>
             <button [disabled]="!loginForm.valid" mat-stroked-button type="submit">Submit</button>
-            <div [hidden]="!errors.length" style="margin:22px;color:#c80000;">
+            <!-- <div [hidden]="!errors.length" style="margin:22px;color:#c80000;">
                 <span class="tip" *ngFor="let error of errors">
                     {{error}}
                 </span>
-            </div>
+            </div> -->
         </form>
         <p>
             <a href="password-reset">Forgot your password?</a>

@@ -19,6 +19,9 @@ export interface updateForm {
 export class UpdateComponent implements OnInit {
   project: Project;
   editForm: FormGroup;
+  project_id: number;
+  participants = [];
+  totalParticipants: number;
 
   constructor(
     private alertService: AlertService,
@@ -32,10 +35,18 @@ export class UpdateComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       console.log(params.get("id"));
       let id = params.get("id");
+      this.project_id = +id;
       if (!id) {
         this.router.navigate(["/"]);
         return;
       }
+      this.pService
+        .getSelection({ project_id: this.project_id })
+        .subscribe((r) => {
+          this.participants = r.data;
+          this.totalParticipants = r.meta.total;
+        });
+
       this.pService.get(+id).subscribe((data: any) => {
         console.log(data);
         let d = data.data;
