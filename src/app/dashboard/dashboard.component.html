@@ -1,7 +1,7 @@
 <mat-card>
   <h1 style="text-transform: capitalize;">{{ user.role }} Dashboard</h1>
   <a [routerLink]="'/dashboard/profile'">Profile</a>
-  <div *ngIf="user && user.role === 'participant'">
+  <div *ngIf="user && user.role === 'participant' && user.is_seed !==null">
     [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a href="#">Profile</a>]&nbsp;
     <hr />
     No pending invitations
@@ -17,6 +17,16 @@
     </div>
     <button [routerLinkActive]="['is-active-button,animate-stop']" class="animate-flicker mat-raised-button"
       color="primary" [routerLink]="'/dashboard/friends'">Friends</button>
+  </div>
+  <div *ngIf="user&&  user.is_seed ===null">
+
+    [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a href="#">Profile</a>]&nbsp;
+    <hr />
+    No pending invitations<br>
+    <h3>Thanks for accepting the invitation! Please verify your Paypal address when ready</h3>
+    <button color="primary" [routerLink]="'/dashboard/paypal'" mat-stroked-button>
+      Click to configure PayPal
+    </button>
   </div>
 
   <div *ngIf="user && user.role === 'administrator'">

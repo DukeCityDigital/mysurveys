@@ -37,6 +37,14 @@ export class ParticipantService {
     );
   }
 
+  validatePaypal(email, paypalme): Observable<any> {
+    return this.httpClient.post<any>(
+      this.apiServer + "/validate_paypal",
+      { email: email, paypalme: paypalme },
+      this.httpOptions
+    );
+  }
+
   get(id?): Observable<Participant> {
     let actual = id ? id : this.authService.userValue.id;
     return this.httpClient

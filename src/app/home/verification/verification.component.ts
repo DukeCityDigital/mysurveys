@@ -105,7 +105,7 @@ export class VerificationComponent implements OnInit {
           } else {
             this.emailLinkFoundAndHandledResearcher = true;
           }
-          this.userEmail = data.user.email;
+          this.userEmail = data.user && data.user.email ? data.user.email : "";
           return true;
         } else {
           return false;

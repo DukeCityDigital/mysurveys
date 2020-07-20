@@ -6,6 +6,7 @@ import { MaterialBaseModule } from "@app/core/components/material-base/material-
 import { AlertModule } from "@app/core/components/_alert";
 import { ProfileModule } from "@app/core/components/profile/profile.module";
 import { FriendsModule } from "@app/core/components/friends/friends.module";
+import { PaypalValidateModule } from "@app/core/components/paypal-validate/paypal-validate.module";
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -16,6 +17,7 @@ import { FriendsModule } from "@app/core/components/friends/friends.module";
     AlertModule,
     ProfileModule,
     FriendsModule,
+    PaypalValidateModule,
   ],
   exports: [DashboardComponent],
 })

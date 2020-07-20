@@ -17,6 +17,7 @@ import { ChangePasswordComponent } from "@app/core/components/change-password/ch
 import { VerifyEmailComponent } from "./home/verify-email/verify-email.component";
 import { ProfileComponent } from "./core/components/profile/profile.component";
 import { FriendsComponent } from "./core/components/friends/friends.component";
+import { PaypalValidateComponent } from "./core/components/paypal-validate/paypal-validate.component";
 
 VerifyEmailComponent;
 
@@ -28,6 +29,11 @@ const routes: Routes = [
       {
         path: "settings",
         component: SettingsComponent,
+        // data: { roles: [Role.administrator] },
+      },
+      {
+        path: "paypal",
+        component: PaypalValidateComponent,
         // data: { roles: [Role.administrator] },
       },
       {

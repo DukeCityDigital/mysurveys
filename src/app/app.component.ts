@@ -30,6 +30,7 @@ export class AppComponent {
     participant: [
       { name: "statistics", link: "/", icon: "poll" },
       { name: "friends", link: "/dashboard/friends", icon: "people_outline" },
+      { name: "payPal", link: "/dashboard/paypal", icon: "monetization_on" },
     ],
     researcher: [
       { name: "projects", link: "dashboard/projects", icon: "library_books" },
