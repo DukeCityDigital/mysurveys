@@ -14,36 +14,47 @@ export class AppComponent {
   navLinks = [];
   opened: boolean = true;
 
+  getLinks() {
+    return this.links.base
+      .concat(this.links[this.user.role])
+      .concat(this.links.end);
+  }
+
   links = {
-    base: [{ name: "other links?", link: "/", icon: "" }],
+    base: [{ name: "home", link: "/dashboard", icon: "home" }],
+    end: [
+      // { name: "other links?", link: "/", icon: "" },
+      { name: "profile", link: "/dashboard/profile", icon: "person" },
+    ],
+
     participant: [
-      { name: "home", link: "/dashboard", icon: "" },
-      { name: "statistics", link: "/", icon: "" },
-      { name: "account information", link: "/dashboard/profile", icon: "" },
+      { name: "statistics", link: "/", icon: "poll" },
+      { name: "friends", link: "/dashboard/friends", icon: "people_outline" },
     ],
     researcher: [
-      { name: "home", link: "/dashboard/projects", icon: "" },
-      { name: "projects", link: "dashboard/projects", icon: "" },
+      { name: "projects", link: "dashboard/projects", icon: "library_books" },
 
       // { name: "selection", link: "selection", icon: "" },
-
-      { name: "account information", link: "/dashboard/profile", icon: "" },
     ],
 
     administrator: [
-      { name: "home", link: "/dashboard/settings", icon: "" },
       {
         name: "settings",
         link: "/dashboard/settings",
-        icon: "",
+        icon: "settings",
       },
-      { name: "show users", link: "selection", icon: "" },
-      { name: "manage payouts", link: "/", icon: "" },
-      { name: "manage participants", link: "/", icon: "" },
-      { name: "manage warnings", link: "/", icon: "" },
-      { name: "system log", link: "/", icon: "" },
-      { name: "backup", link: "/", icon: "" },
-      { name: "MOTD", link: "/", icon: "" },
+      { name: "users", link: "selection", icon: "people_outline" },
+      { name: "payouts", link: "/", icon: "attach_money", disabled: true },
+      { name: "participants", link: "/", icon: "people" },
+      { name: "warnings", link: "/", icon: "warning", disabled: true },
+      {
+        name: "system log",
+        link: "/",
+        icon: "format_list_bulleted",
+        disabled: true,
+      },
+      { name: "backup", link: "/", icon: "backup", disabled: true },
+      { name: "MOTD", link: "/", icon: "chat", disabled: true },
     ],
   };
 

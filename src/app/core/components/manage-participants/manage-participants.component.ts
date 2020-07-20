@@ -32,7 +32,7 @@ export class ManageParticipantsComponent implements OnInit {
     "finished",
     "finished_ip",
     "userparam1",
-    // "userparam2",
+    "actions",
   ];
 
   resultsLength = 0;

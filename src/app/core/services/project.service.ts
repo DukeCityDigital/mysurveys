@@ -10,7 +10,7 @@ import {
 import { environment } from "../../../environments/environment";
 import { Project } from "@app/core/models/project.model";
 import { User } from "@app/core/models/user";
-import { ErrorHandler } from "../helpers/error.request";
+// import { ErrorHandler } from "../helpers/error.request";
 
 @Injectable({
   providedIn: "root",
@@ -24,7 +24,18 @@ export class ProjectService {
     }),
   };
 
-  errorHandler = ErrorHandler;
+  errorHandler(error) {
+    let errorMessage = "";
+    if (error && error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(errorMessage);
+  }
+
   private apiServer = environment.apiUrl;
 
   headers = new HttpHeaders().set("Content-Type", "application/json");

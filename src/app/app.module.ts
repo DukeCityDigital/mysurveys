@@ -26,11 +26,12 @@ RouterModule;
 import { VerifyEmailComponent } from "./home/verify-email/verify-email.component";
 import { RouterModule, Router, ActivatedRoute } from "@angular/router";
 import { ChangePasswordComponent } from "./core/components/change-password/change-password.component";
-import { AlertModule } from "@app/core/components/_alert";
+import { AlertModule, AlertService } from "@app/core/components/_alert";
 import { ProfileModule } from "./core/components/profile/profile.module";
 import { CheckMaxLevelsComponent } from "./core/components/check-max-levels/check-max-levels.component";
 import { CheckExpectedLevelsComponent } from "./core/components/check-expected-levels/check-expected-levels.component";
 import { PasswordFormModule } from "./core/components/password-form/password-form.module";
+import { AuthService } from "./core/services/auth.service";
 
 @NgModule({
   declarations: [
@@ -69,12 +70,17 @@ import { PasswordFormModule } from "./core/components/password-form/password-for
     }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+      deps: [Router, ActivatedRoute, AuthService, AlertService],
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true,
-      deps: [Router, ActivatedRoute],
+      deps: [Router, ActivatedRoute, AuthService, AlertService],
     },
     {
       provide: RECAPTCHA_SETTINGS,

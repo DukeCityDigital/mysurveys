@@ -4,13 +4,15 @@ import { RegistrationService } from "@app/core/services/registration.service";
 import { AlertService } from "../_alert";
 import { AuthService } from "@app/core/services/auth.service";
 import { EmailPattern, PasswordPattern } from "@app/core/helpers/patterns";
-
+tap;
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from "@angular/forms";
+import { ParticipantService } from "@app/core/services/participant.service";
+import { tap } from "rxjs/operators";
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
@@ -20,18 +22,7 @@ export class ProfileComponent implements OnInit {
   emailPattern = EmailPattern;
   passwordPattern = PasswordPattern;
   changingPassword: boolean = false;
-  constructor(
-    private authService: AuthService,
-    private alertService: AlertService,
-    private formBuilder: FormBuilder,
-
-    private registrationService: RegistrationService,
-    private route: ActivatedRoute
-  ) {
-    this.changeEmailForm = this.createEmailForm();
-    this.changePasswordForm = this.createChangePasswordForm();
-  }
-
+  participant: any;
   changePasswordForm: FormGroup;
   changePasswordFormSubmitted = false;
   changePasswordFormUserEmail: string;
@@ -39,6 +30,49 @@ export class ProfileComponent implements OnInit {
   changeEmailForm: FormGroup;
   changeEmailFormSubmitted = false;
   changeEmailFormUserEmail: string;
+
+  profileForm: FormGroup;
+  profileFormSubmitted = false;
+
+  constructor(
+    private authService: AuthService,
+    private alertService: AlertService,
+    private formBuilder: FormBuilder,
+    private participantService: ParticipantService,
+
+    private registrationService: RegistrationService,
+    private route: ActivatedRoute
+  ) {
+    this.changeEmailForm = this.createEmailForm();
+    this.changePasswordForm = this.createChangePasswordForm();
+    this.profileForm = this.createProfileForm();
+  }
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe((params: any) => {
+      if (
+        params.params.hasOwnProperty("change_email") &&
+        params.params.change_email !== ""
+      ) {
+        //send code to DB and verify, if change successful return and quicklogin with new email
+        this.checkChangeEmailCode(params.params.change_email);
+      }
+    });
+    this.getProfile();
+  }
+
+  createProfileForm(): FormGroup {
+    return this.formBuilder.group({
+      first_name: new FormControl(""),
+      family_name: new FormControl(""),
+      birthyear: new FormControl(""),
+
+      street: new FormControl(""),
+
+      zip: new FormControl(""),
+      city: new FormControl(""),
+    });
+  }
 
   createEmailForm(): FormGroup {
     return this.formBuilder.group({
@@ -53,6 +87,36 @@ export class ProfileComponent implements OnInit {
   }
   get f() {
     return this.changePasswordForm.controls;
+  }
+  onSubmitProfileChange() {
+    console.log("profilechange", this.profileForm.value);
+    if (!this.profileForm) {
+      this.alertService.error(
+        "You must fill out the profile change form first"
+      );
+    }
+    this.participantService.update(this.profileForm.value).subscribe((data) => {
+      console.log(data);
+      this.getProfile();
+    });
+  }
+
+  getProfile() {
+    this.participantService
+      .get()
+      .pipe(tap((user: any) => this.profileForm.patchValue(user.data)))
+      .subscribe((data: any) => {
+        console.log(data);
+        this.participant = data.data;
+
+        this.alertService.success(data.message, { autoClose: true });
+      });
+  }
+
+  updateProfileRequest(form) {
+    this.participantService.update(form).subscribe((data) => {
+      this.alertService.success(data.message, { autoClose: true });
+    });
   }
 
   onSubmitEmailChange() {
@@ -85,18 +149,6 @@ export class ProfileComponent implements OnInit {
   changeEmailRequest(email) {
     this.registrationService.changeEmailRequest(email).subscribe((data) => {
       this.alertService.success(data.message, { autoClose: true });
-    });
-  }
-
-  ngOnInit(): void {
-    this.route.queryParamMap.subscribe((params: any) => {
-      if (
-        params.params.hasOwnProperty("change_email") &&
-        params.params.change_email !== ""
-      ) {
-        //send code to DB and verify, if change successful return and quicklogin with new email
-        this.checkChangeEmailCode(params.params.change_email);
-      }
     });
   }
 

@@ -2,7 +2,7 @@
     <div *ngIf="alerts.length && alerts[0].id!=='motd'" style="display:flex;">
         <div *ngFor="let alert of alerts" class="{{cssClass(alert)}}" class="alert-inner">
             <!-- <mat-icon class="close" (click)="removeAlert(alert)">close</mat-icon> -->
-            <a style="cursor:pointer;" class="close" (click)="removeAlert(alert)">X</a>&nbsp;&nbsp;&nbsp;
+            <a *ngIf="!alert.autoClose" style="cursor:pointer;" class="close" (click)="removeAlert(alert)">X&nbsp;</a>
             <span [innerHTML]="alert.message"></span>
             <!-- <button mat-button>Basic</button> -->
 

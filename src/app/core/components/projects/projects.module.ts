@@ -20,6 +20,7 @@ import { ManageParticipantsComponent } from "../manage-participants/manage-parti
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { AlertService } from "../_alert";
 
 @NgModule({
   declarations: [
@@ -47,5 +48,6 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     MatSortModule,
     MatProgressBarModule,
   ],
+  providers: [AlertService],
 })
 export class ProjectsModule {}

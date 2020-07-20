@@ -1,0 +1,41 @@
+<mat-card class="innercard">
+    <mat-card-title>
+        Invite a friend
+    </mat-card-title>
+
+    <form [formGroup]="friendForm" (ngSubmit)="onSubmitFriendInvite();friendForm.reset()">
+        Friend invite form
+        <label for="email">Friend's email</label>
+        <input style="border:1px solid black;width:100%;" type="text" id="email" name="email" formControlName="email"
+            matInput placeholder="&nbsp;First Name" class="example-full-width" />
+        <button type="submit">Submit</button>
+    </form>
+    <hr>
+
+</mat-card>
+<mat-card class="innercard">
+    <mat-card-title>
+        Invited friends
+    </mat-card-title>
+    <table *ngIf="user ; else loading">
+        <tr>
+            <th>Email</th>
+            <th>Invited on / reminded on</th>
+            <th>Signed up?</th>
+            <th>PayPal verified?</th>
+
+            <th>Actions</th>
+        </tr>
+        <tr *ngFor="let f of user.friends">
+            <td>{{f.user.email}}</td>
+            <td>{{f.user.updated_at | date: 'short'}}</td>
+            <td>**hasnt verified Email </td>
+            <td> ?Has not verified PayPal ?</td>
+            <td><button>Send reminder</button>
+        </tr>
+    </table>
+    <ng-template #loading>
+        Loading...
+    </ng-template>
+
+</mat-card>

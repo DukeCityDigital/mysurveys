@@ -11,13 +11,14 @@ import { AuthService as AuthenticationService } from "@app/core/services/auth.se
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(public authenticationService: AuthenticationService) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
+
     let user = this.authenticationService.userValue;
     const idToken = localStorage.getItem("access_token");
     if (user) {

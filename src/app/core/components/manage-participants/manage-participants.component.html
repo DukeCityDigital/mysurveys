@@ -1,6 +1,10 @@
 <!-- {{participants | json}} -->
 <mat-progress-bar *ngIf="isLoadingResults" mode="query"></mat-progress-bar>
+<div>
+    <button mat-stroked-button disabled>Send Invitation Emails</button>
+    <button mat-stroked-button disabled>Send Reminder emails </button>
 
+</div>
 <div>
     <table style="width:100%;" mat-table [dataSource]="data" class="example-table" matSort matSortActive="created_at"
         matSortDisableClear matSortDirection="desc">
@@ -34,6 +38,15 @@
         <ng-container matColumnDef="userparam1">
             <th mat-header-cell *matHeaderCellDef>userparam1</th>
             <td mat-cell *matCellDef="let row">{{row.userparam1}}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let row">
+                <!-- TODO -->
+                <button>Remind</button>
+                <button>Re-send Invitation</button>
+
+                {{row.userparam1}}</td>
         </ng-container>
         <!-- Created Column -->
         <ng-container matColumnDef="created_at">

@@ -40,7 +40,6 @@ export class DashboardComponent implements OnInit {
     if (!hidemotd || hidemotd === "false") {
       this.getMotd();
     }
-
     // if (this.currentUser.role === "administrator") {
     //   this.router.navigate(["dashboard/settings"]);
     // } else if (this.currentUser.role === "researcher") {

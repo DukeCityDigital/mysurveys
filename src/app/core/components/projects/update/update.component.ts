@@ -92,6 +92,32 @@ export class UpdateComponent implements OnInit {
     return parseInt(string);
   }
 
+  public startProject() {
+    let post = this.editForm.value;
+    post.state = "Started";
+    console.log("startproject");
+    this.pService
+      .update(post)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          console.log(data);
+          if (data.success) {
+            this.alertService.success("Updated successfully", {
+              autoClose: true,
+            });
+            // this.router.navigate(["list-user"]);
+            this.project = data.data;
+          } else {
+            alert(data.message);
+          }
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }
+
   onSubmit() {
     this.editForm.value.defaultend = new Date(this.editForm.value.defaultend);
     this.pService

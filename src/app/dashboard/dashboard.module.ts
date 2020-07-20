@@ -5,6 +5,7 @@ import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { MaterialBaseModule } from "@app/core/components/material-base/material-base.module";
 import { AlertModule } from "@app/core/components/_alert";
 import { ProfileModule } from "@app/core/components/profile/profile.module";
+import { FriendsModule } from "@app/core/components/friends/friends.module";
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -14,6 +15,7 @@ import { ProfileModule } from "@app/core/components/profile/profile.module";
     MaterialBaseModule,
     AlertModule,
     ProfileModule,
+    FriendsModule,
   ],
   exports: [DashboardComponent],
 })

@@ -23,10 +23,12 @@
       </mat-list-item>
     </mat-list>
 
-    <mat-list style="padding-top: 0;" *ngIf="user">
-      <mat-list-item [disabled]="user.mustVerify" routerLink="{{ link.link }}" *ngFor="let link of links[user.role]"
-        class="sidenav-link">
+    <mat-list style="padding-top: 0;" *ngIf="user" class="navlist">
+      <mat-list-item [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
+        true}" [disabled]="user.mustVerify || link.disabled" routerLink="{{ link.link }}"
+        *ngFor="let link of getLinks()" class="sidenav-link">
         {{ link.name }}
+        <mat-icon>{{link.icon}}</mat-icon>
       </mat-list-item>
       <mat-list-item>
         <a (click)="logout()" href="/" style="cursor: pointer; line-height: inherit;" color="warn"

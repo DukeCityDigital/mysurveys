@@ -36,6 +36,15 @@ export class SelectionTableComponent implements OnInit {
   USERS: any;
   project_id: number;
   selectedUSERS = [];
+
+  selectedStatus: any;
+
+  selectedStatusOptions = [
+    { name: "Eligible Seed", value: "eligible-seed" },
+    { name: "Eligible Peer", value: "eligible-peer" },
+    { name: "Any", value: "any" },
+  ];
+
   displayedColumns: string[] = [
     "select",
     "id",

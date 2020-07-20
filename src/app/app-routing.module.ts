@@ -16,6 +16,7 @@ import { PasswordResetComponent } from "@app/core/components/password-reset/pass
 import { ChangePasswordComponent } from "@app/core/components/change-password/change-password.component";
 import { VerifyEmailComponent } from "./home/verify-email/verify-email.component";
 import { ProfileComponent } from "./core/components/profile/profile.component";
+import { FriendsComponent } from "./core/components/friends/friends.component";
 
 VerifyEmailComponent;
 
@@ -42,6 +43,11 @@ const routes: Routes = [
       {
         path: "profile",
         component: ProfileComponent,
+      },
+      {
+        path: "friends",
+        component: FriendsComponent,
+        data: { roles: [Role.administrator, Role.participant] },
       },
     ],
     canActivate: [AuthGuard],

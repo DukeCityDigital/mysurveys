@@ -90,13 +90,22 @@
                     </td>
                 </tr>
                 <tr *ngIf="totalParticipants > parseInt(project.desired_sample_size); else moreParticipants">
-                    <mat-icon>check</mat-icon> You have the desired number of participants
+                    <mat-icon>check</mat-icon> You have at least the desired number of participants
                 </tr>
                 <ng-template #moreParticipants>
                     <td class="error" colspan="3">
                         <h2>You need more participants to satisfy your target sample size</h2>
                     </td>
                 </ng-template>
+                <div style="background:white;"
+                    *ngIf="totalParticipants > parseInt(project.desired_sample_size); else moreParticipants">
+                    You can change the project state from 'Design' to 'Started' to start the project
+
+                    <button (click)="startProject();">Start Project</button>
+                </div>
+                <div *ngIf="project.state =='Started'" class="alert-success">
+                    <h2>The project is started. You may send invitations to project participants </h2>
+                </div>
 
             </tbody>
         </table>
@@ -242,7 +251,7 @@
         </mat-tab>
         <mat-tab label="Project Settings">
             <mat-accordion>
-                <mat-expansion-panel>
+                <!-- <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             Edit Email Templates
@@ -252,7 +261,7 @@
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <p>Edit email content</p>
-                </mat-expansion-panel>
+                </mat-expansion-panel> -->
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title>

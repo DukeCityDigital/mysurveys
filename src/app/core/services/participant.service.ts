@@ -10,12 +10,16 @@ import {
 import { environment } from "../../../environments/environment";
 import { Participant } from "@app/core/models/participant.model";
 import { User } from "@app/core/models/user";
+import { AuthService } from "./auth.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class ParticipantService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private authService: AuthService,
+    private httpClient: HttpClient
+  ) {}
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
@@ -25,9 +29,18 @@ export class ParticipantService {
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
 
-  get(id): Observable<Participant> {
+  inviteFriend(email): Observable<Participant> {
+    return this.httpClient.post<Participant>(
+      this.apiServer + "/invite_friend",
+      { email: email },
+      this.httpOptions
+    );
+  }
+
+  get(id?): Observable<Participant> {
+    let actual = id ? id : this.authService.userValue.id;
     return this.httpClient
-      .get<Participant>(this.apiServer + "/participants/" + id)
+      .get<Participant>(this.apiServer + "/participants/" + actual)
       .pipe(catchError(this.errorHandler));
   }
 
@@ -58,8 +71,12 @@ export class ParticipantService {
     //   .pipe(catchError(this.errorHandler));
   }
   update(Participant: Participant): Observable<any> {
+    let actual = Participant.id
+      ? Participant.id
+      : this.authService.userValue.id;
+
     return this.httpClient.put<any>(
-      this.apiServer + "/participants/" + Participant.id,
+      this.apiServer + "/participants/" + actual,
       Participant
     );
   }

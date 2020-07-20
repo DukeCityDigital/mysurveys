@@ -1,9 +1,25 @@
 <mat-card>
     <mat-card-title>
         <h1>Selection table</h1>
+
     </mat-card-title>
-    {{dataSource.data.length}} records
+    Total results: {{dataSource.data.length}}
     <hr>
+    <h3>Language</h3>
+    <span style="color:lightgrey">Disabled</span>
+    <hr>
+    <h3>Gender</h3>
+    <span style="color:lightgrey">Disabled</span>
+    <h3>Select Status</h3>
+    <mat-select placeholder="Placeholder" [(ngModel)]="selectedStatus" name="selectedStatus">
+        <mat-option *ngFor="let option of selectedStatusOptions" [value]="option.value">
+            {{option.name}}
+        </mat-option>
+    </mat-select>
+    <hr>
+
+
+
     <!-- <button mat-stroked-button>
         Preview Selection
     </button> -->

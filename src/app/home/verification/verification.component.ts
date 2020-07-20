@@ -57,11 +57,11 @@ export class VerificationComponent implements OnInit {
     //check if passed param
     this.route.paramMap.subscribe((params: any) => {
       console.log(params);
-      // if (params.params.hasOwnProperty("code") && params.params.code !== "") {
-      //   this.authService.logout();
-      //   this.emailLinkAttempt = true;
-      //   this.checkVerificationCode(params.params.code);
-      // }
+      if (params.params.hasOwnProperty("code") && params.params.code !== "") {
+        this.authService.logout();
+        this.emailLinkAttempt = true;
+        this.checkVerificationCode(params.params.code);
+      }
     });
   }
   resolved(captchaResponse: string) {
@@ -85,10 +85,12 @@ export class VerificationComponent implements OnInit {
     if (!this.qualificationForm) {
       this.alertService.error("You must fill out the qualification form first");
     }
+    let f = this.qualificationForm.value;
+    f.seed = true;
     this.register(
       this.emailVerificationForm.value.email,
       this.emailVerificationForm.value.password.password,
-      this.qualificationForm.value
+      f
     );
   }
 

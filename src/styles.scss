@@ -182,6 +182,56 @@ a:hover {
 .alert-warning {
   color: orange;
 }
+
+.innercard {
+  margin: 22px;
+}
+
+.navlist mat-icon {
+  position: absolute;
+  right: 12px;
+}
+.navlist {
+  color: darkslateblue;
+}
+mat-icon {
+  color: darkslateblue;
+}
+
+.is-active {
+  background: #b0ccff !important;
+  // color: white !important;
+  // font-size: 1.2rem !important;
+}
+
+.animate-flicker {
+  -webkit-animation: flickerAnimation 3s infinite !important;
+  -moz-animation: flickerAnimation 3s infinite !important;
+  -o-animation: flickerAnimation 3s infinite !important;
+  animation: flickerAnimation 3s infinite;
+}
+
+.animate-stop {
+  -webkit-animation: none;
+  -moz-animation: none;
+  -o-animation: none;
+  animation: none;
+}
+
+@keyframes flickerAnimation {
+  0% {
+    background-color: #1976d2;
+  }
+  50% {
+    background-color: red;
+  }
+  100% {
+    background-color: #1976d2;
+  }
+}
+
+/* Responsive Styles */ /* Responsive Styles */ /* Responsive Styles */ /* Responsive Styles */
+
 /* Responsive Styles */ /* Responsive Styles */ /* Responsive Styles */ /* Responsive Styles */
 /* Responsive Styles */
 /* Responsive Styles */

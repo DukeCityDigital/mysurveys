@@ -1,31 +1,74 @@
-<mat-card style="margin:22px;">
-    <mat-card-title>Change email address</mat-card-title>
-    <form (ngSubmit)="onSubmitEmailChange()" [formGroup]="changeEmailForm">
-        <p>Please enter the email address you wish to change to</p>
-        <input style="border:1px solid black;" [pattern]="emailPattern" type="email" id="email" name="email" email
-            formControlName="email" matInput required placeholder="&nbsp;Email" class="example-full-width" />
-        <br>
-        <button class="button createbutton" type="submit" [disabled]="!changeEmailForm.valid" mat-stroked-button>
-            Request email change
-        </button>
-    </form>
-</mat-card>
+<mat-tab-group>
+    <mat-tab label="Profile">
+        <mat-card class="innercard">
+            <mat-card-title>Personal profile</mat-card-title>
+            <form *ngIf="participant ; else loading" (ngSubmit)="onSubmitProfileChange()" [formGroup]="profileForm">
+                <label for="first_name">First Name</label>
+                <input style="border:1px solid black;width:100%;" type="text" id="first_name" name="first_name"
+                    formControlName="first_name" matInput placeholder="&nbsp;First Name" class="example-full-width" />
+                <label for="family_name">Family Name</label>
+                <input style="border:1px solid black;width:100%;" type="text" id="family_name" name="family_name"
+                    formControlName="family_name" matInput placeholder="&nbsp;Last Name" class="example-full-width" />
+                <label for="family_name">Birth year</label>
 
-<mat-card style="margin:22px;">
-    <mat-card-title>Change Password</mat-card-title>
-    <!-- {{changePasswordForm.value | json}}<br>valid:{{changePasswordForm.valid}} -->
-    <form (ngSubmit)="onSubmitPasswordChange()" [formGroup]="changePasswordForm">
-        <label for="password">Current password</label>
+                <input style="border:1px solid black;width:100%;" type="text" id="birthyear" name="birthyear"
+                    formControlName="birthyear" matInput placeholder="&nbsp;birthyear" class="example-full-width" />
 
-        <input style="border:1px solid black;width:100%;" type="password" id="password" name="password" password
-            minlength="8" formControlName="password" matInput required placeholder="&nbsp;Current password"
-            class="example-full-width" />
-        <mat-error *ngIf="f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">New password is required</div>
-        </mat-error>
-        <app-password-form formControlName="new_password"></app-password-form>
-        <button class="button createbutton" [disabled]="!changePasswordForm.valid" type="submit" mat-stroked-button>
-            Request password change
-        </button>
-    </form>
-</mat-card>
+
+                <label for="family_name">Street</label>
+                <input style="border:1px solid black;width:100%;" type="text" id="street" name="street"
+                    formControlName="street" matInput placeholder="&nbsp;street" class="example-full-width" />
+
+                <label for="family_name">Zip</label>
+                <input style="border:1px solid black;width:100%;" type="text" id="zip" name="zip" formControlName="zip"
+                    matInput placeholder="&nbsp;zip" class="example-full-width" />
+
+                <label for="family_name">City</label>
+                <input style="border:1px solid black;width:100%;" type="text" id="city" name="city"
+                    formControlName="city" matInput placeholder="&nbsp;city" class="example-full-width" />
+                <button mat-stroked-button color="primary" type="submit">submit</button>
+            </form>
+            <ng-template #loading>
+                Loading User...
+            </ng-template>
+        </mat-card>
+
+    </mat-tab>
+    <mat-tab label="Email / Password">
+        <mat-card class="innercard">
+            <mat-card-title>Change email address</mat-card-title>
+            <form (ngSubmit)="onSubmitEmailChange()" [formGroup]="changeEmailForm">
+                <p>Please enter the email address you wish to change to</p>
+                <input style="border:1px solid black;" [pattern]="emailPattern" type="email" id="email" name="email"
+                    email formControlName="email" matInput required placeholder="&nbsp;Email"
+                    class="example-full-width" />
+                <br>
+                <button class="button createbutton" type="submit" [disabled]="!changeEmailForm.valid"
+                    mat-stroked-button>
+                    Request email change
+                </button>
+            </form>
+        </mat-card>
+
+        <mat-card class="innercard">
+            <mat-card-title>Change Password</mat-card-title>
+            <!-- {{changePasswordForm.value | json}}<br>valid:{{changePasswordForm.valid}} -->
+            <form (ngSubmit)="onSubmitPasswordChange()" [formGroup]="changePasswordForm">
+                <label for="password">Current password</label>
+
+                <input style="border:1px solid black;width:100%;" type="password" id="password" name="password" password
+                    minlength="8" formControlName="password" matInput required placeholder="&nbsp;Current password"
+                    class="example-full-width" />
+                <mat-error *ngIf="f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">New password is required</div>
+                </mat-error>
+                <app-password-form formControlName="new_password"></app-password-form>
+                <button class="button createbutton" [disabled]="!changePasswordForm.valid" type="submit"
+                    mat-stroked-button>
+                    Request password change
+                </button>
+            </form>
+        </mat-card>
+    </mat-tab>
+
+</mat-tab-group>
