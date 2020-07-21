@@ -73,7 +73,20 @@
 
 <mat-card class="innercard">
     <h3>When you have a PayPal account and a PayPal.Me link, enter them below</h3>
+    Your current info:
+    <div *ngIf="user" style="background:lightgrey;">
+        Paypal ID: {{user.paypal_id}}<br>
+        Paypal.Me: {{user.paypal_me}}<br>
+        <div *ngIf="confirmedPaypalMe">
+            <h3 class="alert-success">
+                Account confirmed as:
+                [{{confirmedPaypalMe}}] If this is your account you're all set!
+            </h3>
 
+        </div>
+
+
+    </div>
     <form (ngSubmit)="onSubmitPaypalForm()" [formGroup]="paypalForm">
         <h2>Your PayPal Information</h2>
         <label for="email">Primary PayPal Email Address</label>
@@ -90,4 +103,7 @@
         <button [disabled]="!paypalForm.valid" mat-stroked-button color="primary" type="submit">submit</button>
 
     </form>
+    <div *ngIf="confirmedPaypalMe">
+
+    </div>
 </mat-card>

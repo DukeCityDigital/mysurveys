@@ -7,6 +7,7 @@ import { MaterialBaseModule } from "../material-base/material-base.module";
 import { MatSortModule } from "@angular/material/sort";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatSelectModule } from "@angular/material/select";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 @NgModule({
   declarations: [SelectionTableComponent],
@@ -18,6 +19,7 @@ import { MatSelectModule } from "@angular/material/select";
     MatSortModule,
     MatSliderModule,
     MatSelectModule,
+    MatPaginatorModule,
   ],
   exports: [SelectionTableComponent],
 })

@@ -21,6 +21,8 @@ export class PaypalValidateComponent implements OnInit {
   user: any;
   confirmedPaypalMe: string;
 
+  returnedPaypalMe: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
@@ -29,7 +31,9 @@ export class PaypalValidateComponent implements OnInit {
     this.paypalForm = this.createPaypalForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getMe();
+  }
   get f() {
     return this.paypalForm.controls;
   }
@@ -61,7 +65,7 @@ export class PaypalValidateComponent implements OnInit {
       .subscribe(
         (data: any) => {
           console.log(data);
-          this.confirmedPaypalMe = data.message;
+          this.confirmedPaypalMe = data.data;
 
           console.log(data);
           this.alertService.success("Updated", { autoClose: true });

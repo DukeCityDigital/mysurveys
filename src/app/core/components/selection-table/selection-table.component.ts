@@ -4,6 +4,11 @@ import { MatTableDataSource } from "@angular/material/table";
 import { AuthService } from "@app/core/services/auth.service";
 import { User } from "@app/core/models/user";
 import { Sort } from "@angular/material/sort";
+import { HttpClient } from "@angular/common/http";
+import { merge, Observable, of as observableOf } from "rxjs";
+import { catchError, map, startWith, switchMap, delay } from "rxjs/operators";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
 import {
   animate,
   state,
@@ -13,7 +18,6 @@ import {
 } from "@angular/animations";
 import { ProjectService } from "@app/core/services/project.service";
 import { ParticipantService } from "@app/core/services/participant.service";
-import { MatSort } from "@angular/material/sort";
 import { AlertService } from "../_alert";
 import { Router, Route, ActivatedRoute } from "@angular/router";
 
@@ -38,6 +42,7 @@ export class SelectionTableComponent implements OnInit {
   selectedUSERS = [];
 
   selectedStatus: any;
+  data: any;
 
   selectedStatusOptions = [
     { name: "Eligible Seed", value: "eligible-seed" },
@@ -50,7 +55,6 @@ export class SelectionTableComponent implements OnInit {
     "id",
     "name",
     "birthyear",
-    "safeid",
     "qualification_parents",
     "qualification_friends",
     "qualification_gm",
@@ -65,11 +69,15 @@ export class SelectionTableComponent implements OnInit {
     "banned_date",
     "activated",
     "registration_key",
+    "is_seed",
+
     // TODO switch for nickname
   ];
   participantColumns: string[] = [
     "select",
-    "family_name",
+    "is_seed",
+    "peers",
+
     "birthyear",
 
     "qualification_gm",
@@ -85,48 +93,45 @@ export class SelectionTableComponent implements OnInit {
   maxYear: number = 2010;
   minYear: number = 1930;
   users = [];
-
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   constructor(
     private participantService: ParticipantService,
     private projectService: ProjectService,
     private authService: AuthService,
     private alertService: AlertService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _httpClient: HttpClient
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: any) => {
       this.project_id = params.get("id");
       if (this.project_id) {
-        this.projectService
-          .getSelection({ project_id: this.project_id })
-          .subscribe((r) => {
-            console.log(r);
-            this.selectedUSERS = r.data;
-          });
+        // this.projectService
+        //   .getSelection({ project_id: this.project_id })
+        //   .subscribe((r) => {
+        //     console.log(r);
+        //     this.selectedUSERS = r.data;
+        //   });
       }
-
-      // if (params.params.hasOwnProperty("code") && params.params.code !== "") {
-      //   this.authService.logout();
-
-      // }
     });
-    // this.projectService.users().subscribe((r: any) => {
-    //   console.log(r);
-    //   this.dataSource.data = r.users;
-    // });
+
     this.participantService.getAll().subscribe((r: any) => {
       console.log(r);
-      r.data.forEach((element) => {
-        element.safeID =
-          Math.random().toString(36).substring(2, 5) +
-          Math.random().toString(36).substring(2, 5);
-      });
       this.users = r.data;
       this.sortedData = this.users.slice();
       this.dataSource.data = r.data;
     });
+  }
+
+  public changeSelection(value) {
+    console.log(value.value);
+    if (value.value !== "any") {
+      this.data = [];
+    } else {
+      this.data = this.dataSource.data;
+    }
   }
 
   public saveSelection() {
@@ -224,10 +229,12 @@ export class SelectionTableComponent implements OnInit {
       row.id + 1
     }`;
   }
+  resultsLength = 0;
 
   clearSelectedUsers() {
     this.selectedUSERS = [];
   }
+  isLoadingResults = true;
 
   addToSelection(row?, checked?) {
     if (this.selectedUSERS.indexOf(row) < 0 && checked) {
@@ -235,6 +242,49 @@ export class SelectionTableComponent implements OnInit {
     } else {
       this.remove(row);
     }
+  }
+  selectionService;
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    this.selectionService = new SelectionService(this._httpClient);
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    console.log("paginator2", this.paginator);
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        delay(0),
+        switchMap(() => {
+          console.log("switchmap");
+          this.isLoadingResults = true;
+          return this.selectionService!.getSelection(
+            this.sort.active,
+            this.sort.direction,
+            this.paginator.pageIndex,
+            this.project_id
+          );
+        }),
+        map((data: any) => {
+          console.log(data);
+          // Flip flag to show that loading has finished.
+          this.isLoadingResults = false;
+          // this.isRateLimitReached = false;
+          this.resultsLength = data.data.total_count;
+          return data.data;
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          // Catch if the GitHub API has reached its rate limit. Return empty data.
+          // this.isRateLimitReached = true;
+          return observableOf([]);
+        })
+      )
+      .subscribe((data) => {
+        console.log(data);
+        this.data = data;
+      });
   }
 
   filterData(filterValue?, position?) {
@@ -261,5 +311,25 @@ export class SelectionTableComponent implements OnInit {
     });
 
     this.selectedUSERS.splice(this.selectedUSERS.indexOf(participant), 1);
+  }
+}
+import { environment } from "../../../../environments/environment";
+
+export class SelectionService {
+  constructor(private _httpClient: HttpClient) {}
+
+  getSelection(
+    sort: string,
+    order: string,
+    page: number,
+    project_id: number
+  ): Observable<any> {
+    const href = environment.apiUrl;
+    const requestUrl = `${href}/participants?project_id=${project_id}&sort=${sort}&order=${order}&page=${
+      // const requestUrl = `${href}/participants?project_id=${project_id}&sort=${sort}&order=${order}&page=${
+      page + 1
+    }`;
+    console.log("get part", requestUrl);
+    return this._httpClient.get<any>(requestUrl);
   }
 }

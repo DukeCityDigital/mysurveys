@@ -62,7 +62,7 @@ export class ManageParticipantsComponent implements OnInit {
     // If the user changes the sort order, reset back to the first page.
 
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-
+    console.log("paginator", this.paginator);
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),

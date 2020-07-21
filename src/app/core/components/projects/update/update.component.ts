@@ -43,8 +43,9 @@ export class UpdateComponent implements OnInit {
       this.pService
         .getSelection({ project_id: this.project_id })
         .subscribe((r) => {
+          console.log(r);
           this.participants = r.data;
-          this.totalParticipants = r.meta.total;
+          this.totalParticipants = r.total;
         });
 
       this.pService.get(+id).subscribe((data: any) => {

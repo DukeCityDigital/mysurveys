@@ -13,7 +13,7 @@
     <div *ngIf="user.friends.length">
       <h3>Great - you've invited friends.</h3> Once they've confirmed their accounts and verified PayPal you'll be
       eligible to
-      begin
+      begin<br>
       <button [routerLinkActive]="['is-active-button,animate-stop']" class="animate-flicker mat-raised-button"
         color="primary" [routerLink]="'/dashboard/friends'">Friends</button>
     </div>

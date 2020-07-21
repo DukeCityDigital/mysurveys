@@ -1,9 +1,8 @@
 <mat-card>
     <mat-card-title>
         <h1>Selection table</h1>
-
     </mat-card-title>
-    Total results: {{dataSource.data.length}}
+
     <hr>
     <h3>Language</h3>
     <span style="color:lightgrey">Disabled</span>
@@ -11,13 +10,32 @@
     <h3>Gender</h3>
     <span style="color:lightgrey">Disabled</span>
     <h3>Select Status</h3>
-    <mat-select placeholder="Placeholder" [(ngModel)]="selectedStatus" name="selectedStatus">
+    <mat-select (selectionChange)="changeSelection($event);" placeholder="Placeholder" [(ngModel)]="selectedStatus"
+        name="selectedStatus">
         <mat-option *ngFor="let option of selectedStatusOptions" [value]="option.value">
             {{option.name}}
         </mat-option>
     </mat-select>
     <hr>
+    <h3>Select age</h3>
+    <mat-select disabled (selectionChange)="changeSelection($event);" placeholder="Age" [(ngModel)]="selectedStatus"
+        name="selectedStatus">
+        <mat-option>Age</mat-option>
 
+    </mat-select>
+    <h3>Select gm</h3>
+    <mat-select disabled (selectionChange)="changeSelection($event);" placeholder="GM" [(ngModel)]="selectedStatus"
+        name="selectedStatus">
+        <mat-option>5</mat-option>
+
+    </mat-select>
+    <h3>Select vac</h3>
+    <mat-select disabled (selectionChange)="changeSelection($event);" placeholder="VAC" [(ngModel)]="selectedStatus"
+        name="selectedStatus">
+        <mat-option>5</mat-option>
+
+    </mat-select>
+    <br><br><br>
 
 
     <!-- <button mat-stroked-button>
@@ -33,13 +51,13 @@
     <mat-slider (change)="filterData(maxYear)" class="example-margin" min="1900" max="2010" thumbLabel="thumbLabel"
         [(ngModel)]="maxYear">
     </mat-slider> -->
-    <p>All database users appear on the left. Adding them to your selection makes them appear on the right. Click the x
-        on users in your selection
-        to move them back. </p>
+
     <button (click)="saveSelection()" mat-stroked-button color="primary">Save selection</button>
+    There are {{dataSource.data.length}} matching users
+    <h3>Sample of selection:</h3>
 </mat-card>
 <table class="participants participantsAll" matSort (matSortChange)="sortData($event)" matSortDirection="asc" mat-table
-    [dataSource]="sortedData">
+    [dataSource]="data">
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
@@ -55,15 +73,15 @@
             </mat-checkbox>
         </td>
     </ng-container>
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    <ng-container matColumnDef="is_seed">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Is seed </th>
+        <td mat-cell *matCellDef="let element"> {{element.is_seed}} </td>
+    </ng-container>
+    <ng-container matColumnDef="peers">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Verified Peers </th>
+        <td mat-cell *matCellDef="let element"> {{element.peers}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="family_name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> safeid </th>
-        <td mat-cell *matCellDef="let element"> {{element.family_name}} </td>
-    </ng-container>
     <ng-container matColumnDef="birthyear">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Birth Year</th>
         <td mat-cell *matCellDef="let element"> {{element.birthyear}} </td>
@@ -81,31 +99,4 @@
     <tr mat-row *matRowDef="let row; columns: participantColumns;" (click)="selection.toggle(row);addToSelection(row)">
     </tr>
 </table>
-
-<table class="participants participantsSelected blueTable">
-    <thead>
-        <tr>
-            <td colspan="5"> Selected: {{selectedUSERS.length}}</td>
-
-        </tr>
-    </thead>
-    <tr>
-        <th>safeid</th>
-        <th>birthyear</th>
-        <th>vac</th>
-        <th>gm</th>
-        <th>x</th>
-    </tr>
-    <tr *ngFor="let p of selectedUSERS">
-        <td>{{p.safeid}}</td>
-        <td>{{p.birthyear}}</td>
-        <td>{{p.qualification_vac}}</td>
-        <td>{{p.qualification_gm}}</td>
-        <td><button (click)="remove(p);">X</button></td>
-
-    </tr>
-
-
-
-
-</table>
+<mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator>

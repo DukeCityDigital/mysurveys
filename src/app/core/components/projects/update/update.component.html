@@ -1,137 +1,100 @@
-<mat-card style="padding:0;">
-    {{project | json}}
-    <mat-card-title>Title: {{project ? project.project_title : null}}</mat-card-title>
-    <div class="projectinfo">
+<mat-card>
+    <!-- {{project | json}} -->
+    <mat-card-title>Project Title: {{project ? project.project_title : null}}</mat-card-title>
+    <div class="projectinfo" *ngIf="project">
+        <ul>
 
-        <table class="infotable" *ngIf="project">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
+            <li>Project State: {{project.state}}</li>
+            <li>Quota: {{project.quota | currency}}</li>
+            <li>
+                Scheduled to begin: (defaultstart): {{project.defaultstart | date: 'short'}}
+            </li>
+            <li>
+                Project state: {{project.state ==='Open' ? 'Open' : 'Closed'}}
+            </li>
+            <li *ngIf="project.link_method ==='Direct'; else fixed">
 
-            <tbody>
-                <tr>
-                    <td>Project State</td>
-                    <td>{{project.state}}</td>
-                </tr>
-                <tr>
-                    <td>Quota: </td>
-                    <td>{{project.quota | currency}}</td>
+                The project link method is <b>Direct</b>
+                <br>&nbsp;&nbsp;You wish to have a sample size of <b>{{project.desired_sample_size}}</b> participants,
+                with a maximum of <b> {{project.desired_num_invitations}}</b> invitations
+                <br>
 
-                </tr>
-                <tr>
-                    <td>Scheduled to begin: (defaultstart) </td>
-                    <td>{{project.defaultstart | date: 'short'}}</td>
-                </tr>
-                <tr>
-                    <td>
-                        Project state
-                    </td>
-                    <td>
-                        {{project.state ==='Open' ? 'Open' : 'Closed'}}
-                    </td>
-                </tr>
-                <tr *ngIf="project.link_method ==='Direct'; else fixed">
-                    <td>
-                        The project link method is <b>Direct</b>
-                        <br>
-                        You wish to have a sample size of <b>{{project.desired_sample_size}}</b> participants,
-                        with a maximum of <b> {{project.desired_num_invitations}}</b> invitations
-                        <br>
-                    </td>
-                </tr>
-                <ng-template #fixed>
-                    The payout type is <b>Fixed</b>
-                </ng-template>
+            </li>
+            <ng-template #fixed>
+                The payout type is <b>Fixed</b>
+            </ng-template>
+            <li *ngIf=" !project.quota || parseInt(project.quota) <= 0;else quota">
+                <span class="error"> You have no quota with which to pay participants, only the
+                    administrator can change the
+                    quota. </span>
 
-                <tr *ngIf=" !project.quota || parseInt(project.quota) <= 0;else quota">
-                    <span class="error"> You have no quota with which to pay participants, only the
-                        administrator can change the
-                        quota. </span>
-                </tr>
-                <ng-template #quota>
-                    Your quota for the project is {{project.quota}}
-                </ng-template>
-                <tr *ngIf="project.link_method ==='Direct'">
-                    The link method is <strong>Direct</strong>. There are no automatic payments.
-                    You wish to have a sample size of {{project.desired_sample_size}} participants,
-                    with a maximum of {{project.desired_num_invitations}} invitations.
-                </tr>
-                <tr *ngIf="project.payout_type ==='Fixed'">Payout type is <b>Fixed</b>
-                </tr>
-                <tr *ngIf="project.payout_type !== 'Fixed' && project.payout_type !=='Variable'">
-                    <td>Payout
-                        type is
-                        'Variable'.</td>
-                </tr>
-                <tr *ngIf="project.exp_payout > project.max_payout">
-                    <td>
-                        <span class="error">The expected payout ({{project.exp_payout}}) is larger than the maximum
-                            payout
-                            {{project.max_payout}} </span></td>
-                </tr>
-                <tr class="error">Warn if selected participants fewer than the desired sample size</tr>
-                <tr>
-                    <td> Status on reminders and participants completed survey etc. ..</td>
+            </li>
+            <ng-template #quota>
+                Your quota for the project is {{project.quota}}
+            </ng-template>
+            <li *ngIf="project.link_method ==='Direct'">
+                The link method is <strong>Direct</strong>. There are no automatic payments.
+                You wish to have a sample size of {{project.desired_sample_size}} participants,
+                with a maximum of {{project.desired_num_invitations}} invitations.
 
-                </tr>
-                <tr *ngIf="project.state ==='Design'">
-                    <h2 class="primary success"> This project is in the design stage, you may select participants
-                    </h2>
-                </tr>
-                <tr>
-                    <td>
-                        Number of selected participants: {{totalParticipants}}
-                    </td>
-                    <td>
-                        Desired sample size: {{project.desired_sample_size}}
-                    </td>
-                </tr>
-                <tr *ngIf="totalParticipants > parseInt(project.desired_sample_size); else moreParticipants">
-                    <mat-icon>check</mat-icon> You have at least the desired number of participants
-                </tr>
-                <ng-template #moreParticipants>
-                    <td class="error" colspan="3">
-                        <h2>You need more participants to satisfy your target sample size</h2>
-                    </td>
-                </ng-template>
-                <div style="background:white;"
-                    *ngIf="totalParticipants > parseInt(project.desired_sample_size); else moreParticipants">
-                    You can change the project state from 'Design' to 'Started' to start the project
+            </li>
+            <li *ngIf="project.payout_type ==='Fixed'">
+                Payout type is <b>Fixed</b>
+            </li>
 
-                    <button (click)="startProject();">Start Project</button>
-                </div>
-                <div *ngIf="project.state =='Started'" class="alert-success">
-                    <h2>The project is started. You may send invitations to project participants </h2>
-                </div>
+            <li *ngIf="project.payout_type !== 'Fixed' && project.payout_type !=='Variable'">
+                <td>Payout
+                    type is
+                    'Variable'.
+            </li>
+            <li *ngIf="project.exp_payout > project.max_payout">
+                <span class="error">The expected payout ({{project.exp_payout}}) is larger than the maximum
+                    payout
+                    {{project.max_payout}} </span>
 
-            </tbody>
-        </table>
+            </li>
+            <li class="TODO">
+                Status on reminders and participants completed survey etc. ..
+            </li>
+            <li>
+                Number of selected participants: {{totalParticipants}}
+            </li>
+            <li>
+                Desired sample size: {{project.desired_sample_size}}
+            </li>
+
+
+
+            <li *ngIf="totalParticipants > parseInt(project.desired_sample_size); else moreParticipants">
+                <mat-icon>check</mat-icon> You have at least the desired number of participants
+            </li>
+            <div *ngIf="project.state ==='Design'">
+                <h2 class="primary success"> This project is in the design stage, you may select participants
+                </h2>
+            </div>
+
+        </ul>
+
+
+
+        <ng-template #moreParticipants style="text-align:center;">
+            <h2 class="error">You need more participants to satisfy your target sample size</h2>
+        </ng-template>
+
+        <div style="background:white;" *ngIf="totalParticipants > parseInt(project.desired_sample_size);">
+            You can change the project state from 'Design' to 'Started' to start the project
+
+            <button (click)="startProject();">Start Project</button>
+            <div *ngIf="project.state =='Started'" class="alert-success">
+                <h2>The project is started. You may send invitations to project participants </h2>
+            </div>
+        </div>
+
     </div>
 
 
 
-    <!-- <div *ngIf="project.link_method ==='Direct'">
-        The link method is <strong>Direct</strong>. There are no automatic payments.
-        You wish to have a sample size of {{project.desired_sample_size}} participants,
-        with a maximum of {{project.desired_num_invitations}} invitations.
-    </div>
-    <ng-template *ngIf=" project.payout_type==='Fixed'">Payout type is <b>Fixed</b></ng-template> -->
-    <!-- <ng-template *ngIf=" project.payout_type !=='Fixed' && project.payout_type !=='Variable'">Payout
-        type is
-        'Variable'. <br> </ng-template> -->
 
-
-    <!-- <div *ngIf=" project.exp_payout> project.max_payout">
-                    <span class="error">The expected payout ({{project.exp_payout}}) is larger than the maximum
-                        payout
-                        {{project.max_payout}} </span>
-    </div> -->
-    <!-- <h2 class="error">Warn if selected participants fewer than the desired sample size</h2>
-    <div>
-    </div> -->
     <mat-tab-group dynamicHeight>
 
         <mat-tab label="Select participants">
