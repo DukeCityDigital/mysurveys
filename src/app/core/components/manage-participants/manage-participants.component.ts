@@ -59,8 +59,6 @@ export class ManageParticipantsComponent implements OnInit {
     console.log("init");
     this.participantService = new ParticipantService(this._httpClient);
 
-    // If the user changes the sort order, reset back to the first page.
-
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
     console.log("paginator", this.paginator);
     merge(this.sort.sortChange, this.paginator.page)
@@ -79,16 +77,12 @@ export class ManageParticipantsComponent implements OnInit {
         }),
         map((data: any) => {
           console.log(data);
-          // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
-          // this.isRateLimitReached = false;
           this.resultsLength = data.data.total_count;
           return data.data;
         }),
         catchError(() => {
           this.isLoadingResults = false;
-          // Catch if the GitHub API has reached its rate limit. Return empty data.
-          // this.isRateLimitReached = true;
           return observableOf([]);
         })
       )

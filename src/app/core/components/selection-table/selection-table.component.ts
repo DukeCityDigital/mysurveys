@@ -134,6 +134,8 @@ export class SelectionTableComponent implements OnInit {
     }
   }
 
+  public changeAge(value) {}
+
   public saveSelection() {
     let r = window.confirm(
       "Are you sure you wish to save the selection?  It will overwrite the previous selection"

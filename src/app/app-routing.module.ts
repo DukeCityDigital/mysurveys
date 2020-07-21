@@ -18,6 +18,7 @@ import { VerifyEmailComponent } from "./home/verify-email/verify-email.component
 import { ProfileComponent } from "./core/components/profile/profile.component";
 import { FriendsComponent } from "./core/components/friends/friends.component";
 import { PaypalValidateComponent } from "./core/components/paypal-validate/paypal-validate.component";
+import { ManageParticipantsComponent } from "./core/components/manage-participants/manage-participants.component";
 
 VerifyEmailComponent;
 
@@ -62,7 +63,13 @@ const routes: Routes = [
     path: "selection",
     component: SelectionTableComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Role.administrator, Role.researcher] },
+    // data: { roles: [Role.administrator, Role.researcher] },
+  },
+  {
+    path: "users",
+    component: ManageParticipantsComponent,
+    canActivate: [AuthGuard],
+    // data: { roles: [Role.administrator, Role.researcher] },
   },
 
   {

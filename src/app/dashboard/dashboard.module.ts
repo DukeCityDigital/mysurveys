@@ -7,6 +7,7 @@ import { AlertModule } from "@app/core/components/_alert";
 import { ProfileModule } from "@app/core/components/profile/profile.module";
 import { FriendsModule } from "@app/core/components/friends/friends.module";
 import { PaypalValidateModule } from "@app/core/components/paypal-validate/paypal-validate.module";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -18,6 +19,7 @@ import { PaypalValidateModule } from "@app/core/components/paypal-validate/paypa
     ProfileModule,
     FriendsModule,
     PaypalValidateModule,
+    MatPaginatorModule,
   ],
   exports: [DashboardComponent],
 })
