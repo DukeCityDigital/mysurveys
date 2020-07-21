@@ -12,4 +12,5 @@ export class User {
   role?: Role;
   access_token?: string;
   mustVerify?: string;
+  friends?: any;
 }

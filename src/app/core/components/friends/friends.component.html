@@ -1,10 +1,10 @@
 <div *ngIf="user &&  user.is_seed ===null">
-    <mat-card class="TODO">
+    <mat-card class="innercard">
         <mat-card-title>
-            Friend, show inviter but no friends inviting
+            Invited by {{user.seed.user.email}}
+
 
         </mat-card-title>
-        invited by
     </mat-card>
 </div>
 <div *ngIf="user &&  user.is_seed !==null">
@@ -39,7 +39,7 @@
             <tr *ngFor="let f of user.friends">
                 <td>{{f.user.email}}</td>
                 <td>{{f.user.updated_at | date: 'short'}}</td>
-                <td>**hasnt verified Email </td>
+                <td>{{f.user.email_verified_at ? (f.user.email_verified_at | date: 'short') : 'No'}} </td>
                 <td> ?Has not verified PayPal ?</td>
                 <td><button>Send reminder</button>
             </tr>

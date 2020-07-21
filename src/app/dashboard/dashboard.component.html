@@ -6,7 +6,7 @@
     <hr />
     No pending invitations
     <div *ngIf="!user.friends.length" class="alert-error">
-      <h2>You haven't invited any friends yet! Please do so when ready.</h2>
+      <!-- <h2>You haven't invited any friends yet! Please do so when ready.</h2> -->
       <button class="animate-flicker" [routerLinkActive]="['is-active-button,animate-stop']" mat-raised-button
         color="primary" [routerLink]="'/dashboard/friends'">Friends</button>
     </div>
@@ -14,9 +14,10 @@
       <h3>Great - you've invited friends.</h3> Once they've confirmed their accounts and verified PayPal you'll be
       eligible to
       begin
+      <button [routerLinkActive]="['is-active-button,animate-stop']" class="animate-flicker mat-raised-button"
+        color="primary" [routerLink]="'/dashboard/friends'">Friends</button>
     </div>
-    <button [routerLinkActive]="['is-active-button,animate-stop']" class="animate-flicker mat-raised-button"
-      color="primary" [routerLink]="'/dashboard/friends'">Friends</button>
+
   </div>
   <div *ngIf="user&&  user.is_seed ===null">
 
