@@ -29,10 +29,11 @@ export class ParticipantService {
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
 
-  inviteFriend(email): Observable<Participant> {
+  inviteFriend(email, invite?): Observable<Participant> {
+    let post = invite ? { email: email, invite: true } : { email: email };
     return this.httpClient.post<Participant>(
       this.apiServer + "/invite_friend",
-      { email: email },
+      post,
       this.httpOptions
     );
   }

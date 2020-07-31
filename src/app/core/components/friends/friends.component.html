@@ -27,11 +27,11 @@
         <mat-card-title>
             Invited friends
         </mat-card-title>
-        <table *ngIf="user ; else loading">
+        <table *ngIf="user ; else loading" class="blueTable">
             <tr>
                 <th>Email</th>
                 <th>Invited on / reminded on</th>
-                <th>email verified</th>
+                <th>Email verified</th>
                 <th>PayPal verified</th>
 
                 <th>Actions</th>
@@ -40,7 +40,7 @@
                 <td>{{f.user.email}}</td>
                 <td>{{f.user.updated_at | date: 'short'}}</td>
                 <td>{{f.user.email_verified_at ? (f.user.email_verified_at | date: 'short') : 'No'}} </td>
-                <td> ?Has not verified PayPal ?</td>
+                <td> {{f.paypal_id_status}}</td>
                 <td><button>Send reminder</button>
             </tr>
         </table>

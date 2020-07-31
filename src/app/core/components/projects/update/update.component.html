@@ -81,13 +81,18 @@
             <h2 class="error">You need more participants to satisfy your target sample size</h2>
         </ng-template>
 
-        <div style="background:white;" *ngIf="totalParticipants > parseInt(project.desired_sample_size);">
-            You can change the project state from 'Design' to 'Started' to start the project
+        <div style="background:white;" class="primary success" *ngIf=" totalParticipants>
+            parseInt(project.desired_sample_size);">
+            You can change the project state from 'Design' to 'Started' to start the project<br>
 
-            <button (click)="startProject();">Start Project</button>
             <div *ngIf="project.state =='Started'" class="alert-success">
                 <h2>The project is started. You may send invitations to project participants </h2>
             </div>
+            <button *ngIf="project.state !=='Started'" mat-stroked-button color="primary"
+                (click)="changeProjectState('Started');">Start Project</button>
+            <button *ngIf="project.state !=='Design'" mat-stroked-button color="primary"
+                (click)="changeProjectState('Design');">Pause Project</button>
+
         </div>
 
     </div>
@@ -96,17 +101,10 @@
 
 
     <mat-tab-group dynamicHeight>
-
-        <mat-tab label="Select participants">
-            <mat-card>
-                <mat-card-title>Select participants</mat-card-title>
-                <app-selection-table>
-                </app-selection-table>
-            </mat-card>
-        </mat-tab>
-        <mat-tab label="Manage selection">
+        <!-- <mat-tab label="Manage selection">
             <mat-card>
                 <mat-card-title>Manage selection</mat-card-title>
+                This is a snapshot of your selection
                 <div *ngIf="participants">
                     <app-manage-participants [project]="project" [participants]="participants">
                     </app-manage-participants>
@@ -114,7 +112,15 @@
 
 
             </mat-card>
+        </mat-tab> -->
+        <mat-tab label="Select participants">
+            <mat-card>
+                <mat-card-title>Select participants</mat-card-title>
+                <app-selection-table>
+                </app-selection-table>
+            </mat-card>
         </mat-tab>
+
 
         <mat-tab label="Edit Project">
             Edit Project 💼

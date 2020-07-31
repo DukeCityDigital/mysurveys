@@ -73,6 +73,17 @@ export class ProjectService {
       )
       .pipe(catchError(this.errorHandler));
   }
+
+  getAdvancedSelection(post): Observable<any> {
+    return this.httpClient
+      .post<any>(
+        this.apiServer + "/get_advanced_selection",
+        post,
+        this.httpOptions
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
   getSelection(post): Observable<any> {
     return this.httpClient
       .post<any>(this.apiServer + "/get_selection", post, this.httpOptions)

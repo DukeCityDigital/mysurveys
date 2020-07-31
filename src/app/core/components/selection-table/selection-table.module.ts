@@ -8,9 +8,10 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatSelectModule } from "@angular/material/select";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { CategoryFormComponent } from "@app/core/components/category-form/category-form.component";
 
 @NgModule({
-  declarations: [SelectionTableComponent],
+  declarations: [SelectionTableComponent, CategoryFormComponent],
   imports: [
     CommonModule,
     MatTableModule,

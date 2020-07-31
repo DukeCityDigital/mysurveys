@@ -44,10 +44,17 @@ export class SelectionTableComponent implements OnInit {
   selectedStatus: any;
   data: any;
 
+  categories = [
+    { name: "GM", value: "gm" },
+    { name: "Vac", value: "vac" },
+    { name: "", value: "gm" },
+  ];
+
   selectedStatusOptions = [
+    { name: "Any", value: "any" },
+
     { name: "Eligible Seed", value: "eligible-seed" },
     { name: "Eligible Peer", value: "eligible-peer" },
-    { name: "Any", value: "any" },
   ];
 
   displayedColumns: string[] = [
@@ -74,11 +81,12 @@ export class SelectionTableComponent implements OnInit {
     // TODO switch for nickname
   ];
   participantColumns: string[] = [
-    "select",
+    "id",
     "is_seed",
     "peers",
-
+    "friends",
     "birthyear",
+    "paypal_id_status",
 
     "qualification_gm",
     "qualification_vac",
@@ -104,6 +112,23 @@ export class SelectionTableComponent implements OnInit {
     private _httpClient: HttpClient
   ) {}
 
+  update(event) {
+    // console.log(event, "childiupdate");
+    this.projectService
+      .getAdvancedSelection({
+        project_id: this.project_id,
+        categoryForm: event.gm,
+        eligible_peer: event.eligible_peer,
+        eligible_seed: event.eligible_seed,
+        paypal_status_ok: event.paypal_status_ok,
+      })
+      .subscribe((r) => {
+        this.data = r.data;
+        // console.log(r);
+        // this.selectedUSERS = r.data;
+      });
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: any) => {
       this.project_id = params.get("id");
@@ -117,24 +142,17 @@ export class SelectionTableComponent implements OnInit {
       }
     });
 
-    this.participantService.getAll().subscribe((r: any) => {
-      console.log(r);
-      this.users = r.data;
-      this.sortedData = this.users.slice();
-      this.dataSource.data = r.data;
-    });
+    // this.participantService.getAll().subscribe((r: any) => {
+    //   console.log(r);
+    //   this.users = r.data;
+    //   this.sortedData = this.users.slice();
+    //   this.dataSource.data = r.data;
+    // });
   }
 
   public changeSelection(value) {
-    console.log(value.value);
-    if (value.value !== "any") {
-      this.data = [];
-    } else {
-      this.data = this.dataSource.data;
-    }
+    console.log("change sel", value);
   }
-
-  public changeAge(value) {}
 
   public saveSelection() {
     let r = window.confirm(
@@ -149,9 +167,9 @@ export class SelectionTableComponent implements OnInit {
     });
 
     let post = { project_id: this.project_id, users: ids };
-    console.log(post);
+    // console.log(post);
     this.projectService.createSelection(post).subscribe((r) => {
-      console.log(r);
+      // console.log(r);
       this.alertService.success(r.data, { autoClose: true });
     });
   }
@@ -164,7 +182,7 @@ export class SelectionTableComponent implements OnInit {
   }
 
   sortData(sort: Sort) {
-    console.log("sortdata", sort);
+    // console.log("sortdata", sort);
     const data = this.users.slice();
     if (!sort.active || sort.direction === "") {
       this.sortedData = data;
@@ -248,45 +266,45 @@ export class SelectionTableComponent implements OnInit {
   selectionService;
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-    this.selectionService = new SelectionService(this._httpClient);
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-    console.log("paginator2", this.paginator);
-
-    merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        startWith({}),
-        delay(0),
-        switchMap(() => {
-          console.log("switchmap");
-          this.isLoadingResults = true;
-          return this.selectionService!.getSelection(
-            this.sort.active,
-            this.sort.direction,
-            this.paginator.pageIndex,
-            this.project_id
-          );
-        }),
-        map((data: any) => {
-          console.log(data);
-          // Flip flag to show that loading has finished.
-          this.isLoadingResults = false;
-          // this.isRateLimitReached = false;
-          this.resultsLength = data.data.total_count;
-          return data.data;
-        }),
-        catchError(() => {
-          this.isLoadingResults = false;
-          // Catch if the GitHub API has reached its rate limit. Return empty data.
-          // this.isRateLimitReached = true;
-          return observableOf([]);
-        })
-      )
-      .subscribe((data) => {
-        console.log(data);
-        this.data = data;
-      });
+    // this.onS
+    // //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    // //Add 'implements AfterViewInit' to the class.
+    // this.selectionService = new SelectionService(this._httpClient);
+    // this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    // console.log("paginator2", this.paginator);
+    // merge(this.sort.sortChange, this.paginator.page)
+    //   .pipe(
+    //     startWith({}),
+    //     delay(0),
+    //     switchMap(() => {
+    //       console.log("switchmap");
+    //       this.isLoadingResults = true;
+    //       return this.selectionService!.getSelection(
+    //         this.sort.active,
+    //         this.sort.direction,
+    //         this.paginator.pageIndex,
+    //         this.project_id
+    //       );
+    //     }),
+    //     map((data: any) => {
+    //       console.log(data);
+    //       // Flip flag to show that loading has finished.
+    //       this.isLoadingResults = false;
+    //       // this.isRateLimitReached = false;
+    //       this.resultsLength = data.data.total_count;
+    //       return data.data;
+    //     }),
+    //     catchError(() => {
+    //       this.isLoadingResults = false;
+    //       // Catch if the GitHub API has reached its rate limit. Return empty data.
+    //       // this.isRateLimitReached = true;
+    //       return observableOf([]);
+    //     })
+    //   )
+    //   .subscribe((data) => {
+    //     console.log(data);
+    //     this.data = data;
+    //   });
   }
 
   filterData(filterValue?, position?) {
@@ -316,6 +334,7 @@ export class SelectionTableComponent implements OnInit {
   }
 }
 import { environment } from "../../../../environments/environment";
+import { FormGroup } from "@angular/forms";
 
 export class SelectionService {
   constructor(private _httpClient: HttpClient) {}

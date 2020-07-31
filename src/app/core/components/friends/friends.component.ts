@@ -50,20 +50,22 @@ export class FriendsComponent implements OnInit {
     if (!this.friendForm) {
       this.alertService.error("You must fill out the friend change form first");
     }
-    this.participantService.inviteFriend(this.friendForm.value.email).subscribe(
-      (data: any) => {
-        console.log(data);
-        this.alertService.success("Invitation sent", { autoClose: true });
-        this.getMe();
-      },
-      (error) => {
-        console.log("Error", error);
-        if (error && error.error && error.error.email) {
-          this.alertService.error(error.error.email, { autoClose: true });
-        } else if (error) {
-          this.alertService.error(error.error, { autoClose: true });
+    this.participantService
+      .inviteFriend(this.friendForm.value.email, true)
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.alertService.success("Invitation sent", { autoClose: true });
+          this.getMe();
+        },
+        (error) => {
+          console.log("Error", error);
+          if (error && error.error && error.error.email) {
+            this.alertService.error(error.error.email, { autoClose: true });
+          } else if (error) {
+            this.alertService.error(error.error, { autoClose: true });
+          }
         }
-      }
-    );
+      );
   }
 }

@@ -1,0 +1,76 @@
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+    <div class="card m-3">
+        <!-- g value: {{g.value | json}}<br>
+        f settings: {{f.eligible_seed.value | json }}<br> -->
+
+        <!-- <hr> -->
+        <div *ngFor="let gm  of g.controls; let i = index" class="list-group list-group-flush">
+            <div class="list-group-item">
+                <h5 class="card-title">Condition {{i + 1}}</h5>
+                <div [formGroup]="gm" class="form-row" class="formRow">
+                    <div class="form-group col-6">
+                        <label>Name</label>
+                        <select name="name" id="name" formControlName="name" class="form-control">
+                            <option *ngFor="let cat of categories" [value]="cat.value">{{cat.name}}</option>
+                        </select>
+
+                        <div *ngIf="submitted && gm.controls.name.errors" class="invalid-feedback">
+                            <div *ngIf="gm.controls.name.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Operators</label>
+                        <select name="operator" id="operator" formControlName="operator" class="form-control">
+                            <option *ngFor="let op of operators" [value]="op.value">{{op.name}}</option>
+                        </select>
+
+                        <div *ngIf="submitted && gm.controls.name.errors" class="invalid-feedback">
+                            <div *ngIf="gm.controls.name.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Value</label>
+
+                        <input type="text" formControlName="value" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && gm.controls.value.errors }" />
+                        <div *ngIf="submitted && gm.controls.value.errors" class="invalid-feedback">
+                            <div *ngIf="gm.controls.value.errors.required">value is required</div>
+                        </div>
+                    </div>
+
+                    <mat-icon style="cursor:pointer;color:orange;" (click)="removeRow(gm)">close</mat-icon>
+                </div>
+            </div>
+
+
+        </div>
+        <button mat-stroked-button (click)="addRow()" type="button">
+            <mat-icon>exposure_plus_1</mat-icon>&nbsp;Add condition row
+        </button>
+        <br>
+        <label for="eligible_seed">Eligible Seed (seeds with at least 1 peer who have both verified PayPal)</label>
+        <input disabled (change)="update()" type="checkbox" label="Eligible Seed" name="eligible_seed"
+            id="eligible_seed" formControlName="eligible_seed" class="form-control" />
+        <br>
+        <label for="eligible_peers">Eligible Peer (peers with a seed that has verified PayPal Status)</label>
+        <input disabled (change)="update()" type="checkbox" label="Eligible Peers" name="eligible_peers"
+            id="eligible_peers" formControlName="eligible_peers" class="form-control" />
+        <br>
+
+
+        <br>
+        <label for="paypal_status_ok">Paypal status ok</label>
+        <input (change)="update()" type="checkbox" name="paypal_status_ok" id="paypal_status_ok"
+            formControlName="paypal_status_ok" class="form-control" />
+        <button mat-stroked-button type="submit">
+            <mat-icon>refresh</mat-icon>&nbsp;Update preview
+        </button>
+        <hr>
+
+        <!-- 
+        <div class="card-footer text-center border-top-0">
+            <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
+            <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
+        </div> -->
+    </div>
+</form>
