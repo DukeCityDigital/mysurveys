@@ -83,11 +83,10 @@ export class SelectionTableComponent implements OnInit {
   participantColumns: string[] = [
     "id",
     "is_seed",
-    "peers",
     "friends",
-    "birthyear",
     "paypal_id_status",
-
+    "peers",
+    "birthyear",
     "qualification_gm",
     "qualification_vac",
   ];
@@ -113,12 +112,12 @@ export class SelectionTableComponent implements OnInit {
   ) {}
 
   update(event) {
-    // console.log(event, "childiupdate");
+    console.log(event, "childiupdate", event);
     this.projectService
       .getAdvancedSelection({
         project_id: this.project_id,
         categoryForm: event.gm,
-        eligible_peer: event.eligible_peer,
+        eligible_peers: event.eligible_peers,
         eligible_seed: event.eligible_seed,
         paypal_status_ok: event.paypal_status_ok,
       })

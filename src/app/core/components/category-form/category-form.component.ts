@@ -68,6 +68,10 @@ export class CategoryFormComponent implements OnInit {
     return this.f.gm as FormArray;
   }
 
+  /**
+   * Add row to comparison panel
+   * @param type
+   */
   addRow(type?) {
     this.g.push(
       this.formBuilder.group({
@@ -77,46 +81,32 @@ export class CategoryFormComponent implements OnInit {
         operator: ["", [Validators.required]],
       })
     );
-
-    // const numberOfTickets = e.target.value || 0;
-
-    // if (this.t.length < numberOfTickets) {
-    //   for (let i = this.t.length; i < numberOfTickets; i++) {
-    //     this.t.push(
-    //       this.formBuilder.group({
-    //         name: ["", Validators.required],
-    //         email: ["", [Validators.required, Validators.email]],
-    //       })
-    //     );
-    //   }
-    // } else {
-    //   for (let i = this.t.length; i >= numberOfTickets; i--) {
-    //     this.t.removeAt(i);
-    //   }
-    // }
   }
 
-  onChangeTickets(e) {
-    const numberOfTickets = e.target.value || 0;
-    if (this.t.length < numberOfTickets) {
-      for (let i = this.t.length; i < numberOfTickets; i++) {
-        this.t.push(
-          this.formBuilder.group({
-            name: ["", Validators.required],
-            email: ["", [Validators.required, Validators.email]],
-          })
-        );
-      }
-    } else {
-      for (let i = this.t.length; i >= numberOfTickets; i--) {
-        this.t.removeAt(i);
-      }
-    }
-  }
+  // onChangeTickets(e) {
+  //   const numberOfTickets = e.target.value || 0;
+  //   if (this.t.length < numberOfTickets) {
+  //     for (let i = this.t.length; i < numberOfTickets; i++) {
+  //       this.t.push(
+  //         this.formBuilder.group({
+  //           name: ["", Validators.required],
+  //           email: ["", [Validators.required, Validators.email]],
+  //         })
+  //       );
+  //     }
+  //   } else {
+  //     for (let i = this.t.length; i >= numberOfTickets; i--) {
+  //       this.t.removeAt(i);
+  //     }
+  //   }
+  // }
 
+  /**
+   * Submit selection form
+   */
   onSubmit() {
+    console.log("submit sel", this.dynamicForm.value);
     this.submitted = true;
-
     // stop here if form is invalid
     if (this.dynamicForm.invalid) {
       console.log("invalidform");
@@ -124,7 +114,17 @@ export class CategoryFormComponent implements OnInit {
     }
     this.update();
   }
+  /**
+   * Emit form value to parent component
+   */
+  update() {
+    this.formChange.emit(this.dynamicForm.value);
+  }
 
+  /**
+   * Remove row from selection conditional table
+   * @param item
+   */
   removeRow(item) {
     if (this.g.controls.length < 2) {
       return false;
@@ -133,8 +133,10 @@ export class CategoryFormComponent implements OnInit {
     this.g.removeAt(i);
   }
 
+  /**
+   * Reset form
+   */
   onReset() {
-    // reset whole form back to initial state
     this.submitted = false;
     this.dynamicForm.reset();
     this.t.clear();
@@ -144,9 +146,5 @@ export class CategoryFormComponent implements OnInit {
     // clear errors and reset ticket fields
     this.submitted = false;
     this.t.reset();
-  }
-
-  update() {
-    this.formChange.emit(this.dynamicForm.value);
   }
 }
