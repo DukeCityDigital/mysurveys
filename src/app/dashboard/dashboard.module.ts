@@ -9,6 +9,7 @@ import { FriendsModule } from "@app/core/components/friends/friends.module";
 import { PaypalValidateModule } from "@app/core/components/paypal-validate/paypal-validate.module";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { LogModule } from "@app/core/components/log/log.module";
+import { OmniTableModule } from "@app/core/components/omni-table/omni-table.module";
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -22,6 +23,7 @@ import { LogModule } from "@app/core/components/log/log.module";
     PaypalValidateModule,
     MatPaginatorModule,
     LogModule,
+    OmniTableModule,
   ],
   exports: [DashboardComponent],
 })

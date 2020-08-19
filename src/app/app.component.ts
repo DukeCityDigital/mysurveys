@@ -44,9 +44,8 @@ export class AppComponent {
         link: "/dashboard/settings",
         icon: "settings",
       },
-      { name: "users", link: "selection", icon: "people_outline" },
+      { name: "users", link: "/dashboard/users", icon: "people_outline" },
       { name: "payouts", link: "/", icon: "attach_money", disabled: true },
-      { name: "participants", link: "/", icon: "people" },
       { name: "warnings", link: "/", icon: "warning", disabled: true },
       {
         name: "system log",

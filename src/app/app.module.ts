@@ -32,6 +32,8 @@ import { CheckMaxLevelsComponent } from "./core/components/check-max-levels/chec
 import { CheckExpectedLevelsComponent } from "./core/components/check-expected-levels/check-expected-levels.component";
 import { PasswordFormModule } from "./core/components/password-form/password-form.module";
 import { AuthService } from "./core/services/auth.service";
+import { UsersComponent } from "./core/components/users/users.component";
+import { OmniTableModule } from "./core/components/omni-table/omni-table.module";
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { AuthService } from "./core/services/auth.service";
     ChangePasswordComponent,
     CheckMaxLevelsComponent,
     CheckExpectedLevelsComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,7 @@ import { AuthService } from "./core/services/auth.service";
     AlertModule,
     ProfileModule,
     PasswordFormModule,
+    OmniTableModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,

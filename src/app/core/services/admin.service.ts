@@ -25,6 +25,27 @@ export class AdminService {
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
 
+  findOmni(
+    model = "",
+    active = "",
+    filter = "",
+    sortOrder = "asc",
+    pageNumber = 0,
+    pageSize = 3
+  ): Observable<any[]> {
+    return this.httpClient
+      .get(this.apiServer + "/omni", {
+        params: new HttpParams()
+          .set("model", model.toString())
+
+          .set("active", active.toString())
+          .set("filter", filter)
+          .set("sortOrder", sortOrder)
+          .set("page", pageNumber.toString())
+          .set("pageSize", pageSize.toString()),
+      })
+      .pipe(map((res) => res["data"]));
+  }
   findLogs(
     active = "",
     filter = "",

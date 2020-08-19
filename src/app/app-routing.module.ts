@@ -20,7 +20,7 @@ import { FriendsComponent } from "./core/components/friends/friends.component";
 import { PaypalValidateComponent } from "./core/components/paypal-validate/paypal-validate.component";
 import { ManageParticipantsComponent } from "./core/components/manage-participants/manage-participants.component";
 import { LogComponent } from "./core/components/log/log.component";
-
+import { UsersComponent } from "./core/components/users/users.component";
 VerifyEmailComponent;
 
 const routes: Routes = [
@@ -62,18 +62,19 @@ const routes: Routes = [
         component: LogComponent,
         data: { roles: [Role.administrator] },
       },
+      {
+        path: "users",
+        component: UsersComponent,
+        canActivate: [AuthGuard],
+        // data: { roles: [Role.administrator, Role.researcher] },
+      },
     ],
+
     canActivate: [AuthGuard],
   },
   {
     path: "selection",
     component: SelectionTableComponent,
-    canActivate: [AuthGuard],
-    // data: { roles: [Role.administrator, Role.researcher] },
-  },
-  {
-    path: "users",
-    component: ManageParticipantsComponent,
     canActivate: [AuthGuard],
     // data: { roles: [Role.administrator, Role.researcher] },
   },
