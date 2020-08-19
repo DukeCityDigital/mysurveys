@@ -19,6 +19,7 @@ import { ProfileComponent } from "./core/components/profile/profile.component";
 import { FriendsComponent } from "./core/components/friends/friends.component";
 import { PaypalValidateComponent } from "./core/components/paypal-validate/paypal-validate.component";
 import { ManageParticipantsComponent } from "./core/components/manage-participants/manage-participants.component";
+import { LogComponent } from "./core/components/log/log.component";
 
 VerifyEmailComponent;
 
@@ -55,6 +56,11 @@ const routes: Routes = [
         path: "friends",
         component: FriendsComponent,
         data: { roles: [Role.administrator, Role.participant] },
+      },
+      {
+        path: "log",
+        component: LogComponent,
+        data: { roles: [Role.administrator] },
       },
     ],
     canActivate: [AuthGuard],

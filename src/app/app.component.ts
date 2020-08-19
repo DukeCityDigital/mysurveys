@@ -50,9 +50,8 @@ export class AppComponent {
       { name: "warnings", link: "/", icon: "warning", disabled: true },
       {
         name: "system log",
-        link: "/",
+        link: "/dashboard/log",
         icon: "format_list_bulleted",
-        disabled: true,
       },
       { name: "backup", link: "/", icon: "backup", disabled: true },
       { name: "MOTD", link: "/", icon: "chat", disabled: true },

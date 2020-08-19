@@ -8,6 +8,7 @@ import { ProfileModule } from "@app/core/components/profile/profile.module";
 import { FriendsModule } from "@app/core/components/friends/friends.module";
 import { PaypalValidateModule } from "@app/core/components/paypal-validate/paypal-validate.module";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { LogModule } from "@app/core/components/log/log.module";
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -20,6 +21,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
     FriendsModule,
     PaypalValidateModule,
     MatPaginatorModule,
+    LogModule,
   ],
   exports: [DashboardComponent],
 })
