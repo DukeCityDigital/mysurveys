@@ -46,7 +46,7 @@ export class LogComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new LogDataSource(this.adminService);
-    this.dataSource.loadlogs("", "", "asc", 0, 3);
+    this.dataSource.loadlogs("", "", "asc", 0, 30);
   }
 
   ngAfterViewInit(): void {
