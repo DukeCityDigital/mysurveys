@@ -21,8 +21,7 @@ import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from "@angular/material/paginator";
 import { DataSource } from "@angular/cdk/table";
 import { CollectionViewer } from "@angular/cdk/collections";
-tap;
-DataSource;
+
 @Component({
   selector: "app-log",
   templateUrl: "./log.component.html",
