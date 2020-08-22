@@ -7,7 +7,7 @@ import { Alert, AlertType } from "./alert.model";
 @Injectable({ providedIn: "root" })
 export class AlertService {
   constructor() {
-    console.log("alert trigger");
+    // console.log("alert trigger");
   }
   private subject = new Subject<Alert>();
   private defaultId = "alert-1";
@@ -19,7 +19,7 @@ export class AlertService {
 
   // convenience methods
   public success(message: string, options?: any) {
-    console.log("alertsuccess", message, options);
+    // console.log("alertsuccess", message, options);
     this.alert(new Alert({ ...options, type: AlertType.Success, message }));
   }
 

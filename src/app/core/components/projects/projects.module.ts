@@ -21,6 +21,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { AlertService, AlertModule } from "../_alert";
+import { OmniTableModule } from "../omni-table/omni-table.module";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { AlertService, AlertModule } from "../_alert";
     MatSortModule,
     MatProgressBarModule,
     AlertModule,
+    OmniTableModule,
   ],
   providers: [AlertService],
 })

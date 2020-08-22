@@ -44,6 +44,9 @@ export class ManageParticipantsComponent implements OnInit {
   filter: string = "undefined";
   public TEST_MODE: boolean = true;
 
+  PREVIEWING: boolean = false;
+  PREVIEWDATA: any;
+
   project_id: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -85,7 +88,7 @@ export class ManageParticipantsComponent implements OnInit {
       autoClose: true,
     });
     this.alertService.success("Success on the left!!", { id: "alert-1" });
-    console.log("pj invites", this.data);
+    // console.log("pj invites", this.data);
     // TODO confirmation
     // let r = window.confirm(
     //   "Are you sure you wish to send email invitations to these participants?"
@@ -96,7 +99,7 @@ export class ManageParticipantsComponent implements OnInit {
     let ids = [];
     if (!selectedIDs) {
       this.data.forEach((element) => {
-        console.log(element);
+        // console.log(element);
         ids.push(element.participants_userid);
       });
     } else {
@@ -105,17 +108,22 @@ export class ManageParticipantsComponent implements OnInit {
     if (!ids.length) {
       return false;
     }
-    let testMode = "DEVELOPMENT";
+    var testMode = "DEVELOPMENT";
     if (this.TEST_MODE === false) {
       testMode = "PRODUCTION";
     }
     let post = {
       ids: ids,
       project_id: this.project_id,
-      TEST_MODE: this.TEST_MODE,
+      TEST_MODE: testMode,
     };
+
     this.pService.sendProjectInvitations(post).subscribe(
-      (data: any) => {},
+      (data: any) => {
+        if (data.data.PREVIEW) {
+          this.buildPreviewTable(data.data.PREVIEW);
+        }
+      },
       (error) => {
         console.log("Error", error);
         if (error && error.error && error.error.email) {
@@ -135,6 +143,26 @@ export class ManageParticipantsComponent implements OnInit {
         });
       }
     );
+  }
+
+  buildPreviewTable(children) {
+    function addHeaders(keys) {
+      let headers = [];
+      for (var i = 0; i < keys.length; i++) {
+        headers.push(keys[i]);
+      }
+      return headers;
+    }
+    var rows = [];
+
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      if (i === 0) {
+        var headers = addHeaders(Object.keys(child));
+      }
+      rows.push(children[i]);
+    }
+    this.PREVIEWDATA = { headers: headers, rows: rows };
   }
 
   runTable() {
@@ -163,7 +191,7 @@ export class ManageParticipantsComponent implements OnInit {
         })
       )
       .subscribe((data) => {
-        console.log(data);
+        // console.log(data);
         this.data = data;
       });
   }
@@ -184,7 +212,7 @@ export class LocalParticipantService {
     const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&filter=${filter}&order=${order}&page=${
       page + 1
     }`;
-    console.log("get part", requestUrl);
+    // console.log("get part", requestUrl);
     return this._httpClient.get<any>(requestUrl);
   }
 }

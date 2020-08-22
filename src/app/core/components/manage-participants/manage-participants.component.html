@@ -20,12 +20,37 @@
 
 <div>
     <h3>Your current selection is <code>{{resultsLength}}</code> of the project participants</h3>
+    **TODO check conditions - quota, funds available, target # of participants etc
     <button mat-stroked-button color="warn" (click)="sendProjectInvitations();">Send Project Invitation Emails</button>
-    <button mat-stroked-button disabled>Send Reminder emails </button>
+    <button mat-stroked-button disabled>Send Reminder emails </button><br>
 
     <mat-checkbox [(ngModel)]="TEST_MODE">Test Mode [{{TEST_MODE}}]</mat-checkbox>
+    <div *ngIf="!TEST_MODE" style="text-align:center;color:orange">
+        <h2 class="warn">Production Mode</h2>
+    </div>
 
 </div>
+<div *ngIf="PREVIEWDATA" style="border:1px solid orange;padding:2px;">
+    <h2>The following users will receive an invitation</h2>
+    <p>Turn off test mode and re-send if correct</p>
+    <div style="overflow:scroll;">
+        <table class="blueTable">
+            <tr>
+                <th *ngFor="let h of PREVIEWDATA.headers">{{h}}</th>
+            </tr>
+            <tr *ngFor="let d of PREVIEWDATA.rows;let i = index;">
+                <td *ngFor="let h of PREVIEWDATA.headers;let j = index;">
+                    {{PREVIEWDATA.rows[i][h]}}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+</div>
+
+
+
 <div>
     <table style="width:100%;" mat-table [dataSource]="data" class="example-table" matSort matSortActive="created_at"
         matSortDisableClear matSortDirection="desc">

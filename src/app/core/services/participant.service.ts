@@ -11,7 +11,6 @@ import { environment } from "../../../environments/environment";
 import { Participant } from "@app/core/models/participant.model";
 import { User } from "@app/core/models/user";
 import { AuthService } from "./auth.service";
-import { AlertService } from "../components/_alert";
 
 @Injectable({
   providedIn: "root",

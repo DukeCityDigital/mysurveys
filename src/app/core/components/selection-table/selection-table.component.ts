@@ -112,7 +112,6 @@ export class SelectionTableComponent implements OnInit {
   ) {}
 
   update(event) {
-    console.log(event, "childiupdate", event);
     this.projectService
       .getAdvancedSelection({
         project_id: this.project_id,
@@ -150,7 +149,7 @@ export class SelectionTableComponent implements OnInit {
   }
 
   public changeSelection(value) {
-    console.log("change sel", value);
+    // console.log("change sel", value);
   }
 
   public saveSelection() {
@@ -166,9 +165,9 @@ export class SelectionTableComponent implements OnInit {
     });
 
     let post = { project_id: this.project_id, users: ids };
-    console.log(post);
+    // console.log(post);
     this.projectService.createSelection(post).subscribe((r) => {
-      console.log(r);
+      // console.log(r);
       this.alertService.success(r.data, { autoClose: true });
     });
   }
@@ -314,7 +313,7 @@ export class SelectionTableComponent implements OnInit {
       console.log(data.birthyear, this.maxYear, this.minYear);
       return data.birthyear < this.maxYear && this.birthyear > this.minYear;
     };
-    console.log(filterValue);
+    // console.log(filterValue);
     // filterValue = filterValue.trim(); // Remove whitespace
     // filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue.toString();
@@ -349,7 +348,7 @@ export class SelectionService {
       // const requestUrl = `${href}/participants?project_id=${project_id}&sort=${sort}&order=${order}&page=${
       page + 1
     }`;
-    console.log("get part", requestUrl);
+    // console.log("get part", requestUrl);
     return this._httpClient.get<any>(requestUrl);
   }
 }
