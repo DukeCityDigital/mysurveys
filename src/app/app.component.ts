@@ -30,10 +30,16 @@ export class AppComponent {
     participant: [
       // { name: "statistics", link: "/", icon: "poll" },
       { name: "friends", link: "/dashboard/friends", icon: "people_outline" },
+      {
+        name: "my projects",
+        link: "/dashboard/my-projects",
+        icon: "people_outline",
+      },
+
       { name: "payPal", link: "/dashboard/paypal", icon: "monetization_on" },
     ],
     researcher: [
-      { name: "projects", link: "dashboard/projects", icon: "library_books" },
+      { name: "projects", link: "my-projects", icon: "assignment" },
 
       // { name: "selection", link: "selection", icon: "" },
     ],
@@ -58,7 +64,7 @@ export class AppComponent {
   };
 
   constructor(
-    private alertService: AlertService,
+    // private alertService: AlertService,
     private router: Router,
     private authenticationService: AuthenticationService
   ) {

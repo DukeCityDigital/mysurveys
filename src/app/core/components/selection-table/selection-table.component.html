@@ -7,7 +7,11 @@
 
     <button (click)="saveSelection()" mat-stroked-button color="primary">Save selection</button>
     <h2>There are {{data ? data.length : null}} matching users<br></h2>
-    <h3>Sample of selection:</h3>
+    <h3>Sample of proposed selection:</h3>
+</mat-card>
+
+<mat-card style="border:1px solid lightblue;">
+    {{selectedUSERS.length}} Users currently selected
 </mat-card>
 <table class="participants participantsAll" matSort (matSortChange)="sortData($event)" matSortDirection="asc" mat-table
     [dataSource]="data">

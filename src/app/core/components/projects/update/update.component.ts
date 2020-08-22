@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Project } from "@app/core/models/project.model";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -6,6 +6,8 @@ import { ProjectService } from "@app/core/services/project.service";
 import { Router } from "@angular/router";
 import { first } from "rxjs/operators";
 import { AlertService } from "../../_alert";
+import { SelectionTableComponent } from "../../selection-table/selection-table.component";
+import { ManageParticipantsComponent } from "../../manage-participants/manage-participants.component";
 
 export interface updateForm {
   defaultend: string;
@@ -22,9 +24,12 @@ export class UpdateComponent implements OnInit {
   project_id: number;
   participants = [];
   totalParticipants: number;
+  selectedTabIndex: number = 0;
+  @ViewChild(ManageParticipantsComponent)
+  mpComponent: ManageParticipantsComponent;
 
   constructor(
-    private alertService: AlertService,
+    public alertService: AlertService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -84,6 +89,21 @@ export class UpdateComponent implements OnInit {
       defaultstart: [""],
     });
   }
+  /**
+   * Detect tab change
+   * @param index
+   */
+  selectedIndexChange(index: number) {
+    console.log("change index");
+    if (index == 0) {
+      this.mpComponent.onRunTable();
+    }
+    setTimeout(() => (this.selectedTabIndex = index));
+  }
+
+  onTabClick(event: Event) {
+    console.log(event);
+  }
 
   public parseInt(string) {
     return parseInt(string);
@@ -112,6 +132,8 @@ export class UpdateComponent implements OnInit {
         }
       );
   }
+
+  public activateTab(tab) {}
 
   public startProject() {
     let post = this.editForm.value;

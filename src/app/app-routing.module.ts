@@ -21,6 +21,8 @@ import { PaypalValidateComponent } from "./core/components/paypal-validate/paypa
 import { ManageParticipantsComponent } from "./core/components/manage-participants/manage-participants.component";
 import { LogComponent } from "./core/components/log/log.component";
 import { UsersComponent } from "./core/components/users/users.component";
+import { MyProjectsComponent } from "./core/components/my-projects/my-projects.component";
+
 VerifyEmailComponent;
 
 const routes: Routes = [
@@ -28,6 +30,11 @@ const routes: Routes = [
     path: "dashboard",
     component: DashboardComponent,
     children: [
+      {
+        path: "my-projects",
+        component: MyProjectsComponent,
+        // data: { roles: [Role.administrator] },
+      },
       {
         path: "settings",
         component: SettingsComponent,
@@ -40,6 +47,7 @@ const routes: Routes = [
       },
       {
         path: "projects",
+
         loadChildren: () =>
           import(`./core/components/projects/projects.module`).then(
             (m) => m.ProjectsModule
@@ -72,6 +80,7 @@ const routes: Routes = [
 
     canActivate: [AuthGuard],
   },
+
   {
     path: "selection",
     component: SelectionTableComponent,

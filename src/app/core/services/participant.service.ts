@@ -11,6 +11,7 @@ import { environment } from "../../../environments/environment";
 import { Participant } from "@app/core/models/participant.model";
 import { User } from "@app/core/models/user";
 import { AuthService } from "./auth.service";
+import { AlertService } from "../components/_alert";
 
 @Injectable({
   providedIn: "root",
@@ -28,6 +29,21 @@ export class ParticipantService {
   private apiServer = environment.apiUrl;
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
+
+  /**
+   * Send email invites to selected participants
+   * @param email
+   * @param invite
+   */
+  sendProjectInvitations(post): Observable<Participant> {
+    return this.httpClient
+      .post<Participant>(
+        this.apiServer + "/send_project_invitations",
+        post,
+        this.httpOptions
+      )
+      .pipe(catchError(this.errorHandler));
+  }
 
   inviteFriend(email, invite?): Observable<Participant> {
     let post = invite ? { email: email, invite: true } : { email: email };

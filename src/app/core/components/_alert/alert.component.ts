@@ -29,8 +29,8 @@ export class AlertComponent implements OnInit, OnDestroy {
   @Input() fade = true;
 
   alerts: Alert[] = [];
-  alertSubscription: Subscription;
-  routeSubscription: Subscription;
+  public alertSubscription: Subscription;
+  public routeSubscription: Subscription;
 
   constructor(private router: Router, private alertService: AlertService) {}
 
@@ -39,6 +39,7 @@ export class AlertComponent implements OnInit, OnDestroy {
     this.alertSubscription = this.alertService
       .onAlert(this.id)
       .subscribe((alert) => {
+        console.log("alert ts", alert);
         // clear alerts when an empty alert is received
         if (!alert.message) {
           // filter out alerts without 'keepAfterRouteChange' flag
@@ -76,6 +77,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   removeAlert(alert: Alert) {
+    console.log("removealert");
     // check if already removed to prevent error on auto close
     if (!this.alerts.includes(alert)) return;
 

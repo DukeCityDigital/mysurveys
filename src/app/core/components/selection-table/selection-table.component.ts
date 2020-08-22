@@ -124,7 +124,7 @@ export class SelectionTableComponent implements OnInit {
       .subscribe((r) => {
         this.data = r.data;
         // console.log(r);
-        // this.selectedUSERS = r.data;
+        this.selectedUSERS = r.data;
       });
   }
 
@@ -166,9 +166,9 @@ export class SelectionTableComponent implements OnInit {
     });
 
     let post = { project_id: this.project_id, users: ids };
-    // console.log(post);
+    console.log(post);
     this.projectService.createSelection(post).subscribe((r) => {
-      // console.log(r);
+      console.log(r);
       this.alertService.success(r.data, { autoClose: true });
     });
   }

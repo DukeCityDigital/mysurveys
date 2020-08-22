@@ -13,6 +13,8 @@ import { catchError, map, startWith, switchMap, delay } from "rxjs/operators";
 import { ProjectService } from "@app/core/services/project.service";
 import { environment } from "../../../../environments/environment";
 import { ActivatedRoute } from "@angular/router";
+import { ParticipantService as pService } from "@app/core/services/participant.service";
+import { AlertService } from "../_alert";
 
 @Component({
   selector: "app-manage-participants",
@@ -38,47 +40,121 @@ export class ManageParticipantsComponent implements OnInit {
   resultsLength = 0;
   isLoadingResults = true;
   data: any;
+  //filter to require non invited etc. .
+  filter: string = "undefined";
+  public TEST_MODE: boolean = true;
 
-  participantService;
   project_id: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
-
+  localParticipantService;
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
-    private _httpClient: HttpClient
+    private _httpClient: HttpClient,
+    // private localParticipantService: LocalParticipantService,
+    private pService: pService,
+    public alertService: AlertService
   ) {}
 
   ngOnInit(): void {}
   ngAfterViewInit() {
+    this.alertService.success("Success on the left!!", { id: "alert-1" });
     this.route.paramMap.subscribe((params) => {
-      console.log(params.get("id"));
       this.project_id = +params.get("id");
     });
-    console.log("init");
-    this.participantService = new ParticipantService(this._httpClient);
+    this.localParticipantService = new LocalParticipantService(
+      this._httpClient
+    );
 
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-    console.log("paginator", this.paginator);
+    this.runTable();
+  }
+
+  public onRunTable(condition?: string) {
+    this.filter = condition;
+    this.runTable();
+  }
+
+  /**
+   * Invite selected participantts
+   * @param ids
+   */
+  public sendProjectInvitations(selectedIDs?) {
+    this.alertService.success("Invitations sent", {
+      autoClose: true,
+    });
+    this.alertService.success("Success on the left!!", { id: "alert-1" });
+    console.log("pj invites", this.data);
+    // TODO confirmation
+    // let r = window.confirm(
+    //   "Are you sure you wish to send email invitations to these participants?"
+    // );
+    // if (r !== true) {
+    //   return false;
+    // }
+    let ids = [];
+    if (!selectedIDs) {
+      this.data.forEach((element) => {
+        console.log(element);
+        ids.push(element.participants_userid);
+      });
+    } else {
+      ids = selectedIDs;
+    }
+    if (!ids.length) {
+      return false;
+    }
+    let testMode = "DEVELOPMENT";
+    if (this.TEST_MODE === false) {
+      testMode = "PRODUCTION";
+    }
+    let post = {
+      ids: ids,
+      project_id: this.project_id,
+      TEST_MODE: this.TEST_MODE,
+    };
+    this.pService.sendProjectInvitations(post).subscribe(
+      (data: any) => {},
+      (error) => {
+        console.log("Error", error);
+        if (error && error.error && error.error.email) {
+          this.alertService.error(error.error.email, {
+            autoClose: false,
+            // id: "default-alert",
+          });
+        } else if (error) {
+          this.alertService.error(error.error, {
+            autoClose: true,
+            // id: "default-alert",
+          });
+        }
+        this.alertService.error("erea", {
+          autoClose: false,
+          id: "alert-1",
+        });
+      }
+    );
+  }
+
+  runTable() {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
         delay(0),
         switchMap(() => {
-          console.log("switchmap");
           this.isLoadingResults = true;
-          return this.participantService!.getParticipants(
+          return this.localParticipantService!.getParticipants(
             this.sort.active,
             this.sort.direction,
             this.paginator.pageIndex,
-            this.project_id
+            this.project_id,
+            this.filter
           );
         }),
         map((data: any) => {
-          console.log(data);
           this.isLoadingResults = false;
-          this.resultsLength = data.data.total_count;
+          this.resultsLength = data.total;
           return data.data;
         }),
         catchError(() => {
@@ -94,17 +170,18 @@ export class ManageParticipantsComponent implements OnInit {
 }
 
 /** An example database that the data source uses to retrieve data for the table. */
-export class ParticipantService {
+export class LocalParticipantService {
   constructor(private _httpClient: HttpClient) {}
 
   getParticipants(
     sort: string,
     order: string,
     page: number,
-    project_id: number
+    project_id: number,
+    filter?: string
   ): Observable<any> {
     const href = environment.apiUrl;
-    const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&order=${order}&page=${
+    const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&filter=${filter}&order=${order}&page=${
       page + 1
     }`;
     console.log("get part", requestUrl);

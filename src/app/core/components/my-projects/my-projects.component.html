@@ -1,0 +1,16 @@
+<mat-card>
+    <h2>Project invitations</h2>
+
+    //check api for open projects
+
+    if none, show
+    <div *ngIf="projects.length;else noProjects">
+        <div *ngFor="let project of projects">
+            {{project.title}}
+        </div>
+    </div>
+    <ng-template #noProjects>
+        <h3>No current invitations</h3>
+    </ng-template>
+
+</mat-card>

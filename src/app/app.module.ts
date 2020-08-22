@@ -34,6 +34,7 @@ import { PasswordFormModule } from "./core/components/password-form/password-for
 import { AuthService } from "./core/services/auth.service";
 import { UsersComponent } from "./core/components/users/users.component";
 import { OmniTableModule } from "./core/components/omni-table/omni-table.module";
+import { MyProjectsModule } from "./core/components/my-projects/my-projects.module";
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { OmniTableModule } from "./core/components/omni-table/omni-table.module"
     ProfileModule,
     PasswordFormModule,
     OmniTableModule,
+    MyProjectsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,
@@ -78,7 +80,7 @@ import { OmniTableModule } from "./core/components/omni-table/omni-table.module"
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true,
-      deps: [Router, ActivatedRoute, AuthService, AlertService],
+      deps: [Router, ActivatedRoute, AuthService],
     },
     {
       provide: HTTP_INTERCEPTORS,

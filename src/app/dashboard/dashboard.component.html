@@ -1,10 +1,9 @@
 <mat-card>
   <h1 style="text-transform: capitalize;">{{ user.role }} Dashboard</h1>
-  <a [routerLink]="'/dashboard/profile'">Profile</a>
   <div *ngIf="user && user.role === 'participant' && user.is_seed !==null">
-    [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a href="#">Profile</a>]&nbsp;
-    <hr />
-    No pending invitations
+    <!-- [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a href="#">Profile</a>]&nbsp;
+    <hr /> -->
+    <!-- No pending invitations -->
     <div *ngIf="!user.friends.length" class="alert-error">
       <!-- <h2>You haven't invited any friends yet! Please do so when ready.</h2> -->
       <button class="animate-flicker" [routerLinkActive]="['is-active-button,animate-stop']" mat-raised-button

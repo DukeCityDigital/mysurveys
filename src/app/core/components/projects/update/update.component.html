@@ -96,11 +96,7 @@
         </div>
 
     </div>
-
-
-
-
-    <mat-tab-group dynamicHeight>
+    <mat-tab-group dynamicHeight (selectedIndexChange)="selectedIndexChange($event)">
         <!-- <mat-tab label="Manage selection">
             <mat-card>
                 <mat-card-title>Manage selection</mat-card-title>
@@ -113,6 +109,14 @@
 
             </mat-card>
         </mat-tab> -->
+        <mat-tab label="Manage participants" (click)="onTabClick($event)">
+            <mat-card>
+                <mat-card-title>Manage participants</mat-card-title>
+                <app-manage-participants></app-manage-participants>
+                <!-- <app-selection-table>
+                </app-selection-table> -->
+            </mat-card>
+        </mat-tab>
         <mat-tab label="Select participants">
             <mat-card>
                 <mat-card-title>Select participants</mat-card-title>

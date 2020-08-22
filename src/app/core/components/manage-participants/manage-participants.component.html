@@ -1,8 +1,29 @@
 <!-- {{participants | json}} -->
 <mat-progress-bar *ngIf="isLoadingResults" mode="query"></mat-progress-bar>
+<button mat-stroked-button (click)="onRunTable('invited')">Select invited</button>
+<button mat-stroked-button (click)="onRunTable('!invited')">Select not yet invited</button>
+<button mat-stroked-button (click)="onRunTable('!finished')">Select not finished</button>
+<button mat-stroked-button (click)="onRunTable('finished')">Select finished</button>
+
+<!-- s
+<p>
+    <hr>pl:
+     There are *show data total{{resultsLength}} selected participants
+    //if finished, they have completed
+
+    //if invited, they have received invite - ?invite time
+
+    //can resend single or individually
+
+    <br>show all invited but not finished
+</p> -->
+
 <div>
-    <button mat-stroked-button disabled>Send Invitation Emails</button>
+    <h3>Your current selection is <code>{{resultsLength}}</code> of the project participants</h3>
+    <button mat-stroked-button color="warn" (click)="sendProjectInvitations();">Send Project Invitation Emails</button>
     <button mat-stroked-button disabled>Send Reminder emails </button>
+
+    <mat-checkbox [(ngModel)]="TEST_MODE">Test Mode [{{TEST_MODE}}]</mat-checkbox>
 
 </div>
 <div>
@@ -20,7 +41,7 @@
 
         <ng-container matColumnDef="invited">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Invited</th>
-            <td mat-cell *matCellDef="let row">{{row.invited}}</td>
+            <td mat-cell *matCellDef="let row">{{row.invited ? row.invited : 'No'}}</td>
         </ng-container>
         <ng-container matColumnDef="amount_to_pay">
             <th mat-header-cell *matHeaderCellDef>Amount to pay</th>
