@@ -43,6 +43,7 @@ export class ManageParticipantsComponent implements OnInit {
   //filter to require non invited etc. .
   filter: string = "undefined";
   public TEST_MODE: boolean = true;
+  invitationErrors: any;
 
   PREVIEWING: boolean = false;
   PREVIEWDATA: any;
@@ -120,7 +121,10 @@ export class ManageParticipantsComponent implements OnInit {
 
     this.pService.sendProjectInvitations(post).subscribe(
       (data: any) => {
+        //if preview (test mode) is selected, show preview table and any errors
         if (data.data.PREVIEW) {
+          this.invitationErrors = data.data.ERRORS ? data.data.ERRORS : [];
+
           this.buildPreviewTable(data.data.PREVIEW);
         }
       },

@@ -1,4 +1,7 @@
 <!-- {{participants | json}} -->
+<p>
+    This panel shows the participants currently selected for the project.
+</p>
 <mat-progress-bar *ngIf="isLoadingResults" mode="query"></mat-progress-bar>
 <button mat-stroked-button (click)="onRunTable('invited')">Select invited</button>
 <button mat-stroked-button (click)="onRunTable('!invited')">Select not yet invited</button>
@@ -20,9 +23,9 @@
 
 <div>
     <h3>Your current selection is <code>{{resultsLength}}</code> of the project participants</h3>
-    **TODO check conditions - quota, funds available, target # of participants etc
+
     <button mat-stroked-button color="warn" (click)="sendProjectInvitations();">Send Project Invitation Emails</button>
-    <button mat-stroked-button disabled>Send Reminder emails </button><br>
+    <button mat-stroked-button disabled>Send Reminder emails </button>&nbsp;&nbsp;
 
     <mat-checkbox [(ngModel)]="TEST_MODE">Test Mode [{{TEST_MODE}}]</mat-checkbox>
     <div *ngIf="!TEST_MODE" style="text-align:center;color:orange">
@@ -31,20 +34,33 @@
 
 </div>
 <div *ngIf="PREVIEWDATA" style="border:1px solid orange;padding:2px;">
-    <h2>The following users will receive an invitation</h2>
-    <p>Turn off test mode and re-send if correct</p>
-    <div style="overflow:scroll;">
-        <table class="blueTable">
-            <tr>
-                <th *ngFor="let h of PREVIEWDATA.headers">{{h}}</th>
-            </tr>
-            <tr *ngFor="let d of PREVIEWDATA.rows;let i = index;">
-                <td *ngFor="let h of PREVIEWDATA.headers;let j = index;">
-                    {{PREVIEWDATA.rows[i][h]}}
-                </td>
-            </tr>
-        </table>
-    </div>
+    <mat-card>
+        <h2>There are errors in your submission</h2>
+        <i>
+            Selection won't submit in production mode with errors
+        </i>
+        <ul>
+            <li *ngFor="let ie of invitationErrors">{{ie}}</li>
+
+        </ul>
+    </mat-card>
+    <mat-card>
+        <h2>The following users would receive an invitation</h2>
+        <p>Turn off test mode and re-send if correct</p>
+        <div style="overflow:scroll;">
+            <table class="blueTable">
+                <tr>
+                    <th *ngFor="let h of PREVIEWDATA.headers">{{h}}</th>
+                </tr>
+                <tr *ngFor="let d of PREVIEWDATA.rows;let i = index;">
+                    <td *ngFor="let h of PREVIEWDATA.headers;let j = index;">
+                        {{PREVIEWDATA.rows[i][h]}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </mat-card>
+
 
 
 </div>
