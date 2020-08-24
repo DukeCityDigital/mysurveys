@@ -14,7 +14,7 @@ export class EmailTemplatesComponent implements OnInit {
   ngOnInit(): void {
     this.eTService.getAll().subscribe((data: any) => {
       console.log(data);
-      this.templates = data.data;
+      // this.templates = data.data;
     });
   }
 }

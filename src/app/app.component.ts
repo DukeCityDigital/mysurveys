@@ -58,7 +58,6 @@ export class AppComponent {
         link: "/dashboard/log",
         icon: "format_list_bulleted",
       },
-      { name: "backup", link: "/", icon: "backup", disabled: true },
       { name: "MOTD", link: "/", icon: "chat", disabled: true },
     ],
   };
