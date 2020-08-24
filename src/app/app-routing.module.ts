@@ -22,8 +22,10 @@ import { ManageParticipantsComponent } from "./core/components/manage-participan
 import { LogComponent } from "./core/components/log/log.component";
 import { UsersComponent } from "./core/components/users/users.component";
 import { MyProjectsComponent } from "./core/components/my-projects/my-projects.component";
-
-VerifyEmailComponent;
+import { PayoutsComponent } from "./core/components/payouts/payouts.component";
+import { WarningsComponent } from "./core/components/warnings/warnings.component";
+import { MotdComponent } from "./core/components/motd/motd.component";
+import { NotificationsComponent } from "./core/components/notifications/notifications.component";
 
 const routes: Routes = [
   {
@@ -68,6 +70,27 @@ const routes: Routes = [
       {
         path: "log",
         component: LogComponent,
+        data: { roles: [Role.administrator] },
+      },
+      {
+        path: "payouts",
+        component: PayoutsComponent,
+        data: { roles: [Role.administrator] },
+      },
+      {
+        path: "warnings",
+        component: WarningsComponent,
+
+        data: { roles: [Role.administrator] },
+      },
+      {
+        path: "motd",
+        component: MotdComponent,
+        data: { roles: [Role.administrator] },
+      },
+      {
+        path: "notifications",
+        component: NotificationsComponent,
         data: { roles: [Role.administrator] },
       },
       {

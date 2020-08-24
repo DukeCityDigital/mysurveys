@@ -9,6 +9,10 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatSelectModule } from "@angular/material/select";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { MatRadioModule } from "@angular/material/radio";
+
 @NgModule({
   declarations: [OmniTableComponent],
   imports: [
@@ -21,6 +25,9 @@ import { MatInputModule } from "@angular/material/input";
     MatSliderModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatRadioModule,
   ],
   exports: [OmniTableComponent],
 })

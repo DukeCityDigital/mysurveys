@@ -56,6 +56,8 @@ export class OmniTableComponent implements OnInit {
   @ViewChild("input") input: ElementRef;
   data: any;
 
+  searchField: any = "id";
+
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
@@ -80,6 +82,8 @@ export class OmniTableComponent implements OnInit {
     this.paginator.pageIndex = event.pageIndex;
   }
 
+  searchFields = [];
+
   /**
    * Transform input columns into objects if string
    * @param columns
@@ -88,17 +92,21 @@ export class OmniTableComponent implements OnInit {
     var objectColumns;
     var displayColumns = [];
     var returnColumns = [];
+    var searchFields = [];
     if (typeof this.columns[0] == "string") {
       this.columns.forEach((element) => {
         displayColumns.push(element);
         var item = {
           name: element,
         };
+        searchFields.push(element + "_search");
         returnColumns.push(item);
       });
       // this.objectColumns.push({ name: element });
     }
     this.objectColumns = returnColumns;
+    this.searchFields = searchFields;
+    console.log(this.searchFields);
     this.displayedColumns = this.objectColumns.map((col) => col.name);
   }
 

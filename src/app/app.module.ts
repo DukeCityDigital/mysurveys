@@ -35,6 +35,10 @@ import { AuthService } from "./core/services/auth.service";
 import { UsersComponent } from "./core/components/users/users.component";
 import { OmniTableModule } from "./core/components/omni-table/omni-table.module";
 import { MyProjectsModule } from "./core/components/my-projects/my-projects.module";
+import { PayoutsComponent } from './core/components/payouts/payouts.component';
+import { WarningsComponent } from './core/components/warnings/warnings.component';
+import { MotdComponent } from './core/components/motd/motd.component';
+import { NotificationsComponent } from './core/components/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +52,10 @@ import { MyProjectsModule } from "./core/components/my-projects/my-projects.modu
     CheckMaxLevelsComponent,
     CheckExpectedLevelsComponent,
     UsersComponent,
+    PayoutsComponent,
+    WarningsComponent,
+    MotdComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,

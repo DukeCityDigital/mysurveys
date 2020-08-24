@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 
 import { AuthService as AuthenticationService } from "@app/core/services/auth.service";
 import { AlertService } from "./core/components/_alert";
-
+import { WarningsComponent } from "./core/components/warnings/warnings.component";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -39,7 +39,14 @@ export class AppComponent {
       { name: "payPal", link: "/dashboard/paypal", icon: "monetization_on" },
     ],
     researcher: [
-      { name: "projects", link: "my-projects", icon: "assignment" },
+      { name: "projects", link: "/dashboard/projects", icon: "assignment" },
+      { name: "notifications", link: "dashboard/notifications", icon: "chat" },
+
+      {
+        name: "payouts",
+        link: "/dashboard/payouts",
+        icon: "attach_money",
+      },
 
       // { name: "selection", link: "selection", icon: "" },
     ],
@@ -51,14 +58,18 @@ export class AppComponent {
         icon: "settings",
       },
       { name: "users", link: "/dashboard/users", icon: "people_outline" },
-      { name: "payouts", link: "/", icon: "attach_money", disabled: true },
-      { name: "warnings", link: "/", icon: "warning", disabled: true },
+      {
+        name: "payouts",
+        link: "/dashboard/payouts",
+        icon: "attach_money",
+      },
+      { name: "warnings", link: "/dashboard/warnings", icon: "warning" },
       {
         name: "system log",
         link: "/dashboard/log",
         icon: "format_list_bulleted",
       },
-      { name: "MOTD", link: "/", icon: "chat", disabled: true },
+      { name: "MOTD", link: "/dashboard/motd", icon: "chat" },
     ],
   };
 
