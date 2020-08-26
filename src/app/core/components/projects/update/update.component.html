@@ -2,6 +2,39 @@
     <!-- {{project | json}} -->
     <mat-card-title>Project Title: {{project ? project.project_title : null}}</mat-card-title>
     <div class="projectinfo" *ngIf="project">
+        ?checkscomponent?
+        <div>
+            <!-- <table style="width:50%">
+                <tr>
+                    <th>
+                        Item
+                    </th>
+                    <th>
+                        Value
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        Project State:
+                    </td>
+                    <td>
+                        {{project.state}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Quota:
+                    </td>
+                    <td>
+                        {{project.quota | currency}}
+                    </td>
+                  
+
+                </tr>
+                
+            </table> -->
+
+        </div>
         <ul>
 
             <li>Project State: {{project.state}}</li>
@@ -97,26 +130,7 @@
 
     </div>
     <mat-tab-group dynamicHeight (selectedIndexChange)="selectedIndexChange($event)">
-        <!-- <mat-tab label="Manage selection">
-            <mat-card>
-                <mat-card-title>Manage selection</mat-card-title>
-                This is a snapshot of your selection
-                <div *ngIf="participants">
-                    <app-manage-participants [project]="project" [participants]="participants">
-                    </app-manage-participants>
-                </div>
 
-
-            </mat-card>
-        </mat-tab> -->
-        <mat-tab label="Manage participants" (click)="onTabClick($event)">
-            <mat-card>
-                <mat-card-title>Manage participants</mat-card-title>
-                <app-manage-participants></app-manage-participants>
-                <!-- <app-selection-table>
-                </app-selection-table> -->
-            </mat-card>
-        </mat-tab>
         <mat-tab label="Select participants">
             <mat-card>
                 <mat-card-title>Select participants</mat-card-title>
@@ -124,10 +138,18 @@
                 </app-selection-table>
             </mat-card>
         </mat-tab>
+        <mat-tab label="Manage participants" (click)="onTabClick($event)">
+            <mat-card>
+                <mat-card-title>Manage participants</mat-card-title>
+                <app-manage-participants></app-manage-participants>
+
+            </mat-card>
+        </mat-tab>
+
 
 
         <mat-tab label="Edit Project">
-            Edit Project 💼
+            Edit Project
             <!-- {{editForm.value | json}} -->
             <form [formGroup]="editForm" (ngSubmit)="onSubmit()" style="display:grid;">
                 <div [hidden]="true">

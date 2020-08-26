@@ -35,17 +35,17 @@ import { AuthService } from "./core/services/auth.service";
 import { UsersComponent } from "./core/components/users/users.component";
 import { OmniTableModule } from "./core/components/omni-table/omni-table.module";
 import { MyProjectsModule } from "./core/components/my-projects/my-projects.module";
-import { PayoutsComponent } from './core/components/payouts/payouts.component';
-import { WarningsComponent } from './core/components/warnings/warnings.component';
-import { MotdComponent } from './core/components/motd/motd.component';
-import { NotificationsComponent } from './core/components/notifications/notifications.component';
+import { PayoutsComponent } from "./core/components/payouts/payouts.component";
+import { WarningsComponent } from "./core/components/warnings/warnings.component";
+import { MotdComponent } from "./core/components/motd/motd.component";
+import { NotificationsComponent } from "./core/components/notifications/notifications.component";
+import { AlertComponent } from "./core/components/_alert/alert.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PrivacyComponent,
-    // SelectionTableComponent,
     PasswordResetComponent,
     VerifyEmailComponent,
     ChangePasswordComponent,

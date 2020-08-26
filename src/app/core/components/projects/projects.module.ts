@@ -51,6 +51,6 @@ import { OmniTableModule } from "../omni-table/omni-table.module";
     AlertModule,
     OmniTableModule,
   ],
-  providers: [AlertService],
+  providers: [],
 })
 export class ProjectsModule {}

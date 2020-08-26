@@ -25,10 +25,11 @@ import { AlertService } from "./alert.service";
   ],
 })
 export class AlertComponent implements OnInit, OnDestroy {
-  @Input() id = "default-alert";
+  @Input() id = "da";
   @Input() fade = true;
 
   alerts: Alert[] = [];
+
   public alertSubscription: Subscription;
   public routeSubscription: Subscription;
 
@@ -45,7 +46,7 @@ export class AlertComponent implements OnInit, OnDestroy {
           this.alerts = this.alerts.filter((x) => x.keepAfterRouteChange);
 
           // remove 'keepAfterRouteChange' flag on the rest
-          this.alerts.forEach((x) => delete x.keepAfterRouteChange);
+          // this.alerts.forEach((x) => delete x.keepAfterRouteChange);
           return;
         }
 

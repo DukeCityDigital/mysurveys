@@ -36,6 +36,16 @@ export class UpdateComponent implements OnInit {
     private pService: ProjectService
   ) {}
 
+  testService(inc?) {
+    var id = "motd";
+    if (inc) id = "da";
+    this.alertService.success(id, {
+      id: id,
+      autoClose: false,
+      keepAfterRouteChange: true,
+    });
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       let id = params.get("id");
@@ -94,8 +104,7 @@ export class UpdateComponent implements OnInit {
    * @param index
    */
   selectedIndexChange(index: number) {
-    console.log("change index");
-    if (index == 0) {
+    if (index == 1) {
       this.mpComponent.onRunTable();
     }
     setTimeout(() => (this.selectedTabIndex = index));
@@ -171,6 +180,7 @@ export class UpdateComponent implements OnInit {
           if (data.success) {
             this.alertService.success("Updated successfully", {
               autoClose: true,
+              id: "da",
             });
             // this.router.navigate(["list-user"]);
             this.project = data.data;

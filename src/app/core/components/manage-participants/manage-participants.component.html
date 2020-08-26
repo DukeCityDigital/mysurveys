@@ -5,7 +5,9 @@
 <mat-progress-bar *ngIf="isLoadingResults" mode="query"></mat-progress-bar>
 <button mat-stroked-button (click)="onRunTable('invited')">Select invited</button>
 <button mat-stroked-button (click)="onRunTable('!invited')">Select not yet invited</button>
-<button mat-stroked-button (click)="onRunTable('!finished')">Select not finished</button>
+<button mat-stroked-button (click)="onRunTable('!finished|invited')">*Select invited but not finished</button>
+
+<!-- <button mat-stroked-button (click)="onRunTable('!finished')">Select not finished</button> -->
 <button mat-stroked-button (click)="onRunTable('finished')">Select finished</button>
 
 <!-- s

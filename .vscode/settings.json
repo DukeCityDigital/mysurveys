@@ -14,7 +14,6 @@
     "titleBar.activeForeground": "#15202b",
     "titleBar.inactiveBackground": "#6495ed99",
     "titleBar.inactiveForeground": "#15202b99"
-    // "editor.background": "#05091a"
   },
   "peacock.color": "cornflowerblue",
   "editor.fontSize": 13,

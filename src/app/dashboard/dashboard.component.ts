@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("init dash");
     // this.alertService.warn("alert service", { id: "alert" });
     var hidemotd = sessionStorage.getItem("hidemotd");
 
