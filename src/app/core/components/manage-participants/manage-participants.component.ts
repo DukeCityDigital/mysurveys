@@ -170,6 +170,7 @@ export class ManageParticipantsComponent implements OnInit {
   }
 
   runTable() {
+    this.invitationErrors = [];
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),

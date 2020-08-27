@@ -4,9 +4,31 @@
     //check api for open projects
 
     if none, show
-    <div *ngIf="projects.length;else noProjects">
-        <div *ngFor="let project of projects">
-            {{project.title}}
+    <div *ngIf="invitations.length;else noProjects">
+        <h2>You've been invited to the following projects</h2>
+        <mat-card *ngFor="let i of invitations" style="border:1px solid lightblue;margin-bottom:14px;">
+            <mat-card-header>
+                <mat-card-title> {{i.projects.project_title}}</mat-card-title>
+                <mat-card-subtitle>{{i.projects.description}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <ul>
+                    <li>Project end: <b>{{i.projects.defaultend | date:'short'}}</b></li>
+                    <li>Max Payout: <b>{{i.projects.max_payout | currency:'USD'}}</b></li>
+                    <li>Responsible person: <b>{{i.projects.responsible_person}}</b></li>
+
+
+                </ul>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button (click)="startProject(i);" color="primary" mat-stroked-button>Start Project</button>
+            </mat-card-actions>
+        </mat-card>
+
+
+        <div *ngFor="let i of invitations">
+            {{i.projects.project_title}}
         </div>
     </div>
     <ng-template #noProjects>

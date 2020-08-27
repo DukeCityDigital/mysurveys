@@ -40,6 +40,24 @@ export class ProjectService {
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
 
+  /**
+   * Start selected project
+   */
+  start_project(id: number) {
+    let post = { project_id: id };
+    return this.httpClient
+      .post<Project>(this.apiServer + "/start_project", post, this.httpOptions)
+      .pipe(catchError(this.errorHandler));
+  }
+  /**
+   * Retrieve projects for user
+   */
+  my_projects() {
+    return this.httpClient
+      .get<User>(`${environment.apiUrl}/my_projects`)
+      .pipe(catchError(this.errorHandler));
+  }
+
   participants(sort: string, order: string, page: number): Observable<any> {
     return this.httpClient
       .get<User>(`${environment.apiUrl}/users`)

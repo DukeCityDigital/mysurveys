@@ -43,7 +43,7 @@
                 Scheduled to begin: (defaultstart): {{project.defaultstart | date: 'short'}}
             </li>
             <li>
-                Project state: {{project.state ==='Open' ? 'Open' : 'Closed'}}
+                Project start state: {{project.start_state ==='Open' ? 'Open' : 'Closed'}}
             </li>
             <li *ngIf="project.link_method ==='Direct'; else fixed">
 

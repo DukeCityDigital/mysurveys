@@ -3,6 +3,8 @@ export class Project {
   data?: any;
   name?: string;
   state?: string;
+  start_state?: string;
+
   link_method?: string;
   desired_sample_size?: string;
   desired_num_invitations?: string;
