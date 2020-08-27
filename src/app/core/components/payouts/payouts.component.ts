@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-payouts',
-  templateUrl: './payouts.component.html',
-  styleUrls: ['./payouts.component.scss']
+  selector: "app-payouts",
+  templateUrl: "./payouts.component.html",
+  styleUrls: ["./payouts.component.scss"],
 })
 export class PayoutsComponent implements OnInit {
+  public columns = [
+    { name: "participants_userid" },
+    { name: "projects_projectid" },
+  ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

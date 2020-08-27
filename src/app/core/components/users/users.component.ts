@@ -6,7 +6,6 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./users.component.scss"],
 })
 export class UsersComponent implements OnInit {
-  constructor() {}
   title = "Users";
   columns = [
     "id",
@@ -18,9 +17,18 @@ export class UsersComponent implements OnInit {
     "banned_reason",
     "banned_date",
     "activated",
-    "registratio_key",
+    "registration_key",
     "nickname",
   ];
+
+  constructor() {
+    var obj = [];
+    this.columns.forEach((element) => {
+      let item = { name: element };
+      obj.push(item);
+    });
+    this.columns = obj;
+  }
 
   ngOnInit(): void {}
 }

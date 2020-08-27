@@ -21,7 +21,8 @@ import { Sort } from "@angular/material/sort";
 import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from "@angular/material/paginator";
 import { DataSource } from "@angular/cdk/table";
-import { CollectionViewer } from "@angular/cdk/collections";
+import { CollectionViewer, SelectionModel } from "@angular/cdk/collections";
+
 import {
   catchError,
   map,
@@ -32,6 +33,7 @@ import {
   tap,
 } from "rxjs/operators";
 import { element } from "protractor";
+import { User } from "@app/core/models/user";
 @Component({
   selector: "app-omni-table",
   templateUrl: "./omni-table.component.html",
@@ -39,6 +41,11 @@ import { element } from "protractor";
 })
 export class OmniTableComponent implements OnInit {
   @Input() columns: any = ["id"];
+  @Input() options: any = { selectable: false };
+  @Input() actions: any;
+
+  PROJECTPARTICIPANTS: any;
+
   @Input() objectColumns: any[] = [
     { name: "ya", selectable: true, editable: true, inputType: "text" },
   ];
@@ -50,6 +57,7 @@ export class OmniTableComponent implements OnInit {
   dataSource: OmniDataSource;
   resultsLength = 0;
   displayedColumns: any[] = this.objectColumns.map((col) => col.name);
+  selection = new SelectionModel<any>(true, []);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -84,6 +92,69 @@ export class OmniTableComponent implements OnInit {
 
   searchFields = [];
 
+  public singleAction(actionString: string) {
+    console.log("buttonAction", actionString);
+  }
+  public groupAction(actionString: string) {
+    console.log("grp nAction", actionString);
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.resultsLength;
+    return numSelected === numRows;
+  }
+
+  isAllSelectionSelected() {
+    const numSelected = this.PROJECTPARTICIPANTS.length;
+    const numRows = this.dataSource.resultsLength;
+
+    return numSelected === numRows;
+  }
+
+  isInSelection() {}
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle(checked?: boolean) {
+    console.log("mastertoggle", checked, this.isAllSelected());
+    if (this.isAllSelected()) {
+      // console.log("allselected");
+      this.selection.clear();
+      this.clearSelectedUsers();
+    } else {
+      // this.dataSource.data.forEach((row) => {
+      //   this.selection.select(row);
+      // });
+      // this.dataSource.data.forEach((row) => this.addToSelection(row, true));
+    }
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: User): string {
+    // if (!row) {
+    //   return `${this.isAllSelected() ? "select" : "deselect"} all`;
+    // }
+    // return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
+    //   row.id + 1
+    // }`;
+    return "str";
+  }
+  // resultsLength = 0;
+
+  clearSelectedUsers() {
+    // this.selectedUSERS = [];
+  }
+  isLoadingResults = true;
+
+  addToSelection(row?, checked?) {
+    // if (this.selectedUSERS.indexOf(row) < 0 && checked) {
+    //   this.selectedUSERS.push(row);
+    // } else {
+    //   this.remove(row);
+    // }
+  }
+
   /**
    * Transform input columns into objects if string
    * @param columns
@@ -93,6 +164,11 @@ export class OmniTableComponent implements OnInit {
     var displayColumns = [];
     var returnColumns = [];
     var searchFields = [];
+    let actionItem = this.actions
+      ? typeof this.columns[0] == "string"
+        ? "actions"
+        : { name: "actions" }
+      : null;
     if (typeof this.columns[0] == "string") {
       this.columns.forEach((element) => {
         displayColumns.push(element);
@@ -102,11 +178,19 @@ export class OmniTableComponent implements OnInit {
         searchFields.push(element + "_search");
         returnColumns.push(item);
       });
-      // this.objectColumns.push({ name: element });
+      if (this.options.selectable) {
+        this.objectColumns.unshift("select");
+      }
+    } else {
+      this.objectColumns = this.columns;
+      this.objectColumns.unshift({ name: "select" });
     }
-    this.objectColumns = returnColumns;
+    actionItem ? this.objectColumns.push(actionItem) : null;
+
     this.searchFields = searchFields;
     console.log(this.searchFields);
+    // debugger;
+
     this.displayedColumns = this.objectColumns.map((col) => col.name);
   }
 

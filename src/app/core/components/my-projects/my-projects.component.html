@@ -16,20 +16,41 @@
                     <li>Project end: <b>{{i.projects.defaultend | date:'short'}}</b></li>
                     <li>Max Payout: <b>{{i.projects.max_payout | currency:'USD'}}</b></li>
                     <li>Responsible person: <b>{{i.projects.responsible_person}}</b></li>
-
+                    <li>Your invitation date: {{i.invited | date:'short'}}</li>
 
                 </ul>
+                <div *ngIf="i.started">
+                    <div *ngIf="i.verifying" style="color:green;padding:2px;font-size:22px;">
+                        You have returned from a survey! We're verifying your project id
+                    </div>
+                    <div *ngIf="i.finished" style="color:green;padding:2px;font-size:22px;">
+                        ⭐ This project is finished! ⭐
+                    </div>
+
+                    <h3 *ngIf="i.started && !i.finished">Project started!</h3>
+                    <ul>
+                        <li>Project Starts {{i.projects.defaultstart | date: 'short'}}</li>
+                        <li>Project Ending Scheduled {{i.projects.defaultend | date: 'short'}}</li>
+                        <li>Expected payout {{i.projects.exp_payout | currency: 'USD'}}</li>
+                        <li>
+                            Link: <a target="_BLANK" href="{{i.projects.link}}">{{i.projects.link}}</a>
+                        </li>
+                        <li>
+                            Invited date: {{i.invited | date: 'short'}}
+                        </li>
+                        <li>
+                            Finished: {{i.finished}}
+                        </li>
+                        <li>Payment status:{{i.payment_confirmed }} </li>
+                    </ul>
+
+                </div>
 
             </mat-card-content>
-            <mat-card-actions>
+            <mat-card-actions *ngIf="!i.started">
                 <button (click)="startProject(i);" color="primary" mat-stroked-button>Start Project</button>
             </mat-card-actions>
         </mat-card>
-
-
-        <div *ngFor="let i of invitations">
-            {{i.projects.project_title}}
-        </div>
     </div>
     <ng-template #noProjects>
         <h3>No current invitations</h3>
