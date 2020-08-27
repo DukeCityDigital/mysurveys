@@ -38,6 +38,11 @@ const routes: Routes = [
         // data: { roles: [Role.administrator] },
       },
       {
+        path: "my-projects/:id",
+        component: MyProjectsComponent,
+        // data: { roles: [Role.administrator] },
+      },
+      {
         path: "settings",
         component: SettingsComponent,
         // data: { roles: [Role.administrator] },

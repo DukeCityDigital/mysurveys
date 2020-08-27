@@ -43,6 +43,19 @@ export class ProjectService {
   /**
    * Start selected project
    */
+  verify_project_code(post) {
+    return this.httpClient
+      .post<Project>(
+        this.apiServer + "/verify_project_code",
+        post,
+        this.httpOptions
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+
+  /**
+   * Start selected project
+   */
   start_project(id: number) {
     let post = { project_id: id };
     return this.httpClient
