@@ -9,22 +9,24 @@ export class UsersComponent implements OnInit {
   title = "Users";
   columns = [
     "id",
-    "email",
-    "regdate",
-    "last_login",
-    "last_update",
-    "banned",
-    "banned_reason",
-    "banned_date",
     "activated",
-    "registration_key",
-    "nickname",
+    "banned",
+    "banned_date",
+    "banned_reason",
+    "created_at",
+
+    "email",
+    "email_verified_at",
+
+    "last_login",
+    "updated_at",
+    "username",
   ];
 
   constructor() {
     var obj = [];
     this.columns.forEach((element) => {
-      let item = { name: element };
+      let item = { name: element, type: element };
       obj.push(item);
     });
     this.columns = obj;

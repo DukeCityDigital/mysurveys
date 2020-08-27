@@ -24,7 +24,7 @@ export class WarningsComponent implements OnInit {
   constructor() {
     var obj = [];
     this.columns.forEach((element) => {
-      let item = { name: element };
+      let item = { name: element, type: element };
       obj.push(item);
     });
     this.columns = obj;

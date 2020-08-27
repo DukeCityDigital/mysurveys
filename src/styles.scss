@@ -39,6 +39,13 @@ p {
   border: 1px solid #008e94;
 }
 
+.appwrap tr.mat-header-row {
+  height: 36px;
+}
+
+.appwrap tr.mat-row {
+  height: 36px;
+}
 .spacer {
   flex: 1;
 }

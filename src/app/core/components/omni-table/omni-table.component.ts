@@ -158,6 +158,7 @@ export class OmniTableComponent implements OnInit {
   /**
    * Transform input columns into objects if string
    * @param columns
+   * todo move this to a helper
    */
   createObjectColumns() {
     var objectColumns;
@@ -169,26 +170,39 @@ export class OmniTableComponent implements OnInit {
         ? "actions"
         : { name: "actions" }
       : null;
-    if (typeof this.columns[0] == "string") {
+    let selectItem = this.actions
+      ? typeof this.columns[0] == "string"
+        ? "select"
+        : { name: "select" }
+      : null;
+    if (
+      !this.options.forceColumns ||
+      typeof this.columns[0] == "string" ||
+      !this.columns[0].hasOwnProperty("type") ||
+      !this.columns[0].hasOwnProperty("name")
+    ) {
       this.columns.forEach((element) => {
+        let name = element.hasOwnProperty("name") ? element.name : element;
+        let intype = element.hasOwnProperty("type") ? element.type : element;
+        console.log("name", name, intype);
+        // let type = element.indexOf("ted_at") > -1 ? "date" : "any";
         displayColumns.push(element);
         var item = {
-          name: element,
+          name: name,
+          type: intype,
         };
-        searchFields.push(element + "_search");
+        // searchFields.push(element + "_search");
         returnColumns.push(item);
       });
-      if (this.options.selectable) {
-        this.objectColumns.unshift("select");
-      }
+      this.objectColumns = returnColumns;
     } else {
       this.objectColumns = this.columns;
-      this.objectColumns.unshift({ name: "select" });
     }
     actionItem ? this.objectColumns.push(actionItem) : null;
+    selectItem ? this.objectColumns.unshift(selectItem) : null;
 
     this.searchFields = searchFields;
-    console.log(this.searchFields);
+    // console.log(this.searchFields);
     // debugger;
 
     this.displayedColumns = this.objectColumns.map((col) => col.name);
