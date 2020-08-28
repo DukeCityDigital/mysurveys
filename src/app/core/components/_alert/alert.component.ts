@@ -51,6 +51,10 @@ export class AlertComponent implements OnInit, OnDestroy {
         }
 
         // add alert to array
+        console.log("alerts component", this.alerts, this.id);
+        if (this.id == "motd" && this.alerts.length) {
+          return false;
+        }
         this.alerts.push(alert);
 
         // auto close alert if required

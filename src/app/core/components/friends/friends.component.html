@@ -10,11 +10,11 @@
 <div *ngIf="user &&  user.is_seed !==null">
     <mat-card class="innercard">
         <mat-card-title>
-            Invite a friend
+            Invite friends
         </mat-card-title>
 
         <form [formGroup]="friendForm" (ngSubmit)="onSubmitFriendInvite();friendForm.reset()">
-            Friend invite form
+
             <label for="email">Friend's email</label>
             <input style="border:1px solid black;width:100%;" type="text" id="email" name="email"
                 formControlName="email" matInput placeholder="&nbsp;First Name" class="example-full-width" />
@@ -41,7 +41,8 @@
                 <td>{{f.user.updated_at | date: 'short'}}</td>
                 <td>{{f.user.email_verified_at ? (f.user.email_verified_at | date: 'short') : 'No'}} </td>
                 <td> {{f.paypal_id_status}}</td>
-                <td><button>Send reminder</button>
+                <td><button [disabled]="f.user.email.verified_at"
+                        (click)="clickSubmitFriendInvite(f.user.email);friendForm.reset()">Send reminder</button>
             </tr>
         </table>
         <ng-template #loading>

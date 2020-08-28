@@ -15,9 +15,12 @@ export class AppComponent {
   opened: boolean = true;
 
   getLinks() {
-    return this.links.base
-      .concat(this.links[this.user.role])
-      .concat(this.links.end);
+    if (this.user.role) {
+      return this.links.base
+        .concat(this.links[this.user.role])
+        .concat(this.links.end);
+    }
+    return this.links.base.concat(this.links.end);
   }
 
   links = {
@@ -40,7 +43,7 @@ export class AppComponent {
     ],
     researcher: [
       { name: "projects", link: "/dashboard/projects", icon: "assignment" },
-      { name: "notifications", link: "dashboard/notifications", icon: "chat" },
+      // { name: "notifications", link: "dashboard/notifications", icon: "chat" },
 
       {
         name: "payouts",

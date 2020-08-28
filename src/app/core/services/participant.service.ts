@@ -44,8 +44,7 @@ export class ParticipantService {
       .pipe(catchError(this.errorHandler));
   }
 
-  inviteFriend(email, invite?): Observable<Participant> {
-    let post = invite ? { email: email, invite: true } : { email: email };
+  inviteFriend(post): Observable<Participant> {
     return this.httpClient.post<Participant>(
       this.apiServer + "/invite_friend",
       post,

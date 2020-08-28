@@ -45,27 +45,40 @@ export class FriendsComponent implements OnInit {
       email: new FormControl(""),
     });
   }
-  onSubmitFriendInvite() {
-    console.log("friendchange", this.friendForm.value.email);
+
+  public inviteFriend(post) {
     if (!this.friendForm) {
       this.alertService.error("You must fill out the friend change form first");
     }
-    this.participantService
-      .inviteFriend(this.friendForm.value.email, true)
-      .subscribe(
-        (data: any) => {
-          console.log(data);
-          this.alertService.success("Invitation sent", { autoClose: true });
-          this.getMe();
-        },
-        (error) => {
-          console.log("Error", error);
-          if (error && error.error && error.error.email) {
-            this.alertService.error(error.error.email, { autoClose: true });
-          } else if (error) {
-            this.alertService.error(error.error, { autoClose: true });
-          }
+    this.participantService.inviteFriend(post).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.alertService.success("Invitation sent", { autoClose: true });
+        this.getMe();
+      },
+      (error) => {
+        console.log("Error", error);
+        if (error && error.error && error.error.email) {
+          this.alertService.error(error.error.email, { autoClose: true });
+        } else if (error) {
+          this.alertService.error(error.error, { autoClose: true });
         }
-      );
+      }
+    );
+  }
+
+  public clickSubmitFriendInvite(email: string) {
+    this.friendForm.setValue({ email: email });
+    let post = {
+      email: this.friendForm.value.email,
+      invite: true,
+      remind: true,
+    };
+    this.inviteFriend(post);
+  }
+  onSubmitFriendInvite() {
+    let post = { email: this.friendForm.value.email, invite: true };
+    this.inviteFriend(post);
+    console.log("friendchange", this.friendForm.value.email);
   }
 }
