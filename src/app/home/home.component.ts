@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-
+import { AlertService, Alert } from "@app/core/components/_alert";
+AlertService;
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -7,7 +8,8 @@ import { Component, OnInit } from "@angular/core";
 })
 export class HomeComponent implements OnInit {
   showGdpr: boolean;
-  constructor() {}
+
+  constructor(private alertService: AlertService) {}
 
   ngOnInit(): void {
     var data = sessionStorage.getItem("showgdpr");

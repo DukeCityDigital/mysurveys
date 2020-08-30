@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import { AuthService as AuthenticationService } from "@app/core/services/auth.service";
 import { AlertService } from "./core/components/_alert";
 import { WarningsComponent } from "./core/components/warnings/warnings.component";
+import { UserService } from "./core/services/user.service";
+
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -14,6 +16,17 @@ export class AppComponent {
   navLinks = [];
   opened: boolean = true;
 
+  constructor(
+    private alertService: AlertService,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private userService: UserService
+  ) {
+    // this.user = this.authenticationService.userValue;
+
+    this.authenticationService.user.subscribe((x) => (this.user = x));
+  }
+
   getLinks() {
     if (this.user.role) {
       return this.links.base
@@ -21,6 +34,23 @@ export class AppComponent {
         .concat(this.links.end);
     }
     return this.links.base.concat(this.links.end);
+  }
+
+  ngOnInit(): void {}
+
+  getPreloginMessage() {
+    this.alertService.success("prelogin", {
+      id: "prelogin",
+      autoClose: false,
+      keepAfterRouteChange: true,
+    });
+    // this.userService.motd().subscribe((r) => {
+    //   this.alertService.success(r.data, {
+    //     id: "motd",
+    //     autoClose: false,
+    //     keepAfterRouteChange: true,
+    //   });
+    // });
   }
 
   links = {
@@ -75,18 +105,6 @@ export class AppComponent {
       { name: "MOTD", link: "/dashboard/motd", icon: "chat" },
     ],
   };
-
-  constructor(
-    // private alertService: AlertService,
-    private router: Router,
-    private authenticationService: AuthenticationService
-  ) {
-    // this.user = this.authenticationService.userValue;
-
-    this.authenticationService.user.subscribe((x) => (this.user = x));
-  }
-
-  ngOnInit(): void {}
 
   logout() {
     this.authenticationService.logout();

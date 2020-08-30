@@ -7,16 +7,11 @@
                 that page</a>
         </h2>
         <app-login></app-login>
-
-
-
         <mat-card *ngIf="showGdpr" style="font-size:15px;margin-top:22px;">
             This website uses cookies to ensure you get the best experience on our website.
             <a [routerLink]="'/privacy'">Learn More</a>
             <button style="margin:0 10px;" (click)="acknowledgeGDPR()" mat-stroked-button
                 color="primary">Accept</button>
-
-
         </mat-card>
     </div>
 </div>

@@ -170,6 +170,7 @@ export class ManageParticipantsComponent implements OnInit {
   }
 
   runTable() {
+    this.PREVIEWDATA = undefined;
     this.invitationErrors = [];
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(

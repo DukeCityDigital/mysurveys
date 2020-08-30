@@ -37,7 +37,7 @@
 
 </div>
 <div *ngIf="PREVIEWDATA" style="border:1px solid orange;padding:2px;">
-    <mat-card *ngIf="invitationErrors.length; else noErrors">
+    <mat-card *ngIf="invitationErrors.length">
         <h2>There are errors in your submission</h2>
         <i>
             Selection won't submit in production mode with errors
@@ -49,7 +49,6 @@
     </mat-card>
 
     <mat-card>
-        <h2 #noErrors>No errors detected</h2>
         <h2>The following users would receive an invitation</h2>
         <p>Turn off test mode and re-send if correct</p>
         <div style="overflow:scroll;">

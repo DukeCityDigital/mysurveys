@@ -11,6 +11,7 @@ import {
 
 import { environment } from "../../../environments/environment";
 import { Project } from "@app/core/models/project.model";
+import { Settings } from "../models/settings.model";
 @Injectable({
   providedIn: "root",
 })
@@ -24,6 +25,18 @@ export class AdminService {
   private apiServer = environment.apiUrl;
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
+  //retrieve project settings
+  getSettings(): Observable<any> {
+    return this.httpClient
+      .get<any>(this.apiServer + "/settings")
+      .pipe(catchError(this.errorHandler));
+  }
+  updateSettings(settings: Settings): Observable<any> {
+    return this.httpClient.put<any>(
+      this.apiServer + "/settings/" + settings.id,
+      settings
+    );
+  }
 
   findOmni(
     model = "",
@@ -85,12 +98,6 @@ export class AdminService {
     //   .pipe(catchError(this.errorHandler));
     return this.httpClient
       .post<any>(this.apiServer + "/log", post, this.httpOptions)
-      .pipe(catchError(this.errorHandler));
-  }
-
-  getSettings(): Observable<any> {
-    return this.httpClient
-      .get<any>(this.apiServer + "/settings")
       .pipe(catchError(this.errorHandler));
   }
 

@@ -3,30 +3,19 @@
         <mat-card-title>Set Participant MOTD Panel</mat-card-title>
         <!-- <mat-card-subtitle>subtitle</mat-card-subtitle> -->
     </mat-card-header>
-    <mat-card-content>
-
-        <textarea>
-
-        </textarea>
-
+    <mat-card-content *ngIf="motdForm">
+        <form [formGroup]="motdForm" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+                <mat-label>Participant MOTD</mat-label>
+                <input formControlName="participantmessage" matInput>
+            </mat-form-field>
+            <br><br>
+            <mat-form-field>
+                <mat-label>Researcher MOTD</mat-label>
+                <input formControlName="researchermessage" matInput>
+            </mat-form-field>
+            <hr>
+            <button mat-stroked-button color="primary">Save</button>
+        </form>
     </mat-card-content>
-    <mat-card-actions>
-        <button mat-stroked-button color="primary">Save</button>
-    </mat-card-actions>
-</mat-card>
-
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>Set Researcher MOTD Panel</mat-card-title>
-        <!-- <mat-card-subtitle>subtitle</mat-card-subtitle> -->
-    </mat-card-header>
-    <mat-card-content>
-        <textarea>
-
-        </textarea>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-stroked-button color="primary">Save</button>
-
-    </mat-card-actions>
 </mat-card>

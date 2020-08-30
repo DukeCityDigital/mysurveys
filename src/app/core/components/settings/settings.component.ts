@@ -23,12 +23,13 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.adminService.getSettings().subscribe((r) => {
+      console.log(r);
       this.settings = r.data;
-      this.resultArray = Object.keys(r.data).map(function (i) {
-        let data = r.data[i];
-        return data;
-      });
-      this.settings = this.resultArray[0];
+      // this.resultArray = Object.keys(r.data).map(function (i) {
+      //   let data = r.data[i];
+      //   return data;
+      // });
+      // this.settings = this.resultArray[0];
     });
     this.getProjects();
   }

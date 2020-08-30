@@ -1,5 +1,5 @@
 ﻿<div style="text-align:center;" class="default-alert">
-    <div *ngIf="alerts.length && alerts[0].id!=='motd'" style="display:flex;">
+    <div *ngIf="alerts.length && alerts[0].id==='da'" style="display:flex;">
         <div *ngFor="let alert of alerts" class="{{cssClass(alert)}}" class="alert-inner">
             <a *ngIf="!alert.autoClose" style="cursor:pointer;" class="close" (click)="removeAlert(alert)">X&nbsp;</a>
             <span [innerHTML]="alert.message"></span>
