@@ -1,139 +1,146 @@
 <mat-card>
     <!-- {{project | json}} -->
     <mat-card-title>Project Title: {{project ? project.project_title : null}}</mat-card-title>
-    <div class="projectinfo" *ngIf="project">
-        ?checkscomponent?
-        <div>
-            <!-- <table style="width:50%">
-                <tr>
-                    <th>
-                        Item
-                    </th>
-                    <th>
-                        Value
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        Project State:
-                    </td>
-                    <td>
-                        {{project.state}}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Quota:
-                    </td>
-                    <td>
-                        {{project.quota | currency}}
-                    </td>
-                  
 
-                </tr>
-                
-            </table> -->
-
-        </div>
-        <ul>
-
-            <li>Project State: {{project.state}}</li>
-            <li>Quota: {{project.quota | currency}}</li>
-            <li>
-                Scheduled to begin: (defaultstart): {{project.defaultstart | date: 'short'}}
-            </li>
-            <li>
-                Project start state: {{project.start_state ==='Open' ? 'Open' : 'Closed'}}
-            </li>
-            <li *ngIf="project.link_method ==='Direct'; else fixed">
-
-                The project link method is <b>Direct</b>
-                <br>&nbsp;&nbsp;You wish to have a sample size of <b>{{project.desired_sample_size}}</b> participants,
-                with a maximum of <b> {{project.desired_num_invitations}}</b> invitations
-                <br>
-
-            </li>
-            <ng-template #fixed>
-                The payout type is <b>Fixed</b>
-            </ng-template>
-            <li *ngIf=" !project.quota || parseInt(project.quota) <= 0;else quota">
-                <span class="error"> You have no quota with which to pay participants, only the
-                    administrator can change the
-                    quota. </span>
-
-            </li>
-            <ng-template #quota>
-                Your quota for the project is {{project.quota}}
-            </ng-template>
-            <li *ngIf="project.link_method ==='Direct'">
-                The link method is <strong>Direct</strong>. There are no automatic payments.
-                You wish to have a sample size of {{project.desired_sample_size}} participants,
-                with a maximum of {{project.desired_num_invitations}} invitations.
-
-            </li>
-            <li *ngIf="project.payout_type ==='Fixed'">
-                Payout type is <b>Fixed</b>
-            </li>
-
-            <li *ngIf="project.payout_type !== 'Fixed' && project.payout_type !=='Variable'">
-                <td>Payout
-                    type is
-                    'Variable'.
-            </li>
-            <li *ngIf="project.exp_payout > project.max_payout">
-                <span class="error">The expected payout ({{project.exp_payout}}) is larger than the maximum
-                    payout
-                    {{project.max_payout}} </span>
-
-            </li>
-            <li class="TODO">
-                Status on reminders and participants completed survey etc. ..
-            </li>
-            <li>
-                Number of selected participants: {{totalParticipants}}
-            </li>
-            <li>
-                Desired sample size: {{project.desired_sample_size}}
-            </li>
-
-
-
-            <li *ngIf="totalParticipants > parseInt(project.desired_sample_size); else moreParticipants">
-                <mat-icon>check</mat-icon> You have at least the desired number of participants
-            </li>
-            <div *ngIf="project.state ==='Design'">
-                <h2 class="primary success"> This project is in the design stage, you may select participants
-                </h2>
-            </div>
-
-        </ul>
-
-
-
-        <ng-template #moreParticipants style="text-align:center;">
-            <h2 class="error">You need more participants to satisfy your target sample size</h2>
-        </ng-template>
-
-        <div style="background:white;" class="primary success" *ngIf=" totalParticipants>
-            parseInt(project.desired_sample_size);">
-            You can change the project state from 'Design' to 'Started' to start the project<br>
-
-            <div *ngIf="project.state =='Started'" class="alert-success">
-                <h2>The project is started. You may send invitations to project participants </h2>
-            </div>
-            <button *ngIf="project.state !=='Started'" mat-stroked-button color="primary"
-                (click)="changeProjectState('Started');">Start Project</button>
-            <button *ngIf="project.state !=='Design'" mat-stroked-button color="primary"
-                (click)="changeProjectState('Design');">Pause Project</button>
-
-        </div>
-
-    </div>
     <mat-tab-group dynamicHeight (selectedIndexChange)="selectedIndexChange($event)">
+
+        <mat-tab label="Import / Export">
+            <app-data [project_id]="project_id"></app-data>
+        </mat-tab>
 
         <mat-tab label="Select participants">
             <mat-card>
                 <mat-card-title>Select participants</mat-card-title>
+                <div class="projectinfo" *ngIf="project">
+                    ?checkscomponent?
+                    <div>
+                        <!-- <table style="width:50%">
+                            <tr>
+                                <th>
+                                    Item
+                                </th>
+                                <th>
+                                    Value
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Project State:
+                                </td>
+                                <td>
+                                    {{project.state}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Quota:
+                                </td>
+                                <td>
+                                    {{project.quota | currency}}
+                                </td>
+                              
+            
+                            </tr>
+                            
+                        </table> -->
+
+                    </div>
+                    <ul>
+
+                        <li>Project State: {{project.state}}</li>
+                        <li>Quota: {{project.quota | currency}}</li>
+                        <li>
+                            Scheduled to begin: (defaultstart): {{project.defaultstart | date: 'short'}}
+                        </li>
+                        <li>
+                            Project start state: {{project.start_state ==='Open' ? 'Open' : 'Closed'}}
+                        </li>
+                        <li *ngIf="project.link_method ==='Direct'; else fixed">
+
+                            The project link method is <b>Direct</b>
+                            <br>&nbsp;&nbsp;You wish to have a sample size of <b>{{project.desired_sample_size}}</b>
+                            participants,
+                            with a maximum of <b> {{project.desired_num_invitations}}</b> invitations
+                            <br>
+
+                        </li>
+                        <ng-template #fixed>
+                            The payout type is <b>Fixed</b>
+                        </ng-template>
+                        <li *ngIf=" !project.quota || parseInt(project.quota) <= 0;else quota">
+                            <span class="error"> You have no quota with which to pay participants, only the
+                                administrator can change the
+                                quota. </span>
+
+                        </li>
+                        <ng-template #quota>
+                            Your quota for the project is {{project.quota}}
+                        </ng-template>
+                        <li *ngIf="project.link_method ==='Direct'">
+                            The link method is <strong>Direct</strong>. There are no automatic payments.
+                            You wish to have a sample size of {{project.desired_sample_size}} participants,
+                            with a maximum of {{project.desired_num_invitations}} invitations.
+
+                        </li>
+                        <li *ngIf="project.payout_type ==='Fixed'">
+                            Payout type is <b>Fixed</b>
+                        </li>
+
+                        <li *ngIf="project.payout_type !== 'Fixed' && project.payout_type !=='Variable'">
+                            <td>Payout
+                                type is
+                                'Variable'.
+                        </li>
+                        <li *ngIf="project.exp_payout > project.max_payout">
+                            <span class="error">The expected payout ({{project.exp_payout}}) is larger than the maximum
+                                payout
+                                {{project.max_payout}} </span>
+
+                        </li>
+                        <li class="TODO">
+                            Status on reminders and participants completed survey etc. ..
+                        </li>
+                        <li>
+                            Number of selected participants: {{totalParticipants}}
+                        </li>
+                        <li>
+                            Desired sample size: {{project.desired_sample_size}}
+                        </li>
+
+
+
+                        <li *ngIf="totalParticipants > parseInt(project.desired_sample_size); else moreParticipants">
+                            <mat-icon>check</mat-icon> You have at least the desired number of participants
+                        </li>
+                        <div *ngIf="project.state ==='Design'">
+                            <h2 class="primary success"> This project is in the design stage, you may select
+                                participants
+                            </h2>
+                        </div>
+
+                    </ul>
+
+
+
+                    <ng-template #moreParticipants style="text-align:center;">
+                        <h2 class="error">You need more participants to satisfy your target sample size</h2>
+                    </ng-template>
+
+                    <div style="background:white;" class="primary success" *ngIf=" totalParticipants>
+                        parseInt(project.desired_sample_size);">
+                        You can change the project state from 'Design' to 'Started' to start the project<br>
+
+                        <div *ngIf="project.state =='Started'" class="alert-success">
+                            <h2>The project is started. You may send invitations to project participants </h2>
+                        </div>
+                        <button *ngIf="project.state !=='Started'" mat-stroked-button color="primary"
+                            (click)="changeProjectState('Started');">Start Project</button>
+                        <button *ngIf="project.state !=='Design'" mat-stroked-button color="primary"
+                            (click)="changeProjectState('Design');">Pause Project</button>
+
+                    </div>
+
+                </div>
                 <app-selection-table>
                 </app-selection-table>
             </mat-card>
@@ -244,50 +251,9 @@
                 <button [disabled]="editForm.value.errors" mat-stroked-button color="primary">Update</button>
             </form>
         </mat-tab>
-        <mat-tab label="Payouts">
-            <mat-card>
-
-            </mat-card>
-        </mat-tab>
-        <mat-tab label="Project Settings">
-            <mat-accordion>
-                <!-- <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Edit Email Templates
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            Add and configure templates
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <p>Edit email content</p>
-                </mat-expansion-panel> -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Import/Export Participant Data
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            <!-- //csv -->
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <p>CSV import/export form</p>
-                </mat-expansion-panel>
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Test project links
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            <mat-icon>search</mat-icon>
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <p>I'm visible because I am open</p>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </mat-tab>
         <mat-tab label="Edit custom notification">
             <mat-card>
+                *60% done (allow researchers to type custom notification and send to selected users)
                 <!-- <app-email-templates></app-email-templates> -->
             </mat-card>
         </mat-tab>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { Participant } from "@app/core/models/participant.model";
 import { ParticipantService } from "@app/core/services/participant.service";
 import { AlertService } from "../_alert";
 

@@ -93,6 +93,13 @@ export class ParticipantService {
     //   .delete<Participant>(this.apiServer + "/Participants/" + id, this.httpOptions)
     //   .pipe(catchError(this.errorHandler));
   }
+
+  updateList(post: any): Observable<any> {
+    return this.httpClient.post<any>(
+      this.apiServer + "/update_participant_validation",
+      post
+    );
+  }
   update(Participant: Participant): Observable<any> {
     let actual = Participant.id
       ? Participant.id

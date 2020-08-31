@@ -5,6 +5,7 @@ import { AuthService as AuthenticationService } from "@app/core/services/auth.se
 import { AlertService } from "./core/components/_alert";
 import { WarningsComponent } from "./core/components/warnings/warnings.component";
 import { UserService } from "./core/services/user.service";
+import { DataComponent } from "./core/components/data/data.component";
 
 @Component({
   selector: "app-root",
@@ -14,7 +15,9 @@ import { UserService } from "./core/services/user.service";
 export class AppComponent {
   public user;
   navLinks = [];
-  opened: boolean = true;
+  opened: boolean = false;
+
+  public screenWidth: any;
 
   constructor(
     private alertService: AlertService,
@@ -36,7 +39,12 @@ export class AppComponent {
     return this.links.base.concat(this.links.end);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth > 680) {
+      this.opened = true;
+    }
+  }
 
   getPreloginMessage() {
     this.alertService.success("prelogin", {
@@ -75,11 +83,11 @@ export class AppComponent {
       { name: "projects", link: "/dashboard/projects", icon: "assignment" },
       // { name: "notifications", link: "dashboard/notifications", icon: "chat" },
 
-      {
-        name: "payouts",
-        link: "/dashboard/payouts",
-        icon: "attach_money",
-      },
+      // {
+      //   name: "import/export",
+      //   link: "/dashboard/data",
+      //   icon: "import_export",
+      // },
 
       // { name: "selection", link: "selection", icon: "" },
     ],
