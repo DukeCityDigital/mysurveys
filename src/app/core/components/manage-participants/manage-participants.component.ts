@@ -85,10 +85,6 @@ export class ManageParticipantsComponent implements OnInit {
    * @param ids
    */
   public sendProjectInvitations(selectedIDs?) {
-    this.alertService.success("Invitations sent", {
-      autoClose: true,
-    });
-    this.alertService.success("Success on the left!!", { id: "alert-1" });
     // console.log("pj invites", this.data);
     // TODO confirmation
     // let r = window.confirm(
@@ -101,7 +97,7 @@ export class ManageParticipantsComponent implements OnInit {
     if (!selectedIDs) {
       this.data.forEach((element) => {
         // console.log(element);
-        ids.push(element.participants_userid);
+        ids.push(element.id);
       });
     } else {
       ids = selectedIDs;

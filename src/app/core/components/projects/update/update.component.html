@@ -4,9 +4,7 @@
 
     <mat-tab-group dynamicHeight (selectedIndexChange)="selectedIndexChange($event)">
 
-        <mat-tab label="Import / Export">
-            <app-data [project_id]="project_id"></app-data>
-        </mat-tab>
+
 
         <mat-tab label="Select participants">
             <mat-card>
@@ -250,6 +248,9 @@
                 </mat-form-field>
                 <button [disabled]="editForm.value.errors" mat-stroked-button color="primary">Update</button>
             </form>
+        </mat-tab>
+        <mat-tab label="Import / Export">
+            <app-data [project_id]="project_id"></app-data>
         </mat-tab>
         <mat-tab label="Edit custom notification">
             <mat-card>

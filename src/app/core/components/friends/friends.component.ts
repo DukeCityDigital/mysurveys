@@ -33,6 +33,7 @@ export class FriendsComponent implements OnInit {
 
   getMe() {
     this.participantService.get().subscribe((data: any) => {
+      console.log(data);
       this.user = data.data;
       console.log(this.user);
     });

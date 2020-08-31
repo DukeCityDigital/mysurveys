@@ -2,15 +2,26 @@
     <div>
         <h1>Please log in below. </h1>
         <h2>
-            If you need to fill out the questionnaire and create an account, please<a [routerLink]="'/questionnaire'">
-                click here</a>
+            If you need to fill out the questionnaire and create an account, please <br><a
+                [routerLink]="'/questionnaire'">
+                Visit this page</a>
         </h2>
         <app-login></app-login>
         <mat-card *ngIf="showGdpr" style="font-size:15px;margin-top:22px;">
-            This website uses cookies to ensure you get the best experience on our website.
+            <b>This website uses cookies to ensure you
+                get
+                the best experience, </b>
+            <p>
+                in addition to any data you submit in surveys or questionnaires.</p>
+            <p>
+
+                You also have the right to request that your personal data be deleted.<br> If you object, please <a
+                    href="https://google.com">Click here</a> to leave the site.<br> To learn more, follow the link. </p>
+
             <a [routerLink]="'/privacy'">Learn More</a>
             <button style="margin:0 10px;" (click)="acknowledgeGDPR()" mat-stroked-button
                 color="primary">Accept</button>
+
         </mat-card>
     </div>
 </div>
