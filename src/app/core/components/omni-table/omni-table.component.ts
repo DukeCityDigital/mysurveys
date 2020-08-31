@@ -5,6 +5,8 @@ import {
   AfterViewInit,
   ElementRef,
   Input,
+  Output,
+  EventEmitter,
 } from "@angular/core";
 import { AdminService } from "@app/core/services/admin.service";
 import { HttpClient } from "@angular/common/http";
@@ -44,6 +46,8 @@ export class OmniTableComponent implements OnInit {
   @Input() options: any = { selectable: false };
   @Input() actions: any;
 
+  @Output() submitRowEmit: EventEmitter<any> = new EventEmitter();
+
   PROJECTPARTICIPANTS: any;
 
   @Input() objectColumns: any[] = [
@@ -67,6 +71,22 @@ export class OmniTableComponent implements OnInit {
   searchField: any = "id";
 
   constructor(private adminService: AdminService) {}
+
+  public submitRow(row?: any) {
+    console.log(row);
+    let em = {
+      id: row.element.id,
+      model: row.title,
+      name: row.name,
+      value: row.value,
+    };
+
+    this.submitRowEmit.emit(em);
+  }
+  // public submitRow(row?: any) {
+  //   console.log(row);
+  //   this.submitRow.emit(row);
+  // }
 
   ngOnInit(): void {
     this.dataSource = new OmniDataSource(this.adminService);
@@ -184,12 +204,19 @@ export class OmniTableComponent implements OnInit {
       this.columns.forEach((element) => {
         let name = element.hasOwnProperty("name") ? element.name : element;
         let intype = element.hasOwnProperty("type") ? element.type : element;
-        console.log("name", name, intype);
+        let inEdit = element.hasOwnProperty("edit") ? element.type : false;
+        let inOptions = element.hasOwnProperty("options")
+          ? element.options
+          : false;
+
+        // console.log("name", name, intype);
         // let type = element.indexOf("ted_at") > -1 ? "date" : "any";
         displayColumns.push(element);
         var item = {
           name: name,
           type: intype,
+          edit: inEdit,
+          options: inOptions,
         };
         // searchFields.push(element + "_search");
         returnColumns.push(item);
@@ -199,7 +226,7 @@ export class OmniTableComponent implements OnInit {
       this.objectColumns = this.columns;
     }
     actionItem ? this.objectColumns.push(actionItem) : null;
-    selectItem ? this.objectColumns.unshift(selectItem) : null;
+    // selectItem ? this.objectColumns.unshift(selectItem) : null;
 
     this.searchFields = searchFields;
     // console.log(this.searchFields);

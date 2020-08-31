@@ -26,6 +26,7 @@ import { PayoutsComponent } from "./core/components/payouts/payouts.component";
 import { WarningsComponent } from "./core/components/warnings/warnings.component";
 import { MotdComponent } from "./core/components/motd/motd.component";
 import { NotificationsComponent } from "./core/components/notifications/notifications.component";
+import { ParticipantsComponent } from "./core/components/participants/participants.component";
 
 const routes: Routes = [
   {
@@ -103,6 +104,12 @@ const routes: Routes = [
         component: UsersComponent,
         canActivate: [AuthGuard],
         // data: { roles: [Role.administrator, Role.researcher] },
+      },
+      {
+        path: "participants",
+        component: ParticipantsComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Role.administrator, Role.researcher] },
       },
     ],
 

@@ -91,6 +91,8 @@ export class AppComponent {
         icon: "settings",
       },
       { name: "users", link: "/dashboard/users", icon: "people_outline" },
+      { name: "participants", link: "/dashboard/participants", icon: "people" },
+
       {
         name: "payouts",
         link: "/dashboard/payouts",

@@ -40,6 +40,7 @@ import { WarningsComponent } from "./core/components/warnings/warnings.component
 import { MotdComponent } from "./core/components/motd/motd.component";
 import { NotificationsComponent } from "./core/components/notifications/notifications.component";
 import { AlertComponent } from "./core/components/_alert/alert.component";
+import { ParticipantsComponent } from './core/components/participants/participants.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { AlertComponent } from "./core/components/_alert/alert.component";
     WarningsComponent,
     MotdComponent,
     NotificationsComponent,
+    ParticipantsComponent,
   ],
   imports: [
     BrowserModule,
