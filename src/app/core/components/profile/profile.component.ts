@@ -34,6 +34,8 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   profileFormSubmitted = false;
 
+  changedPassword = false;
+
   constructor(
     private authService: AuthService,
     private alertService: AlertService,
@@ -143,15 +145,16 @@ export class ProfileComponent implements OnInit {
     let post = {
       password: this.changePasswordForm.value.password,
       new_password: this.changePasswordForm.value.new_password.password,
+      role: this.participant.role,
     };
     console.log("changepass", post);
     this.registrationService
       .changePasswordRequest(post)
       .pipe()
       .subscribe((data: any) => {
+        this.changedPassword = true;
         console.log(data);
         // this.participant = data.data;
-        console.log(data);
         this.alertService.success(data.message, { autoClose: true });
       });
 

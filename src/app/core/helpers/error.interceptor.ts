@@ -17,7 +17,13 @@ export class ErrorInterceptor implements HttpInterceptor {
   authService = AuthService;
   static alertService;
   // alertService = AlertService;
-  constructor(private alertService: AlertService) {
+  constructor(
+    private state: RouterStateSnapshot,
+    private router: Router,
+    private authenticationService: AuthService,
+    private alertService: AlertService,
+    private injector: Injector
+  ) {
     ErrorInterceptor.alertService = alertService;
   }
 
@@ -28,7 +34,9 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       // retry(1),
       catchError((error: HttpErrorResponse) => {
-        console.log("error", error);
+        console.log(error);
+        console.log(error.error.message);
+
         let errorMessage = "";
         if (error.error instanceof ErrorEvent) {
           // client-side error
@@ -47,10 +55,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         // window.alert(errorMessage);
         // return false
         // const alertService = this.injector.get(AlertService);
-        let msg = error.error.message
-          ? error.error.message
-          : "There has been an error";
-        this.alertService.error(msg);
+        let msg = error.error.message || "There has been an error";
+        this.alertService.error(msg, { autoClose: true });
         return throwError(error);
       })
     );

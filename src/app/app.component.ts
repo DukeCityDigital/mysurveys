@@ -70,14 +70,18 @@ export class AppComponent {
 
     participant: [
       // { name: "statistics", link: "/", icon: "poll" },
-      { name: "friends", link: "/dashboard/friends", icon: "people_outline" },
       {
-        name: "my projects",
-        link: "/dashboard/my-projects",
+        name: "1. friends",
+        link: "/dashboard/friends",
         icon: "people_outline",
       },
 
-      { name: "payPal", link: "/dashboard/paypal", icon: "monetization_on" },
+      { name: "2. payPal", link: "/dashboard/paypal", icon: "monetization_on" },
+      {
+        name: "3. my projects",
+        link: "/dashboard/my-projects",
+        icon: "assignment",
+      },
     ],
     researcher: [
       { name: "projects", link: "/dashboard/projects", icon: "assignment" },

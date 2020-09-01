@@ -15,9 +15,9 @@
 
         <form [formGroup]="friendForm" (ngSubmit)="onSubmitFriendInvite();friendForm.reset()">
 
-            <label for="email">Friend's email</label>
+            <label for="email">Enter a friend's email address here</label>
             <input style="border:1px solid black;width:100%;" type="text" id="email" name="email"
-                formControlName="email" matInput placeholder="&nbsp;First Name" class="example-full-width" />
+                formControlName="email" matInput placeholder="&nbsp;Email" class="example-full-width" />
             <button type="submit">Submit</button>
         </form>
         <hr>

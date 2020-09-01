@@ -1,15 +1,11 @@
 <mat-card>
     <h2>Project invitations</h2>
-
-    //check api for open projects
-
-    if none, show
     <div *ngIf="invitations.length;else noProjects">
         <h2>You've been invited to the following projects</h2>
         <mat-card *ngFor="let i of invitations" style="border:1px solid lightblue;margin-bottom:14px;">
             <mat-card-header>
-                <mat-card-title> {{i.projects.project_title}}</mat-card-title>
-                <mat-card-subtitle>{{i.projects.description}}</mat-card-subtitle>
+                <mat-card-title>Project title: {{i.projects.project_title}}</mat-card-title>
+                <mat-card-subtitle>Project description: {{i.projects.description}}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
                 <ul>

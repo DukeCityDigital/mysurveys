@@ -8,6 +8,7 @@ import {
   transition,
   // ...
 } from "@angular/animations";
+import { setTimeout } from "timers";
 
 @Component({
   selector: "app-qualification",
@@ -67,7 +68,7 @@ export class QualificationComponent implements OnInit {
 
   toggle() {
     this.isOpen = !this.isOpen;
-}
+  }
 
   /**
    * Show if a user is qualified
@@ -98,6 +99,11 @@ export class QualificationComponent implements OnInit {
     // debugger;
     this.qualified = qualified;
     // return qualified;
+    // window.setTimeout(() => ChromeSamples.log(counterB.seconds), 1200);
+    window.setTimeout(() => {
+      window.scrollTo(0, 0);
+      // window.scrollY = 0;
+    }, 300);
   }
 
   constructor() {}

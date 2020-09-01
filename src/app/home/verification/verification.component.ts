@@ -32,7 +32,7 @@ export class VerificationComponent implements OnInit {
   emailVerificationForm: FormGroup;
   submitted = false;
   userEmail: string;
-
+  user: any;
   createSignupForm(): FormGroup {
     return this.formBuilder.group({
       email: new FormControl("", [Validators.required, Validators.email]),
@@ -81,6 +81,7 @@ export class VerificationComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
     this.errors = [];
     if (!this.qualificationForm) {
       this.alertService.error("You must fill out the qualification form first");
@@ -98,6 +99,7 @@ export class VerificationComponent implements OnInit {
     this.registrationService.checkVerificationCode(code).subscribe(
       (data) => {
         if (!data.error) {
+          this.user = data;
           if (data.role === "participant") {
             this.emailLinkFoundAndHandled = true;
 

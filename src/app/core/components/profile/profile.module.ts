@@ -4,6 +4,7 @@ import { ProfileComponent } from "./profile.component";
 import { MaterialBaseModule } from "../material-base/material-base.module";
 import { PasswordFormModule } from "../password-form/password-form.module";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [ProfileComponent],
@@ -12,6 +13,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
     MaterialBaseModule,
     MatPaginatorModule,
     PasswordFormModule,
+    RouterModule,
   ],
   exports: [ProfileComponent],
 })

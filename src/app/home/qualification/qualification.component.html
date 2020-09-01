@@ -26,12 +26,12 @@
         <div [@openClose]="accepted_short_consent ? 'open' : 'closed'" class="open-close-container">
             <form [hidden]="!accepted_short_consent" [formGroup]="qualificationForm" (ngSubmit)="onSubmit()">
                 <h2>Thanks for your consent!</h2>
-                <p>Please answer the following questions</p>
+                <p>Please answer all of the following questions</p>
                 <div class="shortConsent">
 
                     <label id="example-radio-group-label">Do any children under the age of 18 currently live in your
                         household?</label>
-                    <mat-radio-group required aria-labelledby="example-radio-group-label" class="example-radio-group"
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
                         formControlName="parents">
                         <mat-radio-button class="example-radio-button" value="true">
                             Yes
@@ -40,6 +40,9 @@
                             No
                         </mat-radio-button>
                     </mat-radio-group>
+                    <div class="fielderror" *ngIf="qualificationForm.value.parents ==''">
+                        This field is required
+                    </div>
                     <hr>
                     <p>Scientists have added genes to certain food crops to make them insect resistant and herbicide
                         tolerant.
@@ -56,6 +59,9 @@
                             {{response.value}} {{response.name}}
                         </mat-radio-button>
                     </mat-radio-group>
+                    <div class="fielderror" *ngIf="qualificationForm.value.gm ==''">
+                        This field is required
+                    </div>
                     <hr>
                     <p>
                         A vaccine imitates an infection without inducing the disease, and
@@ -74,6 +80,9 @@
                             {{response.value}} {{response.name}}
                         </mat-radio-button>
                     </mat-radio-group>
+                    <div class="fielderror" *ngIf="qualificationForm.value.vac ==''">
+                        This field is required
+                    </div>
                     <hr>
                     <p>Do you live in the U.S.?</p>
                     <!-- <label id="example-radio-group-labellocation">Do you live in the U.S.?
@@ -87,6 +96,9 @@
                             No
                         </mat-radio-button>
                     </mat-radio-group>
+                    <div class="fielderror" *ngIf="qualificationForm.value.us ==''">
+                        This field is required
+                    </div>
                     <hr>
                     <p>
                         To complete the study and earn payment you will need to recruit two of your friends to answer
@@ -101,8 +113,15 @@
                             No
                         </mat-radio-button>
                     </mat-radio-group>
+                    <div class="fielderror" *ngIf="qualificationForm.value.friends ==''">
+                        This field is required
+                    </div>
                 </div>
                 <hr>
+                <div *ngIf="!qualificationForm.valid" class="fielderror">
+                    Please complete all questions above to submit the form
+
+                </div>
                 <button mat-stroked-button [disabled]="!qualificationForm.valid" color="primary"
                     type="submit">Submit</button>
                 <br><br><br><br>
