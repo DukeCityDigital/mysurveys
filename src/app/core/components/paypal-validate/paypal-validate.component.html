@@ -2,12 +2,10 @@
     <mat-card-title>
         PayPal
     </mat-card-title>
-
-
-    <p>Welcome to SciFriends! We are delighted that you joined us.
+    <h3>Welcome to SciFriends! We are delighted that you joined us.</h3>
+    <p>
         Within a month we will send an invitation to a short,
         paid study about your current opinions to your PayPal email address. </p>
-
     <p>
         In order to make payments, we need to have both your
         <b>primary PayPal email address</b> and your
@@ -15,6 +13,45 @@
         Your primary PayPal email address may not be the same as the address you used to sign up.
 
     </p>
+    <p><b>Please enter your paypal information below, and click submit. You may scroll down for further instructions
+        </b></p>
+    <form (ngSubmit)="onSubmitPaypalForm()" [formGroup]="paypalForm">
+        <h2>Your PayPal Information</h2>
+        <label for="email">Primary PayPal Email Address</label>
+        <input required style="border:1px solid black;width:100%;" type="email" id="email" name="email"
+            formControlName="email" matInput placeholder="&nbsp;Paypal Email" class="example-full-width" />
+        <label for="paypalme">PayPal.Me Link</label>
+
+        <input required style="border:1px solid black;width:100%;" type="text" id="paypalme" name="paypalme"
+            formControlName="paypalme" minlength="3" matInput placeholder="&nbsp;PayPal.Me Link"
+            class="example-full-width" />
+        <div style="padding:2px;color:orange;">
+            Only enter the part of your PayPal.Me address after <code>PayPal.Me/</code>
+        </div>
+        <button [disabled]="!paypalForm.valid" mat-stroked-button color="primary" type="submit">submit</button>
+
+    </form>
+    Your current info:
+    <div *ngIf="user" style="background:lightgrey;">
+        Paypal ID: {{user.paypal_id}}<br>
+        Paypal.Me: {{user.paypal_me}}<br>
+        <div *ngIf="confirmedPaypalMe">
+            <h3 class="alert-success">
+                Account confirmed as:
+                [{{confirmedPaypalMe}}]<br> If this is your account you're all set!
+            </h3>
+
+        </div>
+
+
+    </div>
+
+    <div *ngIf="confirmedPaypalMe">
+
+    </div>
+
+
+
     <p>
         If you don't have a PayPal account, you can sign up for one <a target="_NEW"
             href="https://www.paypal.com/welcome/signup/">here</a>.
@@ -69,41 +106,4 @@
     </div>
 
 
-</mat-card>
-
-<mat-card class="innercard">
-    <h3>When you have a PayPal account and a PayPal.Me link, enter them below</h3>
-    Your current info:
-    <div *ngIf="user" style="background:lightgrey;">
-        Paypal ID: {{user.paypal_id}}<br>
-        Paypal.Me: {{user.paypal_me}}<br>
-        <div *ngIf="confirmedPaypalMe">
-            <h3 class="alert-success">
-                Account confirmed as:
-                [{{confirmedPaypalMe}}]<br> If this is your account you're all set!
-            </h3>
-
-        </div>
-
-
-    </div>
-    <form (ngSubmit)="onSubmitPaypalForm()" [formGroup]="paypalForm">
-        <h2>Your PayPal Information</h2>
-        <label for="email">Primary PayPal Email Address</label>
-        <input required style="border:1px solid black;width:100%;" type="email" id="email" name="email"
-            formControlName="email" matInput placeholder="&nbsp;Paypal Email" class="example-full-width" />
-        <label for="paypalme">PayPal.Me Link</label>
-
-        <input required style="border:1px solid black;width:100%;" type="text" id="paypalme" name="paypalme"
-            formControlName="paypalme" minlength="3" matInput placeholder="&nbsp;PayPal.Me Link"
-            class="example-full-width" />
-        <div style="padding:2px;color:grey;">
-            Only enter the part of your PayPal.Me address after <code>PayPal.Me/</code>
-        </div>
-        <button [disabled]="!paypalForm.valid" mat-stroked-button color="primary" type="submit">submit</button>
-
-    </form>
-    <div *ngIf="confirmedPaypalMe">
-
-    </div>
 </mat-card>

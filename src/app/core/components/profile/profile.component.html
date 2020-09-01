@@ -1,5 +1,5 @@
 <mat-tab-group>
-    <mat-tab label="Profile">
+    <!-- <mat-tab label="Profile">
         <mat-card class="innercard">
             <mat-card-title>Personal profile</mat-card-title>
             <form *ngIf="participant ; else loading" (ngSubmit)="onSubmitProfileChange()" [formGroup]="profileForm">
@@ -33,7 +33,7 @@
             </ng-template>
         </mat-card>
 
-    </mat-tab>
+    </mat-tab> -->
     <mat-tab label="Email / Password">
         <mat-card class="innercard">
             <mat-card-title>Change email address</mat-card-title>
@@ -59,6 +59,10 @@
                 <input style="border:1px solid black;width:100%;" type="password" id="password" name="password" password
                     minlength="8" formControlName="password" matInput required placeholder="&nbsp;Current password"
                     class="example-full-width" />
+
+                <mat-error *ngIf="changePasswordForm.get('password').hasError('minlength')" class="invalid-feedback">
+                    <div>minlength</div>
+                </mat-error>
                 <mat-error *ngIf="f.password.errors" class="invalid-feedback">
                     <div *ngIf="f.password.errors.required">New password is required</div>
                 </mat-error>

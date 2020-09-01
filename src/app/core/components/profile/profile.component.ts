@@ -81,7 +81,7 @@ export class ProfileComponent implements OnInit {
   }
   createChangePasswordForm(): FormGroup {
     return this.formBuilder.group({
-      password: ["", Validators.required],
+      password: ["", [Validators.required, Validators.minLength(8)]],
       new_password: [""],
     });
   }
@@ -141,7 +141,9 @@ export class ProfileComponent implements OnInit {
       password: this.changePasswordForm.value.password,
       new_password: this.changePasswordForm.value.new_password.password,
     };
+    console.log("changepass");
     this.registrationService.changePasswordRequest(post).subscribe((data) => {
+      console.log(data);
       this.alertService.success(data.message, { autoClose: true });
     });
   }

@@ -11,7 +11,7 @@ table.blueTable th {
 table.blueTable td,
 table.blueTable th {
   border: 1px solid #aaaaaa;
-  padding: 3px 2px;
+  padding: 6px;
 }
 table.blueTable tbody td {
   font-size: 13px;
