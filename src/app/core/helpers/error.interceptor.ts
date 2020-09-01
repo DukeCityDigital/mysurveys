@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
 import {
   HttpRequest,
   HttpHandler,
@@ -15,21 +15,20 @@ import { Router, RouterStateSnapshot } from "@angular/router";
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   authService = AuthService;
-  constructor(
-    private state: RouterStateSnapshot,
-    private router: Router,
-    public alertService: AlertService,
-    private authenticationService: AuthService
-  ) {}
+  static alertService;
+  // alertService = AlertService;
+  constructor(private alertService: AlertService) {
+    ErrorInterceptor.alertService = alertService;
+  }
+
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const alertService = AlertService;
     return next.handle(request).pipe(
       // retry(1),
       catchError((error: HttpErrorResponse) => {
-        console.log(error);
+        console.log("error", error);
         let errorMessage = "";
         if (error.error instanceof ErrorEvent) {
           // client-side error
@@ -47,8 +46,11 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
         // window.alert(errorMessage);
         // return false
-        // this.alertService.error("There has been an error");
-
+        // const alertService = this.injector.get(AlertService);
+        let msg = error.error.message
+          ? error.error.message
+          : "There has been an error";
+        this.alertService.error(msg);
         return throwError(error);
       })
     );

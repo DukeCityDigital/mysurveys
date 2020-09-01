@@ -101,6 +101,9 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Retrieve user's profile
+   */
   getProfile() {
     this.participantService
       .get()
@@ -141,11 +144,21 @@ export class ProfileComponent implements OnInit {
       password: this.changePasswordForm.value.password,
       new_password: this.changePasswordForm.value.new_password.password,
     };
-    console.log("changepass");
-    this.registrationService.changePasswordRequest(post).subscribe((data) => {
-      console.log(data);
-      this.alertService.success(data.message, { autoClose: true });
-    });
+    console.log("changepass", post);
+    this.registrationService
+      .changePasswordRequest(post)
+      .pipe()
+      .subscribe((data: any) => {
+        console.log(data);
+        // this.participant = data.data;
+        console.log(data);
+        this.alertService.success(data.message, { autoClose: true });
+      });
+
+    // .subscribe((data) => {
+    //   console.log(data);
+    //   this.alertService.success(data.message, { autoClose: true });
+    // });
   }
 
   changeEmailRequest(email) {

@@ -61,7 +61,7 @@
                     class="example-full-width" />
 
                 <mat-error *ngIf="changePasswordForm.get('password').hasError('minlength')" class="invalid-feedback">
-                    <div>minlength</div>
+                    <div>Passwords are 8 characters or longer</div>
                 </mat-error>
                 <mat-error *ngIf="f.password.errors" class="invalid-feedback">
                     <div *ngIf="f.password.errors.required">New password is required</div>
