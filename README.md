@@ -4,6 +4,14 @@ ng build --prod --output-hashing=none
 
 # Scifriends
 
+This readme applies to the front and back end project applications
+
+//getting started
+
+//install
+
+//start a project(!) read documentation on conducting a survey
+
 installed ng 8
 updated ng 8 per docs
 cmd for updating to 9 per docs
