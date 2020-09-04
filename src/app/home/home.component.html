@@ -16,10 +16,11 @@
             <p>
 
                 You also have the right to request that your personal data be deleted.<br> If you object, please <a
-                    href="https://google.com">Click here</a> to leave the site.<br> To learn more, follow the link. </p>
+                    href="https://google.com">Click here</a> to leave the site.<br> To learn more, <a
+                    [routerLink]="'/privacy'">follow this link.</a> </p><br>
 
-            <a [routerLink]="'/privacy'">Learn More</a>
-            <button style="margin:0 10px;" (click)="acknowledgeGDPR()" mat-stroked-button
+
+            <button style="margin:0 10px;background:green;color:white;" (click)="acknowledgeGDPR()" mat-stroked-button
                 color="primary">Accept</button>
 
         </mat-card>
