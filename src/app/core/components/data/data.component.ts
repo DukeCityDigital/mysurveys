@@ -14,7 +14,7 @@ export class DataComponent implements OnInit {
   csvString: any;
   parsedCsv: any;
   headers = [];
-
+  exportData: any;
   constructor(
     private participantService: ParticipantService,
     private projectService: ProjectService
@@ -24,7 +24,8 @@ export class DataComponent implements OnInit {
   ngOnInit(): void {
     let post = { all: true, project_id: this.project_id };
     this.projectService.getSelection(post).subscribe((data) => {
-      this.data = data.data;
+      this.data = data.data.projectparticipants;
+      this.exportData = data.data.csv;
     });
   }
 
@@ -47,42 +48,20 @@ export class DataComponent implements OnInit {
         let tempUploadArray = [];
         lines.forEach((element, i) => {
           console.log(element, i);
-
-          debugger;
+          // debugger;
 
           if (i == 0) {
             this.headers = element.split(csvSeparator);
-
             return;
           }
           let item = [];
-          debugger;
-          // let object = {
-          //   ticker: element.split(csvSeparator)[0],
-          // };
           element.split(csvSeparator).forEach((e) => {
             item.push(e);
-            // console.log(element, e);
-            // debugger;
-
-            // object[this.headers[e]] = e;
           });
 
           csvArray.push(item);
         });
-        // var output: string = "";
-        // csvArray.forEach(row => {
-        //   output += "\n";
-        //   var colNo = 0;
-        //   row.forEach(col => {
-        //     output += col;
-        //     colNo++;
-        //   });
-        // });
-        // this.uploadArray = tempUploadArray;
-        console.log(this.headers);
         this.parsedCsv = csvArray;
-        console.log(this.parsedCsv);
       };
     }
   }
@@ -100,8 +79,6 @@ export class DataComponent implements OnInit {
       });
       upload.push(item);
     });
-    console.log(upload);
-    console.log("commit changes");
     this.participantService.updateList(upload).subscribe((data) => {
       console.log("update data", data);
     });
@@ -115,17 +92,19 @@ export class DataComponent implements OnInit {
   /**
    * Download project participant data
    */
-  public export() {
-    this.downloadFile(this.data);
-  }
 
-  public downloadFile(data: any) {
-    console.log("downloadFile", data);
-    console.log("downloadFile", data[0]);
+  public export(flag?: any) {
+    var data = this.data;
+    if (flag) {
+      data = this.exportData;
+    }
+    if (!data.length) {
+      return false;
+    }
 
     const replacer = (key, value) => (value === null ? "" : value); // specify how you want to handle null values here
     const header = Object.keys(data[0]);
-    debugger;
+    // debugger;
 
     let csv = data.map((row) =>
       header
