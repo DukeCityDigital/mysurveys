@@ -27,7 +27,7 @@ export class ManageParticipantsComponent implements OnInit {
 
   displayedColumns: string[] = [
     "created_at",
-    "id",
+    "participants_userid",
     "safeid",
     "invited",
     "amount_to_pay",
@@ -80,41 +80,7 @@ export class ManageParticipantsComponent implements OnInit {
     this.runTable();
   }
 
-  /**
-   * Invite selected participantts
-   * @param ids
-   */
-  public sendProjectInvitations(selectedIDs?) {
-    // console.log("pj invites", this.data);
-    // TODO confirmation
-    // let r = window.confirm(
-    //   "Are you sure you wish to send email invitations to these participants?"
-    // );
-    // if (r !== true) {
-    //   return false;
-    // }
-    let ids = [];
-    if (!selectedIDs) {
-      this.data.forEach((element) => {
-        // console.log(element);
-        ids.push(element.id);
-      });
-    } else {
-      ids = selectedIDs;
-    }
-    if (!ids.length) {
-      return false;
-    }
-    var testMode = "DEVELOPMENT";
-    if (this.TEST_MODE === false) {
-      testMode = "PRODUCTION";
-    }
-    let post = {
-      ids: ids,
-      project_id: this.project_id,
-      TEST_MODE: testMode,
-    };
-
+  public sendSelectedNotifications(post) {
     this.pService.sendProjectInvitations(post).subscribe(
       (data: any) => {
         //if preview (test mode) is selected, show preview table and any errors
@@ -143,6 +109,59 @@ export class ManageParticipantsComponent implements OnInit {
         });
       }
     );
+  }
+
+  prepareRequest(selectedIDs): any {
+    // console.log("pj invites", this.data);
+    // TODO confirmation
+    let r = window.confirm(
+      "Are you sure you wish to send email invitations to these participants?"
+    );
+    if (r !== true) {
+      return false;
+    }
+    let ids = [];
+    if (!selectedIDs) {
+      this.data.forEach((element) => {
+        // console.log(element);
+        ids.push(element.id);
+      });
+    } else {
+      ids = selectedIDs;
+    }
+    if (!ids.length) {
+      return false;
+    }
+    var testMode = "DEVELOPMENT";
+    if (this.TEST_MODE === false) {
+      testMode = "PRODUCTION";
+    }
+    let post = {
+      ids: ids,
+      project_id: this.project_id,
+      TEST_MODE: testMode,
+    };
+    return post;
+  }
+
+  /**
+   * Remind selected participantts
+   * @param ids
+   */
+  public sendProjectReminders(selectedIDs?) {
+    let post = this.prepareRequest(selectedIDs);
+    post.reminder = true;
+    this.sendSelectedNotifications(post);
+  }
+
+  /**
+   * Invite selected participantts
+   * @param ids
+   */
+  public sendProjectInvitations(selectedIDs?) {
+    let post = this.prepareRequest(selectedIDs);
+
+    this.sendSelectedNotifications(post);
   }
 
   buildPreviewTable(children) {

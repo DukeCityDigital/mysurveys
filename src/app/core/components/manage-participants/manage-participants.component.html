@@ -74,9 +74,9 @@
 <div>
     <table style="width:100%;" mat-table [dataSource]="data" class="example-table" matSort matSortActive="created_at"
         matSortDisableClear matSortDirection="desc">
-        <ng-container matColumnDef="id">
+        <ng-container matColumnDef="participants_userid">
             <th mat-header-cell *matHeaderCellDef>#</th>
-            <td mat-cell *matCellDef="let row">{{row.id}}</td>
+            <td mat-cell *matCellDef="let row">{{row.participants_userid}}</td>
         </ng-container>
 
         <ng-container matColumnDef="safeid">
@@ -109,8 +109,9 @@
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let row">
                 <!-- TODO -->
-                <button>Remind</button>
-                <button>Re-send Invitation</button>
+                <button [disabled]="!row.invited"
+                    (click)="sendProjectReminders([row.participants_userid]);">Remind</button>
+                <button (click)="sendProjectInvitations([row.participants_userid]);">Re-send Invitation</button>
 
                 {{row.userparam1}}</td>
         </ng-container>

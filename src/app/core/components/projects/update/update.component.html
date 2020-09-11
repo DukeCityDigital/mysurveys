@@ -1,7 +1,7 @@
 <mat-card>
     <!-- {{project | json}} -->
-    <mat-card-title>Project Title: {{project ? project.project_title : null}}</mat-card-title>
-
+    <mat-card-title>Project Management</mat-card-title>
+    <h3>Project Title: {{project ? project.project_title : null}}</h3>
     <mat-tab-group dynamicHeight (selectedIndexChange)="selectedIndexChange($event)">
 
 
@@ -10,7 +10,7 @@
             <mat-card>
                 <mat-card-title>Select participants</mat-card-title>
                 <div class="projectinfo" *ngIf="project">
-                    ?checkscomponent?
+                    <!-- TODO ?checkscomponent? -->
                     <div>
                         <!-- <table style="width:50%">
                             <tr>

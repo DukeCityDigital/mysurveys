@@ -1,18 +1,18 @@
 <mat-card>
     <h2>Project invitations</h2>
-    <div *ngIf="invitations.length;else noProjects">
-        <h2>You've been invited to the following projects</h2>
-        <p>If you have any problems or questions about your projects, please contact support@scifriends.edu</p>
+    <div *ngIf="invitations && invitations.length;else noproject">
+        <h2>You've been invited to the following project</h2>
+        <p>If you have any problems or questions about your project, please contact support@scifriends.edu</p>
         <mat-card *ngFor="let i of invitations" style="border:1px solid lightblue;margin-bottom:14px;">
             <mat-card-header>
-                <mat-card-title>Project title: {{i.projects.project_title}}</mat-card-title>
-                <mat-card-subtitle>Project description: {{i.projects.description}}</mat-card-subtitle>
+                <mat-card-title>Project title: {{i.project.project_title}}</mat-card-title>
+                <mat-card-subtitle>Project description: {{i.project.description}}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
                 <ul>
-                    <li>Project end: <b>{{i.projects.defaultend | date:'short'}}</b></li>
-                    <li>Max Payout: <b>{{i.projects.max_payout | currency:'USD'}}</b></li>
-                    <li>Responsible person: <b>{{i.projects.responsible_person}}</b></li>
+                    <li>Project end: <b>{{i.project.defaultend | date:'short'}}</b></li>
+                    <li>Max Payout: <b>{{i.project.max_payout | currency:'USD'}}</b></li>
+                    <li>Responsible person: <b>{{i.project.responsible_person}}</b></li>
                     <li>Your invitation date: {{i.invited | date:'short'}}</li>
 
                 </ul>
@@ -26,11 +26,11 @@
 
                     <h3 *ngIf="i.started && !i.finished">Project started!</h3>
                     <ul>
-                        <li>Project Starts {{i.projects.defaultstart | date: 'short'}}</li>
-                        <li>Project Ending Scheduled {{i.projects.defaultend | date: 'short'}}</li>
-                        <li>Expected payout {{i.projects.exp_payout | currency: 'USD'}}</li>
+                        <li>Project Starts {{i.project.defaultstart | date: 'short'}}</li>
+                        <li>Project Ending Scheduled {{i.project.defaultend | date: 'short'}}</li>
+                        <li>Expected payout {{i.project.exp_payout | currency: 'USD'}}</li>
                         <li>
-                            Link: <a target="_BLANK" href="{{i.projects.link}}">{{i.projects.link}}</a>
+                            Link: <a target="_BLANK" href="{{i.project.link}}">{{i.project.link}}</a>
                         </li>
                         <li>
                             Invited date: {{i.invited | date: 'short'}}
@@ -40,16 +40,14 @@
                         </li>
                         <li>Payment status:{{i.payment_confirmed }} </li>
                     </ul>
-
                 </div>
-
             </mat-card-content>
             <mat-card-actions *ngIf="!i.started">
                 <button (click)="startProject(i);" color="primary" mat-stroked-button>Start Project</button>
             </mat-card-actions>
         </mat-card>
     </div>
-    <ng-template #noProjects>
+    <ng-template #noproject>
         <h3>No current invitations</h3>
     </ng-template>
 

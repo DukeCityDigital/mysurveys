@@ -13,6 +13,8 @@ Observable;
 })
 export class MyProjectsComponent implements OnInit {
   invitations = [];
+  readyToStart: boolean = false;
+
   constructor(
     private alertService: AlertService,
     private projectService: ProjectService,
@@ -21,6 +23,53 @@ export class MyProjectsComponent implements OnInit {
 
   lookup: string;
 
+  ngOnInit(): void {
+    /**
+     * Retrieve project invitations
+     */
+    this.projectService.my_projects().subscribe((data: any) => {
+      console.log(data);
+      this.invitations = data.data;
+      this.verifyProjectCompletion(this.invitations);
+    });
+    console.log(this.route);
+
+    console.log(this.route.snapshot.params.id);
+    //project link-in TODO TBD what forms these can take
+
+    // console.log(this.route.params);
+    // const id: Observable<string> = this.route.params.pipe(
+    //   map((p: any) => p.id)
+    // );
+    // console.log(id);
+  }
+
+  /**
+   * Begin the selected project
+   * @param project
+   */
+  public startProject(invitation) {
+    console.log("startproj", invitation.project);
+    let c = confirm(
+      "Are you sure you're ready to start the project?  Your start time will be recorded so make sure you have a time to finish!"
+    );
+    if (c) {
+      this.projectService
+        .start_project(invitation.project.id)
+        .subscribe((data: any) => {
+          // if success is true, show alert infoing user theyre about to be redirected,
+          // then redirect to the survey link
+          console.log("startproje", data);
+
+          this.alertService.success(data.message);
+        });
+    }
+  }
+
+  /**
+   * Verify project completion
+   * @param invitations
+   */
   verifyProjectCompletion(invitations) {
     const id = this.route.snapshot.params.id;
 
@@ -39,6 +88,10 @@ export class MyProjectsComponent implements OnInit {
     });
   }
 
+  /**
+   * Check single project code
+   * @param project_id
+   */
   verifyProjectCode(project_id: string) {
     console.log(
       "TODO if project code doesn't match display message to contact researcher"
@@ -52,35 +105,5 @@ export class MyProjectsComponent implements OnInit {
         // this.verifyProjectCompletion(this.invitations);
       });
     });
-  }
-
-  ngOnInit(): void {
-    this.projectService.my_projects().subscribe((data: any) => {
-      console.log(data);
-      this.invitations = data.data;
-      this.verifyProjectCompletion(this.invitations);
-    });
-    console.log(this.route);
-
-    console.log(this.route.snapshot.params.id);
-
-    //project link-in TODO TBD what forms these can take
-
-    // console.log(this.route.params);
-    // const id: Observable<string> = this.route.params.pipe(
-    //   map((p: any) => p.id)
-    // );
-    // console.log(id);
-  }
-
-  public startProject(project) {
-    console.log("project", project);
-
-    this.projectService
-      .start_project(project.projects.id)
-      .subscribe((data: any) => {
-        console.log("startproje", data);
-        this.alertService.success(data.message);
-      });
   }
 }
