@@ -24,13 +24,15 @@
                         ⭐ This project is finished! ⭐
                     </div>
 
-                    <h3 *ngIf="i.started && !i.finished">Project started!</h3>
+                    <h3 *ngIf="i.started && !i.finished">Project started! Return to this page after completing the
+                        current project</h3>
                     <ul>
                         <li>Project Starts {{i.project.defaultstart | date: 'short'}}</li>
                         <li>Project Ending Scheduled {{i.project.defaultend | date: 'short'}}</li>
                         <li>Expected payout {{i.project.exp_payout | currency: 'USD'}}</li>
+                        <!-- TODO add link here as well? -->
                         <li>
-                            Link: <a target="_BLANK" href="{{i.project.link}}">{{i.project.link}}</a>
+                            Link: <a target="_BLANK" href="https://{{i.project.link}}">{{i.project.link}}</a>
                         </li>
                         <li>
                             Invited date: {{i.invited | date: 'short'}}
