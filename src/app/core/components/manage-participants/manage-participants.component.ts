@@ -1,19 +1,13 @@
 import { HttpClient } from "@angular/common/http";
-import {
-  Component,
-  ViewChild,
-  AfterViewInit,
-  Input,
-  OnInit,
-} from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { merge, Observable, of as observableOf } from "rxjs";
-import { catchError, map, startWith, switchMap, delay } from "rxjs/operators";
-import { ProjectService } from "@app/core/services/project.service";
-import { environment } from "../../../../environments/environment";
 import { ActivatedRoute } from "@angular/router";
 import { ParticipantService as pService } from "@app/core/services/participant.service";
+import { ProjectService } from "@app/core/services/project.service";
+import { merge, Observable, of as observableOf } from "rxjs";
+import { catchError, delay, map, startWith, switchMap } from "rxjs/operators";
+import { environment } from "../../../../environments/environment";
 import { AlertService } from "../_alert";
 
 @Component({
