@@ -62,6 +62,11 @@ export class MyProjectsComponent implements OnInit {
           console.log("startproje", data);
 
           this.alertService.success(data.message);
+          this.projectService.my_projects().subscribe((data: any) => {
+            console.log(data);
+            this.invitations = data.data;
+            // this.verifyProjectCompletion(this.invitations);
+          });
         });
     }
   }

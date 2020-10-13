@@ -57,7 +57,7 @@ export class ManageParticipantsComponent implements OnInit {
 
   ngOnInit(): void {}
   ngAfterViewInit() {
-    this.alertService.success("Success on the left!!", { id: "alert-1" });
+    // this.alertService.success("Success on the left!!", { id: "alert-1" });
     this.route.paramMap.subscribe((params) => {
       this.project_id = +params.get("id");
     });
@@ -82,6 +82,7 @@ export class ManageParticipantsComponent implements OnInit {
           this.invitationErrors = data.data.ERRORS ? data.data.ERRORS : [];
 
           this.buildPreviewTable(data.data.PREVIEW);
+          this.alertService.success("Invitations sent");
         }
       },
       (error) => {

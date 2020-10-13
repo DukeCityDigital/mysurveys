@@ -1,7 +1,7 @@
 <mat-card>
     <h2>Project invitations</h2>
     <div *ngIf="invitations && invitations.length;else noproject">
-        <h2>You've been invited to the following project</h2>
+        <h2>You've been invited to the following projects</h2>
         <p>If you have any problems or questions about your project, please contact support@scifriends.edu</p>
         <mat-card *ngFor="let i of invitations" style="border:1px solid lightblue;margin-bottom:14px;">
             <mat-card-header>
@@ -33,7 +33,7 @@
                         <li>Expected payout {{i.project.exp_payout | currency: 'USD'}}</li>
                         <!-- TODO add link here as well? -->
                         <li>
-                            Link: <a target="_BLANK" href="https://{{i.project.link}}">{{i.project.link}}</a>
+                            Link: <a target="_BLANK" href="{{i.project.link}}">{{i.project.link}}</a>
                         </li>
                         <li>
                             Invited date: {{i.invited | date: 'short'}}
