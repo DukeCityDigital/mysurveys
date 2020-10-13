@@ -118,7 +118,7 @@ export class ManageParticipantsComponent implements OnInit {
     if (!selectedIDs) {
       this.data.forEach((element) => {
         // console.log(element);
-        ids.push(element.id);
+        ids.push(element.participants_userid);
       });
     } else {
       ids = selectedIDs;

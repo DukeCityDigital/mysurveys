@@ -111,7 +111,7 @@
                 <!-- TODO -->
                 <button [disabled]="!row.invited"
                     (click)="sendProjectReminders([row.participants_userid]);">Remind</button>
-                <button (click)="sendProjectInvitations([row.participants_userid]);">Re-send Invitation</button>
+                <button (click)="sendProjectInvitations([row.participants_userid]);">Send Invitation</button>
 
                 {{row.userparam1}}</td>
         </ng-container>
