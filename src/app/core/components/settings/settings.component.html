@@ -52,6 +52,7 @@
                     </tbody>
                 </table>
 
+
                 <!-- <form class="example-form login-form" (ngSubmit)="onSubmit();inviteForm.reset()"
                     [formGroup]="inviteForm">
                     <mat-form-field class="example-full-width" appearance="outline">
@@ -81,6 +82,16 @@
                 </div>
             </mat-tab>
 
+
         </div>
     </mat-tab>
 </mat-tab-group>
+<mat-card>
+    <mat-card-title>Project data </mat-card-title>
+    <mat-tab-group dynamicHeight>
+        <mat-tab *ngFor="let p of projects" label="Project Data: {{p.project_title}}">
+            <app-data [project_id]="p.id"></app-data>
+        </mat-tab>
+
+    </mat-tab-group>
+</mat-card>

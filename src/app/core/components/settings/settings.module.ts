@@ -9,6 +9,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MaterialBaseModule } from "@app/core/components/material-base/material-base.module";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { DataModule } from "../data/data.module";
 
 @NgModule({
   declarations: [SettingsComponent, InviteComponent],
@@ -21,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
+    DataModule,
   ],
 })
 export class SettingsModule {}

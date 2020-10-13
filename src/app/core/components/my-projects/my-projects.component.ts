@@ -71,6 +71,7 @@ export class MyProjectsComponent implements OnInit {
    * @param invitations
    */
   verifyProjectCompletion(invitations) {
+    console.log("verify compl", invitations);
     const id = this.route.snapshot.params.id;
 
     this.route.queryParams.subscribe((data) => {

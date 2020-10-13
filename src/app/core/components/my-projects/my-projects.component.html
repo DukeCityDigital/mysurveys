@@ -24,7 +24,8 @@
                         ⭐ This project is finished! ⭐
                     </div>
 
-                    <h3 *ngIf="i.started && !i.finished">Project started! Return to this page after completing the
+                    <h3 *ngIf="i.started && !i.finished">Project started! You will be returned to this page after
+                        completing the
                         current project</h3>
                     <ul>
                         <li>Project Starts {{i.project.defaultstart | date: 'short'}}</li>
@@ -40,7 +41,7 @@
                         <li>
                             Finished: {{i.finished}}
                         </li>
-                        <li>Payment status:{{i.payment_confirmed }} </li>
+                        <li>Payment status: <b>{{i.payment_confirmed ? '$date paid' : ' Incomplete' }} </b></li>
                     </ul>
                 </div>
             </mat-card-content>
