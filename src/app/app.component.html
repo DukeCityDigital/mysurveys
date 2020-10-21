@@ -1,14 +1,14 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <mat-icon (click)="sidenav.toggle()" style="color:white;margin-left:12px;cursor:pointer;">menu</mat-icon>
-  <span style=" margin-left: 40px;"><a style="color: white;" [routerLink]="'home'">Web Survey (SciFriends 2.0)</a>
+  <mat-icon (click)="sidenav.toggle()" style="margin-left:12px;cursor:pointer;">menu</mat-icon>
+  <span style=" margin-left: 40px;"><a [routerLink]="'home'">Web Survey (SciFriends 2.0)</a>
   </span>
   <div class="spacer"></div>
   <alert id="da">a</alert>
 </div>
 
-<mat-sidenav-container class="example-container" style="margin-top: 60px;">
-  <mat-sidenav #sidenav [(opened)]="opened" mode="side" class="box leftbox">
+<mat-sidenav-container class="example-container" style="margin-top: 62px;">
+  <mat-sidenav #sidenav [(opened)]="opened" mode="over" class="box leftbox">
 
 
     <mat-list style="padding-top: 0;">
