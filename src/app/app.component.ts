@@ -1,11 +1,12 @@
-import { Component } from "@angular/core";
+import { Component, HostListener, Input, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-
+ViewChild
 import { AuthService as AuthenticationService } from "@app/core/services/auth.service";
 import { AlertService } from "./core/components/_alert";
 import { WarningsComponent } from "./core/components/warnings/warnings.component";
 import { UserService } from "./core/services/user.service";
 import { DataComponent } from "./core/components/data/data.component";
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: "app-root",
@@ -18,6 +19,31 @@ export class AppComponent {
   opened: boolean = false;
 
   public screenWidth: any;
+  public screenHeight: any;
+  sideNavMode = 'side';
+  mobileView = false;
+
+  @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth < 591) {
+      this.mobileView = true;
+      // this.sideNavMode = 'over';
+    } else {
+      this.mobileView = false;
+
+      // this.sideNavMode = 'side';
+    }
+    // this.screenWidth < 591 ? this.sideNavMode = 'over' : 'side';
+  }
+
+  public customToggle() {
+
+    this.mobileView ? this.sidenav.close() : null;
+  }
 
   constructor(
     private alertService: AlertService,
@@ -26,7 +52,7 @@ export class AppComponent {
     private userService: UserService
   ) {
     // this.user = this.authenticationService.userValue;
-
+    this.onResize();
     this.authenticationService.user.subscribe((x) => (this.user = x));
   }
 
