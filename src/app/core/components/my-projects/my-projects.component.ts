@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ProjectService } from "@app/core/services/project.service";
 import { AlertService } from "../_alert";
-import { ActivatedRouteSnapshot, ActivatedRoute } from "@angular/router";
+import { ActivatedRouteSnapshot, ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+
+Router
 map;
 Observable;
 @Component({
@@ -18,8 +20,9 @@ export class MyProjectsComponent implements OnInit {
   constructor(
     private alertService: AlertService,
     private projectService: ProjectService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   lookup: string;
 
@@ -48,27 +51,38 @@ export class MyProjectsComponent implements OnInit {
    * Begin the selected project
    * @param project
    */
+  startingProject = false;
   public startProject(invitation) {
     console.log("startproj", invitation.project);
-    let c = confirm(
-      "Are you sure you're ready to start the project?  Your start time will be recorded so make sure you have a time to finish!"
-    );
-    if (c) {
-      this.projectService
-        .start_project(invitation.project.id)
-        .subscribe((data: any) => {
-          // if success is true, show alert infoing user theyre about to be redirected,
-          // then redirect to the survey link
-          console.log("startproje", data);
+    // let c = confirm(
+    //   "Are you sure you're ready to start the project?  Your start time will be recorded so make sure you have a time to finish!"
+    // );
+    // if (c) {
+    // console.log("startproje", data);
 
-          this.alertService.success(data.message);
-          this.projectService.my_projects().subscribe((data: any) => {
-            console.log(data);
-            this.invitations = data.data;
-            // this.verifyProjectCompletion(this.invitations);
-          });
+    this.projectService
+      .start_project(invitation.project.id)
+      .subscribe((data: any) => {
+        this.startingProject = true;
+
+        // if success is true, show alert infoing user theyre about to be redirected,
+        // then redirect to the survey link
+
+        this.alertService.success(data.message);
+        setTimeout(() => {
+          window.open("https://www.google.com");
+          // this.router.navigate(['https://www.google.com']);
+          this.startingProject = false;
+
+          return false;
+        }, 3000)
+        this.projectService.my_projects().subscribe((data: any) => {
+          console.log(data);
+          this.invitations = data.data;
+          // this.verifyProjectCompletion(this.invitations);
         });
-    }
+      });
+    // }
   }
 
   /**
