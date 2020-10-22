@@ -5,7 +5,7 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { QualificationModule } from "./home/qualification/qualification.module";
-import { HomeComponent } from "./home/home.component";
+import { GDPRBottomSheet, HomeComponent } from "./home/home.component";
 import { PrivacyComponent } from "./home/privacy/privacy.component";
 import { LoginModule } from "./home/login/login.module";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -41,7 +41,7 @@ import { MotdComponent } from "./core/components/motd/motd.component";
 import { NotificationsComponent } from "./core/components/notifications/notifications.component";
 import { AlertComponent } from "./core/components/_alert/alert.component";
 import { ParticipantsComponent } from "./core/components/participants/participants.component";
-
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +58,8 @@ import { ParticipantsComponent } from "./core/components/participants/participan
     MotdComponent,
     NotificationsComponent,
     ParticipantsComponent,
+    GDPRBottomSheet
+
   ],
   imports: [
     BrowserModule,
@@ -77,6 +79,7 @@ import { ParticipantsComponent } from "./core/components/participants/participan
     PasswordFormModule,
     OmniTableModule,
     MyProjectsModule,
+    MatBottomSheetModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,
@@ -107,7 +110,7 @@ import { ParticipantsComponent } from "./core/components/participants/participan
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 export function jwtTokenGetter() {
   return localStorage.getItem("access_token");
 }

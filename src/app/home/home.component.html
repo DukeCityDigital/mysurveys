@@ -1,28 +1,32 @@
 <div class="centerheader">
-    <div>
-        <h1>Please log in below. </h1>
-        <h2>
-            If you need to fill out the questionnaire and create an account, please <br><a
-                [routerLink]="'/questionnaire'">
-                Visit this page</a>
-        </h2>
-        <app-login></app-login>
-        <mat-card *ngIf="showGdpr" style="font-size:15px;margin-top:22px;">
-            <b>This website uses cookies to ensure you
-                get
-                the best experience, </b>
-            <p>
-                in addition to any data you submit in surveys or questionnaires.</p>
-            <p>
+  <div>
+    <h1>Welcome to Web Survey!</h1>
+    <!-- <h2>This platform allows friends to </h2> -->
+    <h1>Please log in below.</h1>
+    <h2>
+      If you need to fill out the questionnaire and create an account, please
+      <br /><a [routerLink]="'/questionnaire'"> Visit this page</a>
+    </h2>
+    <app-login></app-login>
+    <mat-card *ngIf="showGdpr" style="font-size: 15px; margin-top: 22px">
+      <b>This website uses cookies to ensure you get the best experience, </b>
+      <p>in addition to any data you submit in surveys or questionnaires.</p>
+      <p>
+        You also have the right to request that your personal data be
+        deleted.<br />
+        If you object, please <a href="https://google.com">Click here</a> to
+        leave the site.<br />
+        To learn more, <a [routerLink]="'/privacy'">follow this link.</a>
+      </p>
 
-                You also have the right to request that your personal data be deleted.<br> If you object, please <a
-                    href="https://google.com">Click here</a> to leave the site.<br> To learn more, <a
-                    [routerLink]="'/privacy'">follow this link.</a> </p><br>
-
-
-            <button style="margin:0 10px;background:green;color:white;" (click)="acknowledgeGDPR()" mat-stroked-button
-                color="primary">Accept</button>
-
-        </mat-card>
-    </div>
+      <button
+        style="margin: 0 10px; background: green; color: white"
+        (click)="acknowledgeGDPR()"
+        mat-stroked-button
+        color="primary"
+      >
+        Accept
+      </button>
+    </mat-card>
+  </div>
 </div>

@@ -7,7 +7,6 @@ import { WarningsComponent } from "./core/components/warnings/warnings.component
 import { UserService } from "./core/services/user.service";
 import { DataComponent } from "./core/components/data/data.component";
 import { MatSidenav } from '@angular/material/sidenav';
-
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -22,6 +21,7 @@ export class AppComponent {
   public screenHeight: any;
   sideNavMode = 'side';
   mobileView = false;
+  logo = "../assets/sfilogo.jpg"
 
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
