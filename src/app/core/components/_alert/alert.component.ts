@@ -11,6 +11,9 @@ import { AlertService } from "./alert.service";
   styles: [
     `
       .default-alert {
+        text-align: center;
+        width: 90%;
+        margin: 12px auto;
       }
       .alert-inner {
         height: 22px;
@@ -33,7 +36,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   public alertSubscription: Subscription;
   public routeSubscription: Subscription;
 
-  constructor(private router: Router, private alertService: AlertService) {}
+  constructor(private router: Router, private alertService: AlertService) { }
 
   ngOnInit() {
     // subscribe to new alert notifications

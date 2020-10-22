@@ -9,24 +9,34 @@
     </h2>
     <app-login></app-login>
     <mat-card *ngIf="showGdpr" style="font-size: 15px; margin-top: 22px">
-      <b>This website uses cookies to ensure you get the best experience, </b>
-      <p>in addition to any data you submit in surveys or questionnaires.</p>
       <p>
-        You also have the right to request that your personal data be
-        deleted.<br />
-        If you object, please <a href="https://google.com">Click here</a> to
-        leave the site.<br />
-        To learn more, <a [routerLink]="'/privacy'">follow this link.</a>
+        This website uses cookies and collects your data so we can select
+        participants for study surveys, contact participants about studies and
+        analyze the anonymized results of the studies in research.
+      </p>
+
+      <p>
+        You can find out more about our privacy policy by clicking
+        <a [routerLink]="'/privacy'">here</a> . Before participating, you must
+        understand and agree to our full privacy terms.
       </p>
 
       <button
-        style="margin: 0 10px; background: green; color: white"
+        style="margin: 5px 0 10px; background: green; color: white"
         (click)="acknowledgeGDPR()"
         mat-stroked-button
         color="primary"
       >
         Accept
       </button>
+      <p>
+        To learn more,
+        <a [routerLink]="'/privacy'">follow this link.</a>
+      </p>
+      <p>
+        If you object, please <a href="https://google.com">click here</a> to
+        leave the site.
+      </p>
     </mat-card>
   </div>
 </div>

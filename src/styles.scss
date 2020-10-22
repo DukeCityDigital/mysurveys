@@ -1,11 +1,17 @@
-@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto+Slab&family=Ruda:wght@600&display=swap");
 @import "./assets/styles/blueTable.css";
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap");
+@import "./assets/styles/variables";
+
+// body {
+//   background: $sfwhite;
+// }
 html,
 body {
   height: 100%;
+  // background: $sfwhite;
 }
 body {
   margin: 0;
@@ -30,6 +36,7 @@ h5,
 h6 {
   margin: 8px 0;
   font-family: "Work Sans", sans-serif;
+  color: $sfblue;
 }
 
 p {
@@ -38,6 +45,16 @@ p {
 
 .sfi-title {
   font-family: "Work Sans", sans-serif;
+  font-size: 18px;
+}
+
+.toolbar > mat-icon {
+  color: $sfblue;
+}
+
+.sfi-title a,
+.sfi-title a:visited {
+  color: $sfblue;
 }
 .nav-link-home {
   position: relative;
@@ -191,7 +208,7 @@ a:hover {
 }
 
 .alert-success {
-  color: green;
+  color: $sfgreen;
 }
 .success {
   color: green;
@@ -216,12 +233,18 @@ a:hover {
   right: 12px;
 }
 .navlist {
-  color: darkslateblue;
+  color: $sfblue;
 }
 mat-icon {
-  color: darkslateblue;
+  color: $sfblue;
 }
 
+.appwrap {
+}
+
+.sfi-navitem:hover {
+  color: $sfblue2;
+}
 .is-active {
   background: #b0ccff !important;
   // color: white !important;

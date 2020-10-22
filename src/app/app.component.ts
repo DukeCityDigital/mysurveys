@@ -88,7 +88,10 @@ export class AppComponent {
   }
 
   links = {
-    base: [{ name: "home", link: "/dashboard", icon: "home" }],
+    base:
+      [
+        // { name: "home", link: "/dashboard", icon: "home" }
+      ],
     end: [
       // { name: "other links?", link: "/", icon: "" },
       { name: "profile", link: "/dashboard/profile", icon: "person" },
