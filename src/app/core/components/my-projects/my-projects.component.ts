@@ -70,7 +70,7 @@ export class MyProjectsComponent implements OnInit {
 
         this.alertService.success(data.message);
         setTimeout(() => {
-          window.open("https://www.google.com");
+          window.open(invitation.project.link);
           // this.router.navigate(['https://www.google.com']);
           this.startingProject = false;
 
