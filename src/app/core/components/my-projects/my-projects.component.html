@@ -46,16 +46,13 @@
             ⭐ This project is finished! ⭐
           </div>
 
-          <h3 *ngIf="i.started && !i.finished">
-            Project started! You will be returned to this page after completing
-            the current project
-          </h3>
+          <h3 *ngIf="i.started && !i.finished">Project started!</h3>
           <ul>
-            <li>Project Starts {{ i.project.defaultstart | date: "short" }}</li>
-            <li>
+            <!-- <li>Project Starts {{ i.project.defaultstart | date: "short" }}</li> -->
+            <!-- <li>
               Project Ending Scheduled
               {{ i.project.defaultend | date: "short" }}
-            </li>
+            </li> -->
             <li>
               Expected payout {{ i.project.exp_payout | currency: "USD" }}
             </li>
@@ -78,10 +75,17 @@
           <h1>Your project is starting! You will be redirected in a moment</h1>
         </div>
       </mat-card-content>
-      <mat-card-actions *ngIf="!i.started">
-        <button (click)="startProject(i)" color="primary" mat-stroked-button>
+      <mat-card-actions *ngIf="!i.started" style="text-align: center">
+        <h3>Click below to start the project!</h3>
+        <button
+          (click)="startProject(i)"
+          color="primary"
+          mat-stroked-button
+          class="animate-flicker"
+        >
           Start Project
         </button>
+        <br />
       </mat-card-actions>
     </mat-card>
   </div>

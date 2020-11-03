@@ -16,7 +16,7 @@ import { Settings } from "../models/settings.model";
   providedIn: "root",
 })
 export class AdminService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
@@ -87,9 +87,18 @@ export class AdminService {
     const requestUrl = `${href}/log?project_id=${project_id}&sort=${sort}&order=${order}&page=${
       // const requestUrl = `${href}/participants?project_id=${project_id}&sort=${sort}&order=${order}&page=${
       page + 1
-    }`;
+      }`;
     console.log("get part", requestUrl);
     return this.httpClient.get<any>(requestUrl);
+  }
+
+  backup(): Observable<any> {
+    // return this.httpClient
+    //   .get<any>(this.apiServer + "/log")
+    //   .pipe(catchError(this.errorHandler));
+    return this.httpClient
+      .post<any>(this.apiServer + "/backup", this.httpOptions)
+      .pipe(catchError(this.errorHandler));
   }
 
   log(post): Observable<any> {

@@ -16,7 +16,7 @@ export class SettingsComponent implements OnInit {
     private alertService: AlertService,
     private pService: ProjectService,
     private adminService: AdminService
-  ) {}
+  ) { }
   settings: any;
   resultArray = [];
   projects = [];
@@ -33,6 +33,14 @@ export class SettingsComponent implements OnInit {
     });
     this.getProjects();
   }
+
+  backup() {
+    this.adminService.backup().subscribe((projects: any) => {
+      console.log('backedup');
+      this.alertService.success("System backed up");
+    });
+  }
+
 
   getProjects() {
     this.pService.getAll().subscribe((projects: any) => {

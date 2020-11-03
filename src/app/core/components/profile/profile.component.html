@@ -1,5 +1,5 @@
 <mat-tab-group>
-    <!-- <mat-tab label="Profile">
+  <!-- <mat-tab label="Profile">
         <mat-card class="innercard">
             <mat-card-title>Personal profile</mat-card-title>
             <form *ngIf="participant ; else loading" (ngSubmit)="onSubmitProfileChange()" [formGroup]="profileForm">
@@ -34,52 +34,88 @@
         </mat-card>
 
     </mat-tab> -->
-    <mat-tab label="Email / Password">
+  <mat-tab label="Email / Password">
+    <mat-card class="innercard">
+      <mat-card-title>Change Password</mat-card-title>
+      <!-- {{changePasswordForm.value | json}}<br>valid:{{changePasswordForm.valid}} -->
+      <form
+        (ngSubmit)="onSubmitPasswordChange()"
+        [formGroup]="changePasswordForm"
+      >
+        <label for="password">Current password</label>
 
+        <input
+          style="border: 1px solid black; width: 100%"
+          type="password"
+          id="password"
+          name="password"
+          password
+          minlength="8"
+          formControlName="password"
+          matInput
+          required
+          placeholder="&nbsp;Current password"
+          class="example-full-width"
+        />
 
-        <mat-card class="innercard">
-            <mat-card-title>Change Password</mat-card-title>
-            <!-- {{changePasswordForm.value | json}}<br>valid:{{changePasswordForm.valid}} -->
-            <form (ngSubmit)="onSubmitPasswordChange()" [formGroup]="changePasswordForm">
-                <label for="password">Current password</label>
-
-                <input style="border:1px solid black;width:100%;" type="password" id="password" name="password" password
-                    minlength="8" formControlName="password" matInput required placeholder="&nbsp;Current password"
-                    class="example-full-width" />
-
-                <mat-error *ngIf="changePasswordForm.get('password').hasError('minlength')" class="invalid-feedback">
-                    <div>Passwords are 8 characters or longer</div>
-                </mat-error>
-                <mat-error *ngIf="f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Password is required</div>
-                </mat-error>
-                <app-password-form formControlName="new_password"></app-password-form>
-                <button class="button createbutton" [disabled]="!changePasswordForm.valid" type="submit"
-                    mat-stroked-button>
-                    Request password change
-                </button>
-                <div *ngIf="changedPassword">
-                    <hr>
-                    <button [routerLinkActive]="['is-active-button,animate-stop']"
-                        class="animate-flicker mat-raised-button" color="primary"
-                        [routerLink]="'/dashboard/friends'">Friends</button>
-                </div>
-            </form>
-        </mat-card>
-        <mat-card class="innercard">
-            <mat-card-title>Change email address</mat-card-title>
-            <form (ngSubmit)="onSubmitEmailChange()" [formGroup]="changeEmailForm">
-                <p>Please enter the email address you wish to change to</p>
-                <input style="border:1px solid black;" [pattern]="emailPattern" type="email" id="email" name="email"
-                    email formControlName="email" matInput required placeholder="&nbsp;Email"
-                    class="example-full-width" />
-                <br>
-                <button class="button createbutton" type="submit" [disabled]="!changeEmailForm.valid"
-                    mat-stroked-button>
-                    Request email change
-                </button>
-            </form>
-        </mat-card>
-    </mat-tab>
-
+        <mat-error
+          *ngIf="changePasswordForm.get('password').hasError('minlength')"
+          class="invalid-feedback"
+        >
+          <div>Passwords are 8 characters or longer</div>
+        </mat-error>
+        <mat-error *ngIf="f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </mat-error>
+        <app-password-form formControlName="new_password"></app-password-form>
+        <button
+          class="button createbutton"
+          [disabled]="!changePasswordForm.valid"
+          type="submit"
+          mat-stroked-button
+        >
+          Request password change
+        </button>
+        <div *ngIf="changedPassword">
+          <hr />
+          <button
+            [routerLinkActive]="['is-active-button,animate-stop']"
+            class="mat-raised-button"
+            color="primary"
+            [routerLink]="'/dashboard/friends'"
+          >
+            Friends
+          </button>
+        </div>
+      </form>
+    </mat-card>
+    <mat-card class="innercard">
+      <mat-card-title>Change email address</mat-card-title>
+      <form (ngSubmit)="onSubmitEmailChange()" [formGroup]="changeEmailForm">
+        <p>Please enter the email address you wish to change to</p>
+        <input
+          style="border: 1px solid black"
+          [pattern]="emailPattern"
+          type="email"
+          id="email"
+          name="email"
+          email
+          formControlName="email"
+          matInput
+          required
+          placeholder="&nbsp;Email"
+          class="example-full-width"
+        />
+        <br />
+        <button
+          class="button createbutton"
+          type="submit"
+          [disabled]="!changeEmailForm.valid"
+          mat-stroked-button
+        >
+          Request email change
+        </button>
+      </form>
+    </mat-card>
+  </mat-tab>
 </mat-tab-group>

@@ -99,11 +99,11 @@ export class AppComponent {
 
     participant: [
       // { name: "statistics", link: "/", icon: "poll" },
-      {
-        name: "1. friends",
-        link: "/dashboard/friends",
-        icon: "people_outline",
-      },
+      // {
+      //   name: "1. friends",
+      //   link: "/dashboard/friends",
+      //   icon: "people_outline",
+      // },
 
       { name: "2. payPal", link: "/dashboard/paypal", icon: "monetization_on" },
       {

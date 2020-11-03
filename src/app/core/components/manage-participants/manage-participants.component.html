@@ -1,15 +1,23 @@
 <!-- {{participants | json}} -->
-<p>
-    This panel shows the participants currently selected for the project.
-</p>
+<p>This panel shows the participants currently selected for the project.</p>
 <mat-progress-bar *ngIf="isLoadingResults" mode="query"></mat-progress-bar>
-<button mat-stroked-button (click)="onRunTable('invited')">Select invited</button>
-<button mat-stroked-button (click)="onRunTable('!invited')">Select not yet invited</button>
-<button mat-stroked-button (click)="onRunTable('!finished|invited')">*Select invited but not finished</button>
-<button mat-stroked-button (click)="onRunTable('!finished|started')">*Select started but not finished</button>
+<button mat-stroked-button (click)="onRunTable('invited')">
+  Select invited
+</button>
+<button mat-stroked-button (click)="onRunTable('!invited')">
+  Select not yet invited
+</button>
+<button mat-stroked-button (click)="onRunTable('!finished|invited')">
+  *Select invited but not finished
+</button>
+<button mat-stroked-button (click)="onRunTable('!finished|started')">
+  *Select started but not finished
+</button>
 
 <!-- <button mat-stroked-button (click)="onRunTable('!finished')">Select not finished</button> -->
-<button mat-stroked-button (click)="onRunTable('finished')">Select finished</button>
+<button mat-stroked-button (click)="onRunTable('finished')">
+  Select finished
+</button>
 
 <!-- s
 <p>
@@ -25,106 +33,727 @@
 </p> -->
 
 <div>
-    <h3>Your current selection is <code>{{resultsLength}}</code> of the project participants</h3>
+  <h3>
+    Your current selection is <code>{{ resultsLength }}</code> of the project
+    participants
+  </h3>
 
-    <button mat-stroked-button color="warn" (click)="sendProjectInvitations();">Send Project Invitation Emails</button>
-    <button mat-stroked-button disabled>Send Reminder emails </button>&nbsp;&nbsp;
+  <button mat-stroked-button color="warn" (click)="sendProjectInvitations()">
+    Send Project Invitation Emails
+  </button>
+  <button mat-stroked-button disabled>Send Reminder emails</button>&nbsp;&nbsp;
 
-    <mat-checkbox [(ngModel)]="TEST_MODE">Test Mode [{{TEST_MODE}}]</mat-checkbox>
-    <div *ngIf="!TEST_MODE" style="text-align:center;color:orange">
-        <h2 class="warn">Production Mode</h2>
-    </div>
-
-</div>
-<div *ngIf="PREVIEWDATA" style="border:1px solid orange;padding:2px;">
-    <mat-card *ngIf="invitationErrors.length">
-        <h2>There are errors in your submission</h2>
-        <i>
-            Selection won't submit in production mode with errors
-        </i>
-        <ul>
-            <li *ngFor="let ie of invitationErrors">{{ie}}</li>
-
-        </ul>
-    </mat-card>
-
-    <mat-card>
-        <h2>The following users would receive an invitation</h2>
-        <p>Turn off test mode and re-send if correct</p>
-        <div style="overflow:scroll;">
-            <table class="blueTable">
+  <mat-checkbox [(ngModel)]="TEST_MODE"
+    >Test Mode [{{ TEST_MODE }}]</mat-checkbox
+  >
+  <div *ngIf="!TEST_MODE" style="text-align: center; color: orange">
+    <h2 class="warn">Production Mode</h2>
+  </div>
+  <button mat-stroked-button (click)="showEmailSample = !showEmailSample">
+    Toggle Email Sample
+  </button>
+  <div *ngIf="showEmailSample">
+    <table
+      class="wrapper"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      style="
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+          'Segoe UI Symbol';
+        position: relative;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 100%;
+        background-color: #edf2f7;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      "
+    >
+      <tbody>
+        <tr>
+          <td
+            align="center"
+            style="
+              box-sizing: border-box;
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+                'Segoe UI Emoji', 'Segoe UI Symbol';
+              position: relative;
+            "
+          >
+            <table
+              class="content"
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="
+                box-sizing: border-box;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                  Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                position: relative;
+                -premailer-cellpadding: 0;
+                -premailer-cellspacing: 0;
+                -premailer-width: 100%;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+              "
+            >
+              <tbody>
                 <tr>
-                    <th *ngFor="let h of PREVIEWDATA.headers">{{h}}</th>
+                  <td
+                    class="header"
+                    style="
+                      box-sizing: border-box;
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                        Roboto, Helvetica, Arial, sans-serif,
+                        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                      position: relative;
+                      padding: 25px 0;
+                      text-align: center;
+                    "
+                  >
+                    <a
+                      style="
+                        box-sizing: border-box;
+                        font-family: -apple-system, BlinkMacSystemFont,
+                          'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+                          'Apple Color Emoji', 'Segoe UI Emoji',
+                          'Segoe UI Symbol';
+                        position: relative;
+                        color: #3d4852;
+                        font-size: 19px;
+                        font-weight: bold;
+                        text-decoration: none;
+                        display: inline-block;
+                      "
+                    >
+                      Websurvey
+                    </a>
+                  </td>
                 </tr>
-                <tr *ngFor="let d of PREVIEWDATA.rows;let i = index;">
-                    <td *ngFor="let h of PREVIEWDATA.headers;let j = index;">
-                        {{PREVIEWDATA.rows[i][h]}}
-                    </td>
+
+                <!-- Email Body -->
+                <tr>
+                  <td
+                    class="body"
+                    width="100%"
+                    cellpadding="0"
+                    cellspacing="0"
+                    style="
+                      box-sizing: border-box;
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                        Roboto, Helvetica, Arial, sans-serif,
+                        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                      position: relative;
+                      -premailer-cellpadding: 0;
+                      -premailer-cellspacing: 0;
+                      -premailer-width: 100%;
+                      background-color: #edf2f7;
+                      border-bottom: 1px solid #edf2f7;
+                      border-top: 1px solid #edf2f7;
+                      margin: 0;
+                      padding: 0;
+                      width: 100%;
+                    "
+                  >
+                    <table
+                      class="inner-body"
+                      align="center"
+                      width="570"
+                      cellpadding="0"
+                      cellspacing="0"
+                      role="presentation"
+                      style="
+                        box-sizing: border-box;
+                        font-family: -apple-system, BlinkMacSystemFont,
+                          'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+                          'Apple Color Emoji', 'Segoe UI Emoji',
+                          'Segoe UI Symbol';
+                        position: relative;
+                        -premailer-cellpadding: 0;
+                        -premailer-cellspacing: 0;
+                        -premailer-width: 570px;
+                        background-color: #ffffff;
+                        border-color: #e8e5ef;
+                        border-radius: 2px;
+                        border-width: 1px;
+                        box-shadow: 0 2px 0 rgba(0, 0, 150, 0.025),
+                          2px 4px 0 rgba(0, 0, 150, 0.015);
+                        margin: 0 auto;
+                        padding: 0;
+                        width: 570px;
+                      "
+                    >
+                      <!-- Body content -->
+                      <tbody>
+                        <tr>
+                          <td
+                            class="content-cell"
+                            style="
+                              box-sizing: border-box;
+                              font-family: -apple-system, BlinkMacSystemFont,
+                                'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+                                'Apple Color Emoji', 'Segoe UI Emoji',
+                                'Segoe UI Symbol';
+                              position: relative;
+                              max-width: 100vw;
+                              padding: 32px;
+                            "
+                          >
+                            <h1
+                              style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont,
+                                  'Segoe UI', Roboto, Helvetica, Arial,
+                                  sans-serif, 'Apple Color Emoji',
+                                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                                position: relative;
+                                color: #3d4852;
+                                font-size: 18px;
+                                font-weight: bold;
+                                margin-top: 0;
+                                text-align: left;
+                              "
+                            >
+                              Greetings [name]!
+                            </h1>
+                            <p
+                              style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont,
+                                  'Segoe UI', Roboto, Helvetica, Arial,
+                                  sans-serif, 'Apple Color Emoji',
+                                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                                position: relative;
+                                font-size: 16px;
+                                line-height: 1.5em;
+                                margin-top: 0;
+                                text-align: left;
+                              "
+                            >
+                              You are invited to join the following study:
+                            </p>
+                            <p
+                              style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont,
+                                  'Segoe UI', Roboto, Helvetica, Arial,
+                                  sans-serif, 'Apple Color Emoji',
+                                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                                position: relative;
+                                font-size: 16px;
+                                line-height: 1.5em;
+                                margin-top: 0;
+                                text-align: left;
+                              "
+                            >
+                              Project title: signup
+                            </p>
+                            <p
+                              style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont,
+                                  'Segoe UI', Roboto, Helvetica, Arial,
+                                  sans-serif, 'Apple Color Emoji',
+                                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                                position: relative;
+                                font-size: 16px;
+                                line-height: 1.5em;
+                                margin-top: 0;
+                                text-align: left;
+                              "
+                            >
+                              Project description: Sample project description
+                            </p>
+                            <p
+                              style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont,
+                                  'Segoe UI', Roboto, Helvetica, Arial,
+                                  sans-serif, 'Apple Color Emoji',
+                                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                                position: relative;
+                                font-size: 16px;
+                                line-height: 1.5em;
+                                margin-top: 0;
+                                text-align: left;
+                              "
+                            >
+                              The payment for participation is $0.00 USD. The
+                              study will be open until 2020-09-29 00:00:00 or
+                              until enough people participate.
+                            </p>
+                            <p
+                              style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont,
+                                  'Segoe UI', Roboto, Helvetica, Arial,
+                                  sans-serif, 'Apple Color Emoji',
+                                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                                position: relative;
+                                font-size: 16px;
+                                line-height: 1.5em;
+                                margin-top: 0;
+                                text-align: left;
+                              "
+                            >
+                              If you have any questions, please contact
+                              researcher@scifriends.edu
+                            </p>
+                            <p
+                              style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont,
+                                  'Segoe UI', Roboto, Helvetica, Arial,
+                                  sans-serif, 'Apple Color Emoji',
+                                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                                position: relative;
+                                font-size: 16px;
+                                line-height: 1.5em;
+                                margin-top: 0;
+                                text-align: left;
+                              "
+                            >
+                              Please click on the link below to log in to your
+                              account or copy and paste it into your browser.
+                            </p>
+                            <table
+                              class="action"
+                              align="center"
+                              width="100%"
+                              cellpadding="0"
+                              cellspacing="0"
+                              role="presentation"
+                              style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont,
+                                  'Segoe UI', Roboto, Helvetica, Arial,
+                                  sans-serif, 'Apple Color Emoji',
+                                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                                position: relative;
+                                -premailer-cellpadding: 0;
+                                -premailer-cellspacing: 0;
+                                -premailer-width: 100%;
+                                margin: 30px auto;
+                                padding: 0;
+                                text-align: center;
+                                width: 100%;
+                              "
+                            >
+                              <tbody>
+                                <tr>
+                                  <td
+                                    align="center"
+                                    style="
+                                      box-sizing: border-box;
+                                      font-family: -apple-system,
+                                        BlinkMacSystemFont, 'Segoe UI', Roboto,
+                                        Helvetica, Arial, sans-serif,
+                                        'Apple Color Emoji', 'Segoe UI Emoji',
+                                        'Segoe UI Symbol';
+                                      position: relative;
+                                    "
+                                  >
+                                    <table
+                                      width="100%"
+                                      border="0"
+                                      cellpadding="0"
+                                      cellspacing="0"
+                                      role="presentation"
+                                      style="
+                                        box-sizing: border-box;
+                                        font-family: -apple-system,
+                                          BlinkMacSystemFont, 'Segoe UI', Roboto,
+                                          Helvetica, Arial, sans-serif,
+                                          'Apple Color Emoji', 'Segoe UI Emoji',
+                                          'Segoe UI Symbol';
+                                        position: relative;
+                                      "
+                                    >
+                                      <tbody>
+                                        <tr>
+                                          <td
+                                            align="center"
+                                            style="
+                                              box-sizing: border-box;
+                                              font-family: -apple-system,
+                                                BlinkMacSystemFont, 'Segoe UI',
+                                                Roboto, Helvetica, Arial,
+                                                sans-serif, 'Apple Color Emoji',
+                                                'Segoe UI Emoji',
+                                                'Segoe UI Symbol';
+                                              position: relative;
+                                            "
+                                          >
+                                            <table
+                                              border="0"
+                                              cellpadding="0"
+                                              cellspacing="0"
+                                              role="presentation"
+                                              style="
+                                                box-sizing: border-box;
+                                                font-family: -apple-system,
+                                                  BlinkMacSystemFont, 'Segoe UI',
+                                                  Roboto, Helvetica, Arial,
+                                                  sans-serif,
+                                                  'Apple Color Emoji',
+                                                  'Segoe UI Emoji',
+                                                  'Segoe UI Symbol';
+                                                position: relative;
+                                              "
+                                            >
+                                              <tbody>
+                                                <tr>
+                                                  <td
+                                                    style="
+                                                      box-sizing: border-box;
+                                                      font-family: -apple-system,
+                                                        BlinkMacSystemFont,
+                                                        'Segoe UI', Roboto,
+                                                        Helvetica, Arial,
+                                                        sans-serif,
+                                                        'Apple Color Emoji',
+                                                        'Segoe UI Emoji',
+                                                        'Segoe UI Symbol';
+                                                      position: relative;
+                                                    "
+                                                  >
+                                                    <a
+                                                      class="button button-primary"
+                                                      style="
+                                                        box-sizing: border-box;
+                                                        font-family: -apple-system,
+                                                          BlinkMacSystemFont,
+                                                          'Segoe UI', Roboto,
+                                                          Helvetica, Arial,
+                                                          sans-serif,
+                                                          'Apple Color Emoji',
+                                                          'Segoe UI Emoji',
+                                                          'Segoe UI Symbol';
+                                                        position: relative;
+                                                        -webkit-text-size-adjust: none;
+                                                        border-radius: 4px;
+                                                        color: #fff;
+                                                        display: inline-block;
+                                                        overflow: hidden;
+                                                        text-decoration: none;
+                                                        background-color: #2d3748;
+                                                        border-bottom: 8px solid
+                                                          #2d3748;
+                                                        border-left: 18px solid
+                                                          #2d3748;
+                                                        border-right: 18px solid
+                                                          #2d3748;
+                                                        border-top: 8px solid
+                                                          #2d3748;
+                                                      "
+                                                      >http://localhost:4200/my-projects</a
+                                                    >
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <p
+                              style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont,
+                                  'Segoe UI', Roboto, Helvetica, Arial,
+                                  sans-serif, 'Apple Color Emoji',
+                                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                                position: relative;
+                                font-size: 16px;
+                                line-height: 1.5em;
+                                margin-top: 0;
+                                text-align: left;
+                              "
+                            >
+                              Regards,<br />
+                              Websurvey
+                            </p>
+
+                            <table
+                              class="subcopy"
+                              width="100%"
+                              cellpadding="0"
+                              cellspacing="0"
+                              role="presentation"
+                              style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont,
+                                  'Segoe UI', Roboto, Helvetica, Arial,
+                                  sans-serif, 'Apple Color Emoji',
+                                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                                position: relative;
+                                border-top: 1px solid #e8e5ef;
+                                margin-top: 25px;
+                                padding-top: 25px;
+                              "
+                            >
+                              <tbody>
+                                <tr>
+                                  <td
+                                    style="
+                                      box-sizing: border-box;
+                                      font-family: -apple-system,
+                                        BlinkMacSystemFont, 'Segoe UI', Roboto,
+                                        Helvetica, Arial, sans-serif,
+                                        'Apple Color Emoji', 'Segoe UI Emoji',
+                                        'Segoe UI Symbol';
+                                      position: relative;
+                                    "
+                                  >
+                                    <p
+                                      style="
+                                        box-sizing: border-box;
+                                        font-family: -apple-system,
+                                          BlinkMacSystemFont, 'Segoe UI', Roboto,
+                                          Helvetica, Arial, sans-serif,
+                                          'Apple Color Emoji', 'Segoe UI Emoji',
+                                          'Segoe UI Symbol';
+                                        position: relative;
+                                        line-height: 1.5em;
+                                        margin-top: 0;
+                                        text-align: left;
+                                        font-size: 14px;
+                                      "
+                                    >
+                                      If you’re having trouble clicking the
+                                      "http://localhost:4200/my-projects"
+                                      button, copy and paste the URL below into
+                                      your web browser:
+                                      <span
+                                        class="break-all"
+                                        style="
+                                          box-sizing: border-box;
+                                          font-family: -apple-system,
+                                            BlinkMacSystemFont, 'Segoe UI',
+                                            Roboto, Helvetica, Arial, sans-serif,
+                                            'Apple Color Emoji',
+                                            'Segoe UI Emoji', 'Segoe UI Symbol';
+                                          position: relative;
+                                          word-break: break-all;
+                                        "
+                                        ><a
+                                          style="
+                                            box-sizing: border-box;
+                                            font-family: -apple-system,
+                                              BlinkMacSystemFont, 'Segoe UI',
+                                              Roboto, Helvetica, Arial,
+                                              sans-serif, 'Apple Color Emoji',
+                                              'Segoe UI Emoji',
+                                              'Segoe UI Symbol';
+                                            position: relative;
+                                            color: #3869d4;
+                                          "
+                                          >http://localhost:4200/my-projects</a
+                                        ></span
+                                      >
+                                    </p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
                 </tr>
+
+                <tr>
+                  <td
+                    style="
+                      box-sizing: border-box;
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                        Roboto, Helvetica, Arial, sans-serif,
+                        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+                      position: relative;
+                    "
+                  >
+                    <table
+                      class="footer"
+                      align="center"
+                      width="570"
+                      cellpadding="0"
+                      cellspacing="0"
+                      role="presentation"
+                      style="
+                        box-sizing: border-box;
+                        font-family: -apple-system, BlinkMacSystemFont,
+                          'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+                          'Apple Color Emoji', 'Segoe UI Emoji',
+                          'Segoe UI Symbol';
+                        position: relative;
+                        -premailer-cellpadding: 0;
+                        -premailer-cellspacing: 0;
+                        -premailer-width: 570px;
+                        margin: 0 auto;
+                        padding: 0;
+                        text-align: center;
+                        width: 570px;
+                      "
+                    >
+                      <tbody>
+                        <tr>
+                          <td
+                            class="content-cell"
+                            align="center"
+                            style="
+                              box-sizing: border-box;
+                              font-family: -apple-system, BlinkMacSystemFont,
+                                'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+                                'Apple Color Emoji', 'Segoe UI Emoji',
+                                'Segoe UI Symbol';
+                              position: relative;
+                              max-width: 100vw;
+                              padding: 32px;
+                            "
+                          >
+                            <p
+                              style="
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont,
+                                  'Segoe UI', Roboto, Helvetica, Arial,
+                                  sans-serif, 'Apple Color Emoji',
+                                  'Segoe UI Emoji', 'Segoe UI Symbol';
+                                position: relative;
+                                line-height: 1.5em;
+                                margin-top: 0;
+                                color: #b0adc5;
+                                font-size: 12px;
+                                text-align: center;
+                              "
+                            >
+                              © 2020 Websurvey. All rights reserved.
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
             </table>
-        </div>
-    </mat-card>
-
-
-
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+<div *ngIf="PREVIEWDATA" style="border: 1px solid orange; padding: 2px">
+  <mat-card *ngIf="invitationErrors.length">
+    <h2>There are errors in your submission</h2>
+    <i> Selection won't submit in production mode with errors </i>
+    <ul>
+      <li *ngFor="let ie of invitationErrors">{{ ie }}</li>
+    </ul>
+  </mat-card>
 
-
+  <mat-card>
+    <h2>The following users would receive an invitation</h2>
+    <p>Turn off test mode and re-send if correct</p>
+    <div style="overflow: scroll">
+      <table class="blueTable">
+        <tr>
+          <th *ngFor="let h of PREVIEWDATA.headers">{{ h }}</th>
+        </tr>
+        <tr *ngFor="let d of PREVIEWDATA.rows; let i = index">
+          <td *ngFor="let h of PREVIEWDATA.headers; let j = index">
+            {{ PREVIEWDATA.rows[i][h] }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </mat-card>
+</div>
 
 <div>
-    <table style="width:100%;" mat-table [dataSource]="data" class="example-table" matSort matSortActive="created_at"
-        matSortDisableClear matSortDirection="desc">
-        <ng-container matColumnDef="participants_userid">
-            <th mat-header-cell *matHeaderCellDef>#</th>
-            <td mat-cell *matCellDef="let row">{{row.participants_userid}}</td>
-        </ng-container>
+  <table
+    style="width: 100%"
+    mat-table
+    [dataSource]="data"
+    class="example-table"
+    matSort
+    matSortActive="created_at"
+    matSortDisableClear
+    matSortDirection="desc"
+  >
+    <ng-container matColumnDef="participants_userid">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let row">{{ row.participants_userid }}</td>
+    </ng-container>
 
-        <ng-container matColumnDef="safeid">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>SafeID</th>
-            <td mat-cell *matCellDef="let row">{{row.safeid}}</td>
-        </ng-container>
+    <ng-container matColumnDef="safeid">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>SafeID</th>
+      <td mat-cell *matCellDef="let row">{{ row.safeid }}</td>
+    </ng-container>
 
-        <ng-container matColumnDef="invited">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Invited</th>
-            <td mat-cell *matCellDef="let row">{{row.invited ? row.invited : 'No'}}</td>
-        </ng-container>
-        <ng-container matColumnDef="amount_to_pay">
-            <th mat-header-cell *matHeaderCellDef>Amount to pay</th>
-            <td mat-cell *matCellDef="let row">{{row.amount_to_pay}}</td>
-        </ng-container>
+    <ng-container matColumnDef="invited">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Invited</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.invited ? row.invited : "No" }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="amount_to_pay">
+      <th mat-header-cell *matHeaderCellDef>Amount to pay</th>
+      <td mat-cell *matCellDef="let row">{{ row.amount_to_pay }}</td>
+    </ng-container>
 
-        <ng-container matColumnDef="finished">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Finished</th>
-            <td mat-cell *matCellDef="let row">{{row.finished}}</td>
-        </ng-container>
-        <ng-container matColumnDef="finished_ip">
-            <th mat-header-cell *matHeaderCellDef>Finished IP</th>
-            <td mat-cell *matCellDef="let row">{{row.finished_ip}}</td>
-        </ng-container>
-        <ng-container matColumnDef="userparam1">
-            <th mat-header-cell *matHeaderCellDef>userparam1</th>
-            <td mat-cell *matCellDef="let row">{{row.userparam1}}</td>
-        </ng-container>
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let row">
-                <!-- TODO -->
-                <button [disabled]="!row.invited"
-                    (click)="sendProjectReminders([row.participants_userid]);">Remind</button>
-                <button (click)="sendProjectInvitations([row.participants_userid]);">Send Invitation</button>
+    <ng-container matColumnDef="finished">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Finished</th>
+      <td mat-cell *matCellDef="let row">{{ row.finished }}</td>
+    </ng-container>
+    <ng-container matColumnDef="finished_ip">
+      <th mat-header-cell *matHeaderCellDef>Finished IP</th>
+      <td mat-cell *matCellDef="let row">{{ row.finished_ip }}</td>
+    </ng-container>
+    <ng-container matColumnDef="userparam1">
+      <th mat-header-cell *matHeaderCellDef>userparam1</th>
+      <td mat-cell *matCellDef="let row">{{ row.userparam1 }}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <!-- TODO -->
+        <button
+          [disabled]="!row.invited"
+          (click)="sendProjectReminders([row.participants_userid])"
+        >
+          Remind
+        </button>
+        <button (click)="sendProjectInvitations([row.participants_userid])">
+          Send Invitation
+        </button>
 
-                {{row.userparam1}}</td>
-        </ng-container>
-        <!-- Created Column -->
-        <ng-container matColumnDef="created_at">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
-                Created
-            </th>
-            <td mat-cell *matCellDef="let row">{{row.created_at | date}}</td>
-        </ng-container>
+        {{ row.userparam1 }}
+      </td>
+    </ng-container>
+    <!-- Created Column -->
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+        Created
+      </th>
+      <td mat-cell *matCellDef="let row">{{ row.created_at | date }}</td>
+    </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator>
 </div>
