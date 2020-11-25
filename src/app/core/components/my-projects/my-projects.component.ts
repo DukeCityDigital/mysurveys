@@ -1,11 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { ProjectService } from "@app/core/services/project.service";
 import { AlertService } from "../_alert";
-import { ActivatedRouteSnapshot, ActivatedRoute, Router } from "@angular/router";
+import {
+  ActivatedRouteSnapshot,
+  ActivatedRoute,
+  Router,
+} from "@angular/router";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-Router
+Router;
 map;
 Observable;
 @Component({
@@ -22,7 +26,7 @@ export class MyProjectsComponent implements OnInit {
     private projectService: ProjectService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   lookup: string;
 
@@ -54,11 +58,6 @@ export class MyProjectsComponent implements OnInit {
   startingProject = false;
   public startProject(invitation) {
     console.log("startproj", invitation.project);
-    // let c = confirm(
-    //   "Are you sure you're ready to start the project?  Your start time will be recorded so make sure you have a time to finish!"
-    // );
-    // if (c) {
-    // console.log("startproje", data);
 
     this.projectService
       .start_project(invitation.project.id)
@@ -75,7 +74,7 @@ export class MyProjectsComponent implements OnInit {
           this.startingProject = false;
 
           return false;
-        }, 3000)
+        }, 3000);
         this.projectService.my_projects().subscribe((data: any) => {
           console.log(data);
           this.invitations = data.data;

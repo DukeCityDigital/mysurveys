@@ -82,7 +82,7 @@ import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,
-        whitelistedDomains: ["localhost:3000", "websurvey"],
+        whitelistedDomains: ["localhost:3000", "MySurveys"],
         blacklistedRoutes: ["http://localhost:3000/auth/login"],
       },
     }),

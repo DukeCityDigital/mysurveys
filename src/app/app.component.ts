@@ -1,12 +1,12 @@
 import { Component, HostListener, Input, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-ViewChild
+ViewChild;
 import { AuthService as AuthenticationService } from "@app/core/services/auth.service";
 import { AlertService } from "./core/components/_alert";
 import { WarningsComponent } from "./core/components/warnings/warnings.component";
 import { UserService } from "./core/services/user.service";
 import { DataComponent } from "./core/components/data/data.component";
-import { MatSidenav } from '@angular/material/sidenav';
+import { MatSidenav } from "@angular/material/sidenav";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -19,13 +19,13 @@ export class AppComponent {
 
   public screenWidth: any;
   public screenHeight: any;
-  sideNavMode = 'side';
+  sideNavMode = "side";
   mobileView = false;
-  logo = "../assets/sfilogo.jpg"
+  logo = "../assets/sfilogo.jpg";
 
-  @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
+  @ViewChild("sidenav", { static: true }) sidenav: MatSidenav;
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener("window:resize", ["$event"])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
@@ -41,7 +41,6 @@ export class AppComponent {
   }
 
   public customToggle() {
-
     this.mobileView ? this.sidenav.close() : null;
   }
 
@@ -88,10 +87,9 @@ export class AppComponent {
   }
 
   links = {
-    base:
-      [
-        // { name: "home", link: "/dashboard", icon: "home" }
-      ],
+    base: [
+      // { name: "home", link: "/dashboard", icon: "home" }
+    ],
     end: [
       // { name: "other links?", link: "/", icon: "" },
       { name: "profile", link: "/dashboard/profile", icon: "person" },
@@ -105,9 +103,9 @@ export class AppComponent {
       //   icon: "people_outline",
       // },
 
-      { name: "2. payPal", link: "/dashboard/paypal", icon: "monetization_on" },
+      { name: "1. PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
       {
-        name: "3. my projects",
+        name: "2. my projects",
         link: "/dashboard/my-projects",
         icon: "assignment",
       },

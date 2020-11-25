@@ -82,7 +82,7 @@ export class ManageParticipantsComponent implements OnInit {
           this.invitationErrors = data.data.ERRORS ? data.data.ERRORS : [];
 
           this.buildPreviewTable(data.data.PREVIEW);
-          this.alertService.success("Invitations sent");
+          this.alertService.success(data.data);
         }
       },
       (error) => {
@@ -119,8 +119,8 @@ export class ManageParticipantsComponent implements OnInit {
     if (!selectedIDs) {
       this.data.forEach((element) => {
         console.log(element);
-        var u = element.user_id;
-        if (u !== null) ids.push(element.user_id);
+        var u = element.participants_userid;
+        if (u !== null) ids.push(u);
       });
     } else {
       ids = selectedIDs;
