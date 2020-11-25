@@ -18,7 +18,7 @@ export class DataComponent implements OnInit {
   constructor(
     private participantService: ParticipantService,
     private projectService: ProjectService
-  ) {}
+  ) { }
   data: any;
   changesPending: boolean = false;
   ngOnInit(): void {
@@ -87,19 +87,20 @@ export class DataComponent implements OnInit {
   /**
    * Read data from uploaded CSV
    */
-  public import() {}
+  public import() { }
 
   /**
    * Download project participant data
    */
 
   public export(flag?: any) {
+    console.log('data', flag);
     var data = this.data;
     if (flag) {
       data = this.exportData;
     }
     if (!data.length) {
-      return false;
+      // return false;
     }
 
     const replacer = (key, value) => (value === null ? "" : value); // specify how you want to handle null values here
@@ -118,10 +119,10 @@ export class DataComponent implements OnInit {
     saveAs(
       blob,
       new Date() +
-        "-scifriends-project_" +
-        this.project_id +
-        "_participants" +
-        ".csv"
+      "-scifriends-project_" +
+      this.project_id +
+      "_participants" +
+      ".csv"
     );
   }
 }
