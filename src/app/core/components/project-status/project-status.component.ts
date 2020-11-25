@@ -7,8 +7,10 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class ProjectStatusComponent implements OnInit {
   @Input() project: any;
+  @Input() participants: number;
+  @Input() totalParticipants: number;
+
   constructor() {}
-  totalParticipants: number;
 
   ngOnInit(): void {
     console.log(this.project);

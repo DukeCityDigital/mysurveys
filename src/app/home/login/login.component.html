@@ -2,16 +2,15 @@
     Login buttons for development<br>
     <button (click)="quickLogin('admin@scifriends.edu');">Admin</button>
 
-    <button (click)="quickLogin('researcher@scifriends.edu');">Researcher</button>
-    <button (click)="quickLogin('participant@scifriends.edu');">Participant</button>
+    <button (click)="quickLogin('researcher@scifriends.edutest');">Researcher</button>
+    <button (click)="quickLogin('participant@scifriends.edutest');">Participant</button>
 
 
 </div>
 <div class="centerheader">
     <h1>Login</h1>
-    <!-- <button class="TODO" (click)="test()">test</button> -->
     <mat-card id="login-card">
-        <form class="login-form main-login-card" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+        <form class="login-form main-login-card" (ngSubmit)="onSubmit();loginForm.reset()" [formGroup]="loginForm">
             <mat-form-field class="login-field">
                 <input [pattern]="emailPattern" type="email" email formControlName="email" matInput required
                     placeholder="&nbsp;Email">
@@ -32,7 +31,6 @@
         </form>
         <p>
             <a href="password-reset">Forgot your password?</a>
-
         </p>
     </mat-card>
 </div>

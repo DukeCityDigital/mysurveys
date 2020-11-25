@@ -104,7 +104,7 @@ export class UpdateComponent implements OnInit {
    * @param index
    */
   selectedIndexChange(index: number) {
-    if (index == 1) {
+    if (index == 2) {
       this.mpComponent.onRunTable();
     }
     setTimeout(() => (this.selectedTabIndex = index));

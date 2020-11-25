@@ -41,7 +41,7 @@ import { MotdComponent } from "./core/components/motd/motd.component";
 import { NotificationsComponent } from "./core/components/notifications/notifications.component";
 import { AlertComponent } from "./core/components/_alert/alert.component";
 import { ParticipantsComponent } from "./core/components/participants/participants.component";
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,8 +58,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MotdComponent,
     NotificationsComponent,
     ParticipantsComponent,
-    GDPRBottomSheet
-
+    GDPRBottomSheet,
   ],
   imports: [
     BrowserModule,
@@ -110,7 +109,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 export function jwtTokenGetter() {
   return localStorage.getItem("access_token");
 }

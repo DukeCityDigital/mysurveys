@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     this.returnUrl =
       this.route.snapshot.queryParams["returnUrl"] || "/dashboard";
   }
-  quickLogin(email, pass = "Testpass12!") {
+  quickLogin(email, pass = "Mc{&V=HQ@T<z4YaL") {
     // this.authService.login(email,pass)
     this.loginForm.patchValue({
       email: email,
