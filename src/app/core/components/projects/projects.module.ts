@@ -23,6 +23,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { AlertService, AlertModule } from "../_alert";
 import { OmniTableModule } from "../omni-table/omni-table.module";
 import { DataModule } from "../data/data.module";
+import { ProjectStatusComponent } from '../project-status/project-status.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { DataModule } from "../data/data.module";
     CreateComponent,
     UpdateComponent,
     ManageParticipantsComponent,
+    ProjectStatusComponent,
   ],
   imports: [
     CommonModule,

@@ -87,16 +87,16 @@ export class UpdateComponent implements OnInit {
       id: [""],
       project_title: ["", Validators.required],
       description: [""],
-      responsible_person: [""],
-      link: [""],
+      responsible_person: ["", Validators.required],
+      link: ["", Validators.required],
       link_method: [""],
-      max_payout: [""],
-      exp_payout: [""],
-      desired_sample_size: [""],
-      desired_num_invitations: [""],
-      payout_type: [""],
-      defaultend: [""],
-      defaultstart: [""],
+      max_payout: ["", Validators.required],
+      exp_payout: ["", Validators.required],
+      desired_sample_size: ["", Validators.required],
+      desired_num_invitations: ["", Validators.required],
+      payout_type: ["", Validators.required],
+      defaultend: ["", Validators.required],
+      defaultstart: ["", Validators.required],
     });
   }
   /**
@@ -133,11 +133,12 @@ export class UpdateComponent implements OnInit {
             // this.router.navigate(["list-user"]);
             this.project = data.data;
           } else {
-            alert(data.message);
+            this.alertService.error(data.message.message);
+            // alert(data.message);
           }
         },
         (error) => {
-          alert(error);
+          // alert(error);s
         }
       );
   }
@@ -185,11 +186,12 @@ export class UpdateComponent implements OnInit {
             // this.router.navigate(["list-user"]);
             this.project = data.data;
           } else {
-            alert(data.message);
+            // alert(data.message);
+            this.alertService.error(data.message.message);
           }
         },
         (error) => {
-          alert(error);
+          // alert(error);
         }
       );
   }
