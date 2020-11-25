@@ -53,9 +53,9 @@ export class ManageParticipantsComponent implements OnInit {
     // private localParticipantService: LocalParticipantService,
     private pService: pService,
     public alertService: AlertService
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
   ngAfterViewInit() {
     // this.alertService.success("Success on the left!!", { id: "alert-1" });
     this.route.paramMap.subscribe((params) => {
@@ -107,7 +107,7 @@ export class ManageParticipantsComponent implements OnInit {
   }
 
   prepareRequest(selectedIDs): any {
-    // console.log("pj invites", this.data);
+    console.log("pj invites", this.data);
     // TODO confirmation
     let r = window.confirm(
       "Are you sure you wish to send email invitations to these participants?"
@@ -118,8 +118,9 @@ export class ManageParticipantsComponent implements OnInit {
     let ids = [];
     if (!selectedIDs) {
       this.data.forEach((element) => {
-        // console.log(element);
-        ids.push(element.participants_userid);
+        console.log(element);
+        var u = element.user_id;
+        if (u !== null) ids.push(element.user_id);
       });
     } else {
       ids = selectedIDs;
@@ -215,7 +216,7 @@ export class ManageParticipantsComponent implements OnInit {
 
 /** An example database that the data source uses to retrieve data for the table. */
 export class LocalParticipantService {
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient) {}
 
   getParticipants(
     sort: string,
@@ -225,8 +226,9 @@ export class LocalParticipantService {
     filter?: string
   ): Observable<any> {
     const href = environment.apiUrl;
-    const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&filter=${filter}&order=${order}&page=${page + 1
-      }`;
+    const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&filter=${filter}&order=${order}&page=${
+      page + 1
+    }`;
     // console.log("get part", requestUrl);
     return this._httpClient.get<any>(requestUrl);
   }
