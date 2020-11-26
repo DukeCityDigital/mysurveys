@@ -97,12 +97,13 @@ export class AuthService {
     localStorage.removeItem("token");
     this.stopRefreshTokenTimer();
     this.userSubject.next(null);
-    this.router.navigate(["/"]);
+    // this.router.navigate(["/"]);
   }
   // helper methods
 
   private startRefreshTokenTimer() {
     // parse json object from base64 encoded jwt token
+
     const jwtToken = JSON.parse(
       atob(this.userValue.access_token.split(".")[1])
     );
