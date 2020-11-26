@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { catchError, map, tap } from "rxjs/operators";
 
 import { environment } from "../../../environments/environment";
 import { User } from "@app/core/models/user";
 import { SetRole } from "@app/core/helpers/set-role";
+import { throwError } from "rxjs/internal/observable/throwError";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +16,7 @@ export class AuthService {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.userSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("user"))
     );
@@ -28,7 +30,7 @@ export class AuthService {
   }
 
   public localhost(): boolean {
-    return true;
+    // return true;
     return (
       location.hostname === "localhost" ||
       location.hostname === "127.0.0.1" ||
@@ -45,10 +47,14 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post<User>(`${environment.apiUrl}/auth/login`, {
-        email,
-        password,
-      })
+      .post<User>(
+        `${environment.apiUrl}/auth/login`,
+        {
+          email,
+          password,
+        }
+        // { withCredentials: true }
+      )
       .pipe(
         map((user) => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -57,10 +63,73 @@ export class AuthService {
           localStorage.setItem("access_token", JSON.parse(u).access_token);
           user = SetRole(user);
           this.userSubject.next(user);
-
+          this.startRefreshTokenTimer();
           return user;
         })
       );
+  }
+
+  refreshToken() {
+    return this.http
+      .get<any>(
+        `${environment.apiUrl}/refresh`
+        // { token: this.userValue.access_token },
+      )
+      .pipe(
+        catchError((err) => {
+          console.log("error caught in service");
+          console.error(err);
+
+          //Handle the error here
+          this.logout();
+          return throwError(err); //Rethrow it back to component
+        }),
+        map((user) => {
+          console.log("refreshed user", user);
+          localStorage.setItem("access_token", user.access_token);
+
+          this.userSubject.next(user);
+          this.startRefreshTokenTimer();
+          return user;
+        })
+      );
+  }
+
+  /**
+   * TODO post to endpoint to revoke
+   */
+  logout() {
+    // remove user from local storage to log user out
+    // this.http.post<any>(`${environment.apiUrl}/users/revoke-token`, {}, { withCredentials: true }).subscribe();
+    //
+    localStorage.removeItem("user");
+    localStorage.removeItem("access_token");
+    this.stopRefreshTokenTimer();
+    this.userSubject.next(null);
+    this.router.navigate(["/"]);
+  }
+  // helper methods
+
+  private refreshTokenTimeout;
+
+  private startRefreshTokenTimer() {
+    // parse json object from base64 encoded jwt token
+    const jwtToken = JSON.parse(
+      atob(this.userValue.access_token.split(".")[1])
+    );
+
+    // set a timeout to refresh the token a minute before it expires
+    const expires = new Date(jwtToken.exp * 1000);
+    const timeout = expires.getTime() - Date.now() - 60 * 1000;
+
+    this.refreshTokenTimeout = setTimeout(
+      () => this.refreshToken().subscribe(),
+      timeout
+    );
+  }
+
+  private stopRefreshTokenTimer() {
+    clearTimeout(this.refreshTokenTimeout);
   }
 
   resendVerificationCode(email: string) {
@@ -85,13 +154,6 @@ export class AuthService {
     return user;
   }
 
-  logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem("user");
-    localStorage.removeItem("access_token");
-
-    this.userSubject.next(null);
-  }
   update(id, params) {
     return this.http.put(`${environment.apiUrl}/users/${id}`, params).pipe(
       map((x) => {

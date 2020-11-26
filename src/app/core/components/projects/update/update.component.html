@@ -4,7 +4,6 @@
   <h3>Project Title: {{ project ? project.project_title : null }}</h3>
   <mat-tab-group dynamicHeight (selectedIndexChange)="selectedIndexChange($event)">
     <mat-tab label="Edit Project">
-      Edit Project
       <!-- {{editForm.value | json}} -->
       <form [formGroup]="editForm" (ngSubmit)="onSubmit()" style="display: grid">
         <div [hidden]="true">
