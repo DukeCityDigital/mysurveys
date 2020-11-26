@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
-
 import { environment } from "../../../environments/environment";
 import { User } from "@app/core/models/user";
 import { SetRole } from "@app/core/helpers/set-role";
@@ -15,22 +14,20 @@ import { Router } from "@angular/router";
 export class AuthService {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
+  private refreshTokenTimeout;
 
   constructor(private http: HttpClient, private router: Router) {
     this.userSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("user"))
     );
-
     this.user = this.userSubject.asObservable();
   }
 
   public get userValue(): User {
-    console.log("uservalue", this.userSubject.value);
     return this.userSubject.value;
   }
 
   public localhost(): boolean {
-    // return true;
     return (
       location.hostname === "localhost" ||
       location.hostname === "127.0.0.1" ||
@@ -70,29 +67,21 @@ export class AuthService {
   }
 
   refreshToken() {
-    return this.http
-      .get<any>(
-        `${environment.apiUrl}/refresh`
-        // { token: this.userValue.access_token },
-      )
-      .pipe(
-        catchError((err) => {
-          console.log("error caught in service");
-          console.error(err);
-
-          //Handle the error here
-          this.logout();
-          return throwError(err); //Rethrow it back to component
-        }),
-        map((user) => {
-          console.log("refreshed user", user);
-          localStorage.setItem("access_token", user.access_token);
-
-          this.userSubject.next(user);
-          this.startRefreshTokenTimer();
-          return user;
-        })
-      );
+    return this.http.get<any>(`${environment.apiUrl}/refresh`).pipe(
+      catchError((err) => {
+        // console.log("error caught in service");
+        console.error(err);
+        //Handle the error here
+        this.logout();
+        return throwError(err); //Rethrow it back to component
+      }),
+      map((user) => {
+        localStorage.setItem("access_token", user.access_token);
+        this.userSubject.next(user);
+        this.startRefreshTokenTimer();
+        return user;
+      })
+    );
   }
 
   /**
@@ -104,13 +93,13 @@ export class AuthService {
     //
     localStorage.removeItem("user");
     localStorage.removeItem("access_token");
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("token");
     this.stopRefreshTokenTimer();
     this.userSubject.next(null);
     this.router.navigate(["/"]);
   }
   // helper methods
-
-  private refreshTokenTimeout;
 
   private startRefreshTokenTimer() {
     // parse json object from base64 encoded jwt token
@@ -147,10 +136,8 @@ export class AuthService {
     let u = JSON.stringify(user);
     localStorage.setItem("access_token", JSON.parse(u).access_token);
     user = SetRole(user);
+    this.startRefreshTokenTimer();
     this.userSubject.next(user);
-    // setTimeout(() => {
-    //   alert('Your token will expire in 6 minutes');
-    // }, (3600 * 100) / 4);
     return user;
   }
 

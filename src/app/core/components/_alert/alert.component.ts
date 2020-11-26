@@ -36,7 +36,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   public alertSubscription: Subscription;
   public routeSubscription: Subscription;
 
-  constructor(private router: Router, private alertService: AlertService) { }
+  constructor(private router: Router, private alertService: AlertService) {}
 
   ngOnInit() {
     // subscribe to new alert notifications
@@ -54,7 +54,6 @@ export class AlertComponent implements OnInit, OnDestroy {
         }
 
         // add alert to array
-        console.log("alerts component", this.alerts, this.id);
         if (this.id == "motd" && this.alerts.length) {
           return false;
         }

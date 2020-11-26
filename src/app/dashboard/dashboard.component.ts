@@ -34,17 +34,17 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("dash user", this.user);
-    console.log("init dash");
     // this.alertService.warn("alert service", { id: "alert" });
     var hidemotd = sessionStorage.getItem("hidemotd");
 
     if (!hidemotd || hidemotd === "false") {
       this.getMotd();
     }
-    // if (this.currentUser.role === "administrator") {
-    //   this.router.navigate(["dashboard/settings"]);
-    // } else if (this.currentUser.role === "researcher") {
+    // console.log(this.user);
+    if (this.user.role === "administrator") {
+      this.router.navigate(["dashboard/settings"]);
+    }
+    //  else if (this.currentUser.role === "researcher") {
     //   this.router.navigate(["dashboard/projects"]);
     // }
   }

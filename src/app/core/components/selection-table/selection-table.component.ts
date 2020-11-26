@@ -161,7 +161,7 @@ export class SelectionTableComponent implements OnInit {
     }
     let ids = [];
     this.selectedUSERS.forEach((element) => {
-      ids.push(element.user_id);
+      ids.push(element.id);
     });
 
     let post = { project_id: this.project_id, users: ids };
