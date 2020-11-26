@@ -137,7 +137,7 @@ export class AuthService {
     let u = JSON.stringify(user);
     localStorage.setItem("access_token", JSON.parse(u).access_token);
     user = SetRole(user);
-    this.startRefreshTokenTimer();
+    // this.startRefreshTokenTimer();
     this.userSubject.next(user);
     return user;
   }
