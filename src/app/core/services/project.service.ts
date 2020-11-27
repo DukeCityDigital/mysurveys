@@ -41,6 +41,18 @@ export class ProjectService {
   headers = new HttpHeaders().set("Content-Type", "application/json");
 
   /**
+   *Send custom message
+   */
+  send_custom_message(post) {
+    return this.httpClient
+      .post<any>(
+        this.apiServer + "/send_custom_message",
+        post,
+        this.httpOptions
+      )
+      .pipe(catchError(this.errorHandler));
+  }
+  /**
    * Start selected project
    */
   verify_project_code(post) {

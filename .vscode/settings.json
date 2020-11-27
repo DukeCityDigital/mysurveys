@@ -16,7 +16,7 @@
     "titleBar.inactiveForeground": "#15202b99"
   },
   "peacock.color": "cornflowerblue",
-  "editor.fontSize": 13,
   "editor.quickSuggestionsDelay": 100,
-  "editor.snippetSuggestions": "bottom"
+  "editor.snippetSuggestions": "bottom",
+  "editor.fontSize": 15
 }

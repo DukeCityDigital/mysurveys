@@ -1,12 +1,22 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute } from "@angular/router";
+import { LoaderService } from "@app/core/services/loader.service";
 import { ParticipantService as pService } from "@app/core/services/participant.service";
 import { ProjectService } from "@app/core/services/project.service";
-import { merge, Observable, of as observableOf } from "rxjs";
-import { catchError, delay, map, startWith, switchMap } from "rxjs/operators";
+import { merge, Observable, of as observableOf, of, Subscription } from "rxjs";
+import {
+  catchError,
+  concatMap,
+  delay,
+  first,
+  map,
+  startWith,
+  switchMap,
+} from "rxjs/operators";
 import { environment } from "../../../../environments/environment";
 import { AlertService } from "../_alert";
 
@@ -41,39 +51,97 @@ export class ManageParticipantsComponent implements OnInit {
 
   PREVIEWING: boolean = false;
   PREVIEWDATA: any;
-
+  showCustomEmailPanel: boolean = false;
+  customEmailForm: FormGroup;
+  testEmailForm: FormGroup;
   project_id: number;
+  selectedIds = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   localParticipantService;
+
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
     private _httpClient: HttpClient,
     // private localParticipantService: LocalParticipantService,
     private pService: pService,
-    public alertService: AlertService
+    public alertService: AlertService,
+    private formBuilder: FormBuilder,
+    private loaderService: LoaderService
   ) {}
+  private subscription: Subscription;
+  public _LOADING: boolean = false;
 
-  ngOnInit(): void {}
   ngAfterViewInit() {
-    // this.alertService.success("Success on the left!!", { id: "alert-1" });
     this.route.paramMap.subscribe((params) => {
       this.project_id = +params.get("id");
     });
-    this.localParticipantService = new LocalParticipantService(
-      this._httpClient
-    );
+    // this.localParticipantService = new LocalParticipantService(
+    //   this._httpClient
+    // );
 
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
     this.runTable();
   }
 
-  public onRunTable(condition?: string) {
-    this.filter = condition;
-    this.runTable();
+  ngOnInit(): void {
+    this.customEmailForm = this.formBuilder.group({
+      subject: ["", Validators.required],
+      body: ["", Validators.required],
+      link: [""],
+    });
+    this.testEmailForm = this.formBuilder.group({
+      email: ["", Validators.required],
+    });
+    this.subscription = this.loaderService.loaderState
+      .pipe(concatMap((item) => of(item).pipe(delay(50))))
+      .subscribe((state: any) => {
+        this._LOADING = state.show;
+      });
   }
 
+  /**
+   * Send custom notification
+   * @param testEmail
+   */
+  onSubmitCustomEmail(testEmail?: boolean) {
+    var post = this.customEmailForm.value;
+    if (post.link === "" || !post.link) {
+      delete post["link"];
+    }
+    console.log(post);
+    if (testEmail) {
+      post.test = true;
+    }
+    post.ids = [];
+    this.data.forEach((element) => {
+      var u = element.participants_userid;
+      if (u !== null) post.ids.push(u);
+    });
+    this.projectService
+      .send_custom_message(post)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          if (data.success) {
+            this.alertService.success("Email sent successfully", {
+              autoClose: true,
+              id: "da",
+            });
+            this.project = data.data;
+          } else {
+            this.alertService.error(data.message.message);
+          }
+        },
+        (error) => {}
+      );
+  }
+
+  /**
+   * Send standard notifications
+   * @param post
+   */
   public sendSelectedNotifications(post) {
     this.pService.sendProjectInvitations(post).subscribe(
       (data: any) => {
@@ -82,6 +150,7 @@ export class ManageParticipantsComponent implements OnInit {
           this.invitationErrors = data.data.ERRORS ? data.data.ERRORS : [];
 
           this.buildPreviewTable(data.data.PREVIEW);
+        } else {
           this.alertService.success(data.data);
         }
       },
@@ -105,9 +174,11 @@ export class ManageParticipantsComponent implements OnInit {
       }
     );
   }
-
+  /**
+   * Get IDS for submittal
+   * @param selectedIDs
+   */
   prepareRequest(selectedIDs): any {
-    console.log("pj invites", this.data);
     // TODO confirmation
     let r = window.confirm(
       "Are you sure you wish to send email invitations to these participants?"
@@ -115,16 +186,7 @@ export class ManageParticipantsComponent implements OnInit {
     if (r !== true) {
       return false;
     }
-    let ids = [];
-    if (!selectedIDs) {
-      this.data.forEach((element) => {
-        console.log(element);
-        var u = element.participants_userid;
-        if (u !== null) ids.push(u);
-      });
-    } else {
-      ids = selectedIDs;
-    }
+    let ids = this.selectedIds;
     if (!ids.length) {
       return false;
     }
@@ -160,6 +222,11 @@ export class ManageParticipantsComponent implements OnInit {
     this.sendSelectedNotifications(post);
   }
 
+  /**
+   * Display a preview of selected emails
+   * TODO polish or remove for prod
+   * @param children
+   */
   buildPreviewTable(children) {
     function addHeaders(keys) {
       let headers = [];
@@ -180,6 +247,13 @@ export class ManageParticipantsComponent implements OnInit {
     this.PREVIEWDATA = { headers: headers, rows: rows };
   }
 
+  public onRunTable(condition?: string) {
+    this.filter = condition;
+    this.runTable();
+  }
+  /**
+   * Get filtered data from DB
+   */
   runTable() {
     this.PREVIEWDATA = undefined;
     this.invitationErrors = [];
@@ -200,6 +274,7 @@ export class ManageParticipantsComponent implements OnInit {
         map((data: any) => {
           this.isLoadingResults = false;
           this.resultsLength = data.total;
+          this.selectedIds = data.selected_ids;
           return data.data;
         }),
         catchError(() => {
@@ -208,28 +283,29 @@ export class ManageParticipantsComponent implements OnInit {
         })
       )
       .subscribe((data) => {
-        // console.log(data);
         this.data = data;
       });
   }
 }
 
-/** An example database that the data source uses to retrieve data for the table. */
-export class LocalParticipantService {
-  constructor(private _httpClient: HttpClient) {}
+/**
+ * Mini service for table results
+ */
+// export class LocalParticipantService {
+//   constructor(private _httpClient: HttpClient) {}
 
-  getParticipants(
-    sort: string,
-    order: string,
-    page: number,
-    project_id: number,
-    filter?: string
-  ): Observable<any> {
-    const href = environment.apiUrl;
-    const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&filter=${filter}&order=${order}&page=${
-      page + 1
-    }`;
-    // console.log("get part", requestUrl);
-    return this._httpClient.get<any>(requestUrl);
-  }
-}
+//   getParticipants(
+//     sort: string,
+//     order: string,
+//     page: number,
+//     project_id: number,
+//     filter?: string
+//   ): Observable<any> {
+//     const href = environment.apiUrl;
+//     const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&filter=${filter}&order=${order}&page=${
+//       page + 1
+//     }`;
+//     // console.log("get part", requestUrl);
+//     return this._httpClient.get<any>(requestUrl);
+//   }
+// }

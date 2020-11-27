@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { AuthService } from "@app/core/services/auth.service";
-import { GetRole } from "@app/core/helpers/set-role";
-import { Router, RouterModule, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { AlertService } from "@app/core/components/_alert";
 import { UserService } from "@app/core/services/user.service";
 
@@ -20,7 +19,6 @@ export class DashboardComponent implements OnInit {
     private userService: UserService
   ) {
     this.authService.user.subscribe((x) => (this.user = x));
-    // this.user.role = GetRole(this.user);
   }
 
   getMotd() {
@@ -34,18 +32,13 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.alertService.warn("alert service", { id: "alert" });
     var hidemotd = sessionStorage.getItem("hidemotd");
-
     if (!hidemotd || hidemotd === "false") {
       this.getMotd();
     }
-    // console.log(this.user);
+
     if (this.user.role === "administrator") {
       this.router.navigate(["dashboard/settings"]);
     }
-    //  else if (this.currentUser.role === "researcher") {
-    //   this.router.navigate(["dashboard/projects"]);
-    // }
   }
 }

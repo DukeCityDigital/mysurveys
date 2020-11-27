@@ -1,5 +1,8 @@
 <!-- {{participants | json}} -->
-<p>This panel shows the participants currently selected for the project.</p>
+<p>This panel shows the participants currently selected for the project. Click one of the buttons to send a standard
+  email,
+  or press the 'Show Custom Email Panel' button to create your own.
+</p>
 <mat-progress-bar *ngIf="isLoadingResults" mode="query"></mat-progress-bar>
 <button mat-stroked-button (click)="onRunTable('invited')">
   Select invited
@@ -13,43 +16,52 @@
 <button mat-stroked-button (click)="onRunTable('!finished|started')">
   *Select started but not finished
 </button>
-
-<!-- <button mat-stroked-button (click)="onRunTable('!finished')">Select not finished</button> -->
 <button mat-stroked-button (click)="onRunTable('finished')">
   Select finished
 </button>
+<hr>
+<button (click)="showCustomEmailPanel = !showCustomEmailPanel" mat-raised-button
+  color="primary">{{showCustomEmailPanel ? 'Hide' : 'Show'}} Custom Email Panel</button>
+<div *ngIf="showCustomEmailPanel">
+  <div style="font-family:monospace">
+    <button mat-raised-button (click)="onSubmitCustomEmail(true)" mat-button>Send me (currently logged in user) a test
+      of the custom email</button>
+  </div>
+  <form [formGroup]="customEmailForm" (ngSubmit)="onSubmitCustomEmail();customEmailForm.reset()" style="display: grid">
+    <mat-form-field appearance="outline">
+      <mat-label> Subject</mat-label>
+      <input required matInput type="text" formControlName="subject" placeholder="subject" name="subject"
+        class="form-control" id="subject" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label> body</mat-label>
+      <textarea required matInput type="text" formControlName="body" placeholder="body" name="body" class="form-control"
+        id="body"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label> Link (optional)</mat-label>
+      <input matInput type="text" formControlName="link" placeholder="link" name="link" class="form-control"
+        id="link" />
+    </mat-form-field>
 
-<!-- s
-<p>
-    <hr>pl:
-     There are *show data total{{resultsLength}} selected participants
-    //if finished, they have completed
-
-    //if invited, they have received invite - ?invite time
-
-    //can resend single or individually
-
-    <br>show all invited but not finished
-</p> -->
-
+    <button [disabled]="_LOADING" color="warn" type="submit" mat-raised-button>Send to selected</button>
+  </form>
+</div>
 <div>
   <h3>
     Your current selection is <code>{{ resultsLength }}</code> of the project
     participants
   </h3>
-
-  <button mat-stroked-button color="warn" (click)="sendProjectInvitations()">
+  <button [disabled]="_LOADING" mat-stroked-button color="warn" (click)="sendProjectInvitations()">
     Send Project Invitation Emails
-  </button>
-  <button mat-stroked-button disabled>Send Reminder emails</button>&nbsp;&nbsp;
-
+  </button><br>
   <mat-checkbox [(ngModel)]="TEST_MODE">Test Mode [{{ TEST_MODE }}]</mat-checkbox>
   <div *ngIf="!TEST_MODE" style="text-align: center; color: orange">
     <h2 class="warn">Production Mode</h2>
-  </div>
+  </div><br>
   <button mat-stroked-button (click)="showEmailSample = !showEmailSample">
-    Toggle Email Sample
-  </button>
+    {{showEmailSample ? 'Hide' : 'Show'}} Email Sample
+  </button><br>
   <div *ngIf="showEmailSample">
     <table class="wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="
         box-sizing: border-box;
@@ -115,7 +127,6 @@
                     </a>
                   </td>
                 </tr>
-
                 <!-- Email Body -->
                 <tr>
                   <td class="body" width="100%" cellpadding="0" cellspacing="0" style="
@@ -471,7 +482,6 @@
                     </table>
                   </td>
                 </tr>
-
                 <tr>
                   <td style="
                       box-sizing: border-box;
@@ -545,7 +555,6 @@
       <li *ngFor="let ie of invitationErrors">{{ ie }}</li>
     </ul>
   </mat-card>
-
   <mat-card>
     <h2>The following users would receive an invitation</h2>
     <p>Turn off test mode and re-send if correct</p>
@@ -563,7 +572,6 @@
     </div>
   </mat-card>
 </div>
-
 <div>
   <table style="width: 100%" mat-table [dataSource]="data" class="example-table" matSort matSortActive="created_at"
     matSortDisableClear matSortDirection="desc">

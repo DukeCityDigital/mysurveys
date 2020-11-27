@@ -3,10 +3,13 @@ import { Router } from "@angular/router";
 ViewChild;
 import { AuthService as AuthenticationService } from "@app/core/services/auth.service";
 import { AlertService } from "./core/components/_alert";
-import { WarningsComponent } from "./core/components/warnings/warnings.component";
 import { UserService } from "./core/services/user.service";
-import { DataComponent } from "./core/components/data/data.component";
 import { MatSidenav } from "@angular/material/sidenav";
+import { LoaderService } from "./core/services/loader.service";
+import { concatMap, delay } from "rxjs/operators";
+import { Subscription, of } from "rxjs";
+
+LoaderService;
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -16,15 +19,47 @@ export class AppComponent {
   public user;
   navLinks = [];
   opened: boolean = false;
-
   public screenWidth: any;
   public screenHeight: any;
   sideNavMode = "side";
   mobileView = false;
   logo = "../assets/sfilogo.jpg";
 
+  private subscription: Subscription;
+  public show: boolean = false;
+
   @ViewChild("sidenav", { static: true }) sidenav: MatSidenav;
 
+  constructor(
+    private alertService: AlertService,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private loaderService: LoaderService
+  ) {
+    // this.user = this.authenticationService.userValue;
+    this.onResize();
+    this.authenticationService.user.subscribe((x) => (this.user = x));
+  }
+
+  ngOnInit(): void {
+    this.subscription = this.loaderService.loaderState
+      .pipe(concatMap((item) => of(item).pipe(delay(50))))
+      .subscribe((state: any) => {
+        this.show = state.show;
+      });
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth > 680) {
+      this.opened = true;
+    }
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  /**
+   * Handle menu for device width
+   * @param event
+   */
   @HostListener("window:resize", ["$event"])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -44,17 +79,6 @@ export class AppComponent {
     this.mobileView ? this.sidenav.close() : null;
   }
 
-  constructor(
-    private alertService: AlertService,
-    private router: Router,
-    private authenticationService: AuthenticationService,
-    private userService: UserService
-  ) {
-    // this.user = this.authenticationService.userValue;
-    this.onResize();
-    this.authenticationService.user.subscribe((x) => (this.user = x));
-  }
-
   getLinks() {
     if (this.user.role) {
       return this.links.base
@@ -64,30 +88,20 @@ export class AppComponent {
     return this.links.base.concat(this.links.end);
   }
 
-  ngOnInit(): void {
-    this.screenWidth = window.innerWidth;
-    if (this.screenWidth > 680) {
-      this.opened = true;
-    }
-  }
-
   getPreloginMessage() {
     this.alertService.success("prelogin", {
       id: "prelogin",
       autoClose: false,
       keepAfterRouteChange: true,
     });
-    // this.userService.motd().subscribe((r) => {
-    //   this.alertService.success(r.data, {
-    //     id: "motd",
-    //     autoClose: false,
-    //     keepAfterRouteChange: true,
-    //   });
-    // });
   }
 
+  /**
+   * Build links for different roles
+   */
   links = {
     base: [
+      //retain
       // { name: "home", link: "/dashboard", icon: "home" }
     ],
     end: [
@@ -96,13 +110,6 @@ export class AppComponent {
     ],
 
     participant: [
-      // { name: "statistics", link: "/", icon: "poll" },
-      // {
-      //   name: "1. friends",
-      //   link: "/dashboard/friends",
-      //   icon: "people_outline",
-      // },
-
       { name: "1. PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
       {
         name: "2. my projects",
@@ -112,15 +119,6 @@ export class AppComponent {
     ],
     researcher: [
       { name: "projects", link: "/dashboard/projects", icon: "assignment" },
-      // { name: "notifications", link: "dashboard/notifications", icon: "chat" },
-
-      // {
-      //   name: "import/export",
-      //   link: "/dashboard/data",
-      //   icon: "import_export",
-      // },
-
-      // { name: "selection", link: "selection", icon: "" },
     ],
 
     administrator: [
@@ -131,12 +129,6 @@ export class AppComponent {
       },
       { name: "users", link: "/dashboard/users", icon: "people_outline" },
       { name: "participants", link: "/dashboard/participants", icon: "people" },
-
-      // {
-      //   name: "payouts",
-      //   link: "/dashboard/payouts",
-      //   icon: "attach_money",
-      // },
       { name: "warnings", link: "/dashboard/warnings", icon: "warning" },
       {
         name: "system log",

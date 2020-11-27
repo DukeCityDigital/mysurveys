@@ -29,6 +29,19 @@ export class ParticipantService {
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
 
+  errorHandler(error) {
+    let errorMessage = "";
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  }
+
   /**
    * Send email invites to selected participants
    * @param email
@@ -59,6 +72,11 @@ export class ParticipantService {
       this.httpOptions
     );
   }
+  profile(): Observable<Participant> {
+    return this.httpClient
+      .get<Participant>(this.apiServer + "/profile")
+      .pipe(catchError(this.errorHandler));
+  }
 
   get(id?): Observable<Participant> {
     let actual = id ? id : this.authService.userValue.id;
@@ -88,10 +106,6 @@ export class ParticipantService {
       this.apiServer + "/participants/" + id,
       this.httpOptions
     );
-
-    // return this.httpClient
-    //   .delete<Participant>(this.apiServer + "/Participants/" + id, this.httpOptions)
-    //   .pipe(catchError(this.errorHandler));
   }
 
   updateList(post: any): Observable<any> {
@@ -109,17 +123,5 @@ export class ParticipantService {
       this.apiServer + "/participants/" + actual,
       Participant
     );
-  }
-  errorHandler(error) {
-    let errorMessage = "";
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
   }
 }

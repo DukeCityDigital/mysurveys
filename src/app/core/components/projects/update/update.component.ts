@@ -111,7 +111,7 @@ export class UpdateComponent implements OnInit {
   }
 
   onTabClick(event: Event) {
-    console.log(event);
+    // console.log(event);
   }
 
   public parseInt(string) {
@@ -170,14 +170,12 @@ export class UpdateComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("submit update", this.editForm.value);
     this.editForm.value.defaultend = new Date(this.editForm.value.defaultend);
     this.pService
       .update(this.editForm.value)
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log(data);
           if (data.success) {
             this.alertService.success("Updated successfully", {
               autoClose: true,

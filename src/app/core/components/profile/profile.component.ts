@@ -41,13 +41,16 @@ export class ProfileComponent implements OnInit {
     private alertService: AlertService,
     private formBuilder: FormBuilder,
     private participantService: ParticipantService,
-
     private registrationService: RegistrationService,
     private route: ActivatedRoute
   ) {
     this.changeEmailForm = this.createEmailForm();
     this.changePasswordForm = this.createChangePasswordForm();
     this.profileForm = this.createProfileForm();
+  }
+
+  get f() {
+    return this.changePasswordForm.controls;
   }
 
   ngOnInit(): void {
@@ -81,15 +84,17 @@ export class ProfileComponent implements OnInit {
       email: new FormControl("", [Validators.required, Validators.email]),
     });
   }
+
   createChangePasswordForm(): FormGroup {
     return this.formBuilder.group({
       password: ["", [Validators.required, Validators.minLength(8)]],
       new_password: [""],
     });
   }
-  get f() {
-    return this.changePasswordForm.controls;
-  }
+
+  /**
+   * Change user's profile
+   */
   onSubmitProfileChange() {
     console.log("profilechange", this.profileForm.value);
     if (!this.profileForm) {
@@ -108,7 +113,7 @@ export class ProfileComponent implements OnInit {
    */
   getProfile() {
     this.participantService
-      .get()
+      .profile()
       .pipe(tap((user: any) => this.profileForm.patchValue(user.data)))
       .subscribe((data: any) => {
         console.log(data);
@@ -147,21 +152,14 @@ export class ProfileComponent implements OnInit {
       new_password: this.changePasswordForm.value.new_password.password,
       role: this.participant.role,
     };
-    console.log("changepass", post);
     this.registrationService
       .changePasswordRequest(post)
       .pipe()
       .subscribe((data: any) => {
         this.changedPassword = true;
         console.log(data);
-        // this.participant = data.data;
         this.alertService.success(data.message, { autoClose: true });
       });
-
-    // .subscribe((data) => {
-    //   console.log(data);
-    //   this.alertService.success(data.message, { autoClose: true });
-    // });
   }
 
   changeEmailRequest(email) {
@@ -180,7 +178,6 @@ export class ProfileComponent implements OnInit {
           });
 
           this.authService.quickLogin(data);
-          // this.userEmail = data.user.email;
           return true;
         } else {
           return false;

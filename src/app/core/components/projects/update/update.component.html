@@ -38,7 +38,6 @@
               editForm.value.link
             }}</a></code>
         </span>
-
         <mat-form-field appearance="outline">
           <mat-label>Link method</mat-label>
           <mat-select placeholder="Link method" formControlName="link_method" name="link_method">
@@ -70,7 +69,6 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Payout size</mat-label>
-
           <mat-select placeholder="Payout type" formControlName="payout_type" name="payout_type">
             <mat-option value="Fixed"> Fixed </mat-option>
             <mat-option value="Variable"> Variable </mat-option>
@@ -86,7 +84,6 @@
           <input matInput type="number" formControlName="exp_payout" placeholder="exp_payout" name="exp_payout"
             class="form-control" id="exp_payout" />
         </mat-form-field>
-
         <mat-form-field appearance="outline">
           <mat-label> Description:</mat-label>
           <input matInput type="text" formControlName="description" placeholder="Description" name="description"
@@ -113,7 +110,6 @@
         <app-manage-participants></app-manage-participants>
       </mat-card>
     </mat-tab>
-
     <mat-tab label="Import / Export">
       <app-data [project_id]="project_id"></app-data>
     </mat-tab>

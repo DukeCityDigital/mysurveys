@@ -13,7 +13,6 @@ import { DashboardModule } from "./dashboard/dashboard.module";
 import { JwtInterceptor } from "@app/core/helpers/jwt.interceptor";
 import { ErrorInterceptor } from "@app/core/helpers/error.interceptor";
 import { JwtModule } from "@auth0/angular-jwt";
-import { SelectionTableComponent } from "./core/components/selection-table/selection-table.component";
 import { MaterialBaseModule } from "@app/core/components/material-base/material-base.module";
 import { SettingsModule } from "@app/core/components/settings/settings.module";
 import { PasswordResetComponent } from "./core/components/password-reset/password-reset.component";
@@ -22,7 +21,7 @@ import {
   RecaptchaFormsModule,
   RECAPTCHA_SETTINGS,
 } from "ng-recaptcha";
-RouterModule;
+
 import { VerifyEmailComponent } from "./home/verify-email/verify-email.component";
 import { RouterModule, Router, ActivatedRoute } from "@angular/router";
 import { ChangePasswordComponent } from "./core/components/change-password/change-password.component";
@@ -39,9 +38,11 @@ import { PayoutsComponent } from "./core/components/payouts/payouts.component";
 import { WarningsComponent } from "./core/components/warnings/warnings.component";
 import { MotdComponent } from "./core/components/motd/motd.component";
 import { NotificationsComponent } from "./core/components/notifications/notifications.component";
-import { AlertComponent } from "./core/components/_alert/alert.component";
 import { ParticipantsComponent } from "./core/components/participants/participants.component";
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
+import { LoaderInterceptor } from "./core/helpers/loader.interceptor";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +80,7 @@ import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
     OmniTableModule,
     MyProjectsModule,
     MatBottomSheetModule,
+    MatProgressBarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,
@@ -88,6 +90,11 @@ import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
     }),
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
@@ -100,6 +107,7 @@ import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
       multi: true,
       deps: [Router, ActivatedRoute, AuthService, AlertService],
     },
+
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {
