@@ -105,7 +105,7 @@ export class ManageParticipantsComponent implements OnInit {
    * Send custom notification
    * @param testEmail
    */
-  onSubmitCustomEmail(testEmail?: boolean) {
+  onSubmitCustomEmail(ids?, testEmail?: boolean) {
     var post = this.customEmailForm.value;
     if (post.link === "" || !post.link) {
       delete post["link"];
@@ -115,10 +115,15 @@ export class ManageParticipantsComponent implements OnInit {
       post.test = true;
     }
     post.ids = [];
-    this.data.forEach((element) => {
-      var u = element.participants_userid;
-      if (u !== null) post.ids.push(u);
-    });
+    if (!ids) {
+      this.data.forEach((element) => {
+        var u = element.participants_userid;
+        if (u !== null) post.ids.push(u);
+      });
+    } else {
+      post.ids = ids;
+    }
+
     this.projectService
       .send_custom_message(post)
       .pipe(first())

@@ -24,7 +24,8 @@
   color="primary">{{showCustomEmailPanel ? 'Hide' : 'Show'}} Custom Email Panel</button>
 <div *ngIf="showCustomEmailPanel">
   <div style="font-family:monospace">
-    <button mat-raised-button (click)="onSubmitCustomEmail(true)" mat-button>Send me (currently logged in user) a test
+    <button mat-raised-button (click)="onSubmitCustomEmail(false,true)" mat-button>Send me (currently logged in user) a
+      test
       of the custom email</button>
   </div>
   <form [formGroup]="customEmailForm" (ngSubmit)="onSubmitCustomEmail();customEmailForm.reset()" style="display: grid">
@@ -618,6 +619,9 @@
         <button (click)="sendProjectInvitations([row.participants_userid])">
           Send Invitation
         </button>
+        <button (click)="onSubmitCustomEmail(row.user_id)"
+          [disabled]="!customEmailForm.value.subject || !customEmailForm.value.body">Send Custom Email
+          {{!customEmailForm.value.subject || !customEmailForm.value.body ? "[Need subject and body]" : ""}}</button>
 
         {{ row.userparam1 }}
       </td>
