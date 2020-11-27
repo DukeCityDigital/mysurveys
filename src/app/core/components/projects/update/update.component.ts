@@ -104,6 +104,7 @@ export class UpdateComponent implements OnInit {
    * @param index
    */
   selectedIndexChange(index: number) {
+    console.log("i change", index);
     if (index == 2) {
       this.mpComponent.onRunTable();
     }

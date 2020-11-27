@@ -77,9 +77,9 @@ export class ManageParticipantsComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.project_id = +params.get("id");
     });
-    // this.localParticipantService = new LocalParticipantService(
-    //   this._httpClient
-    // );
+    this.localParticipantService = new LocalParticipantService(
+      this._httpClient
+    );
 
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
     this.runTable();
@@ -255,6 +255,7 @@ export class ManageParticipantsComponent implements OnInit {
    * Get filtered data from DB
    */
   runTable() {
+    console.log("rtable");
     this.PREVIEWDATA = undefined;
     this.invitationErrors = [];
     merge(this.sort.sortChange, this.paginator.page)
@@ -291,21 +292,21 @@ export class ManageParticipantsComponent implements OnInit {
 /**
  * Mini service for table results
  */
-// export class LocalParticipantService {
-//   constructor(private _httpClient: HttpClient) {}
+export class LocalParticipantService {
+  constructor(private _httpClient: HttpClient) {}
 
-//   getParticipants(
-//     sort: string,
-//     order: string,
-//     page: number,
-//     project_id: number,
-//     filter?: string
-//   ): Observable<any> {
-//     const href = environment.apiUrl;
-//     const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&filter=${filter}&order=${order}&page=${
-//       page + 1
-//     }`;
-//     // console.log("get part", requestUrl);
-//     return this._httpClient.get<any>(requestUrl);
-//   }
-// }
+  getParticipants(
+    sort: string,
+    order: string,
+    page: number,
+    project_id: number,
+    filter?: string
+  ): Observable<any> {
+    const href = environment.apiUrl;
+    const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&filter=${filter}&order=${order}&page=${
+      page + 1
+    }`;
+    // console.log("get part", requestUrl);
+    return this._httpClient.get<any>(requestUrl);
+  }
+}
