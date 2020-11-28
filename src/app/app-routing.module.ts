@@ -37,12 +37,12 @@ const routes: Routes = [
       {
         path: "my-projects",
         component: MyProjectsComponent,
-        // data: { roles: [Role.administrator] },
+        data: { roles: [Role.participant] },
       },
       {
         path: "my-projects/:id",
         component: MyProjectsComponent,
-        // data: { roles: [Role.administrator] },
+        data: { roles: [Role.participant] },
       },
       {
         path: "settings",

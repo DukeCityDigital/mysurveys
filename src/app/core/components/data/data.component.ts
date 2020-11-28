@@ -116,7 +116,7 @@ export class DataComponent implements OnInit {
     saveAs(
       blob,
       new Date() +
-        "-scifriends-project_" +
+        "-mysurvey-project_" +
         this.project_id +
         "_participants" +
         ".csv"

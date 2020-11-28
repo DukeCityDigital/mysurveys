@@ -4,20 +4,12 @@
     <h2>You've been invited to the following projects</h2>
     <p>
       If you have any problems or questions about your project, please contact
-      support@scifriends.edu
+      support@mysurvey.santafe.edu
     </p>
-    <mat-card
-      *ngFor="let i of invitations"
-      style="border: 4px double orange; margin-bottom: 14px"
-    >
-      <!-- <button (click)="startProject(i)"></button> -->
+    <mat-card *ngFor="let i of invitations" style="border: 4px double orange; margin-bottom: 14px">
       <mat-card-header>
-        <mat-card-title
-          >Project title: {{ i.project.project_title }}</mat-card-title
-        >
-        <mat-card-subtitle
-          >Project description: {{ i.project.description }}</mat-card-subtitle
-        >
+        <mat-card-title>Project title: {{ i.project.project_title }}</mat-card-title>
+        <mat-card-subtitle>Project description: {{ i.project.description }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <ul>
@@ -30,19 +22,12 @@
           <li>
             Responsible person: <b>{{ i.project.responsible_person }}</b>
           </li>
-          <li>Your invitation date: {{ i.invited | date: "short" }}</li>
         </ul>
         <div *ngIf="i.started">
-          <div
-            *ngIf="i.verifying"
-            style="color: green; padding: 2px; font-size: 22px"
-          >
+          <div *ngIf="i.verifying" style="color: green; padding: 2px; font-size: 22px">
             You have returned from a survey! We're verifying your project id
           </div>
-          <div
-            *ngIf="i.finished"
-            style="color: green; padding: 2px; font-size: 22px"
-          >
+          <div *ngIf="i.finished" style="color: green; padding: 2px; font-size: 22px">
             ⭐ This project is finished! ⭐
           </div>
 
@@ -63,7 +48,6 @@
                 i.project.link
               }}</a>
             </li>
-            <li>Invited date: {{ i.invited | date: "short" }}</li>
             <li>Finished: {{ i.finished }}</li>
             <li>
               Payment status:
@@ -77,12 +61,7 @@
       </mat-card-content>
       <mat-card-actions *ngIf="!i.started" style="text-align: center">
         <h3>Click below to start the project!</h3>
-        <button
-          (click)="startProject(i)"
-          color="primary"
-          mat-stroked-button
-          class="animate-flicker"
-        >
+        <button (click)="startProject(i)" color="primary" mat-stroked-button class="animate-flicker">
           Start Project
         </button>
         <br />

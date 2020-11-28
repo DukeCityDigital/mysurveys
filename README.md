@@ -2,6 +2,10 @@
 
 MySurveys is an open source web app designed to help researchers conduct studies. You can read more about conducting surveys by reading the documentation a href here.
 
+# Test scripts
+
+ng test --no-watch --no-progress --browsers=ChromeHeadlessCI
+
 ## Installation and getting started
 
 There are two parts to the software: the Laravel backend and Angular frontend. This readme will cover both.
@@ -51,7 +55,7 @@ C --> D
 bnuild cmd working w/refresh
 ng build --prod --output-hashing=none
 
-# Scifriends
+# mysurvey
 
 This readme applies to the front and back end project applications
 

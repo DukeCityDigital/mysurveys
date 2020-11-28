@@ -1,21 +1,21 @@
 import { Component, HostListener, Input, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-ViewChild;
 import { AuthService as AuthenticationService } from "@app/core/services/auth.service";
 import { AlertService } from "./core/components/_alert";
-import { UserService } from "./core/services/user.service";
 import { MatSidenav } from "@angular/material/sidenav";
 import { LoaderService } from "./core/services/loader.service";
 import { concatMap, delay } from "rxjs/operators";
 import { Subscription, of } from "rxjs";
+import { VERSION } from "../environments/version";
 
-LoaderService;
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
+  public version = VERSION;
+
   navLinks = [];
   opened: boolean = false;
   sideNavMode = "side";
