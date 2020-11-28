@@ -21,7 +21,7 @@ export class AppComponent {
   sideNavMode = "side";
   mobileView = false;
   logo = "../assets/sfilogo.jpg";
-
+  title = "MySurveys";
   public user;
   public screenWidth: any;
   public screenHeight: any;
