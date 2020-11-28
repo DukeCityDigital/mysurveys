@@ -130,7 +130,7 @@ export class AppComponent {
       },
       { name: "users", link: "/dashboard/users", icon: "people_outline" },
       { name: "participants", link: "/dashboard/participants", icon: "people" },
-      { name: "warnings", link: "/dashboard/warnings", icon: "warning" },
+      // { name: "warnings", link: "/dashboard/warnings", icon: "warning" },
       {
         name: "system log",
         link: "/dashboard/log",

@@ -10,20 +10,16 @@ import { AuthGuard } from "@app/core/helpers/auth.guard";
 import { Role } from "@app/core/models/role";
 import { SelectionTableComponent } from "@app/core/components/selection-table/selection-table.component";
 import { SettingsComponent } from "@app/core/components/settings/settings.component";
-import { ProjectsComponent } from "@app/core/components/projects/projects.component";
-import { CreateComponent } from "@app/core/components/projects/create/create.component";
 import { PasswordResetComponent } from "@app/core/components/password-reset/password-reset.component";
 import { ChangePasswordComponent } from "@app/core/components/change-password/change-password.component";
 import { VerifyEmailComponent } from "./home/verify-email/verify-email.component";
 import { ProfileComponent } from "./core/components/profile/profile.component";
 import { FriendsComponent } from "./core/components/friends/friends.component";
 import { PaypalValidateComponent } from "./core/components/paypal-validate/paypal-validate.component";
-import { ManageParticipantsComponent } from "./core/components/manage-participants/manage-participants.component";
 import { LogComponent } from "./core/components/log/log.component";
 import { UsersComponent } from "./core/components/users/users.component";
 import { MyProjectsComponent } from "./core/components/my-projects/my-projects.component";
 import { PayoutsComponent } from "./core/components/payouts/payouts.component";
-import { WarningsComponent } from "./core/components/warnings/warnings.component";
 import { MotdComponent } from "./core/components/motd/motd.component";
 import { NotificationsComponent } from "./core/components/notifications/notifications.component";
 import { ParticipantsComponent } from "./core/components/participants/participants.component";
@@ -84,12 +80,7 @@ const routes: Routes = [
         component: PayoutsComponent,
         data: { roles: [Role.administrator] },
       },
-      {
-        path: "warnings",
-        component: WarningsComponent,
 
-        data: { roles: [Role.administrator] },
-      },
       {
         path: "motd",
         component: MotdComponent,

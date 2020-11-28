@@ -16,31 +16,24 @@ export class SettingsComponent implements OnInit {
     private alertService: AlertService,
     private pService: ProjectService,
     private adminService: AdminService
-  ) { }
+  ) {}
   settings: any;
   resultArray = [];
   projects = [];
 
   ngOnInit(): void {
     this.adminService.getSettings().subscribe((r) => {
-      console.log(r);
       this.settings = r.data;
-      // this.resultArray = Object.keys(r.data).map(function (i) {
-      //   let data = r.data[i];
-      //   return data;
-      // });
-      // this.settings = this.resultArray[0];
     });
     this.getProjects();
   }
 
   backup() {
     this.adminService.backup().subscribe((projects: any) => {
-      console.log('backedup');
+      console.log("backedup");
       this.alertService.success("System backed up");
     });
   }
-
 
   getProjects() {
     this.pService.getAll().subscribe((projects: any) => {

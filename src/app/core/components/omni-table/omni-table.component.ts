@@ -8,8 +8,6 @@ import {
   Output,
   EventEmitter,
 } from "@angular/core";
-import { AdminService } from "@app/core/services/admin.service";
-import { HttpClient } from "@angular/common/http";
 import {
   merge,
   Observable,
@@ -24,7 +22,8 @@ import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from "@angular/material/paginator";
 import { DataSource } from "@angular/cdk/table";
 import { CollectionViewer, SelectionModel } from "@angular/cdk/collections";
-
+import { AdminService } from "@app/core/services/admin.service";
+import { HttpClient } from "@angular/common/http";
 import {
   catchError,
   map,
@@ -45,48 +44,28 @@ export class OmniTableComponent implements OnInit {
   @Input() columns: any = ["id"];
   @Input() options: any = { selectable: false };
   @Input() actions: any;
-
-  @Output() submitRowEmit: EventEmitter<any> = new EventEmitter();
-
-  PROJECTPARTICIPANTS: any;
-
   @Input() objectColumns: any[] = [
     { name: "ya", selectable: true, editable: true, inputType: "text" },
   ];
 
   @Input() title: string = "Omni Table";
-
   //can rows be selected generally
   @Input() selectableRows: boolean;
+  @Output() submitRowEmit: EventEmitter<any> = new EventEmitter();
+
+  PROJECTPARTICIPANTS: any;
   dataSource: OmniDataSource;
   resultsLength = 0;
   displayedColumns: any[] = this.objectColumns.map((col) => col.name);
   selection = new SelectionModel<any>(true, []);
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild("input") input: ElementRef;
   data: any;
 
   searchField: any = "id";
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild("input") input: ElementRef;
 
   constructor(private adminService: AdminService) {}
-
-  public submitRow(row?: any) {
-    console.log(row);
-    let em = {
-      id: row.element.id,
-      model: row.title,
-      name: row.name,
-      value: row.value,
-    };
-
-    this.submitRowEmit.emit(em);
-  }
-  // public submitRow(row?: any) {
-  //   console.log(row);
-  //   this.submitRow.emit(row);
-  // }
 
   ngOnInit(): void {
     this.dataSource = new OmniDataSource(this.adminService);
@@ -104,6 +83,22 @@ export class OmniTableComponent implements OnInit {
     );
     this.createObjectColumns();
   }
+
+  public submitRow(row?: any) {
+    console.log(row);
+    let em = {
+      id: row.element.id,
+      model: row.title,
+      name: row.name,
+      value: row.value,
+    };
+
+    this.submitRowEmit.emit(em);
+  }
+  // public submitRow(row?: any) {
+  //   console.log(row);
+  //   this.submitRow.emit(row);
+  // }
 
   onPaginateChange(event) {
     console.log(event);
