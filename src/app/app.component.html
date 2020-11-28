@@ -1,8 +1,5 @@
-<!-- Toolbar -->
-
 <div class="appwrap">
   <mat-progress-bar style="position:absolute;z-index:5;" *ngIf="show" mode="indeterminate"></mat-progress-bar>
-
   <div class="toolbar" role="banner">
     <mat-icon (click)="sidenav.toggle()" style="margin-left: 12px; cursor: pointer">menu</mat-icon>
     <span style="margin-left: 40px" class="sfi-title"><a [routerLink]="'home'">MySurveys</a>
@@ -11,7 +8,6 @@
     <alert id="da">a</alert>
     <img class="nav-link-home" [src]="logo" alt="Santa Fe Institute Logo" />
   </div>
-
   <mat-sidenav-container class="example-container" style="margin-top: 62px">
     <mat-sidenav #sidenav [(opened)]="opened" [mode]="mobileView ? 'over' : 'side'" class="box leftbox">
       <mat-list style="padding-top: 0" class="sfi-navitem">
@@ -31,7 +27,6 @@
           Home
         </mat-list-item>
       </mat-list>
-
       <mat-list style="padding-top: 0" *ngIf="user" class="navlist">
         <mat-list-item [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{ exact: true }"
           [disabled]="user.mustVerify || link.disabled" routerLink="{{ link.link }}" (click)="customToggle()"
