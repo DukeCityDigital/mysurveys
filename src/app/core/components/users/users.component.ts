@@ -13,14 +13,14 @@ export class UsersComponent implements OnInit {
     "banned",
     "banned_date",
     "banned_reason",
-    "created_at",
-
+    // "created_at",
     "email",
     "email_verified_at",
-
-    "last_login",
-    "updated_at",
-    "username",
+    // "last_login",
+    // "updated_at",
+    // "username",
+    "actions",
+    // { name: "actions", type: "string" },
   ];
 
   constructor() {
