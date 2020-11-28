@@ -40,7 +40,6 @@
                         {{ col.name }}
                     </th>
                 </ng-template>
-
             </ng-template>
             <ng-container *ngIf=" col.name =='select'; else noSelect">
                 <td mat-cell *matCellDef="let element">
@@ -53,9 +52,14 @@
             <ng-template #noSelect>
                 <ng-container *ngIf=" col.name =='actions'; else notAction">
                     <td mat-cell *matCellDef="let element">
-                        <button (click)="singleAction(action)" mat-stroked-button *ngFor="let action of actions">
-                            {{action.name}}
-                        </button>
+                        <ng-container *ngFor="let action of actions">
+                            <button *ngIf="!action.link" (click)="singleAction(action)" mat-stroked-button>
+                                {{action.name}}
+                            </button>
+                            <a *ngIf="action.link" [routerLink]="action.link" mat-stroked-button>
+                                {{action.name}}
+                            </a>
+                        </ng-container>
                     </td>
                 </ng-container>
                 <ng-template #notAction>
@@ -71,29 +75,14 @@
                                         {{item}}
                                     </mat-option>
                                 </mat-select>
-                                <!-- {{col.type ? col.type.indexOf('ed_at') >-1 ? (element[col.name] | date:'short') : element[col.name] : element[col.name]}} -->
-
                             </ng-container>
                             <ng-template #noEdit>
                                 {{col.type ? col.type.indexOf('ed_at') >-1 ? (element[col.name] | date:'short') : element[col.name] : element[col.name]}}
-
                             </ng-template>
                         </td>
                     </form>
                 </ng-template>
             </ng-template>
-            <ng-container *ngIf="col.name =='actions'">
-                <td>
-                    <button (click)="singleAction(action)" mat-stroked-button *ngFor="let action of actions">
-                        {{action.name}}
-                    </button>
-                </td>
-                <td mat-cell *matCellDef="let element">
-                    <button (click)="singleAction(action)" mat-stroked-button *ngFor="let action of actions">
-                        {{action.name}}
-                    </button>
-                </td>
-            </ng-container>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <!-- <tr mat-header-row *matHeaderRowDef="searchFields" class="example-second-header-row">

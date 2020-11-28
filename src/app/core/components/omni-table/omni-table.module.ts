@@ -12,6 +12,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatRadioModule } from "@angular/material/radio";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [OmniTableComponent],
@@ -28,6 +29,7 @@ import { MatRadioModule } from "@angular/material/radio";
     MatButtonModule,
     MatButtonToggleModule,
     MatRadioModule,
+    RouterModule,
   ],
   exports: [OmniTableComponent],
 })

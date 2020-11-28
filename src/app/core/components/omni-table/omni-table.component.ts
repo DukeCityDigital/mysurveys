@@ -185,11 +185,11 @@ export class OmniTableComponent implements OnInit {
         ? "actions"
         : { name: "actions" }
       : null;
-    let selectItem = this.actions
-      ? typeof this.columns[0] == "string"
-        ? "select"
-        : { name: "select" }
-      : null;
+    // let selectItem = this.actions
+    //   ? typeof this.columns[0] == "string"
+    //     ? "select"
+    //     : { name: "select" }
+    //   : null;
     if (
       !this.options.forceColumns ||
       typeof this.columns[0] == "string" ||
@@ -203,9 +203,6 @@ export class OmniTableComponent implements OnInit {
         let inOptions = element.hasOwnProperty("options")
           ? element.options
           : false;
-
-        // console.log("name", name, intype);
-        // let type = element.indexOf("ted_at") > -1 ? "date" : "any";
         displayColumns.push(element);
         var item = {
           name: name,
@@ -220,6 +217,7 @@ export class OmniTableComponent implements OnInit {
     } else {
       this.objectColumns = this.columns;
     }
+    console.log(this.objectColumns);
     actionItem ? this.objectColumns.push(actionItem) : null;
     // selectItem ? this.objectColumns.unshift(selectItem) : null;
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { ParticipantService } from "@app/core/services/participant.service";
+import { ParticipantsComponent } from "../participants/participants.component";
+import { AlertService } from "../_alert";
 
 @Component({
   selector: "app-users",
@@ -7,30 +10,43 @@ import { Component, OnInit } from "@angular/core";
 })
 export class UsersComponent implements OnInit {
   title = "Users";
+  actions = [{ name: "edit", link: "./update" }];
+
   columns = [
-    "id",
-    "activated",
-    "banned",
-    "banned_date",
-    "banned_reason",
-    // "created_at",
-    "email",
-    "email_verified_at",
-    // "last_login",
-    // "updated_at",
-    // "username",
-    "actions",
-    // { name: "actions", type: "string" },
+    { name: "id", type: "any" },
+    { name: "email", type: "string" },
+    { name: "banned_reason", type: "string" },
+    { name: "banned_date", type: "string" },
+    { name: "activated", type: "string" },
+    { name: "paypal_id", type: "string" },
   ];
 
-  constructor() {
-    var obj = [];
-    this.columns.forEach((element) => {
-      let item = { name: element, type: element };
-      obj.push(item);
-    });
-    this.columns = obj;
-  }
+  constructor(
+    private participantService: ParticipantService,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit(): void {}
+
+  /**
+   * Emit submitted row
+   * @param event
+   */
+  public submitRowEmit(event) {
+    console.log(event);
+    let vname = event.name;
+    let value = event.value;
+    let post = { id: event.id, [vname]: value };
+    this.participantService.update(post).subscribe((resp) => {
+      console.log("update P resp", resp);
+      if (resp.success) {
+        this.alertService.success("Updated successfully", {
+          id: "da",
+          autoClose: true,
+        });
+      } else {
+        this.alertService.error("There was an error");
+      }
+    });
+  }
 }
