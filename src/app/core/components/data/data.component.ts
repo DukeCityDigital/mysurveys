@@ -32,11 +32,9 @@ export class DataComponent implements OnInit {
 
   getData() {
     let post = { all: true, project_id: this.project_id };
-
     this.projectService.getSelection(post).subscribe((data) => {
       this.data = data.data.projectparticipants;
       this.exportData = data.data.csv;
-      console.log(this.exportData);
     });
   }
 
@@ -81,7 +79,6 @@ export class DataComponent implements OnInit {
   public commitChanges() {
     let upload = [];
     this.parsedCsv.forEach((element) => {
-      console.log(element);
       let item = {};
       element.forEach((element, i) => {
         if (element !== "") {
@@ -91,7 +88,6 @@ export class DataComponent implements OnInit {
       upload.push(item);
     });
     this.participantService.updateList(upload).subscribe((data) => {
-      console.log("update data", data);
       this.getData();
     });
   }
