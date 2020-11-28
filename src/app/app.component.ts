@@ -16,17 +16,17 @@ LoaderService;
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  public user;
   navLinks = [];
   opened: boolean = false;
-  public screenWidth: any;
-  public screenHeight: any;
   sideNavMode = "side";
   mobileView = false;
   logo = "../assets/sfilogo.jpg";
 
-  private subscription: Subscription;
+  public user;
+  public screenWidth: any;
+  public screenHeight: any;
   public show: boolean = false;
+  private subscription: Subscription;
 
   @ViewChild("sidenav", { static: true }) sidenav: MatSidenav;
 
@@ -52,6 +52,7 @@ export class AppComponent {
       this.opened = true;
     }
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

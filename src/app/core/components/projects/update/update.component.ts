@@ -21,6 +21,8 @@ export interface updateForm {
 export class UpdateComponent implements OnInit {
   project: Project;
   editForm: FormGroup;
+  haltProjectForm: FormGroup;
+
   project_id: number;
   participants = [];
   totalParticipants: number;
@@ -35,16 +37,6 @@ export class UpdateComponent implements OnInit {
     private router: Router,
     private pService: ProjectService
   ) {}
-
-  testService(inc?) {
-    var id = "motd";
-    if (inc) id = "da";
-    this.alertService.success(id, {
-      id: id,
-      autoClose: false,
-      keepAfterRouteChange: true,
-    });
-  }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
@@ -81,6 +73,11 @@ export class UpdateComponent implements OnInit {
           defaultstart: new Date(d.defaultstart),
         };
         this.editForm.patchValue(c);
+        this.haltProjectForm.patchValue({
+          start_state: d.start_state,
+          state: d.state,
+          id: d.id,
+        });
       });
     });
     this.editForm = this.formBuilder.group({
@@ -97,6 +94,11 @@ export class UpdateComponent implements OnInit {
       payout_type: ["", Validators.required],
       defaultend: ["", Validators.required],
       defaultstart: ["", Validators.required],
+    });
+    this.haltProjectForm = this.formBuilder.group({
+      id: [""],
+      state: ["", Validators.required],
+      start_state: ["", Validators.required],
     });
   }
   /**
@@ -119,9 +121,14 @@ export class UpdateComponent implements OnInit {
     return parseInt(string);
   }
 
-  changeProjectState(status: string) {
+  /**
+   * Update project state and start state
+   * @param status
+   */
+  changeProjectState(status?: string) {
     let post = this.editForm.value;
-    post.state = status;
+    post.state = this.haltProjectForm.value.state;
+    post.start_state = this.haltProjectForm.value.start_state;
     this.pService
       .update(post)
       .pipe(first())
@@ -131,11 +138,9 @@ export class UpdateComponent implements OnInit {
             this.alertService.success("Updated successfully", {
               autoClose: true,
             });
-            // this.router.navigate(["list-user"]);
             this.project = data.data;
           } else {
             this.alertService.error(data.message.message);
-            // alert(data.message);
           }
         },
         (error) => {
@@ -146,6 +151,9 @@ export class UpdateComponent implements OnInit {
 
   public activateTab(tab) {}
 
+  /**
+   * Set project state to started
+   */
   public startProject() {
     let post = this.editForm.value;
     post.state = "Started";
@@ -158,10 +166,9 @@ export class UpdateComponent implements OnInit {
             this.alertService.success("Updated successfully", {
               autoClose: true,
             });
-            // this.router.navigate(["list-user"]);
             this.project = data.data;
           } else {
-            alert(data.message);
+            // alert(data.message);
           }
         },
         (error) => {
@@ -170,6 +177,9 @@ export class UpdateComponent implements OnInit {
       );
   }
 
+  /**
+   * Submit project edit form
+   */
   onSubmit() {
     this.editForm.value.defaultend = new Date(this.editForm.value.defaultend);
     this.pService
@@ -182,10 +192,8 @@ export class UpdateComponent implements OnInit {
               autoClose: true,
               id: "da",
             });
-            // this.router.navigate(["list-user"]);
             this.project = data.data;
           } else {
-            // alert(data.message);
             this.alertService.error(data.message.message);
           }
         },

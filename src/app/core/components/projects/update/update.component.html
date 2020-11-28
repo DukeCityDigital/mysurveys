@@ -110,8 +110,46 @@
         <app-manage-participants></app-manage-participants>
       </mat-card>
     </mat-tab>
-    <mat-tab label="Import / Export">
-      <app-data [project_id]="project_id"></app-data>
+    <mat-tab label="Manage Project State / Data">
+      <div style="background:#ffe5e5;padding:12px;" *ngIf="project">
+        <h3>Change Project State</h3>
+        <b>Current State: {{project.state}}</b><br>
+        <b>Current Start State: {{project.start_state}}</b><br>
+        <p>Change the project state here. Halt the project to conclude it - this prevents further invitations and users
+          who have been invited can no longer begin the study</p>
+        <form [formGroup]="haltProjectForm" style="display: grid" (ngSubmit)="changeProjectState()">
+          <div [hidden]="true">
+            <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id" />
+          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Project State</mat-label>
+            <mat-select placeholder="Project State" formControlName="state" name="state">
+              <mat-option value="Design">
+                Design </mat-option>
+              <mat-option value="Started">
+                Started
+              </mat-option>
+              <mat-option value="Halted">
+                Halted
+              </mat-option>
+            </mat-select>
+          </mat-form-field><br>
+          <mat-form-field appearance="outline">
+            <mat-label>Project State</mat-label>
+            <mat-select placeholder="Project Start State" formControlName="start_state" name="start_state">
+              <mat-option value="Open">
+                Open </mat-option>
+              <mat-option value="Closed">
+                Closed
+              </mat-option>
+            </mat-select>
+          </mat-form-field><br>
+          <button type="submit" [disabled]="haltProjectForm.invalid" mat-stroked-button color="primary">
+            Update
+          </button>
+        </form>
+      </div>
+      <app-data [project]="project" [project_id]="project_id"></app-data>
     </mat-tab>
   </mat-tab-group>
 </mat-card>

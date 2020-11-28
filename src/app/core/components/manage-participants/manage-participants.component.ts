@@ -29,17 +29,6 @@ export class ManageParticipantsComponent implements OnInit {
   @Input("participants") participants: [];
   @Input("project") project: any;
 
-  displayedColumns: string[] = [
-    "created_at",
-    "participants_userid",
-    "safeid",
-    "invited",
-    "amount_to_pay",
-    "finished",
-    "finished_ip",
-    "userparam1",
-    "actions",
-  ];
   showEmailSample = false;
   resultsLength = 0;
   isLoadingResults = true;
@@ -59,7 +48,18 @@ export class ManageParticipantsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   localParticipantService;
-
+  // table columns
+  displayedColumns: string[] = [
+    "created_at",
+    "participants_userid",
+    "safeid",
+    "invited",
+    "amount_to_pay",
+    "finished",
+    "finished_ip",
+    "userparam1",
+    "actions",
+  ];
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
@@ -72,19 +72,6 @@ export class ManageParticipantsComponent implements OnInit {
   ) {}
   private subscription: Subscription;
   public _LOADING: boolean = false;
-
-  ngAfterViewInit() {
-    this.route.paramMap.subscribe((params) => {
-      this.project_id = +params.get("id");
-    });
-    this.localParticipantService = new LocalParticipantService(
-      this._httpClient
-    );
-
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-    this.runTable();
-  }
-
   ngOnInit(): void {
     this.customEmailForm = this.formBuilder.group({
       subject: ["", Validators.required],
@@ -99,6 +86,16 @@ export class ManageParticipantsComponent implements OnInit {
       .subscribe((state: any) => {
         this._LOADING = state.show;
       });
+  }
+  ngAfterViewInit() {
+    this.route.paramMap.subscribe((params) => {
+      this.project_id = +params.get("id");
+    });
+    this.localParticipantService = new LocalParticipantService(
+      this._httpClient
+    );
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    this.runTable();
   }
 
   /**

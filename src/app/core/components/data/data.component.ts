@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { saveAs } from "file-saver";
 import { ProjectService } from "@app/core/services/project.service";
 import { ParticipantService } from "@app/core/services/participant.service";
+import { Project } from "@app/core/models/project.model";
 
 ProjectService;
 @Component({
@@ -11,16 +12,20 @@ ProjectService;
 })
 export class DataComponent implements OnInit {
   @Input() project_id: string;
+  @Input() project: Project;
+
   csvString: any;
   parsedCsv: any;
   headers = [];
   exportData: any;
+  data: any;
+  changesPending: boolean = false;
+
   constructor(
     private participantService: ParticipantService,
     private projectService: ProjectService
   ) {}
-  data: any;
-  changesPending: boolean = false;
+
   ngOnInit(): void {
     let post = { all: true, project_id: this.project_id };
     this.projectService.getSelection(post).subscribe((data) => {
@@ -47,9 +52,6 @@ export class DataComponent implements OnInit {
         let csvSeparator = ",";
         let tempUploadArray = [];
         lines.forEach((element, i) => {
-          console.log(element, i);
-          // debugger;
-
           if (i == 0) {
             this.headers = element.split(csvSeparator);
             return;
@@ -58,7 +60,6 @@ export class DataComponent implements OnInit {
           element.split(csvSeparator).forEach((e) => {
             item.push(e);
           });
-
           csvArray.push(item);
         });
         this.parsedCsv = csvArray;
@@ -71,7 +72,6 @@ export class DataComponent implements OnInit {
    */
   public commitChanges() {
     let upload = [];
-
     this.parsedCsv.forEach((element) => {
       let item = {};
       element.forEach((element, i) => {
@@ -94,9 +94,7 @@ export class DataComponent implements OnInit {
    */
 
   public export(flag?: any) {
-    console.log("data", flag);
     var data = this.data;
-    console.log(this.data);
     if (flag) {
       data = this.exportData;
     }
@@ -114,7 +112,6 @@ export class DataComponent implements OnInit {
     );
     csv.unshift(header.join(","));
     let csvArray = csv.join("\r\n");
-
     var blob = new Blob([csvArray], { type: "text/csv" });
     saveAs(
       blob,
