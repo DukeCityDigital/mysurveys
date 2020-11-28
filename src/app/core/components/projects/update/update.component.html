@@ -111,7 +111,7 @@
       </mat-card>
     </mat-tab>
     <mat-tab label="Manage Project State / Data">
-      <div style="background:#ffe5e5;padding:12px;" *ngIf="project">
+      <div style="padding:12px;" *ngIf="project">
         <h3>Change Project State</h3>
         <b>Current State: {{project.state}}</b><br>
         <b>Current Start State: {{project.start_state}}</b><br>
@@ -135,7 +135,7 @@
             </mat-select>
           </mat-form-field><br>
           <mat-form-field appearance="outline">
-            <mat-label>Project State</mat-label>
+            <mat-label>Project Start State</mat-label>
             <mat-select placeholder="Project Start State" formControlName="start_state" name="start_state">
               <mat-option value="Open">
                 Open </mat-option>
