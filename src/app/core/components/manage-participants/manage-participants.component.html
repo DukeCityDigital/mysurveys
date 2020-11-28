@@ -11,13 +11,16 @@
   Select not yet invited
 </button>
 <button mat-stroked-button (click)="onRunTable('!finished|invited')">
-  *Select invited but not finished
+  Select invited but not finished
 </button>
 <button mat-stroked-button (click)="onRunTable('!finished|started')">
-  *Select started but not finished
+  Select started but not finished
 </button>
 <button mat-stroked-button (click)="onRunTable('finished')">
   Select finished
+</button><br>
+<button mat-stroked-button (click)="onRunTable('payment_confirmed')">
+  Select paid and verified <mat-icon>attach_money</mat-icon>
 </button>
 <hr>
 <button (click)="showCustomEmailPanel = !showCustomEmailPanel" mat-raised-button

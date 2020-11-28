@@ -16,7 +16,9 @@ export class UsersComponent implements OnInit {
     { name: "id", type: "any" },
     { name: "email", type: "string" },
     { name: "banned_reason", type: "string" },
-    { name: "banned_date", type: "string" },
+    { name: "banned", type: "string" },
+
+    // { name: "banned_date", type: "string" },
     { name: "activated", type: "string" },
     { name: "paypal_id", type: "string" },
   ];
