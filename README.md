@@ -5,6 +5,7 @@ MySurveys is an open source web app designed to help researchers conduct studies
 # Test scripts
 
 ng test --no-watch --no-progress --browsers=ChromeHeadlessCI
+ng e2e
 
 ## Installation and getting started
 
