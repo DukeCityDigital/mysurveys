@@ -10,6 +10,12 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { LogModule } from "@app/core/components/log/log.module";
 import { OmniTableModule } from "@app/core/components/omni-table/omni-table.module";
 import { AlertModule } from "@app/core/components/_alert";
+import { ManageUserModule } from "@app/core/components/manage-user/manage-user.module";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
+import { MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -24,6 +30,13 @@ import { AlertModule } from "@app/core/components/_alert";
     MatPaginatorModule,
     LogModule,
     OmniTableModule,
+    ManageUserModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatButtonModule,
   ],
   exports: [DashboardComponent],
 })

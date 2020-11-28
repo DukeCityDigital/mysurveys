@@ -77,7 +77,6 @@ export class LoginComponent implements OnInit {
       this.loginForm.value.password
     ).subscribe(
       (data: any) => {
-        console.log(data);
         if (data.mustVerifyEmailAddress && data.email) {
           const navigationExtras: NavigationExtras = {
             state: { example: data.email },

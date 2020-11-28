@@ -85,7 +85,6 @@ export class OmniTableComponent implements OnInit {
   }
 
   public submitRow(row?: any) {
-    console.log(row);
     let em = {
       id: row.element.id,
       model: row.title,
@@ -101,7 +100,7 @@ export class OmniTableComponent implements OnInit {
   // }
 
   onPaginateChange(event) {
-    console.log(event);
+    // console.log(event);
     this.paginator.pageIndex = event.pageIndex;
   }
 
@@ -217,7 +216,6 @@ export class OmniTableComponent implements OnInit {
     } else {
       this.objectColumns = this.columns;
     }
-    console.log(this.objectColumns);
     actionItem ? this.objectColumns.push(actionItem) : null;
     // selectItem ? this.objectColumns.unshift(selectItem) : null;
 
@@ -239,7 +237,6 @@ export class OmniTableComponent implements OnInit {
         tap(() => {
           this.paginator.pageIndex = 1;
           this.loadOmniPage();
-          console.log("datas", this.dataSource);
           // this.resultsLength = this.dataSource.resultsLength;
         })
       )
@@ -247,7 +244,6 @@ export class OmniTableComponent implements OnInit {
 
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
-      console.log(this.sort);
       this.paginator.pageIndex = 1;
       // this.resultsLength = this.dataSource.resultsLength;
     });
@@ -256,7 +252,6 @@ export class OmniTableComponent implements OnInit {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         tap(() => {
-          console.log(this.paginator);
           this.loadOmniPage();
 
           // this.resultsLength = this.dataSource.resultsLength;
@@ -312,7 +307,6 @@ export class OmniDataSource implements DataSource<any> {
         finalize(() => this.loadingSubject.next(false))
       )
       .subscribe((logs: any) => {
-        console.log(logs);
         this.resultsLength = logs.total;
         this.omniSubject.next(logs.data);
       });

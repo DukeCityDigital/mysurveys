@@ -10,7 +10,7 @@ import { AlertService } from "../_alert";
 })
 export class UsersComponent implements OnInit {
   title = "Users";
-  actions = [{ name: "edit", link: "./update" }];
+  actions = [{ name: "edit", link: "/dashboard/manage-user" }];
 
   columns = [
     { name: "id", type: "any" },

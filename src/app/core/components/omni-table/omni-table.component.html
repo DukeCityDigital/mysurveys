@@ -56,7 +56,7 @@
                             <button *ngIf="!action.link" (click)="singleAction(action)" mat-stroked-button>
                                 {{action.name}}
                             </button>
-                            <a *ngIf="action.link" [routerLink]="action.link" mat-stroked-button>
+                            <a *ngIf="action.link" [routerLink]="action.link + '/' + element.id" mat-stroked-button>
                                 {{action.name}}
                             </a>
                         </ng-container>

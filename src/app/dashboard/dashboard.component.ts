@@ -38,7 +38,8 @@ export class DashboardComponent implements OnInit {
     }
 
     if (this.user.role === "administrator") {
-      this.router.navigate(["dashboard/settings"]);
+      // dont do this
+      // this.router.navigate(["dashboard/settings"]);
     }
   }
 }

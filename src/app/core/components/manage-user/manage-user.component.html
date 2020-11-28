@@ -1,0 +1,34 @@
+<mat-card>
+    <mat-card-title>Manage User</mat-card-title>
+    <p>Keep track of warnings, and use the BAN switch when necessary.
+        When a user has been banned, they are no longer able to log in or participate. You can unban them, but they'll
+        have to reset their PayPal ID
+
+    </p>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" style="display: grid">
+        <div [hidden]="true">
+            <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id" />
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label> Email</mat-label>
+            <input matInput type="text" formControlName="email" placeholder="email" name="email" class="form-control"
+                id="email" />
+        </mat-form-field>
+        <mat-form-field hintLabel="Keep track of infractions" appearance="outline">
+            <mat-label> Warnings</mat-label>
+            <input matInput type="number" min="0" max="5" formControlName="warnings" placeholder="warnings"
+                name="warnings" class="form-control" id="warnings" />
+
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label> banned reason</mat-label>
+            <input matInput type="text" formControlName="banned_reason" placeholder="banned_reason" name="banned_reason"
+                class="form-control" id="banned_reason" />
+        </mat-form-field>
+        <mat-slide-toggle color="warning" formControlName="banned">{{userForm.value.banned ? 'Banned' : 'Click to ban'}}
+        </mat-slide-toggle>
+        <button type="submit" [disabled]="userForm.invalid" mat-stroked-button color="primary">
+            Update
+        </button>
+    </form>
+</mat-card>

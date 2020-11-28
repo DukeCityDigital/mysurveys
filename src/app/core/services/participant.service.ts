@@ -77,6 +77,20 @@ export class ParticipantService {
       .get<Participant>(this.apiServer + "/profile")
       .pipe(catchError(this.errorHandler));
   }
+  getUser(id?): Observable<User> {
+    let actual = id ? id : this.authService.userValue.id;
+    return this.httpClient
+      .get<User>(this.apiServer + "/users/" + actual)
+      .pipe(catchError(this.errorHandler));
+  }
+  updateUser(user: User): Observable<User> {
+    return this.httpClient.put<any>(this.apiServer + "/users/" + user.id, user);
+
+    // let actual = id ? id : this.authService.userValue.id;
+    // return this.httpClient
+    //   .put<User>(this.apiServer + "/users/" + actual)
+    //   .pipe(catchError(this.errorHandler));
+  }
 
   get(id?): Observable<Participant> {
     let actual = id ? id : this.authService.userValue.id;

@@ -24,6 +24,7 @@ import { MotdComponent } from "./core/components/motd/motd.component";
 import { NotificationsComponent } from "./core/components/notifications/notifications.component";
 import { ParticipantsComponent } from "./core/components/participants/participants.component";
 import { DataComponent } from "./core/components/data/data.component";
+import { ManageUserComponent } from "./core/components/manage-user/manage-user.component";
 
 const routes: Routes = [
   {
@@ -94,19 +95,34 @@ const routes: Routes = [
       {
         path: "users",
         component: UsersComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
+        pathMatch: "full",
+        // children: [],
         // data: { roles: [Role.administrator, Role.researcher] },
       },
       {
+        path: "manage-user",
+        component: ManageUserComponent,
+        // canActivate: [AuthGuard],
+        data: { roles: [Role.administrator, Role.researcher] },
+      },
+      {
+        path: "manage-user/:id",
+        component: ManageUserComponent,
+        // canActivate: [AuthGuard],
+        data: { roles: [Role.administrator, Role.researcher] },
+      },
+
+      {
         path: "participants",
         component: ParticipantsComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: { roles: [Role.administrator, Role.researcher] },
       },
       {
         path: "data",
         component: DataComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         data: { roles: [Role.administrator, Role.researcher] },
       },
     ],
@@ -160,7 +176,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes)], // <-- debugging purposes only)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
