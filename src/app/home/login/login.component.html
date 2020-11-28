@@ -1,11 +1,8 @@
 <div class="dev TODO " *ngIf="authService.localhost()">
     Login buttons for development<br>
     <button (click)="quickLogin('admin@mysurveys.santafe.edu');">Admin</button>
-
     <button (click)="quickLogin('researcher@mysurveys.santafe.edutest');">Researcher</button>
     <button (click)="quickLogin('participant@mysurveys.santafe.edutest');">Participant</button>
-
-
 </div>
 <div class="centerheader">
     <h1>Login</h1>
@@ -23,11 +20,6 @@
             </mat-form-field>
             <br>
             <button [disabled]="!loginForm.valid" mat-stroked-button type="submit">Submit</button>
-            <!-- <div [hidden]="!errors.length" style="margin:22px;color:#c80000;">
-                <span class="tip" *ngFor="let error of errors">
-                    {{error}}
-                </span>
-            </div> -->
         </form>
         <p>
             <a href="password-reset">Forgot your password?</a>
