@@ -11,15 +11,15 @@ import { Router } from "@angular/router";
   styleUrls: ["./settings.component.scss"],
 })
 export class SettingsComponent implements OnInit {
+  settings: any;
+  resultArray = [];
+  projects = [];
+
   constructor(
-    private router: Router,
     private alertService: AlertService,
     private pService: ProjectService,
     private adminService: AdminService
   ) {}
-  settings: any;
-  resultArray = [];
-  projects = [];
 
   ngOnInit(): void {
     this.adminService.getSettings().subscribe((r) => {

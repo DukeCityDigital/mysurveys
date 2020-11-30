@@ -18,7 +18,7 @@ export class VerifyEmailComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation.extras.state as { example: string };
-    console.log(state, this.example);
+
     if (state) {
       this.example = state.example;
     }
@@ -31,9 +31,7 @@ export class VerifyEmailComponent implements OnInit {
   public resendVerificationEmail() {
     return this.authService
       .resendVerificationCode(this.example)
-      .subscribe((r) => {
-        console.log(r);
-      });
+      .subscribe((r) => {});
   }
 
   ngOnInit(): void {}

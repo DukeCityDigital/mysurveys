@@ -26,14 +26,11 @@ export class ProfileComponent implements OnInit {
   changePasswordForm: FormGroup;
   changePasswordFormSubmitted = false;
   changePasswordFormUserEmail: string;
-
   changeEmailForm: FormGroup;
   changeEmailFormSubmitted = false;
   changeEmailFormUserEmail: string;
-
   profileForm: FormGroup;
   profileFormSubmitted = false;
-
   changedPassword = false;
 
   constructor(
@@ -71,9 +68,7 @@ export class ProfileComponent implements OnInit {
       first_name: new FormControl(""),
       family_name: new FormControl(""),
       birthyear: new FormControl(""),
-
       street: new FormControl(""),
-
       zip: new FormControl(""),
       city: new FormControl(""),
     });
@@ -116,9 +111,7 @@ export class ProfileComponent implements OnInit {
       .profile()
       .pipe(tap((user: any) => this.profileForm.patchValue(user.data)))
       .subscribe((data: any) => {
-        console.log(data);
         this.participant = data.data;
-
         this.alertService.success(data.message, { autoClose: true });
       });
   }
@@ -157,7 +150,6 @@ export class ProfileComponent implements OnInit {
       .pipe()
       .subscribe((data: any) => {
         this.changedPassword = true;
-        console.log(data);
         this.alertService.success(data.message, { autoClose: true });
       });
   }

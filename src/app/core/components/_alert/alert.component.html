@@ -1,35 +1,13 @@
-﻿<div
-  *ngIf="alerts.length && alerts[0].id === 'da'"
-  style="display: flex; margin: 0 auto"
->
-  <div
-    *ngFor="let alert of alerts"
-    class="{{ cssClass(alert) }}"
-    class="alert-inner"
-  >
-    <a
-      *ngIf="!alert.autoClose"
-      style="cursor: pointer"
-      class="close"
-      (click)="removeAlert(alert)"
-      >X&nbsp;</a
-    >
+﻿<div *ngIf="alerts.length && alerts[0].id === 'da'" style="display: flex; margin: 0 auto">
+  <div *ngFor="let alert of alerts" class="{{ cssClass(alert) }}" class="alert-inner">
+    <a *ngIf="!alert.autoClose" style="cursor: pointer" class="close" (click)="removeAlert(alert)">X&nbsp;</a>
     <span [innerHTML]="alert.message"></span>
   </div>
 </div>
-
 <div *ngIf="alerts.length && alerts[0].id === 'motd'">
-  <mat-card
-    style="padding: 16px"
-    *ngFor="let alert of alerts"
-    class="{{ cssClass(alert) }}"
-  >
-    <button
-      style="float: right"
-      (click)="removeAlert(alert); hideMOTD()"
-      mat-mini-fab
-      aria-label="Example icon button with a menu icon"
-    >
+  <mat-card style="padding: 16px" *ngFor="let alert of alerts" class="{{ cssClass(alert) }}">
+    <button style="float: right" (click)="removeAlert(alert); hideMOTD()" mat-mini-fab
+      aria-label="Example icon button with a menu icon">
       <mat-icon>close</mat-icon>
     </button>
     <mat-card-title [innerHTML]="alert.message"> </mat-card-title>

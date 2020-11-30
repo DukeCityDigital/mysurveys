@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { EmailPattern, PasswordPattern } from "@app/core/helpers/patterns";
+import { EmailPattern } from "@app/core/helpers/patterns";
 import { AdminService } from "@app/core/services/admin.service";
 
 import {

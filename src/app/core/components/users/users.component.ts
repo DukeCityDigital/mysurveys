@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { ParticipantService } from "@app/core/services/participant.service";
-import { ParticipantsComponent } from "../participants/participants.component";
 import { AlertService } from "../_alert";
 
 @Component({
@@ -17,8 +16,6 @@ export class UsersComponent implements OnInit {
     { name: "email", type: "string" },
     { name: "banned_reason", type: "string" },
     { name: "banned", type: "string" },
-
-    // { name: "banned_date", type: "string" },
     { name: "activated", type: "string" },
     { name: "paypal_id", type: "string" },
   ];

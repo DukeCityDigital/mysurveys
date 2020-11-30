@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { SettingsComponent } from "@app/core/components/settings/settings.component";
+import { RouterModule } from "@angular/router";
 
 // const routes: Routes = [{ path: "settings2", component: SettingsComponent }];
 

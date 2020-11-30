@@ -11,7 +11,6 @@ export class WarningsComponent implements OnInit {
   columns = [
     "id",
     "email",
-    // "regdate",
     "last_login",
     "last_update",
     "banned",

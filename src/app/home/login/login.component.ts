@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   errors = [];
   loading = false;
   returnUrl: string;
+  emailPattern = EmailPattern;
+  passwordPattern = PasswordPattern;
 
   constructor(
     private alertService: AlertService,
@@ -29,8 +31,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(["/dashboard"]);
     }
   }
-  emailPattern = EmailPattern;
-  passwordPattern = PasswordPattern;
+
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: new FormControl("", [Validators.required, Validators.email]),
@@ -51,7 +52,8 @@ export class LoginComponent implements OnInit {
     this.returnUrl =
       this.route.snapshot.queryParams["returnUrl"] || "/dashboard";
   }
-  quickLogin(email, pass = "Mc{&V=HQ@T<z4YaL") {
+
+  quickLogin(email, pass = "") {
     // this.authService.login(email,pass)
     this.loginForm.patchValue({
       email: email,

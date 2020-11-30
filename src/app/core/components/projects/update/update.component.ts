@@ -6,7 +6,6 @@ import { ProjectService } from "@app/core/services/project.service";
 import { Router } from "@angular/router";
 import { first } from "rxjs/operators";
 import { AlertService } from "../../_alert";
-import { SelectionTableComponent } from "../../selection-table/selection-table.component";
 import { ManageParticipantsComponent } from "../../manage-participants/manage-participants.component";
 
 export interface updateForm {
@@ -22,11 +21,11 @@ export class UpdateComponent implements OnInit {
   project: Project;
   editForm: FormGroup;
   haltProjectForm: FormGroup;
-
   project_id: number;
   participants = [];
   totalParticipants: number;
   selectedTabIndex: number = 0;
+
   @ViewChild(ManageParticipantsComponent)
   mpComponent: ManageParticipantsComponent;
 

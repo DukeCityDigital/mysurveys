@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -17,10 +17,8 @@ export class PaypalValidateComponent implements OnInit {
   paypalForm: FormGroup;
   showInfoMe: boolean = false;
   showInfo: boolean = false;
-
   user: any;
   confirmedPaypalMe: string;
-
   returnedPaypalMe: string;
 
   constructor(
@@ -47,12 +45,10 @@ export class PaypalValidateComponent implements OnInit {
   getMe() {
     this.participantService.get().subscribe((data: any) => {
       this.user = data.data;
-      console.log(this.user);
     });
   }
 
   onSubmitPaypalForm() {
-    console.log("paypal", this.paypalForm.value.email);
     if (!this.paypalForm) {
       this.alertService.error("You must fill out the Paypal form first");
     }
@@ -64,7 +60,6 @@ export class PaypalValidateComponent implements OnInit {
       )
       .subscribe(
         (data: any) => {
-          console.log(data);
           this.confirmedPaypalMe = data.data;
 
           console.log(data);

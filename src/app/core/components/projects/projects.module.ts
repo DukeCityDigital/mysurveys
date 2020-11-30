@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatTableModule } from "@angular/material/table";
-
 import { ProjectsRoutingModule } from "./projects-routing.module";
 import { ProjectsComponent } from "./projects.component";
 import { CreateComponent } from "./create/create.component";
@@ -20,10 +19,10 @@ import { ManageParticipantsComponent } from "../manage-participants/manage-parti
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
-import { AlertService, AlertModule } from "../_alert";
+import { AlertModule } from "../_alert";
 import { OmniTableModule } from "../omni-table/omni-table.module";
 import { DataModule } from "../data/data.module";
-import { ProjectStatusComponent } from '../project-status/project-status.component';
+import { ProjectStatusComponent } from "../project-status/project-status.component";
 
 @NgModule({
   declarations: [

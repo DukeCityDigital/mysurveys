@@ -6,7 +6,6 @@ import { User } from "@app/core/models/user";
 import { Sort } from "@angular/material/sort";
 import { HttpClient } from "@angular/common/http";
 import { merge, Observable, of as observableOf } from "rxjs";
-import { catchError, map, startWith, switchMap, delay } from "rxjs/operators";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import {
@@ -40,7 +39,6 @@ export class SelectionTableComponent implements OnInit {
   USERS: any;
   project_id: number;
   selectedUSERS = [];
-
   selectedStatus: any;
   data: any;
 
@@ -131,21 +129,9 @@ export class SelectionTableComponent implements OnInit {
     this.route.paramMap.subscribe((params: any) => {
       this.project_id = params.get("id");
       if (this.project_id) {
-        // this.projectService
-        //   .getSelection({ project_id: this.project_id })
-        //   .subscribe((r) => {
-        //     console.log(r);
-        //     this.selectedUSERS = r.data;
-        //   });
+        //
       }
     });
-
-    // this.participantService.getAll().subscribe((r: any) => {
-    //   console.log(r);
-    //   this.users = r.data;
-    //   this.sortedData = this.users.slice();
-    //   this.dataSource.data = r.data;
-    // });
   }
 
   public changeSelection(value) {
@@ -165,9 +151,7 @@ export class SelectionTableComponent implements OnInit {
     });
 
     let post = { project_id: this.project_id, users: ids };
-    // console.log(post);
     this.projectService.createSelection(post).subscribe((r) => {
-      // console.log(r);
       this.alertService.success(r.data, { autoClose: true });
     });
   }
@@ -180,7 +164,6 @@ export class SelectionTableComponent implements OnInit {
   }
 
   sortData(sort: Sort) {
-    // console.log("sortdata", sort);
     const data = this.users.slice();
     if (!sort.active || sort.direction === "") {
       this.sortedData = data;
@@ -263,47 +246,7 @@ export class SelectionTableComponent implements OnInit {
   }
   selectionService;
 
-  ngAfterViewInit(): void {
-    // this.onS
-    // //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    // //Add 'implements AfterViewInit' to the class.
-    // this.selectionService = new SelectionService(this._httpClient);
-    // this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-    // console.log("paginator2", this.paginator);
-    // merge(this.sort.sortChange, this.paginator.page)
-    //   .pipe(
-    //     startWith({}),
-    //     delay(0),
-    //     switchMap(() => {
-    //       console.log("switchmap");
-    //       this.isLoadingResults = true;
-    //       return this.selectionService!.getSelection(
-    //         this.sort.active,
-    //         this.sort.direction,
-    //         this.paginator.pageIndex,
-    //         this.project_id
-    //       );
-    //     }),
-    //     map((data: any) => {
-    //       console.log(data);
-    //       // Flip flag to show that loading has finished.
-    //       this.isLoadingResults = false;
-    //       // this.isRateLimitReached = false;
-    //       this.resultsLength = data.data.total_count;
-    //       return data.data;
-    //     }),
-    //     catchError(() => {
-    //       this.isLoadingResults = false;
-    //       // Catch if the GitHub API has reached its rate limit. Return empty data.
-    //       // this.isRateLimitReached = true;
-    //       return observableOf([]);
-    //     })
-    //   )
-    //   .subscribe((data) => {
-    //     console.log(data);
-    //     this.data = data;
-    //   });
-  }
+  ngAfterViewInit(): void {}
 
   filterData(filterValue?, position?) {
     this.dataSource.filterPredicate = function customFilter(
@@ -313,9 +256,6 @@ export class SelectionTableComponent implements OnInit {
       console.log(data.birthyear, this.maxYear, this.minYear);
       return data.birthyear < this.maxYear && this.birthyear > this.minYear;
     };
-    // console.log(filterValue);
-    // filterValue = filterValue.trim(); // Remove whitespace
-    // filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue.toString();
   }
 
@@ -332,7 +272,6 @@ export class SelectionTableComponent implements OnInit {
   }
 }
 import { environment } from "../../../../environments/environment";
-import { FormGroup } from "@angular/forms";
 
 export class SelectionService {
   constructor(private _httpClient: HttpClient) {}

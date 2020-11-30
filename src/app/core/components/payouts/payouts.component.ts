@@ -13,12 +13,10 @@ export class PayoutsComponent implements OnInit {
     "safeid",
     "amount_to_pay",
     "invited",
-
     "started",
     "finished",
     "paymentconfirmed",
     "paymentorders_payorderid",
-
     "participants_userid",
     "projects_projectid",
   ];

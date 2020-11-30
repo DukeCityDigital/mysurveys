@@ -1,11 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ProjectService } from "@app/core/services/project.service";
 import { AlertService } from "../_alert";
-import {
-  ActivatedRouteSnapshot,
-  ActivatedRoute,
-  Router,
-} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 

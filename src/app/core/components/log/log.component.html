@@ -5,18 +5,15 @@
 </div>
 <table class="participants participantsAll" style="width:100%" matSort matSortDirection="asc" mat-table
     [dataSource]="dataSource">
-
     <ng-container matColumnDef="record_datetime">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Record datetime </th>
         <td mat-cell *matCellDef="let element"> {{element.record_datetime | date: 'short' }} </td>
     </ng-container>
     <ng-container matColumnDef="message">
-
         <input matInput placeholder="Search logs" #input>
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Message </th>
         <td mat-cell *matCellDef="let element"> {{element.message }} </td>
     </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="logColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: logColumns;">
     </tr>

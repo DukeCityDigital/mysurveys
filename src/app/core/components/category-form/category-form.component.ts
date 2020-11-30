@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  EventEmitter,
-  Output,
-  AfterViewInit,
-} from "@angular/core";
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
@@ -21,8 +15,6 @@ export class CategoryFormComponent implements OnInit {
   dynamicForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) {}
-
   operators = [
     { name: "Less Than", value: "<" },
     { name: "Greater Than", value: ">" },
@@ -34,6 +26,8 @@ export class CategoryFormComponent implements OnInit {
     { name: "VAC", value: "qualification_vac" },
     { name: "AGE", value: "birthyear" },
   ];
+
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.dynamicForm = this.formBuilder.group({
@@ -82,24 +76,6 @@ export class CategoryFormComponent implements OnInit {
       })
     );
   }
-
-  // onChangeTickets(e) {
-  //   const numberOfTickets = e.target.value || 0;
-  //   if (this.t.length < numberOfTickets) {
-  //     for (let i = this.t.length; i < numberOfTickets; i++) {
-  //       this.t.push(
-  //         this.formBuilder.group({
-  //           name: ["", Validators.required],
-  //           email: ["", [Validators.required, Validators.email]],
-  //         })
-  //       );
-  //     }
-  //   } else {
-  //     for (let i = this.t.length; i >= numberOfTickets; i--) {
-  //       this.t.removeAt(i);
-  //     }
-  //   }
-  // }
 
   /**
    * Submit selection form

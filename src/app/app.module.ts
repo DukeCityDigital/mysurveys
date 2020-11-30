@@ -3,7 +3,6 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
 import { QualificationModule } from "./home/qualification/qualification.module";
 import { GDPRBottomSheet, HomeComponent } from "./home/home.component";
 import { PrivacyComponent } from "./home/privacy/privacy.component";
@@ -21,14 +20,11 @@ import {
   RecaptchaFormsModule,
   RECAPTCHA_SETTINGS,
 } from "ng-recaptcha";
-
 import { VerifyEmailComponent } from "./home/verify-email/verify-email.component";
 import { RouterModule, Router, ActivatedRoute } from "@angular/router";
 import { ChangePasswordComponent } from "./core/components/change-password/change-password.component";
 import { AlertModule, AlertService } from "@app/core/components/_alert";
 import { ProfileModule } from "./core/components/profile/profile.module";
-import { CheckMaxLevelsComponent } from "./core/components/check-max-levels/check-max-levels.component";
-import { CheckExpectedLevelsComponent } from "./core/components/check-expected-levels/check-expected-levels.component";
 import { PasswordFormModule } from "./core/components/password-form/password-form.module";
 import { AuthService } from "./core/services/auth.service";
 import { UsersComponent } from "./core/components/users/users.component";
@@ -51,8 +47,6 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     PasswordResetComponent,
     VerifyEmailComponent,
     ChangePasswordComponent,
-    CheckMaxLevelsComponent,
-    CheckExpectedLevelsComponent,
     UsersComponent,
     PayoutsComponent,
     WarningsComponent,

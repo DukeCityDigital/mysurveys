@@ -1,10 +1,5 @@
-import { Component, OnInit, Input, AfterViewInit } from "@angular/core";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { AlertService } from "../_alert";
 import { ParticipantService } from "@app/core/services/participant.service";
 
@@ -15,8 +10,8 @@ import { ParticipantService } from "@app/core/services/participant.service";
 })
 export class FriendsComponent implements OnInit {
   friendForm: FormGroup;
-
   user: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,

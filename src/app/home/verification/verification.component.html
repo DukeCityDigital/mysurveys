@@ -1,11 +1,6 @@
 <div class="centerheader" *ngIf="registered !== true && emailLinkAttempt !== true">
   <h1>Create your account</h1>
   <hr />
-  <!-- <div class="TODO" *ngIf="qualificationForm">
-    {{qualificationForm.value}}
-  </div> -->
-
-  <!-- <button class="TODO" (click)="test()">test</button> -->
   <mat-card id="login-card">
     <form class="example-form login-form" (ngSubmit)="onSubmit()" [formGroup]="emailVerificationForm">
       <div>
@@ -24,7 +19,8 @@
           &nbsp;
         </div>
       </div>
-      <!-- <re-captcha formControlName="recaptchaReactive"></re-captcha> -->
+      <!-- Todo - maybe unnecessary reference: need to navigate questionnaire to view  -->
+      <re-captcha formControlName="recaptchaReactive"></re-captcha>
       <button class="button createbutton" [disabled]="!emailVerificationForm.valid" mat-stroked-button type="submit">
         Create Account
       </button>
@@ -80,13 +76,6 @@
     <button mat-raised-button color="primary" style="background:lightblue;color:darkblue;"
       [routerLink]="'/dashboard/profile'"> Update password </button>
   </ng-template>
-
-
-  <!-- <app-set-password></app-set-password> -->
-  <!-- <p>
-    You may now log in.
-    <a [routerLink]="'/login/' + userEmail">Login</a>
-  </p> -->
 </mat-card>
 <mat-card *ngIf="emailLinkNotFound === true" style="text-align: center;" color="primary">
   <mat-icon style="color: red; font-size: 44px; vertical-align: initial;">error_outline</mat-icon>

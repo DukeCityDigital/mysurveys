@@ -1,12 +1,5 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  AfterViewInit,
-  ElementRef,
-} from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { AdminService } from "@app/core/services/admin.service";
-import { HttpClient } from "@angular/common/http";
 import {
   merge,
   Observable,
@@ -15,8 +8,6 @@ import {
   of,
   fromEvent,
 } from "rxjs";
-import { MatTableDataSource } from "@angular/material/table";
-import { Sort } from "@angular/material/sort";
 import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from "@angular/material/paginator";
 import { DataSource } from "@angular/cdk/table";
@@ -28,20 +19,18 @@ import { CollectionViewer } from "@angular/cdk/collections";
   styleUrls: ["./log.component.scss"],
 })
 export class LogComponent implements OnInit {
-  constructor(private adminService: AdminService) {}
-
   log = [];
   dataSource: LogDataSource;
+  data: any;
+  sortedData: any[];
+  resultsLength = 0;
+  logColumns = ["record_datetime", "message"];
+
+  constructor(private adminService: AdminService) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild("input") input: ElementRef;
-
-  data: any;
-  sortedData: any[];
-  resultsLength = 0;
-
-  logColumns = ["record_datetime", "message"];
 
   ngOnInit(): void {
     this.dataSource = new LogDataSource(this.adminService);
@@ -49,9 +38,6 @@ export class LogComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-    // server-side search
     fromEvent(this.input.nativeElement, "keyup")
       .pipe(
         debounceTime(150),

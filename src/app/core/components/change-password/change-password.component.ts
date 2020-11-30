@@ -17,12 +17,10 @@ import { AlertService } from "../_alert";
 })
 export class ChangePasswordComponent implements OnInit {
   changePasswordForm: FormGroup;
-
   codeConfirmed: boolean = false;
   codeConfirmedAndLoggedIn: boolean = false;
   token: string;
   email: string;
-
   codeFailed: boolean;
   errors = [];
 
@@ -70,6 +68,7 @@ export class ChangePasswordComponent implements OnInit {
       password: new FormControl("", [Validators.required]),
     });
   }
+
   checkChangePasswordCode(code: string) {
     this.registrationService.checkChangePasswordCode(code).subscribe(
       (data) => {

@@ -4,20 +4,12 @@
   <button (click)="export('paypal')">
     Click to Export CSV formatted for PayPal
   </button>
-
   <hr />
   Upload CSV
-  <!-- <button (click)="import()">Click to Upload CSV</button> -->
-  <input
-    type="file"
-    class="upload"
-    (change)="changeListener($event.target.files)"
-  />
-
+  <input type="file" class="upload" (change)="changeListener($event.target.files)" />
   <hr />
   <div *ngIf="changesPending" style="overflow: scroll">
     <button (click)="commitChanges()">Commit</button>
-
     <h3>Changes pending to project participants</h3>
     *additional error checks to occur in production - i.e. finished requirement
     <i>Hit commit to save the changes</i>

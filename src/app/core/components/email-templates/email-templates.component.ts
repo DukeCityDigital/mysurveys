@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { EmailTemplateService } from "@app/core/services/email-template.service";
-import { Emailtemplate } from "@app/core/models/emailtemplate";
 
 @Component({
   selector: "app-email-templates",

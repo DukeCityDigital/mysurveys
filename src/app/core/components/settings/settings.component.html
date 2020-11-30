@@ -25,11 +25,6 @@
     <div class="example-small-box mat-elevation-z4">
       <mat-card>
         <h3>Select the project and quota</h3>
-        <!-- <<mat-select placeholder="Project" [(ngModel)]="selectedValue" name="item">
-                    <mat-option *ngFor="let item of items" [value]="item.value">
-                        {{item.viewValue}}
-                    </mat-option>
-                </mat-select> -->
 
         <table class="blueTable">
           <tr>
@@ -42,13 +37,7 @@
               <td>{{ p.id }}</td>
               <td>{{ p.project_title }}</td>
               <td>
-                <input
-                  #quota
-                  matInput
-                  [value]="p.quota"
-                  [id]="p.id"
-                  type="number"
-                />
+                <input #quota matInput [value]="p.quota" [id]="p.id" type="number" />
               </td>
               <td>
                 <button type="submit" (click)="update(p, quota.value)">
@@ -58,27 +47,6 @@
             </tr>
           </tbody>
         </table>
-
-        <!-- <form class="example-form login-form" (ngSubmit)="onSubmit();inviteForm.reset()"
-                    [formGroup]="inviteForm">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <input type="email" email formControlName="email" matInput required placeholder="Email">
-                        <mat-error *ngIf="f.email.errors" class="invalid-feedback">
-                            <div *ngIf="f.email.errors.required">Email is required</div>
-                        </mat-error>
-                    </mat-form-field><br>
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <input maxlength="15" placeholder="Nickname" type="nickname" formControlName="nickname" matInput
-                            required>
-                    </mat-form-field><br>
-
-                    <br>
-                    <button class="button createbutton" [disabled]="!inviteForm.valid" mat-stroked-button
-                        type="submit">Submit</button>
-                </form> -->
-        <!-- <button (click)="alertService.success('Success!!')">fakesubmit test alert</button> -->
-
-        <!-- {{message}} -->
       </mat-card>
       <mat-tab label="Backup">
         <div class="example-large-box mat-elevation-z4 settings-table">
@@ -92,10 +60,7 @@
     <mat-card>
       <mat-card-title>Project data </mat-card-title>
       <mat-tab-group dynamicHeight>
-        <mat-tab
-          *ngFor="let p of projects"
-          label="Project Data: {{ p.project_title }}"
-        >
+        <mat-tab *ngFor="let p of projects" label="Project Data: {{ p.project_title }}">
           <app-data [project_id]="p.id"></app-data>
         </mat-tab>
       </mat-tab-group>

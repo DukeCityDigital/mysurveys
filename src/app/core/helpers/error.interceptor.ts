@@ -60,31 +60,5 @@ export class ErrorInterceptor implements HttpInterceptor {
         return throwError(error);
       })
     );
-    // .pipe(
-    //   catchError((err) => {
-    //     console.log("err handler redir + logout?", err);
-
-    //     if (err.status === 401) {
-    //       // auto logout if 401 response returned from api
-    //       this.alertService.error("There has been an error");
-    //       this.authenticationService.logout();
-    //       // location.reload(true);
-    //     } else if (err.status === 403 || err.status === 404) {
-    //       this.router.navigate(["/"], {
-    //         queryParams: { returnUrl: this.state.url },
-    //       });
-    //       if (this.authenticationService) {
-    //       }
-    //       // this.alertService.error(err.error.message);
-    //       this.router.navigate(["/"], {
-    //         queryParams: { returnUrl: this.state.url },
-    //       });
-    //     }
-    //     this.alertService.error(err.message, { autoClose: true });
-
-    //     const error = err.error.message || err.statusText;
-    //     return throwError(error);
-    //   })
-    // );
   }
 }

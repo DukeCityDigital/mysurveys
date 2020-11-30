@@ -20,11 +20,13 @@ export class ParticipantService {
     private authService: AuthService,
     private httpClient: HttpClient
   ) {}
+
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
     }),
   };
+
   private apiServer = environment.apiUrl;
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
@@ -85,11 +87,6 @@ export class ParticipantService {
   }
   updateUser(user: User): Observable<User> {
     return this.httpClient.put<any>(this.apiServer + "/users/" + user.id, user);
-
-    // let actual = id ? id : this.authService.userValue.id;
-    // return this.httpClient
-    //   .put<User>(this.apiServer + "/users/" + actual)
-    //   .pipe(catchError(this.errorHandler));
   }
 
   get(id?): Observable<Participant> {

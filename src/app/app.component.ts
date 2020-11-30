@@ -15,6 +15,11 @@ import { VERSION } from "../environments/version";
 })
 export class AppComponent {
   public version = VERSION;
+  public user;
+  public screenWidth: any;
+  public screenHeight: any;
+  public show: boolean = false;
+  private subscription: Subscription;
 
   navLinks = [];
   opened: boolean = false;
@@ -22,11 +27,6 @@ export class AppComponent {
   mobileView = false;
   logo = "../assets/sfilogo.jpg";
   title = "MySurveys";
-  public user;
-  public screenWidth: any;
-  public screenHeight: any;
-  public show: boolean = false;
-  private subscription: Subscription;
 
   @ViewChild("sidenav", { static: true }) sidenav: MatSidenav;
 
@@ -105,10 +105,7 @@ export class AppComponent {
       //retain
       // { name: "home", link: "/dashboard", icon: "home" }
     ],
-    end: [
-      // { name: "other links?", link: "/", icon: "" },
-      { name: "profile", link: "/dashboard/profile", icon: "person" },
-    ],
+    end: [{ name: "profile", link: "/dashboard/profile", icon: "person" }],
 
     participant: [
       { name: "1. PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
@@ -123,14 +120,8 @@ export class AppComponent {
     ],
 
     administrator: [
-      // {
-      //   name: "settings",
-      //   link: "/settings",
-      //   icon: "settings",
-      // },
       { name: "users", link: "/dashboard/users", icon: "people_outline" },
       { name: "participants", link: "/dashboard/participants", icon: "people" },
-      // { name: "warnings", link: "/dashboard/warnings", icon: "warning" },
       {
         name: "system log",
         link: "/dashboard/log",

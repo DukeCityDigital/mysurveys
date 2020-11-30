@@ -6,7 +6,6 @@
 <div *ngIf="user && user.is_seed !== null">
   <mat-card class="innercard">
     <mat-card-title> Invite friends </mat-card-title>
-
     <form [formGroup]="friendForm" (ngSubmit)="onSubmitFriendInvite(); friendForm.reset()">
       <label for="email">Enter a friend's email address here</label>
       <input style="border: 1px solid black; width: 100%" type="text" id="email" name="email" formControlName="email"

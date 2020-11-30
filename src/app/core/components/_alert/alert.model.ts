@@ -9,9 +9,6 @@ export class Alert {
 
   constructor(init?: Partial<Alert>) {
     Object.assign(this, init);
-    // this.keepAfterRouteChange = this.keepAfterRouteChange;
-    // this.autoClose = t
-    // this.motd = this.motd;
   }
 }
 

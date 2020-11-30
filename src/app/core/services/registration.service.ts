@@ -4,12 +4,9 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from "@angular/common/http";
-import { map } from "rxjs/operators";
 
 import { environment } from "../../../environments/environment";
-import { User } from "@app/core/models/user";
-import { BehaviorSubject, Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { throwError } from "rxjs";
 @Injectable({
   providedIn: "root",
 })

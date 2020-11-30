@@ -13,7 +13,6 @@
                         <select name="name" id="name" formControlName="name" class="form-control">
                             <option *ngFor="let cat of categories" [value]="cat.value">{{cat.name}}</option>
                         </select>
-
                         <div *ngIf="submitted && gm.controls.name.errors" class="invalid-feedback">
                             <div *ngIf="gm.controls.name.errors.required">Name is required</div>
                         </div>
@@ -23,26 +22,21 @@
                         <select name="operator" id="operator" formControlName="operator" class="form-control">
                             <option *ngFor="let op of operators" [value]="op.value">{{op.name}}</option>
                         </select>
-
                         <div *ngIf="submitted && gm.controls.name.errors" class="invalid-feedback">
                             <div *ngIf="gm.controls.name.errors.required">Name is required</div>
                         </div>
                     </div>
                     <div class="form-group col-6">
                         <label>Value</label>
-
                         <input type="text" formControlName="value" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && gm.controls.value.errors }" />
                         <div *ngIf="submitted && gm.controls.value.errors" class="invalid-feedback">
                             <div *ngIf="gm.controls.value.errors.required">value is required</div>
                         </div>
                     </div>
-
                     <mat-icon style="cursor:pointer;color:orange;" (click)="removeRow(gm)">close</mat-icon>
                 </div>
             </div>
-
-
         </div>
         <button mat-stroked-button (click)="addRow()" type="button">
             <mat-icon>exposure_plus_1</mat-icon>&nbsp;Add condition row

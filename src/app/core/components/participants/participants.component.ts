@@ -33,9 +33,6 @@ export class ParticipantsComponent implements OnInit {
 
     { name: "is_banned", type: "string" },
     { name: "warnings", type: "string" },
-    // { name: "select", type: "string" },
-
-    // { name: "actions", type: "string", edit: true },
   ];
 
   /**

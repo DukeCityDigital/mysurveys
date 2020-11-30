@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
   ViewChild,
-  AfterViewInit,
   ElementRef,
   Input,
   Output,
@@ -16,14 +15,11 @@ import {
   of,
   fromEvent,
 } from "rxjs";
-import { MatTableDataSource } from "@angular/material/table";
-import { Sort } from "@angular/material/sort";
 import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from "@angular/material/paginator";
 import { DataSource } from "@angular/cdk/table";
 import { CollectionViewer, SelectionModel } from "@angular/cdk/collections";
 import { AdminService } from "@app/core/services/admin.service";
-import { HttpClient } from "@angular/common/http";
 import {
   catchError,
   map,
@@ -47,7 +43,6 @@ export class OmniTableComponent implements OnInit {
   @Input() objectColumns: any[] = [
     { name: "ya", selectable: true, editable: true, inputType: "text" },
   ];
-
   @Input() title: string = "Omni Table";
   //can rows be selected generally
   @Input() selectableRows: boolean;
@@ -59,8 +54,8 @@ export class OmniTableComponent implements OnInit {
   displayedColumns: any[] = this.objectColumns.map((col) => col.name);
   selection = new SelectionModel<any>(true, []);
   data: any;
-
   searchField: any = "id";
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild("input") input: ElementRef;
