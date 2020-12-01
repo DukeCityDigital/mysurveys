@@ -1,6 +1,8 @@
 # MySurveys
 
-MySurveys is an open source web app designed to help researchers conduct studies. You can read more about conducting surveys by reading the documentation a href here.
+MySurveys is an open source web app designed to help researchers conduct studies. You can read more about conducting surveys by reading the documentation
+
+https://docs.google.com/document/d/1IhZD4RmyarY-Kn3iSRXIRboweJbqwUJOCRHqaf_P_bM/edit?usp=sharing
 
 # Test scripts
 

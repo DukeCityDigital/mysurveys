@@ -120,8 +120,9 @@ export class AppComponent {
     ],
 
     administrator: [
+      { name: "settings", link: "/dashboard/settings", icon: "settings" },
+
       { name: "users", link: "/dashboard/users", icon: "people_outline" },
-      { name: "participants", link: "/dashboard/participants", icon: "people" },
       {
         name: "system log",
         link: "/dashboard/log",
