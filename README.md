@@ -44,3 +44,4 @@ After migration, you should be able to log in as the administrator using the def
 Invite your first researcher by navigating to the \*panel.
 
 **View full documentation here**
+https://docs.google.com/document/d/1IhZD4RmyarY-Kn3iSRXIRboweJbqwUJOCRHqaf_P_bM/edit?usp=sharing
