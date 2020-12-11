@@ -27,7 +27,7 @@ export class CategoryFormComponent implements OnInit {
     { name: "AGE", value: "birthyear" },
   ];
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.dynamicForm = this.formBuilder.group({
@@ -42,6 +42,9 @@ export class CategoryFormComponent implements OnInit {
       eligible_seed: [""],
       eligible_peers: [""],
       paypal_status_ok: [""],
+      include_seeds: [""],
+      include_peers: [""],
+
     });
   }
 
@@ -94,6 +97,7 @@ export class CategoryFormComponent implements OnInit {
    * Emit form value to parent component
    */
   update() {
+    console.log('emiteupdate', this.dynamicForm.value)
     this.formChange.emit(this.dynamicForm.value);
   }
 

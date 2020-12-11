@@ -9,7 +9,7 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatSelectModule } from "@angular/material/select";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { CategoryFormComponent } from "@app/core/components/category-form/category-form.component";
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [SelectionTableComponent, CategoryFormComponent],
   imports: [
@@ -21,7 +21,9 @@ import { CategoryFormComponent } from "@app/core/components/category-form/catego
     MatSliderModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatSlideToggleModule
+
   ],
   exports: [SelectionTableComponent],
 })
-export class SelectionTableModule {}
+export class SelectionTableModule { }

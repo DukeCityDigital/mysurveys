@@ -37,7 +37,7 @@ import { ParticipantsComponent } from "./core/components/participants/participan
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { LoaderInterceptor } from "./core/helpers/loader.interceptor";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +73,8 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     MyProjectsModule,
     MatBottomSheetModule,
     MatProgressBarModule,
+    MatSlideToggleModule,
+
     JwtModule.forRoot({
       config: {
         tokenGetter: jwtTokenGetter,

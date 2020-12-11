@@ -1,46 +1,94 @@
-<mat-card>
+-<mat-card>
   <!-- {{project | json}} -->
   <mat-card-title>Project Management</mat-card-title>
   <h3>Project Title: {{ project ? project.project_title : null }}</h3>
-  <mat-tab-group dynamicHeight (selectedIndexChange)="selectedIndexChange($event)">
+  <mat-tab-group
+    dynamicHeight
+    (selectedIndexChange)="selectedIndexChange($event)"
+  >
     <mat-tab label="Edit Project">
       <!-- {{editForm.value | json}} -->
-      <form [formGroup]="editForm" (ngSubmit)="onSubmit()" style="display: grid">
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="onSubmit()"
+        style="display: grid"
+      >
         <div [hidden]="true">
-          <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id" />
+          <input
+            type="text"
+            formControlName="id"
+            placeholder="id"
+            name="id"
+            class="form-control"
+            id="id"
+          />
         </div>
         <mat-form-field appearance="outline">
           <mat-label> Project title:</mat-label>
-          <input required matInput type="text" formControlName="project_title" placeholder="project_title"
-            name="project_title" class="form-control" id="project_title" />
+          <input
+            required
+            matInput
+            type="text"
+            formControlName="project_title"
+            placeholder="project_title"
+            name="project_title"
+            class="form-control"
+            id="project_title"
+          />
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Planned project start</mat-label>
-          <input formControlName="defaultstart" matInput [matDatepicker]="picker2" />
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <input
+            formControlName="defaultstart"
+            matInput
+            [matDatepicker]="picker2"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>End of project</mat-label>
-          <input formControlName="defaultend" matInput [matDatepicker]="picker" />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <input
+            formControlName="defaultend"
+            matInput
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Link to external study</mat-label>
-          <input matInput type="text" formControlName="link" placeholder="link" name="link" class="form-control"
-            id="" />
+          <input
+            matInput
+            type="text"
+            formControlName="link"
+            placeholder="link"
+            name="link"
+            class="form-control"
+            id=""
+          />
         </mat-form-field>
         <span style="width: 100%; margin-left: 5px">
           Test Link:
           <code>
             <a href="{{ editForm.value.link }}">{{
               editForm.value.link
-            }}</a></code>
+            }}</a></code
+          >
         </span>
         <mat-form-field appearance="outline">
           <mat-label>Link method</mat-label>
-          <mat-select placeholder="Link method" formControlName="link_method" name="link_method">
+          <mat-select
+            placeholder="Link method"
+            formControlName="link_method"
+            name="link_method"
+          >
             <mat-option value="Direct">
               Login Required L.R. - simple link
             </mat-option>
@@ -54,52 +102,106 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Responsible Person</mat-label>
-          <input matInput type="text" formControlName="responsible_person" placeholder="responsible_person"
-            name="responsible_person" class="form-control" id="responsible_person" />
+          <input
+            matInput
+            type="text"
+            formControlName="responsible_person"
+            placeholder="responsible_person"
+            name="responsible_person"
+            class="form-control"
+            id="responsible_person"
+          />
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Desired sample size</mat-label>
-          <input matInput type="number" formControlName="desired_sample_size" placeholder="desired_sample_size"
-            name="desired_sample_size" class="form-control" id="desired_sample_size" />
+          <input
+            matInput
+            type="number"
+            formControlName="desired_sample_size"
+            placeholder="desired_sample_size"
+            name="desired_sample_size"
+            class="form-control"
+            id="desired_sample_size"
+          />
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Desired number of Invitations</mat-label>
-          <input matInput type="number" formControlName="desired_num_invitations" placeholder="desired_num_invitations"
-            name="desired_num_invitations" class="form-control" id="desired_num_invitations" />
+          <input
+            matInput
+            type="number"
+            formControlName="desired_num_invitations"
+            placeholder="desired_num_invitations"
+            name="desired_num_invitations"
+            class="form-control"
+            id="desired_num_invitations"
+          />
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Payout size</mat-label>
-          <mat-select placeholder="Payout type" formControlName="payout_type" name="payout_type">
+          <mat-select
+            placeholder="Payout type"
+            formControlName="payout_type"
+            name="payout_type"
+          >
             <mat-option value="Fixed"> Fixed </mat-option>
             <mat-option value="Variable"> Variable </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Max payout</mat-label>
-          <input matInput type="number" formControlName="max_payout" placeholder="max_payout" name="max_payout"
-            class="form-control" id="max_payout" />
+          <input
+            matInput
+            type="number"
+            formControlName="max_payout"
+            placeholder="max_payout"
+            name="max_payout"
+            class="form-control"
+            id="max_payout"
+          />
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Expected payout</mat-label>
-          <input matInput type="number" formControlName="exp_payout" placeholder="exp_payout" name="exp_payout"
-            class="form-control" id="exp_payout" />
+          <input
+            matInput
+            type="number"
+            formControlName="exp_payout"
+            placeholder="exp_payout"
+            name="exp_payout"
+            class="form-control"
+            id="exp_payout"
+          />
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label> Description:</mat-label>
-          <input matInput type="text" formControlName="description" placeholder="Description" name="description"
-            class="form-control" id="description" />
+          <input
+            matInput
+            type="text"
+            formControlName="description"
+            placeholder="Description"
+            name="description"
+            class="form-control"
+            id="description"
+          />
         </mat-form-field>
         <div *ngIf="editForm.invalid" class="alert alert-danger">
           Please fill out the required fields
         </div>
-        <button [disabled]="editForm.invalid" mat-stroked-button color="primary">
+        <button
+          [disabled]="editForm.invalid"
+          mat-stroked-button
+          color="primary"
+        >
           Update
         </button>
       </form>
     </mat-tab>
     <mat-tab label="Select participants">
       <mat-card>
-        <app-project-status [participants]="participants" [totalParticipants]="totalParticipants" [project]="project">
+        <app-project-status
+          [participants]="participants"
+          [totalParticipants]="totalParticipants"
+          [project]="project"
+        >
         </app-project-status>
         <app-selection-table> </app-selection-table>
       </mat-card>
@@ -111,40 +213,61 @@
       </mat-card>
     </mat-tab>
     <mat-tab label="Manage Project State / Data">
-      <div style="padding:12px;" *ngIf="project">
+      <div style="padding: 12px" *ngIf="project">
         <h3>Change Project State</h3>
-        <b>Current State: {{project.state}}</b><br>
-        <b>Current Start State: {{project.start_state}}</b><br>
-        <p>Change the project state here. Halt the project to conclude it - this prevents further invitations and users
-          who have been invited can no longer begin the study</p>
-        <form [formGroup]="haltProjectForm" style="display: grid" (ngSubmit)="changeProjectState()">
+        <b>Current State: {{ project.state }}</b
+        ><br />
+        <b>Current Start State: {{ project.start_state }}</b
+        ><br />
+        <p>
+          Change the project state here. Halt the project to conclude it - this
+          prevents further invitations and users who have been invited can no
+          longer begin the study
+        </p>
+        <form
+          [formGroup]="haltProjectForm"
+          style="display: grid"
+          (ngSubmit)="changeProjectState()"
+        >
           <div [hidden]="true">
-            <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id" />
+            <input
+              type="text"
+              formControlName="id"
+              placeholder="id"
+              name="id"
+              class="form-control"
+              id="id"
+            />
           </div>
           <mat-form-field appearance="outline">
             <mat-label>Project State</mat-label>
-            <mat-select placeholder="Project State" formControlName="state" name="state">
-              <mat-option value="Design">
-                Design </mat-option>
-              <mat-option value="Started">
-                Started
-              </mat-option>
-              <mat-option value="Halted">
-                Halted
-              </mat-option>
-            </mat-select>
-          </mat-form-field><br>
+            <mat-select
+              placeholder="Project State"
+              formControlName="state"
+              name="state"
+            >
+              <mat-option value="Design"> Design </mat-option>
+              <mat-option value="Started"> Started </mat-option>
+              <mat-option value="Halted"> Halted </mat-option>
+            </mat-select> </mat-form-field
+          ><br />
           <mat-form-field appearance="outline">
             <mat-label>Project Start State</mat-label>
-            <mat-select placeholder="Project Start State" formControlName="start_state" name="start_state">
-              <mat-option value="Open">
-                Open </mat-option>
-              <mat-option value="Closed">
-                Closed
-              </mat-option>
-            </mat-select>
-          </mat-form-field><br>
-          <button type="submit" [disabled]="haltProjectForm.invalid" mat-stroked-button color="primary">
+            <mat-select
+              placeholder="Project Start State"
+              formControlName="start_state"
+              name="start_state"
+            >
+              <mat-option value="Open"> Open </mat-option>
+              <mat-option value="Closed"> Closed </mat-option>
+            </mat-select> </mat-form-field
+          ><br />
+          <button
+            type="submit"
+            [disabled]="haltProjectForm.invalid"
+            mat-stroked-button
+            color="primary"
+          >
             Update
           </button>
         </form>
