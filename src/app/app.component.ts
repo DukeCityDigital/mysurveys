@@ -128,7 +128,7 @@ export class AppComponent {
         link: "/dashboard/log",
         icon: "format_list_bulleted",
       },
-      { name: "MOTD", link: "/dashboard/motd", icon: "chat" },
+      // { name: "MOTD", link: "/dashboard/motd", icon: "chat" },
     ],
   };
 
