@@ -20,7 +20,6 @@ import { LogComponent } from "./core/components/log/log.component";
 import { UsersComponent } from "./core/components/users/users.component";
 import { MyProjectsComponent } from "./core/components/my-projects/my-projects.component";
 import { PayoutsComponent } from "./core/components/payouts/payouts.component";
-import { MotdComponent } from "./core/components/motd/motd.component";
 import { NotificationsComponent } from "./core/components/notifications/notifications.component";
 import { ParticipantsComponent } from "./core/components/participants/participants.component";
 import { DataComponent } from "./core/components/data/data.component";
@@ -82,11 +81,11 @@ const routes: Routes = [
         data: { roles: [Role.administrator] },
       },
 
-      {
-        path: "motd",
-        component: MotdComponent,
-        data: { roles: [Role.administrator] },
-      },
+      // {
+      //   path: "motd",
+      //   component: MotdComponent,
+      //   data: { roles: [Role.administrator] },
+      // },
       {
         path: "notifications",
         component: NotificationsComponent,
@@ -179,4 +178,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)], // <-- debugging purposes only)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

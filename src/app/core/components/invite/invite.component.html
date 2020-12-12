@@ -5,18 +5,22 @@
       fewer
     </h3>
     <h3>An example of the email appears below the form</h3>
-    <form class="example-form login-form" (ngSubmit)="onSubmit(); inviteForm.reset()" [formGroup]="inviteForm">
+    <form class="example-form login-form" (ngSubmit)="onSubmit(); inviteForm.reset(); inviteForm.markAsPristine()"
+      [formGroup]="inviteForm">
       <mat-form-field class="example-full-width" appearance="outline">
         <input type="email" email formControlName="email" matInput required placeholder="Email" />
-        <mat-error *ngIf="f.email.errors" class="invalid-feedback">
+        <!-- <mat-error *ngIf="f.email.errors" class="invalid-feedback">
           <div *ngIf="f.email.errors.required">Email is required</div>
-        </mat-error>
+        </mat-error>  -->
       </mat-form-field><br />
       <mat-form-field class="example-full-width" appearance="outline">
         <input maxlength="15" placeholder="Nickname" type="nickname" formControlName="nickname" matInput required />
       </mat-form-field><br />
 
       <br />
+      <div *ngIf="invitation_success">
+        <h3>Invitation sent successfully!</h3>
+      </div>
       <button class="button createbutton" [disabled]="!inviteForm.valid" mat-stroked-button type="submit">
         Submit
       </button>
@@ -84,7 +88,7 @@
                       text-decoration: none;
                       display: inline-block;
                     ">
-                    
+                    MySurveys
                   </a>
                 </td>
               </tr>
@@ -166,8 +170,8 @@
                               margin-top: 0;
                               text-align: left;
                             ">
-                            You've been invited as a researcher on the
-                             platform.
+                            You've been invited as a researcher on the MySurveys
+                            platform.
                           </p>
                           <p style="
                               box-sizing: border-box;
@@ -354,7 +358,7 @@
                               text-align: left;
                             ">
                             Regards,<br />
-                            
+
                           </p>
 
                           <table class="subcopy" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="
@@ -475,7 +479,7 @@
                               font-size: 12px;
                               text-align: center;
                             ">
-                            © 2020 . All rights reserved.
+                            © 2020 MySurveys All rights reserved.
                           </p>
                         </td>
                       </tr>

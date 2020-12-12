@@ -19,7 +19,7 @@ export class InviteComponent implements OnInit {
   emailPattern = EmailPattern;
   message = "";
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   constructor(
     public alertService: AlertService,
@@ -39,10 +39,14 @@ export class InviteComponent implements OnInit {
     return this.inviteForm.controls;
   }
 
+  invitation_success = false;
   onSubmit() {
+
+
     return this.adminService
       .inviteResearcher(this.inviteForm.value)
       .subscribe((data) => {
+        this.invitation_success = true;
         this.alertService.success("Successfully sent", { autoClose: true });
       });
   }

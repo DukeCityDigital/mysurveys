@@ -10,6 +10,9 @@ import {
 } from "@angular/animations";
 import { setTimeout } from "timers";
 
+import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 @Component({
   selector: "app-qualification",
   templateUrl: "./qualification.component.html",
@@ -44,6 +47,13 @@ export class QualificationComponent implements OnInit {
   submitted: boolean = false;
   qualificationForm;
   isOpen = true;
+
+  constructor(
+
+    private http: HttpClient,
+    private sanitizer: DomSanitizer
+
+  ) { }
 
   testOne() {
     // todo: remove
@@ -106,9 +116,13 @@ export class QualificationComponent implements OnInit {
     }, 300);
   }
 
-  constructor() {}
+
 
   ngOnInit(): void {
+    this.remakeForm();
+  }
+
+  remakeForm() {
     this.qualificationForm = new FormGroup({
       parents: new FormControl("", [Validators.required]),
       gm: new FormControl("", [Validators.required]),
@@ -122,4 +136,16 @@ export class QualificationComponent implements OnInit {
     this.isQualified(this.qualificationForm);
     this.submitted = true;
   }
+  htmlString = "";
+
+  // getHtml() {
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'text/plain',
+  //   });
+  //   const request = this.http.get<string>('consent.html', {
+  //     headers: headers,
+  //   }).subscribe(res => this.htmlString = res);
+
+  //   this.htmlData = this.sanitizer.bypassSecurityTrustHtml(this.htmlString); // th
+  // }
 }

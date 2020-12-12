@@ -107,9 +107,10 @@ export class SelectionTableComponent implements OnInit {
     private alertService: AlertService,
     private route: ActivatedRoute,
     private _httpClient: HttpClient
-  ) {}
+  ) { }
 
   update(event) {
+    console.log('update', event);
     this.projectService
       .getAdvancedSelection({
         project_id: this.project_id,
@@ -117,6 +118,9 @@ export class SelectionTableComponent implements OnInit {
         eligible_peers: event.eligible_peers,
         eligible_seed: event.eligible_seed,
         paypal_status_ok: event.paypal_status_ok,
+        include_peers: event.include_peers,
+        include_seeds: event.include_seeds,
+
       })
       .subscribe((r) => {
         this.data = r.data;
@@ -203,7 +207,7 @@ export class SelectionTableComponent implements OnInit {
     return numSelected === numRows;
   }
 
-  isInSelection() {}
+  isInSelection() { }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle(checked?: boolean) {
@@ -226,9 +230,8 @@ export class SelectionTableComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? "select" : "deselect"} all`;
     }
-    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
-      row.id + 1
-    }`;
+    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${row.id + 1
+      }`;
   }
   resultsLength = 0;
 
@@ -246,7 +249,7 @@ export class SelectionTableComponent implements OnInit {
   }
   selectionService;
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   filterData(filterValue?, position?) {
     this.dataSource.filterPredicate = function customFilter(
@@ -274,7 +277,7 @@ export class SelectionTableComponent implements OnInit {
 import { environment } from "../../../../environments/environment";
 
 export class SelectionService {
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient) { }
 
   getSelection(
     sort: string,
@@ -286,7 +289,7 @@ export class SelectionService {
     const requestUrl = `${href}/participants?project_id=${project_id}&sort=${sort}&order=${order}&page=${
       // const requestUrl = `${href}/participants?project_id=${project_id}&sort=${sort}&order=${order}&page=${
       page + 1
-    }`;
+      }`;
     // console.log("get part", requestUrl);
     return this._httpClient.get<any>(requestUrl);
   }

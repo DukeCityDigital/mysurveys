@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     var hidemotd = sessionStorage.getItem("hidemotd");
     if (!hidemotd || hidemotd === "false") {
-      this.getMotd();
+      // this.getMotd();
     }
 
     if (this.user.role === "administrator") {
