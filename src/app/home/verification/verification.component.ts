@@ -56,7 +56,6 @@ export class VerificationComponent implements OnInit {
   ngOnInit(): void {
     //check if passed param
     this.route.paramMap.subscribe((params: any) => {
-      console.log(params);
       if (params.params.hasOwnProperty("code") && params.params.code !== "") {
         this.authService.logout();
         this.emailLinkAttempt = true;
@@ -64,9 +63,7 @@ export class VerificationComponent implements OnInit {
       }
     });
   }
-  resolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`);
-  }
+  resolved(captchaResponse: string) {}
   get f() {
     return this.emailVerificationForm.controls;
   }
@@ -114,7 +111,6 @@ export class VerificationComponent implements OnInit {
         }
       },
       (error) => {
-        console.log("Error", error);
         if (error) {
           this.errors.push("Record not found");
           this.emailLinkNotFound = true;
@@ -131,14 +127,13 @@ export class VerificationComponent implements OnInit {
       .register(email, password, qualificationForm)
       .subscribe(
         (data) => {
-          // console.log("POST Request is successful ", data);
+          //
           this.registered = true;
           this.alertService.success("Successfully registered", {
             autoClose: true,
           });
         },
         (error) => {
-          console.log(error);
           if (error.status == 500) {
             this.errors.push("A user exists with that email address");
           } else if (error.status == 500) {

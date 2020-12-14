@@ -87,7 +87,7 @@ export class AdminService {
     const requestUrl = `${href}/log?project_id=${project_id}&sort=${sort}&order=${order}&page=${
       page + 1
     }`;
-    console.log("get part", requestUrl);
+
     return this.httpClient.get<any>(requestUrl);
   }
 
@@ -118,7 +118,7 @@ export class AdminService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.log(errorMessage);
+
     return throwError(errorMessage);
   }
 }

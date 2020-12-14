@@ -24,6 +24,7 @@ import { NotificationsComponent } from "./core/components/notifications/notifica
 import { ParticipantsComponent } from "./core/components/participants/participants.component";
 import { DataComponent } from "./core/components/data/data.component";
 import { ManageUserComponent } from "./core/components/manage-user/manage-user.component";
+import { EmailTemplatesModule } from "./core/components/email-templates/email-templates.module";
 
 const routes: Routes = [
   {
@@ -57,9 +58,15 @@ const routes: Routes = [
           import(`./core/components/projects/projects.module`).then(
             (m) => m.ProjectsModule
           ),
-        // component: ProjectsComponent,
-        // // children: [{ path: "create", component: CreateComponent }],
-        // data: { roles: [Role.administrator, Role.researcher] },
+      },
+      {
+        path: "email-templates",
+
+        loadChildren: () =>
+          import(
+            `./core/components/email-templates/email-templates.module`
+          ).then((m) => m.EmailTemplatesModule),
+        data: { roles: [Role.researcher] },
       },
       {
         path: "profile",
@@ -178,4 +185,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)], // <-- debugging purposes only)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

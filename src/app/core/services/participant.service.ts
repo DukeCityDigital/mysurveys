@@ -40,7 +40,7 @@ export class ParticipantService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.log(errorMessage);
+
     return throwError(errorMessage);
   }
 
@@ -112,7 +112,6 @@ export class ParticipantService {
       .pipe(catchError(this.errorHandler));
   }
   delete(id) {
-    console.log("pdelete", id);
     return this.httpClient.delete<any>(
       this.apiServer + "/participants/" + id,
       this.httpOptions

@@ -37,7 +37,8 @@ import { ParticipantsComponent } from "./core/components/participants/participan
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { LoaderInterceptor } from "./core/helpers/loader.interceptor";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { TemplateCreateComponent } from './core/components/template-create/template-create.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     NotificationsComponent,
     ParticipantsComponent,
     GDPRBottomSheet,
+    TemplateCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -111,7 +113,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 export function jwtTokenGetter() {
   return localStorage.getItem("access_token");
 }

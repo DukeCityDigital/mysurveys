@@ -81,7 +81,7 @@ export class RegistrationService {
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.log(errorMessage);
+
     return throwError(errorMessage);
   }
 }

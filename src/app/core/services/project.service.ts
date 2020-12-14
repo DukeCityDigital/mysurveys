@@ -138,7 +138,6 @@ export class ProjectService {
       .pipe(catchError(this.errorHandler));
   }
   delete(id) {
-    console.log("pdelete", id);
     return this.httpClient.delete<any>(
       this.apiServer + "/projects/" + id,
       this.httpOptions

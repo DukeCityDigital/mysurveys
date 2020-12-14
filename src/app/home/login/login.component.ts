@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
           const navigationExtras: NavigationExtras = {
             state: { example: data.email },
           };
-          console.log("route to verify", navigationExtras);
+
           this.router.navigate(["/verify-email"], navigationExtras);
           return;
         }
@@ -93,7 +93,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate([this.returnUrl]);
       },
       (error) => {
-        console.log(error);
         this.alertService.error("Invalid Login", { autoClose: true });
         this.errors.push(error.statusText);
         this.loading = false;

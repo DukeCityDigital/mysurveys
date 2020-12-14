@@ -10,8 +10,8 @@ import {
 } from "@angular/animations";
 import { setTimeout } from "timers";
 
-import { DomSanitizer } from '@angular/platform-browser';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DomSanitizer } from "@angular/platform-browser";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Component({
   selector: "app-qualification",
@@ -48,12 +48,7 @@ export class QualificationComponent implements OnInit {
   qualificationForm;
   isOpen = true;
 
-  constructor(
-
-    private http: HttpClient,
-    private sanitizer: DomSanitizer
-
-  ) { }
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   testOne() {
     // todo: remove
@@ -105,7 +100,7 @@ export class QualificationComponent implements OnInit {
     } else {
       qualified = false;
     }
-    console.log(gmOk, vacOk, f, qualified);
+
     // debugger;
     this.qualified = qualified;
     // return qualified;
@@ -115,8 +110,6 @@ export class QualificationComponent implements OnInit {
       // window.scrollY = 0;
     }, 300);
   }
-
-
 
   ngOnInit(): void {
     this.remakeForm();

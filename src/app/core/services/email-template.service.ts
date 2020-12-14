@@ -36,6 +36,14 @@ export class EmailTemplateService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getAllWithProject(id: any): Observable<Emailtemplate[]> {
+    return this.httpClient
+      .post<Emailtemplate[]>(this.apiServer + "/email_templates_with_project", {
+        project_id: id,
+      })
+      .pipe(catchError(this.errorHandler));
+  }
+
   create(Emailtemplate): Observable<Emailtemplate> {
     return this.httpClient
       .post<Emailtemplate>(
@@ -46,7 +54,6 @@ export class EmailTemplateService {
       .pipe(catchError(this.errorHandler));
   }
   delete(id) {
-    console.log("delete", id);
     return this.httpClient.delete<any>(
       this.apiServer + "/email_templates" + id,
       this.httpOptions
@@ -67,7 +74,7 @@ export class EmailTemplateService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.log(errorMessage);
+
     return throwError(errorMessage);
   }
 }

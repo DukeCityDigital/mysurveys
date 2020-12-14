@@ -37,9 +37,9 @@ export class AuthService {
 
   // TODO remove
   test() {
-    return this.http.get<User>(`${environment.apiUrl}/test`).subscribe((r) => {
-      console.log(r);
-    });
+    return this.http
+      .get<User>(`${environment.apiUrl}/test`)
+      .subscribe((r) => {});
   }
 
   login(email: string, password: string) {
@@ -69,7 +69,7 @@ export class AuthService {
   refreshToken() {
     return this.http.get<any>(`${environment.apiUrl}/refresh`).pipe(
       catchError((err) => {
-        // console.log("error caught in service");
+        //
         console.error(err);
         //Handle the error here
         this.logout();
