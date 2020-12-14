@@ -82,9 +82,22 @@ export class ManageParticipantsComponent implements OnInit {
     let id = this.project_id;
     if (this.project_id) {
       this.eTService.getAllWithProject(id).subscribe((data: any) => {
+        console.log(data);
+        data.data.forEach((element) => {
+          element.transformed.body = this.emailLines(element.transformed.body);
+        });
         this.templates = data.data;
       });
     }
+  }
+
+  emailLines(body: string) {
+    let lines = [];
+    body.split("*nl*").forEach((element) => {
+      lines.push(element);
+    });
+
+    return lines;
   }
 
   ngOnInit(): void {

@@ -37,8 +37,10 @@
         <b>Subject</b><br>
         <div>{{t.transformed.subject}}</div><br>
         <b>Body</b><br>
-        <div [innerHTML]="t.transformed.body">
-        </div>
+        <p *ngFor="let line of t.transformed.body">
+          {{line}}
+        </p>
+
       </div>
       <button color="primary" mat-raised-button (click)="onSubmitCustomEmail(false,true, t)" mat-button>
         Send me (currently logged in user) a test of the custom email

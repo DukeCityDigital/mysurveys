@@ -38,9 +38,10 @@ export class EmailTemplatesComponent implements OnInit {
   getTemplates() {
     this.eTService.getAllWithProject(this.project_id).subscribe((data: any) => {
       data.data.forEach((element) => {
-        element.transformed.body = this.emailLines(element.body);
+        element.transformed.body = this.emailLines(element.transformed.body);
       });
       this.templates = data.data;
+      console.log(this.templates);
     });
   }
 
