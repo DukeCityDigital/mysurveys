@@ -64,6 +64,13 @@ export class RegistrationService {
     });
   }
 
+  user_submit_qualification_form(qualificationForm?: any) {
+    let API_URL = `${environment.apiUrl}/auth/user_submit_qualification_form`;
+    return this.http.post<any>(API_URL, {
+      qualificationForm,
+    });
+  }
+
   register(email: string, password: string, qualificationForm?: any) {
     let API_URL = `${environment.apiUrl}/auth/register`;
     return this.http.post<any>(API_URL, {

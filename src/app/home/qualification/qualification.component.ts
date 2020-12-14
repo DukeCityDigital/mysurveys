@@ -12,7 +12,12 @@ import { setTimeout } from "timers";
 
 import { DomSanitizer } from "@angular/platform-browser";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-
+import { ParticipantService } from "@app/core/services/participant.service";
+import { User } from "@app/core/models/user";
+import { AuthService } from "@app/core/services/auth.service";
+import { AlertService } from "@app/core/components/_alert";
+import { RegistrationService } from "@app/core/services/registration.service";
+import { Router } from "@angular/router";
 @Component({
   selector: "app-qualification",
   templateUrl: "./qualification.component.html",
@@ -47,8 +52,23 @@ export class QualificationComponent implements OnInit {
   submitted: boolean = false;
   qualificationForm;
   isOpen = true;
+  user: User;
+  htmlString = "";
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
+  ngOnInit(): void {
+    this.remakeForm();
+    this.getMe();
+  }
+
+  constructor(
+    private participantService: ParticipantService,
+    private http: HttpClient,
+    private sanitizer: DomSanitizer,
+    private authService: AuthService,
+    private alertService: AlertService,
+    private registrationService: RegistrationService,
+    private router: Router
+  ) {}
 
   testOne() {
     // todo: remove
@@ -60,7 +80,17 @@ export class QualificationComponent implements OnInit {
       vac: "4",
     });
   }
-
+  /**
+   * Check if user is registered and get profile if so
+   */
+  getMe() {
+    console.log("getme", this.authService.userValue);
+    if (this.authService.userValue) {
+      this.participantService.get().subscribe((data: any) => {
+        this.user = data.data;
+      });
+    }
+  }
   possibleResponses = [
     { name: "Completely unsafe", value: 1 },
     { name: "", value: 2 },
@@ -111,10 +141,6 @@ export class QualificationComponent implements OnInit {
     }, 300);
   }
 
-  ngOnInit(): void {
-    this.remakeForm();
-  }
-
   remakeForm() {
     this.qualificationForm = new FormGroup({
       parents: new FormControl("", [Validators.required]),
@@ -126,19 +152,38 @@ export class QualificationComponent implements OnInit {
   }
 
   onSubmit() {
-    this.isQualified(this.qualificationForm);
-    this.submitted = true;
+    // if no user do regular routine, otherwise send form directly
+
+    if (!this.authService.userValue) {
+      this.isQualified(this.qualificationForm);
+      this.submitted = true;
+    } else {
+      if (!this.qualificationForm) {
+        this.alertService.error(
+          "You must fill out the qualification form first"
+        );
+      }
+      let f = this.qualificationForm.value;
+      f.seed = true;
+      this.submit_qualification_form(f);
+    }
   }
-  htmlString = "";
-
-  // getHtml() {
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'text/plain',
-  //   });
-  //   const request = this.http.get<string>('consent.html', {
-  //     headers: headers,
-  //   }).subscribe(res => this.htmlString = res);
-
-  //   this.htmlData = this.sanitizer.bypassSecurityTrustHtml(this.htmlString); // th
-  // }
+  submit_qualification_form(qualificationForm?: any) {
+    return this.registrationService
+      .user_submit_qualification_form(qualificationForm)
+      .subscribe(
+        (data) => {
+          console.log(data);
+          //
+          this.alertService.success("Successfully submitted", {
+            autoClose: true,
+          });
+          this.getMe();
+        },
+        (error) => {
+          console.log(error);
+          this.alertService.error(error, { autoClose: true });
+        }
+      );
+  }
 }

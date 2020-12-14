@@ -13,4 +13,5 @@ export class User {
   access_token?: string;
   mustVerify?: string;
   friends?: any;
+  survey_complete?: boolean;
 }

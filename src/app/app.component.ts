@@ -42,6 +42,10 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+    console.log(this.user);
+    if (!this.user) {
+      this.authenticationService.logout();
+    }
     this.subscription = this.loaderService.loaderState
       .pipe(concatMap((item) => of(item).pipe(delay(50))))
       .subscribe((state: any) => {
@@ -110,7 +114,13 @@ export class AppComponent {
     participant: [
       { name: "1. PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
       {
-        name: "2. my projects",
+        name: "2. Questionnaire",
+        link: "/questionnaire",
+        icon: "question_answer",
+      },
+
+      {
+        name: "3. my projects",
         link: "/dashboard/my-projects",
         icon: "assignment",
       },

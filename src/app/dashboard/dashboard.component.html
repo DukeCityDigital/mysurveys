@@ -6,12 +6,8 @@
     <!-- No pending invitations -->
     <div *ngIf="!user.friends.length" class="alert-error">
       <!-- <h2>You haven't invited any friends yet! Please do so when ready.</h2> -->
-      <button
-        [routerLinkActive]="['is-active-button,animate-stop']"
-        mat-raised-button
-        color="primary"
-        [routerLink]="'/dashboard/friends'"
-      >
+      <button [routerLinkActive]="['is-active-button,animate-stop']" mat-raised-button color="primary"
+        [routerLink]="'/dashboard/friends'">
         Friends
       </button>
     </div>
@@ -19,43 +15,25 @@
       <h3>Great - you've invited friends.</h3>
       Once they've confirmed their accounts and verified PayPal you'll be
       eligible to begin<br />
-      <button
-        [routerLinkActive]="['is-active-button,animate-stop']"
-        class="mat-raised-button"
-        color="primary"
-        [routerLink]="'/dashboard/friends'"
-      >
+      <button [routerLinkActive]="['is-active-button,animate-stop']" class="mat-raised-button" color="primary"
+        [routerLink]="'/dashboard/friends'">
         Friends
       </button>
     </div>
   </div>
+  <!-- If not a seed, show welcome message  -->
   <div *ngIf="user && user.is_seed === null">
-    [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a
-      href="#"
-      >Profile</a
-    >]&nbsp;
+    [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a href="#">Profile</a>]&nbsp;
     <hr />
     No pending invitations<br />
-    <h3>
-      Thanks for accepting the invitation! Please verify your Paypal address
-      when ready
-    </h3>
-    <button
-      color="primary"
-      [routerLink]="'/dashboard/paypal'"
-      mat-stroked-button
-    >
-      Click to configure PayPal
+    <button color="primary" [routerLink]="'/dashboard/paypal'" mat-stroked-button>
+      PayPal settings
     </button>
   </div>
 
   <div *ngIf="user && user.role === 'administrator'">
     <hr />
-    <button
-      color="primary"
-      [routerLink]="'/dashboard/settings'"
-      mat-stroked-button
-    >
+    <button color="primary" [routerLink]="'/dashboard/settings'" mat-stroked-button>
       Click to view settings
     </button>
   </div>

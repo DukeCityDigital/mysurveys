@@ -1,3 +1,11 @@
+<mat-card *ngIf="participant && participant.paypal_id_status !=='Ok'">
+  <h3>You haven't verified your PayPal ID</h3>
+</mat-card>
+<mat-card *ngIf="participant && participant.seed_id !== null && participant.survey_status !=='Ok'">
+  <!-- <mat-card *ngIf="1"> -->
+
+  **You Haven't taken the initial survey
+</mat-card>
 <mat-tab-group>
   <mat-tab label="Email / Password">
     <mat-card class="innercard">
@@ -41,5 +49,10 @@
         </button>
       </form>
     </mat-card>
+  </mat-tab>
+  <mat-tab *ngIf="participant && participant.role =='participant'" label="Validate PayPal">
+    <app-paypal-validate (notifyParent)="getProfile()">
+
+    </app-paypal-validate>
   </mat-tab>
 </mat-tab-group>

@@ -5,6 +5,7 @@ import { MaterialBaseModule } from "../material-base/material-base.module";
 import { PasswordFormModule } from "../password-form/password-form.module";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { RouterModule } from "@angular/router";
+import { PaypalValidateModule } from "../paypal-validate/paypal-validate.module";
 
 @NgModule({
   declarations: [ProfileComponent],
@@ -14,6 +15,7 @@ import { RouterModule } from "@angular/router";
     MatPaginatorModule,
     PasswordFormModule,
     RouterModule,
+    PaypalValidateModule,
   ],
   exports: [ProfileComponent],
 })

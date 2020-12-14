@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -7,6 +7,7 @@ import {
 } from "@angular/forms";
 import { AlertService } from "../_alert";
 import { ParticipantService } from "@app/core/services/participant.service";
+import { EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-paypal-validate",
@@ -20,6 +21,8 @@ export class PaypalValidateComponent implements OnInit {
   user: any;
   confirmedPaypalMe: string;
   returnedPaypalMe: string;
+
+  @Output() notifyParent: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,6 +51,10 @@ export class PaypalValidateComponent implements OnInit {
     });
   }
 
+  onNotifyParent() {
+    this.notifyParent.emit({ update: true });
+  }
+
   onSubmitPaypalForm() {
     if (!this.paypalForm) {
       this.alertService.error("You must fill out the Paypal form first");
@@ -64,6 +71,7 @@ export class PaypalValidateComponent implements OnInit {
 
           this.alertService.success("Updated", { autoClose: true });
           this.getMe();
+          this.notifyParent.emit({ update: true });
         },
         (error) => {
           if (error && error.error) {
