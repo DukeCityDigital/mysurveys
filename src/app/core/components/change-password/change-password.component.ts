@@ -54,7 +54,6 @@ export class ChangePasswordComponent implements OnInit {
         this.token
       )
       .subscribe((r: any) => {
-        console.log(r);
         if (r.access_token) {
           this.authService.quickLogin(r);
           this.alertService.success("Logged in");
@@ -83,7 +82,6 @@ export class ChangePasswordComponent implements OnInit {
         }
       },
       (error) => {
-        console.log("Error", error);
         if (error) {
           this.errors.push("Record not found");
           this.codeFailed = true;

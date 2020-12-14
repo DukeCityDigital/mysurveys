@@ -30,7 +30,6 @@ export class SettingsComponent implements OnInit {
 
   backup() {
     this.adminService.backup().subscribe((projects: any) => {
-      console.log("backedup");
       this.alertService.success("System backed up");
     });
   }
@@ -44,10 +43,9 @@ export class SettingsComponent implements OnInit {
   update(project, quota) {
     let p = { ...project };
     p.quota = quota ? quota : 0;
-    console.log(p);
+
     this.pService.update(p).subscribe(
       (data) => {
-        console.log(data);
         if (data.success) {
           this.alertService.success("Updated successfully", {
             autoClose: true,

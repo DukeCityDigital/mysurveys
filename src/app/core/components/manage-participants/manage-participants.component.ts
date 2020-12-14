@@ -4,10 +4,12 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute } from "@angular/router";
+import { EmailTemplateService } from "@app/core/services/email-template.service";
 import { LoaderService } from "@app/core/services/loader.service";
 import { ParticipantService as pService } from "@app/core/services/participant.service";
 import { ProjectService } from "@app/core/services/project.service";
 import { merge, Observable, of as observableOf, of, Subscription } from "rxjs";
+
 import {
   catchError,
   concatMap,
@@ -68,10 +70,23 @@ export class ManageParticipantsComponent implements OnInit {
     private pService: pService,
     public alertService: AlertService,
     private formBuilder: FormBuilder,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private eTService: EmailTemplateService
   ) {}
   private subscription: Subscription;
   public _LOADING: boolean = false;
+
+  templates = [];
+
+  getTemplates() {
+    let id = this.project_id;
+    if (this.project_id) {
+      this.eTService.getAllWithProject(id).subscribe((data: any) => {
+        this.templates = data.data;
+      });
+    }
+  }
+
   ngOnInit(): void {
     this.customEmailForm = this.formBuilder.group({
       subject: ["", Validators.required],
@@ -90,6 +105,7 @@ export class ManageParticipantsComponent implements OnInit {
   ngAfterViewInit() {
     this.route.paramMap.subscribe((params) => {
       this.project_id = +params.get("id");
+      this.getTemplates();
     });
     this.localParticipantService = new LocalParticipantService(
       this._httpClient
@@ -102,25 +118,22 @@ export class ManageParticipantsComponent implements OnInit {
    * Send custom notification
    * @param testEmail
    */
-  onSubmitCustomEmail(ids?, testEmail?: boolean) {
+  onSubmitCustomEmail(ids?, testEmail?: boolean, template?) {
     var post = this.customEmailForm.value;
+    post.project_id = this.project_id;
+    post.template_id = template.id;
     if (post.link === "" || !post.link) {
       delete post["link"];
     }
-    console.log(post);
     if (testEmail) {
       post.test = true;
     }
     post.ids = [];
     if (!ids) {
-      this.data.forEach((element) => {
-        var u = element.participants_userid;
-        if (u !== null) post.ids.push(u);
-      });
+      post.ids = this.selectedIds;
     } else {
       post.ids = ids;
     }
-
     this.projectService
       .send_custom_message(post)
       .pipe(first())
@@ -157,7 +170,6 @@ export class ManageParticipantsComponent implements OnInit {
         }
       },
       (error) => {
-        console.log("Error", error);
         if (error && error.error && error.error.email) {
           this.alertService.error(error.error.email, {
             autoClose: false,
@@ -257,7 +269,6 @@ export class ManageParticipantsComponent implements OnInit {
    * Get filtered data from DB
    */
   runTable() {
-    console.log("rtable");
     this.PREVIEWDATA = undefined;
     this.invitationErrors = [];
     merge(this.sort.sortChange, this.paginator.page)
@@ -308,7 +319,7 @@ export class LocalParticipantService {
     const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&filter=${filter}&order=${order}&page=${
       page + 1
     }`;
-    // console.log("get part", requestUrl);
+    //
     return this._httpClient.get<any>(requestUrl);
   }
 }

@@ -9,7 +9,6 @@ import { ActivatedRoute } from "@angular/router";
 import { RegistrationService } from "@app/core/services/registration.service";
 import { AuthService } from "@app/core/services/auth.service";
 
-
 @Component({
   selector: "app-password-reset",
   templateUrl: "./password-reset.component.html",
@@ -20,13 +19,11 @@ export class PasswordResetComponent implements OnInit {
   submitted = false;
   message: string;
 
-
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private registrationService: RegistrationService,
     private authService: AuthService
-
   ) {
     this.resetForm = this.createResetForm();
   }
@@ -34,12 +31,10 @@ export class PasswordResetComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: any) => {
       if (params.params.hasOwnProperty("code") && params.params.code !== "") {
-        this.authService.logout();   
+        this.authService.logout();
       }
     });
   }
-
-
 
   createResetForm(): FormGroup {
     return this.formBuilder.group({
@@ -52,7 +47,6 @@ export class PasswordResetComponent implements OnInit {
     return this.registrationService
       .requestReset(this.resetForm.value.email)
       .subscribe((data) => {
-        console.log(data);
         this.message = data.message;
       });
   }

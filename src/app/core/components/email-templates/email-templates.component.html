@@ -1,40 +1,73 @@
-<h3>Email Templates</h3>
-<mat-accordion>
-    <mat-expansion-panel *ngFor="let t of templates">
-        <mat-expansion-panel-header>
-            <mat-panel-title>{{t.subject}} </mat-panel-title>
-        </mat-expansion-panel-header>
-        <form id="emailTemplate">
-            <mat-form-field appearance="outline" style="width:100%;">
-                <mat-label>Subject</mat-label>
-                <input matInput placeholder="Subject" value={{t.subject}}>
-                <mat-hint>Email Subject</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="outline" style="width:100%;">
-                <mat-label>Body</mat-label>
-                <!-- <input matInput placeholder="Body" value={{t.body}}> -->
-                <textarea matInput rows="25">
-                    {{t.body}}
-                </textarea>
-                <mat-hint>Email Body</mat-hint>
-            </mat-form-field>
-            <button mat-stroked-button>Update*</button>
-        </form>
-    </mat-expansion-panel>
-    <fieldset class="thincontent">
-        <legend> Replacement codes for the templates </legend>
-        <p> *link* </p>
-        <p> *responsibleperson* </p>
-        <p> *projecttitle* </p>
-        <p> *projectinfo* </p>
-        <p> *projectenddate* </p>
-        <p> *username* </p>
-        <p> *title* </p>
-        <p> *nl* - New line </p>
-        <p> *maxpayout* </p>
-        <p> *expectedpayout* </p>
-        <p> *loginlink* </p>
-        <p> *adminaddress* </p>
-        <p> *contactaddress* </p>
-    </fieldset>
-</mat-accordion>
+<router-outlet></router-outlet>
+<mat-card>
+    <mat-card-title>
+        Email Templates
+    </mat-card-title>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let t of templates">
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{t.subject}} </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form #f id="emailTemplate">
+                <mat-form-field appearance="outline" style="width:100%;">
+                    <mat-label>Subject</mat-label>
+                    <input #subject matInput placeholder="Subject" value={{t.subject}}>
+                    <mat-hint>Email Subject</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width:100%;">
+                    <mat-label>Body</mat-label>
+                    <textarea #body matInput rows="25">{{t.body}}</textarea>
+                    <mat-hint>Email Body</mat-hint>
+                </mat-form-field>
+                <h3>Email sample</h3>
+
+                <div style="border:2px double grey;padding:12px;font-size:14px;">
+                    <b>Subject</b><br>
+                    <div>{{t.transformed.subject}}</div><br>
+                    <b>Body</b><br>
+                    <div>
+                        <p *ngFor="let line of t.transformed.body">
+                            {{line}}
+
+                        </p>
+                    </div>
+                    <div [innerHTML]="t.transformed.body">
+                    </div>
+                </div>
+
+                <button color="primary" mat-stroked-button
+                    (click)="update({subject:subject.value, body:body.value, id:t.id})">Update</button>
+                <button [disabled]="t.id < 3" mat-stroked-button color="warn" type="button"
+                    (click)="delete(t.id)">Remove</button>
+            </form>
+        </mat-expansion-panel>
+        <mat-expansion-panel style="background:lightblue;">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Create
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form [formGroup]="emailTemplateForm" (ngSubmit)="submitForm()" novalidate class="formbox">
+                <label>Subject: </label>
+                <input mat-input type="text" formControlName="subject" class="form-control" maxlength="20">
+                <button mat-stroked-button type="submit">Submit</button>
+            </form>
+        </mat-expansion-panel>
+        <button (click)="showReplacementCodes = !showReplacementCodes" mat-stroked-button>Toggle replacement
+            codes</button>
+        <fieldset class="thincontent" *ngIf="showReplacementCodes">
+            <legend> Replacement codes for the templates </legend>
+            <p> *link* </p>
+            <p> *responsibleperson* </p>
+            <p> *projecttitle* </p>
+            <p> *projectinfo* </p>
+            <p> *projectenddate* </p>
+            <p> *username* </p>
+            <p> *maxpayout* </p>
+            <p> *expectedpayout* </p>
+            <!-- <p> *loginlink* </p> -->
+            <!-- <p> *adminaddress* </p> -->
+            <!-- <p> *contactaddress* </p> -->
+        </fieldset>
+    </mat-accordion>
+</mat-card>

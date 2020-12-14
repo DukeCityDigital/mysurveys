@@ -90,23 +90,19 @@ export class OmniTableComponent implements OnInit {
     this.submitRowEmit.emit(em);
   }
   // public submitRow(row?: any) {
-  //   console.log(row);
+  //
   //   this.submitRow.emit(row);
   // }
 
   onPaginateChange(event) {
-    // console.log(event);
+    //
     this.paginator.pageIndex = event.pageIndex;
   }
 
   searchFields = [];
 
-  public singleAction(actionString: string) {
-    console.log("buttonAction", actionString);
-  }
-  public groupAction(actionString: string) {
-    console.log("grp nAction", actionString);
-  }
+  public singleAction(actionString: string) {}
+  public groupAction(actionString: string) {}
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -126,9 +122,8 @@ export class OmniTableComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle(checked?: boolean) {
-    console.log("mastertoggle", checked, this.isAllSelected());
     if (this.isAllSelected()) {
-      // console.log("allselected");
+      //
       this.selection.clear();
       this.clearSelectedUsers();
     } else {
@@ -215,7 +210,7 @@ export class OmniTableComponent implements OnInit {
     // selectItem ? this.objectColumns.unshift(selectItem) : null;
 
     this.searchFields = searchFields;
-    // console.log(this.searchFields);
+    //
     // debugger;
 
     this.displayedColumns = this.objectColumns.map((col) => col.name);

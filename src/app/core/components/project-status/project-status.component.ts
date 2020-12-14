@@ -12,9 +12,7 @@ export class ProjectStatusComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.project);
-  }
+  ngOnInit(): void {}
 
   public parseInt(string) {
     return parseInt(string);

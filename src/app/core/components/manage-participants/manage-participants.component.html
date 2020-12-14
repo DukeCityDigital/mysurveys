@@ -1,8 +1,10 @@
 <!-- {{participants | json}} -->
-<p>This panel shows the participants currently selected for the project. Click one of the buttons to send a standard
-  email,
-  or press the 'Show Custom Email Panel' button to create your own.
-</p>
+<p>This panel shows the participants currently selected for the project.</p>
+<ul>
+  <li>Click one of the buttons to send a standard email</li>
+  <li>Press the 'Show Custom Email Panel' button to create your own.</li>
+  <li>or choose a template from the dropdown</li>
+</ul>
 <mat-progress-bar *ngIf="isLoadingResults" mode="query"></mat-progress-bar>
 <button mat-stroked-button (click)="onRunTable('invited')">
   Select invited
@@ -23,33 +25,30 @@
   Select paid and verified <mat-icon>attach_money</mat-icon>
 </button>
 <hr>
-<button (click)="showCustomEmailPanel = !showCustomEmailPanel" mat-raised-button
-  color="primary">{{showCustomEmailPanel ? 'Hide' : 'Show'}} Custom Email Panel</button>
+<button (click)="showCustomEmailPanel = !showCustomEmailPanel" mat-raised-button color="primary">{{showCustomEmailPanel
+  ? 'Hide' : 'Show'}} Custom Email Panel</button>
 <div *ngIf="showCustomEmailPanel">
-  <div style="font-family:monospace">
-    <button mat-raised-button (click)="onSubmitCustomEmail(false,true)" mat-button>Send me (currently logged in user) a
-      test
-      of the custom email</button>
-  </div>
-  <form [formGroup]="customEmailForm" (ngSubmit)="onSubmitCustomEmail();customEmailForm.reset()" style="display: grid">
-    <mat-form-field appearance="outline">
-      <mat-label> Subject</mat-label>
-      <input required matInput type="text" formControlName="subject" placeholder="subject" name="subject"
-        class="form-control" id="subject" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label> body</mat-label>
-      <textarea required matInput type="text" formControlName="body" placeholder="body" name="body" class="form-control"
-        id="body"></textarea>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label> Link (optional)</mat-label>
-      <input matInput type="text" formControlName="link" placeholder="link" name="link" class="form-control"
-        id="link" />
-    </mat-form-field>
+  <h3>Custom emails</h3>
+  <p>Choose an email template to send</p>
+  <mat-tab-group dynamicHeight>
+    <mat-tab *ngFor="let t of templates" label="{{t.subject}}">
+      <h3>Email sample</h3>
+      <div style="border:2px double grey;padding:12px;font-size:14px;">
+        <b>Subject</b><br>
+        <div>{{t.transformed.subject}}</div><br>
+        <b>Body</b><br>
+        <div [innerHTML]="t.transformed.body">
+        </div>
+      </div>
+      <button color="primary" mat-raised-button (click)="onSubmitCustomEmail(false,true, t)" mat-button>
+        Send me (currently logged in user) a test of the custom email
+      </button>
+      <button color="warn" mat-raised-button (click)="onSubmitCustomEmail(false,false, t)" mat-button>
+        Send the custom email to all selected participants
+      </button>
+    </mat-tab>
+  </mat-tab-group>
 
-    <button [disabled]="_LOADING" color="warn" type="submit" mat-raised-button>Send to selected</button>
-  </form>
 </div>
 <div>
   <h3>
@@ -618,9 +617,9 @@
         <button (click)="sendProjectInvitations([row.participants_userid])">
           Send Invitation
         </button>
-        <button (click)="onSubmitCustomEmail(row.user_id)"
-          [disabled]="!customEmailForm.value.subject || !customEmailForm.value.body">Send Custom Email
-          {{!customEmailForm.value.subject || !customEmailForm.value.body ? "[Need subject and body]" : ""}}</button>
+        <!-- <button (click)="onSubmitCustomEmail(row.user_id)">Send Custom Email
+          {{!customEmailForm.value.subject || !customEmailForm.value.body ? "[Need subject and body]" : ""}}
+        </button> -->
 
         {{ row.userparam1 }}
       </td>

@@ -19,7 +19,8 @@
 
       <br />
       <div *ngIf="invitation_success">
-        <h3>Invitation sent successfully!</h3>
+        <h3>Invitation sent successfully! Enter another email and nickname if you wish to invite another researcher.
+        </h3>
       </div>
       <button class="button createbutton" [disabled]="!inviteForm.valid" mat-stroked-button type="submit">
         Submit

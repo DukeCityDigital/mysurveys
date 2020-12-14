@@ -57,7 +57,6 @@ export class ManageUserComponent implements OnInit {
    */
   getUser(user_id) {
     this.participantService.getUser(user_id).subscribe((r) => {
-      console.log(r);
       this.user = r;
       this.patchFormValues(r);
     });
@@ -79,13 +78,11 @@ export class ManageUserComponent implements OnInit {
    * Submit project edit form
    */
   onSubmit() {
-    console.log("submitform");
     this.participantService
       .updateUser(this.userForm.value)
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log(data);
           if (data.id) {
             this.alertService.success("Updated successfully", {
               autoClose: true,

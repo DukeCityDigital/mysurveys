@@ -20,7 +20,6 @@ export class MotdComponent implements OnInit {
 
   ngOnInit(): void {
     this.adminService.getSettings().subscribe((data) => {
-      console.log(data);
       this.settings = data.data;
       this.motdForm = this.formBuilder.group({
         researchermessage: this.settings.researchermessage,
@@ -33,7 +32,6 @@ export class MotdComponent implements OnInit {
     let post = this.motdForm.value;
     post.id = 1;
     this.adminService.updateSettings(post).subscribe((resp) => {
-      console.log("update resp", resp);
       this.alertService.success("MOTD updated", { id: "da" });
     });
   }

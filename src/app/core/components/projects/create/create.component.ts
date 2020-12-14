@@ -24,7 +24,6 @@ export class CreateComponent implements OnInit {
   }
   submitForm() {
     this.pService.create(this.projectForm.value).subscribe((res) => {
-      console.log("Proj created!");
       this.router.navigateByUrl("dashboard/projects");
     });
   }

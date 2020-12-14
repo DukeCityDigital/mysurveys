@@ -51,7 +51,7 @@ export class LogComponent implements OnInit {
 
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
-      // console.log(this.sort);
+      //
       this.paginator.pageIndex = 0;
     });
 
@@ -120,7 +120,7 @@ export class LogDataSource implements DataSource<any> {
         finalize(() => this.loadingSubject.next(false))
       )
       .subscribe((logs: any) => {
-        // console.log(logs);
+        //
         this.resultsLength = logs.total;
         this.logSubject.next(logs.data);
       });

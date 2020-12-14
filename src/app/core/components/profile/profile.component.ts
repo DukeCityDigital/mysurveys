@@ -91,14 +91,12 @@ export class ProfileComponent implements OnInit {
    * Change user's profile
    */
   onSubmitProfileChange() {
-    console.log("profilechange", this.profileForm.value);
     if (!this.profileForm) {
       this.alertService.error(
         "You must fill out the profile change form first"
       );
     }
     this.participantService.update(this.profileForm.value).subscribe((data) => {
-      console.log(data);
       this.getProfile();
     });
   }
@@ -176,7 +174,6 @@ export class ProfileComponent implements OnInit {
         }
       },
       (error) => {
-        console.log("Error", error);
         this.alertService.error(error.message);
       }
     );

@@ -28,9 +28,7 @@ export class FriendsComponent implements OnInit {
 
   getMe() {
     this.participantService.get().subscribe((data: any) => {
-      console.log(data);
       this.user = data.data;
-      console.log(this.user);
     });
   }
 
@@ -48,12 +46,10 @@ export class FriendsComponent implements OnInit {
     }
     this.participantService.inviteFriend(post).subscribe(
       (data: any) => {
-        console.log(data);
         this.alertService.success("Invitation sent", { autoClose: true });
         this.getMe();
       },
       (error) => {
-        console.log("Error", error);
         if (error && error.error && error.error.email) {
           this.alertService.error(error.error.email, { autoClose: true });
         } else if (error) {
@@ -75,6 +71,5 @@ export class FriendsComponent implements OnInit {
   onSubmitFriendInvite() {
     let post = { email: this.friendForm.value.email, invite: true };
     this.inviteFriend(post);
-    console.log("friendchange", this.friendForm.value.email);
   }
 }

@@ -27,7 +27,7 @@ export class CategoryFormComponent implements OnInit {
     { name: "AGE", value: "birthyear" },
   ];
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.dynamicForm = this.formBuilder.group({
@@ -44,7 +44,6 @@ export class CategoryFormComponent implements OnInit {
       paypal_status_ok: [""],
       include_seeds: [""],
       include_peers: [""],
-
     });
   }
 
@@ -84,11 +83,9 @@ export class CategoryFormComponent implements OnInit {
    * Submit selection form
    */
   onSubmit() {
-    console.log("submit sel", this.dynamicForm.value);
     this.submitted = true;
     // stop here if form is invalid
     if (this.dynamicForm.invalid) {
-      console.log("invalidform");
       return;
     }
     this.update();
@@ -97,7 +94,6 @@ export class CategoryFormComponent implements OnInit {
    * Emit form value to parent component
    */
   update() {
-    console.log('emiteupdate', this.dynamicForm.value)
     this.formChange.emit(this.dynamicForm.value);
   }
 

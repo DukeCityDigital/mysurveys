@@ -62,12 +62,10 @@ export class PaypalValidateComponent implements OnInit {
         (data: any) => {
           this.confirmedPaypalMe = data.data;
 
-          console.log(data);
           this.alertService.success("Updated", { autoClose: true });
           this.getMe();
         },
         (error) => {
-          console.log("Error", error);
           if (error && error.error) {
             this.alertService.error(error.error.message, { autoClose: true });
           }
