@@ -1,12 +1,18 @@
 <mat-card>
   <mat-card-title> Import/Export Participant Data </mat-card-title>
-  <button (click)="export()">Click to Export CSV</button>
-  <button (click)="export('paypal')">
-    Click to Export CSV formatted for PayPal
-  </button>
+  <ol>
+    <li>Export CSV <button (click)="export()">Click to Export CSV</button></li>
+    <li> Upload CSV
+      <input type="file" class="upload" (change)="changeListener($event.target.files)" />
+    </li>
+    <li>Export Formatted CSV <button (click)="export('paypal')">
+        Click to Export CSV formatted for PayPal
+      </button></li>
+  </ol>
+
+
   <hr />
-  Upload CSV
-  <input type="file" class="upload" (change)="changeListener($event.target.files)" />
+
   <hr />
   <div *ngIf="changesPending" style="overflow: scroll">
     <button (click)="commitChanges()">Commit</button>

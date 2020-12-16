@@ -45,7 +45,7 @@
             <li>Finished: {{ i.finished }}</li>
             <li>
               Payment status:
-              <b>{{ i.payment_confirmed ? "$date paid" : " Incomplete" }} </b>
+              <b>{{ i.payment_confirmed ? 'Paid on ' + i.payment_confirmed : " Incomplete" }} </b>
             </li>
           </ul>
         </div>

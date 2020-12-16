@@ -3,6 +3,7 @@ import { saveAs } from "file-saver";
 import { ProjectService } from "@app/core/services/project.service";
 import { ParticipantService } from "@app/core/services/participant.service";
 import { Project } from "@app/core/models/project.model";
+import { AlertService } from "../_alert";
 
 ProjectService;
 @Component({
@@ -23,7 +24,8 @@ export class DataComponent implements OnInit {
 
   constructor(
     private participantService: ParticipantService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -89,6 +91,7 @@ export class DataComponent implements OnInit {
     });
     this.participantService.updateList(upload).subscribe((data) => {
       this.getData();
+      this.alertService.success("Data Committed");
     });
   }
 
