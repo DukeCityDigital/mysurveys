@@ -70,24 +70,16 @@ export class QualificationComponent implements OnInit {
     private router: Router
   ) {}
 
-  testOne() {
-    // todo: remove
-    this.qualificationForm.setValue({
-      us: "true",
-      parents: "true",
-      friends: "true",
-      gm: "4",
-      vac: "4",
-    });
-  }
   /**
    * Check if user is registered and get profile if so
    */
   getMe() {
-    console.log("getme", this.authService.userValue);
     if (this.authService.userValue) {
       this.participantService.get().subscribe((data: any) => {
         this.user = data.data;
+        if (this.user.survey_complete) {
+          this.submitted = true;
+        }
       });
     }
   }
@@ -173,7 +165,6 @@ export class QualificationComponent implements OnInit {
       .user_submit_qualification_form(qualificationForm)
       .subscribe(
         (data) => {
-          console.log(data);
           //
           this.alertService.success("Successfully submitted", {
             autoClose: true,
@@ -181,7 +172,6 @@ export class QualificationComponent implements OnInit {
           this.getMe();
         },
         (error) => {
-          console.log(error);
           this.alertService.error(error, { autoClose: true });
         }
       );

@@ -18,8 +18,9 @@ export class InviteComponent implements OnInit {
   inviteForm: FormGroup;
   emailPattern = EmailPattern;
   message = "";
+  invitation_success = false;
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   constructor(
     public alertService: AlertService,
@@ -35,14 +36,12 @@ export class InviteComponent implements OnInit {
       email: new FormControl("", [Validators.required, Validators.email]),
     });
   }
+
   get f() {
     return this.inviteForm.controls;
   }
 
-  invitation_success = false;
   onSubmit() {
-
-
     return this.adminService
       .inviteResearcher(this.inviteForm.value)
       .subscribe((data) => {

@@ -17,12 +17,10 @@ export class EmailTemplatesComponent implements OnInit {
     private router: Router,
     private alertService: AlertService
   ) {}
+
   emailTemplateForm: FormGroup;
-
   project_id: any;
-
   templates = [];
-
   showReplacementCodes: boolean = false;
 
   ngOnInit(): void {
@@ -41,7 +39,6 @@ export class EmailTemplatesComponent implements OnInit {
         element.transformed.body = this.emailLines(element.transformed.body);
       });
       this.templates = data.data;
-      console.log(this.templates);
     });
   }
 
@@ -83,11 +80,6 @@ export class EmailTemplatesComponent implements OnInit {
             autoClose: true,
           });
           this.getTemplates();
-          // this.eTService.getAll().subscribe((data: any) => {
-          //
-          //   this.templates = data.data;
-
-          // });
         } else {
           alert(data.message);
         }

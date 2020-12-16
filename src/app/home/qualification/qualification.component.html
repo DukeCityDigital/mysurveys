@@ -6,8 +6,9 @@
   <mat-icon style="font-size:44px;">thumb_up</mat-icon>
 </mat-card>
 
+<!-- <div *ngIf="!submitted && user && user.survey_complete !== true" class="surveyActual"> -->
 
-<div *ngIf="!submitted && user && user.survey_complete !== true" class="surveyActual">
+<div *ngIf="!submitted" class="surveyActual">
   <!-- <button mat-stroked-button (click)="testOne()" class="TODO">Dev->qualified</button> -->
   <div class="centerheader">
     <h1>Welcome!</h1>
@@ -158,7 +159,6 @@
   <h2>
     Thank you for your submission, unfortunately you don't fit the study
     criteria - thank you for your interest however!
-    <span class="TODO">direct elsewhere? helpful info</span>
   </h2>
 </mat-card>
 <div *ngIf="qualified && submitted">

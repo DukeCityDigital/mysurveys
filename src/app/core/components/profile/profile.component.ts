@@ -109,7 +109,6 @@ export class ProfileComponent implements OnInit {
       .profile()
       .pipe(tap((user: any) => this.profileForm.patchValue(user.data)))
       .subscribe((data: any) => {
-        console.log(data);
         this.participant = data.data;
         this.alertService.success(data.message, { autoClose: true });
       });

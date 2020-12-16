@@ -24,7 +24,6 @@ import { NotificationsComponent } from "./core/components/notifications/notifica
 import { ParticipantsComponent } from "./core/components/participants/participants.component";
 import { DataComponent } from "./core/components/data/data.component";
 import { ManageUserComponent } from "./core/components/manage-user/manage-user.component";
-import { EmailTemplatesModule } from "./core/components/email-templates/email-templates.module";
 
 const routes: Routes = [
   {

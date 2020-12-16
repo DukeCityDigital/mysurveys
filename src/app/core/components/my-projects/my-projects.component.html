@@ -37,10 +37,10 @@
               Expected payout {{ i.project.exp_payout | currency: "USD" }}
             </li>
             <li *ngIf="!i.finished">
-              ink:
+              link:
               <a target="_BLANK" href="{{ i.project.link }}">{{
                 i.project.link
-              }}</a>
+                }}</a>
             </li>
             <li>Finished: {{ i.finished }}</li>
             <li>

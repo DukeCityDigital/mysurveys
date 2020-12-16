@@ -82,7 +82,6 @@ export class ManageParticipantsComponent implements OnInit {
     let id = this.project_id;
     if (this.project_id) {
       this.eTService.getAllWithProject(id).subscribe((data: any) => {
-        console.log(data);
         data.data.forEach((element) => {
           element.transformed.body = this.emailLines(element.transformed.body);
         });
@@ -140,13 +139,13 @@ export class ManageParticipantsComponent implements OnInit {
     }
     if (testEmail) {
       post.test = true;
-    }
-    post.ids = [];
-    if (!ids) {
-      post.ids = this.selectedIds;
+      post.ids = [];
     } else {
-      post.ids = ids;
+      post.test = false;
+
+      post.ids = this.selectedIds;
     }
+
     this.projectService
       .send_custom_message(post)
       .pipe(first())

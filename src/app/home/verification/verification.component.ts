@@ -18,21 +18,24 @@ import { AlertService } from "@app/core/components/_alert";
   styleUrls: ["./verification.component.scss"],
 })
 export class VerificationComponent implements OnInit {
+  @Input("qualificationForm") qualificationForm: any;
+
   emailPattern = EmailPattern;
   passwordPattern = PasswordPattern;
   registered = false;
   emailLinkAttempt = false;
-  @Input("qualificationForm") qualificationForm: any;
-
   emailLinked = false;
   emailLinkFoundAndHandled = false;
   emailLinkFoundAndHandledResearcher = false;
-
   emailLinkNotFound = false;
   emailVerificationForm: FormGroup;
   submitted = false;
   userEmail: string;
   user: any;
+  errors = [];
+
+  public reactiveForm: FormGroup = new FormGroup({});
+
   createSignupForm(): FormGroup {
     return this.formBuilder.group({
       email: new FormControl("", [Validators.required, Validators.email]),
@@ -51,8 +54,6 @@ export class VerificationComponent implements OnInit {
     this.emailVerificationForm = this.createSignupForm();
   }
 
-  public reactiveForm: FormGroup = new FormGroup({});
-  errors = [];
   ngOnInit(): void {
     //check if passed param
     this.route.paramMap.subscribe((params: any) => {
@@ -68,14 +69,14 @@ export class VerificationComponent implements OnInit {
     return this.emailVerificationForm.controls;
   }
 
-  test() {
-    this.register(
-      "phil22" +
-        Math.random().toString().split(".")[1].slice(1, 5) +
-        "@dukecitydigital.com",
-      "Testpass12!"
-    );
-  }
+  // test() {
+  //   this.register(
+  //     "phil22" +
+  //       Math.random().toString().split(".")[1].slice(1, 5) +
+  //       "@dukecitydigital.com",
+  //     "Testpass12!"
+  //   );
+  // }
 
   onSubmit() {
     this.submitted = true;
@@ -99,7 +100,6 @@ export class VerificationComponent implements OnInit {
           this.user = data;
           if (data.role === "participant") {
             this.emailLinkFoundAndHandled = true;
-
             this.authService.quickLogin(data);
           } else {
             this.emailLinkFoundAndHandledResearcher = true;

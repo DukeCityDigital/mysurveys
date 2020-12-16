@@ -42,7 +42,6 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    console.log(this.user);
     if (!this.user) {
       this.authenticationService.logout();
     }
