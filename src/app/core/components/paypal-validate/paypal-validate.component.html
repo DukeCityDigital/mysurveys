@@ -4,76 +4,99 @@
     </mat-card-title>
     <h3>Welcome to MySurveys! We are delighted that you joined us.</h3>
     <p>
-        Within a month we will send an invitation to a short,
-        paid study about your current opinions to your PayPal email address. </p>
+        Wie will be sending an invitation to a short, paid study about your current opinions to your PayPal email
+        address. </p>
     <p>
         In order to make payments, we need to have both your
         <b>primary PayPal email address</b> and your
         <a target="_NEW" href="https://www.paypal.com/paypalme/grab">PayPal.Me</a> link.
-        Your primary PayPal email address may not be the same as the address you used to sign up.
+        Your primary PayPal doesn't need to be the email address used to sign up.
     </p>
-    <p><b>Please enter your paypal information below, and click submit. You may scroll down for further instructions
+    <p><b>Please enter your PayPal information below, and click submit. Scroll past the blue bar for further
+            instructions.
         </b></p>
     <form (ngSubmit)="onSubmitPaypalForm()" [formGroup]="paypalForm">
         <h2>Your PayPal Information</h2>
-        <label for="email">Primary PayPal Email Address</label>
-        <input required style="border:1px solid black;width:100%;" type="email" id="email" name="email"
-            formControlName="email" matInput placeholder="&nbsp;Paypal Email" class="example-full-width" />
-        <label for="paypalme">PayPal.Me Link</label>
-
-        <input required style="border:1px solid black;width:100%;" type="text" id="paypalme" name="paypalme"
-            formControlName="paypalme" minlength="3" matInput placeholder="&nbsp;PayPal.Me Link"
-            class="example-full-width" />
-        <div style="padding:2px;color:orange;">
-            Only enter the part of your PayPal.Me address after <code>PayPal.Me/</code>
-        </div>
-        <button [disabled]="!paypalForm.valid" mat-stroked-button color="primary" type="submit">submit</button>
+        <mat-form-field style="width:100%;" appearance="outline">
+            <mat-label>
+                Primary PayPal Email Address
+            </mat-label>
+            <input required type="email" id="email" name="email" formControlName="email" matInput
+                placeholder="&nbsp;Paypal Email" class="example-full-width" />
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-hint>
+                Your primary PayPal email
+            </mat-hint>
+        </mat-form-field>
+        <hr>
+        <mat-form-field style="width:100%;" appearance="outline">
+            <mat-label>PayPal.me Link</mat-label>
+            <input required type="text" id="paypalme" name="paypalme" formControlName="paypalme" minlength="3" matInput
+                placeholder="&nbsp;PayPal.Me Link" class="example-full-width" />
+            <mat-icon matSuffix>link</mat-icon>
+            <mat-hint> Only enter the part of your PayPal.Me address after <code>PayPal.Me/</code>&nbsp;&nbsp; <a
+                    target="_NEW" href="https://www.paypal.com/paypalme/grab">
+                    <mat-icon>info</mat-icon>
+                </a></mat-hint>
+        </mat-form-field>
+        <button [disabled]="!paypalForm.valid" mat-stroked-button color="primary" type="submit">Submit</button>
 
     </form>
-    Your current info:
-    <div *ngIf="user" style="background:lightgrey;">
-        Paypal ID: {{user.paypal_id}}<br>
-        Paypal.Me: {{user.paypal_me}}<br>
-        <div *ngIf="confirmedPaypalMe">
-            <h3 class="alert-success">
-                Account confirmed as:
-                [{{confirmedPaypalMe}}]<br> If this is your account you're all set!
-            </h3>
+    <br>
+    <mat-card>
+        <mat-card-title>
+            Your current info:
+        </mat-card-title>
+
+        <div *ngIf="user" style="background:l#b0ccff;">
+            Paypal ID: {{user.paypal_id}}<br>
+            Paypal.Me: {{user.paypal_me}}<br>
+            <div *ngIf="confirmedPaypalMe">
+                <h3 class="alert-success">
+                    Account confirmed as:
+                    [{{confirmedPaypalMe}}]<br> If this is your account you're all set!
+                </h3>
+            </div>
         </div>
-    </div>
-    <p>
-        If you don't have a PayPal account, you can sign up for one <a target="_NEW"
-            href="https://www.paypal.com/welcome/signup/">here</a>.
-        Once you have a PayPal account, you can <a target="_NEW" href="https://www.paypal.com/paypalme/grab">get
-            your PayPal.Me link</a> in just a few seconds.
-    </p>
-    <p>For detailed instructions on opening a PayPal account and obtaining a
-        PayPal.Me link, click the buttons below. Otherwise, please input your PayPal
-        information at the bottom of this page.</p><br>
-    <div style="text-align:center;">
+        <p>
+            If you don't have a PayPal account, you can sign up for one <a target="_NEW"
+                href="https://www.paypal.com/welcome/signup/">here</a>.
+            Once you have a PayPal account, you can <a target="_NEW" href="https://www.paypal.com/paypalme/grab">get
+                your PayPal.Me link by clicking here</a>.
+        </p>
+    </mat-card>
+
+
+    <!-- <p>For detailed instructions on opening a PayPal account and obtaining a
+        PayPal.Me link, click the buttons below.</p> -->
+
+    <!-- <div style="text-align:center;">
         <button mat-stroked-button (click)="showInfo = !showInfo">
             <mat-icon>info</mat-icon>
             Click for info on opening a PayPal account
         </button>
-    </div>
+    </div> -->
     <br>
-    <mat-card *ngIf="showInfo ==true">
-        You can open a PayPal account at <a target="_NEW"
-            href="https://www.paypal.com/welcome/signup/">www.paypal.com</a> in just a few minutes.
-        <p> You will only need to provide your name, email, and mailing address (mysurvey will not have access to this
-            information).
-            Your PayPal email address can be the same as the one you used to sign up for mysurvey, but you can also
-            use another one.
-        </p>
-        <p>
-            In order to spend or withdraw your mysurvey payments, you will have to verify your PayPal account by
-            adding a credit card or bank account to your PayPal Account.</p>
-        <p class="TODO">For more detailed instructions on opening a PayPal account, click
-            <a href="InstructionsPayPal.php">here</a>
-        </p>
-    </mat-card>
+    <!-- <mat-card *ngIf="showInfo ==true">
+        <ul>
+            <li> You can open a PayPal account at <a target="_NEW"
+                    href="https://www.paypal.com/welcome/signup/">www.paypal.com</a></li>
+            <li>
+                You will only need to provide your name, email, and mailing address (mysurvey will not have access to
+                this
+                information).
+                Your PayPal email address can be the same as the one you used to sign up for mysurvey, but you can also
+                use another one.
+            </li>
+            <li>In order to spend or withdraw your mysurvey payments, you will have to verify your PayPal account by
+                adding a credit card or bank account to your PayPal Account.</li>
+            <li></li>
+        </ul>
+
+
+    </mat-card> -->
     <br>
-    <div>
+    <!-- <div>
         <div style="text-align:center;">
             <img style="width:20%;margin:22px auto;" src="/assets/paypalme.jpg">
         </div>
@@ -90,5 +113,5 @@
             to add a photo – this is not necessary.
             Click Create Your PayPal.Me when you’re ready. Then Copy the link and paste it in the form below, along
             with your Primary PayPal email address.<br>
-    </div>
+    </div> -->
 </mat-card>
