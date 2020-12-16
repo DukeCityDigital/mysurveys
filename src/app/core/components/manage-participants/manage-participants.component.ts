@@ -212,7 +212,7 @@ export class ManageParticipantsComponent implements OnInit {
     if (r !== true) {
       return false;
     }
-    if (!selectedIDs.length) {
+    if (!selectedIDs) {
       selectedIDs = this.selectedIds;
     }
     var testMode = "DEVELOPMENT";
