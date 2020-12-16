@@ -69,15 +69,6 @@ export class VerificationComponent implements OnInit {
     return this.emailVerificationForm.controls;
   }
 
-  // test() {
-  //   this.register(
-  //     "phil22" +
-  //       Math.random().toString().split(".")[1].slice(1, 5) +
-  //       "@dukecitydigital.com",
-  //     "Testpass12!"
-  //   );
-  // }
-
   onSubmit() {
     this.submitted = true;
     this.errors = [];

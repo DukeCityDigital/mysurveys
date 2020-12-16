@@ -74,7 +74,7 @@
             include some corn, soybeans, and canola. The next question is about
             GM food made from these crops.
           </p>
-          <label id="example-radio-group-labelgm">Do you think it is unsafe or fsafe to eat GM food? Select the
+          <label id="example-radio-group-labelgm">Do you think it is unsafe or safe to eat GM food? Select the
             number that comes closest to your views
           </label>
 
@@ -155,10 +155,9 @@
     </div>
   </div>
 </div>
-<mat-card *ngIf="!qualified && submitted">
+<mat-card *ngIf="!qualified && submitted" style="margin:12px;">
   <h2>
-    Thank you for your submission, unfortunately you don't fit the study
-    criteria - thank you for your interest however!
+    Thank you for your submission. Unfortunately, you aren't a match for any current studies
   </h2>
 </mat-card>
 <div *ngIf="qualified && submitted">

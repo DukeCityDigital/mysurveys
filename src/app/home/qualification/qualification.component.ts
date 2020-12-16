@@ -112,18 +112,17 @@ export class QualificationComponent implements OnInit {
     let vacOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
 
     if (
-      (f.us === "true" &&
-        f.parents === "true" &&
-        f.friends === "true" &&
-        vacOk) ||
+      f.us === "true" &&
+      f.parents === "true" &&
+      f.friends === "true" &&
+      vacOk &&
       gmOk
     ) {
       qualified = true;
     } else {
       qualified = false;
     }
-
-    // debugger;
+    debugger;
     this.qualified = qualified;
     // return qualified;
     // window.setTimeout(() => ChromeSamples.log(counterB.seconds), 1200);
