@@ -212,16 +212,15 @@ export class ManageParticipantsComponent implements OnInit {
     if (r !== true) {
       return false;
     }
-    let ids = this.selectedIds;
-    if (!ids.length) {
-      return false;
+    if (!selectedIDs.length) {
+      selectedIDs = this.selectedIds;
     }
     var testMode = "DEVELOPMENT";
     if (this.TEST_MODE === false) {
       testMode = "PRODUCTION";
     }
     let post = {
-      ids: ids,
+      ids: selectedIDs,
       project_id: this.project_id,
       TEST_MODE: testMode,
     };
@@ -233,6 +232,8 @@ export class ManageParticipantsComponent implements OnInit {
    * @param ids
    */
   public sendProjectReminders(selectedIDs?) {
+    console.log(selectedIDs);
+
     let post = this.prepareRequest(selectedIDs);
     post.reminder = true;
     this.sendSelectedNotifications(post);
@@ -243,6 +244,7 @@ export class ManageParticipantsComponent implements OnInit {
    * @param ids
    */
   public sendProjectInvitations(selectedIDs?) {
+    console.log(selectedIDs);
     let post = this.prepareRequest(selectedIDs);
 
     this.sendSelectedNotifications(post);
