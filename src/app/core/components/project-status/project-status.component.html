@@ -12,7 +12,7 @@
             Project start state:
             {{ project.start_state === "Open" ? "Open" : "Closed" }}
         </li>
-        <li *ngIf="project.link_method === 'Direct'; else fixed">
+        <!-- <li *ngIf="project.link_method === 'Direct'; else fixed">
             The project link method is <b>Direct</b> <br />&nbsp;&nbsp;You
             wish to have a sample size of
             <b>{{ project.desired_sample_size }}</b> participants, with a
@@ -20,7 +20,7 @@
             <b> {{ project.desired_num_invitations }}</b> invitations
             <br />
         </li>
-        <ng-template #fixed> The payout type is <b>Fixed</b> </ng-template>
+        <ng-template #fixed> The payout type is <b>Fixed</b> </ng-template> -->
         <li *ngIf="!project.quota || parseInt(project.quota) <= 0; else quota">
             <span class="error">
                 You have no quota with which to pay participants, only the
@@ -30,12 +30,12 @@
         <ng-template #quota>
             Your quota for the project is {{ project.quota }}
         </ng-template>
-        <li *ngIf="project.link_method === 'Direct'">
+        <!-- <li *ngIf="project.link_method === 'Direct'">
             The link method is <strong>Direct</strong>. There are no automatic
             payments. You wish to have a sample size of
             {{ project.desired_sample_size }} participants, with a maximum of
             {{ project.desired_num_invitations }} invitations.
-        </li>
+        </li> -->
         <li *ngIf="project.payout_type === 'Fixed'">
             Payout type is <b>Fixed</b>
         </li>
