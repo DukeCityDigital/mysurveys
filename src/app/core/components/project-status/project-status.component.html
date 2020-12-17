@@ -57,7 +57,7 @@
         <li>Desired sample size: {{ project.desired_sample_size }}</li>
 
         <li *ngIf="
-        totalParticipants > parseInt(project.desired_sample_size);
+        totalParticipants >= parseInt(project.desired_sample_size);
         else moreParticipants
       ">
             <mat-icon>check</mat-icon> You have at least the desired number of
@@ -74,6 +74,9 @@
             You need more participants to satisfy your target sample size
         </h2>
     </ng-template>
+    {{totalParticipants}}
+    <br>
+    {{parseInt(project.desired_sample_size)}}
     <div style="background: white" class="primary success"
         *ngIf="totalParticipants > parseInt(project.desired_sample_size)">
         You can change the project state from 'Design' to 'Started' to start
