@@ -110,7 +110,7 @@ export class DataComponent implements OnInit {
       data = this.exportData;
     }
     if (!data.length) {
-      // return false;
+      return this.alertService.error("No data on project completion");
     }
 
     const replacer = (key, value) => (value === null ? "" : value); // specify how you want to handle null values here
