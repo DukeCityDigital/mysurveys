@@ -38,8 +38,11 @@ export class ManageUserComponent implements OnInit {
       banned_reason: [""],
       banned: [""],
       warnings: [""],
+      paypal_id_status: [""],
     });
   }
+
+  options_paypal_id_status = ["Ok", "New", "Invalid"];
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: any) => {
@@ -70,6 +73,7 @@ export class ManageUserComponent implements OnInit {
       banned_reason: r.banned_reason,
       id: r.id,
       warnings: r.warnings,
+      paypal_id_status: r.participant.paypal_id_status,
     };
     this.userForm.patchValue(formValues);
     this.userForm.controls.email.disable();

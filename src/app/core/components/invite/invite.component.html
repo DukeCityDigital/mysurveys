@@ -5,16 +5,15 @@
       fewer
     </h3>
     <h3>An example of the email appears below the form</h3>
-    <form class="example-form login-form" (ngSubmit)="onSubmit(); inviteForm.reset(); inviteForm.markAsPristine()"
-      [formGroup]="inviteForm">
+    <form class="example-form login-form" (ngSubmit)="onSubmit();" [formGroup]="inviteForm">
       <mat-form-field class="example-full-width" appearance="outline">
-        <input type="email" email formControlName="email" matInput required placeholder="Email" />
+        <input type="email" email formControlName="email" matInput placeholder="Email" />
         <!-- <mat-error *ngIf="f.email.errors" class="invalid-feedback">
           <div *ngIf="f.email.errors.required">Email is required</div>
         </mat-error>  -->
       </mat-form-field><br />
       <mat-form-field class="example-full-width" appearance="outline">
-        <input maxlength="15" placeholder="Nickname" type="nickname" formControlName="nickname" matInput required />
+        <input maxlength="15" placeholder="Nickname" type="nickname" formControlName="nickname" matInput />
       </mat-form-field><br />
 
       <br />

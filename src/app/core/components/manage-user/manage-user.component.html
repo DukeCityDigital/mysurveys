@@ -13,6 +13,27 @@
             <input matInput type="text" formControlName="email" placeholder="email" name="email" class="form-control"
                 id="email" />
         </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>PayPal Id Status</mat-label>
+
+            <mat-select formControlName="paypal_id_status" placeholder="PP ID Status" name="paypal_id_status">
+                <mat-option *ngFor="let item of options_paypal_id_status" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-select>
+            <!-- <input matInput type="text" formControlName="paypal_id_status" placeholder="paypal_id_status"
+                name="paypal_id_status" class="form-control" id="paypal_id_status" /> -->
+        </mat-form-field>
+
+        <!-- <mat-label>Project Start State</mat-label>
+        <mat-select placeholder="Project Start State" formControlName="start_state" name="start_state">
+          <mat-option value="Open"> Open </mat-option>
+          <mat-option value="Closed"> Closed </mat-option>
+        </mat-select> -->
+
+
+
+
         <mat-form-field hintLabel="Keep track of infractions" appearance="outline">
             <mat-label> Warnings</mat-label>
             <input matInput type="number" min="0" max="5" formControlName="warnings" placeholder="warnings"
@@ -26,10 +47,10 @@
         </mat-form-field>
         <mat-slide-toggle color="warning" formControlName="banned">{{userForm.value.banned ? 'Banned' : 'Click to ban'}}
         </mat-slide-toggle>
-        <button type="submit" [disabled]="userForm.invalid" mat-stroked-button color="primary">
+        <button type="submit" [disabled]="userForm.invalid" mat-raised-button color="primary">
             Update
         </button>
-        <button color="warn" (click)="deleteUser();" mat-flat-button>
+        <button color="warn" (click)="deleteUser();" style="width:240px;margin:44px auto;" mat-flat-button>
             Click to delete user from system
         </button>
     </form>

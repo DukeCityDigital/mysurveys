@@ -45,8 +45,19 @@ export class InviteComponent implements OnInit {
     return this.adminService
       .inviteResearcher(this.inviteForm.value)
       .subscribe((data) => {
+        console.log(data);
         this.invitation_success = true;
+        this.inviteForm = this.createInviteForm();
+
+        // this.formReset(this.inviteForm);
         this.alertService.success("Successfully sent", { autoClose: true });
       });
+  }
+
+  formReset(formGroup: FormGroup) {
+    formGroup.reset();
+    formGroup.markAsPristine();
+    formGroup.markAsUntouched();
+    formGroup.setErrors(null);
   }
 }

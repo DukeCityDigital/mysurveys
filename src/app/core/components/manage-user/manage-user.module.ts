@@ -7,6 +7,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
   declarations: [ManageUserComponent],
@@ -19,6 +20,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     MatCardModule,
     MatButtonModule,
     MatSlideToggleModule,
+    MatSelectModule,
   ],
   exports: [ManageUserComponent],
 })
