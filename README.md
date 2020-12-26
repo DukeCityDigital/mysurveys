@@ -1,3 +1,9 @@
+## changelog
+
+as of 12.25.2020
+
+//fixed var. bugs
+
 # MySurveys
 
 MySurveys is an open source web app designed to help researchers conduct studies. You can read more about conducting surveys by reading the documentation

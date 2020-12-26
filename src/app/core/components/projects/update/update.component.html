@@ -1,10 +1,8 @@
--<mat-card>
-  <!-- {{project | json}} -->
+<mat-card>
   <mat-card-title>Project Management</mat-card-title>
   <h3>Project Title: {{ project ? project.project_title : null }}</h3>
   <mat-tab-group dynamicHeight (selectedIndexChange)="selectedIndexChange($event)">
     <mat-tab label="Edit Project">
-      <!-- {{editForm.value | json}} -->
       <form [formGroup]="editForm" (ngSubmit)="onSubmit()" style="display: grid">
         <div [hidden]="true">
           <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id" />
@@ -38,20 +36,6 @@
               editForm.value.link
             }}</a></code>
         </span>
-        <!-- <mat-form-field appearance="outline">
-          <mat-label>Link method</mat-label>
-          <mat-select placeholder="Link method" formControlName="link_method" name="link_method">
-            <mat-option value="Direct">
-              Login Required L.R. - simple link
-            </mat-option>
-            <mat-option value="Login">
-              L.R. Link with named paramters
-            </mat-option>
-            <mat-option value="LoginInfo">
-              L.R. Link with Unipark-style paramters
-            </mat-option>
-          </mat-select>
-        </mat-form-field> -->
         <mat-form-field appearance="outline">
           <mat-label>Responsible Person</mat-label>
           <input matInput type="text" formControlName="responsible_person" placeholder="responsible_person"
@@ -107,7 +91,7 @@
     <mat-tab label="Manage selected participants">
       <mat-card>
         <mat-card-title>Project participants</mat-card-title>
-        <app-manage-participants></app-manage-participants>
+        <app-manage-participants [project]="project"></app-manage-participants>
       </mat-card>
     </mat-tab>
     <mat-tab label="Manage Project State / Data">
@@ -116,9 +100,9 @@
         <b>Current State: {{ project.state }}</b><br />
         <b>Current Start State: {{ project.start_state }}</b><br />
         <p>
-          Change the project state here. Halt the project to conclude it - this
-          prevents further invitations and users who have been invited can no
-          longer begin the study
+          Change the project state here.<br>
+          If the project 'start_state' is closed, you cannot send new invitations.<br>
+          Change the project state to 'halt' to conclude it.
         </p>
         <form [formGroup]="haltProjectForm" style="display: grid" (ngSubmit)="changeProjectState()">
           <div [hidden]="true">
@@ -146,6 +130,5 @@
       </div>
       <app-data [project]="project" [project_id]="project_id"></app-data>
     </mat-tab>
-
   </mat-tab-group>
 </mat-card>

@@ -3,7 +3,7 @@
     <mat-card-title>
         Projects
     </mat-card-title>
-    <a mat-stroked-button [routerLink]="'create'">Create new project</a>
+    <a mat-stroked-button class="nextbutton" [routerLink]="'create'">Create new project</a>
     <table style="background:whitesmoke;border:1px solid blue;">
         <thead>
             <tr>
@@ -23,11 +23,9 @@
                 <td>{{p.created_at}}</td>
                 <td>{{p.creator_userid}}</td>
                 <td>
-
                     <button mat-stroked-button type="button" [routerLink]="['update/', p.id]">Edit</button>
                     <button mat-stroked-button type="button"
                         [routerLink]="['/dashboard/email-templates/project', p.id]">Email Templates</button>
-
                     <button mat-stroked-button type="button" (click)="delete(p.id)">Remove</button>
                 </td>
             </tr>

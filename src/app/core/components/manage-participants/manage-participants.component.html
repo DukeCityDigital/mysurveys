@@ -6,27 +6,38 @@
   <li>or choose a template from the dropdown</li>
 </ul>
 <mat-progress-bar *ngIf="isLoadingResults" mode="query"></mat-progress-bar>
-<button mat-stroked-button (click)="onRunTable('invited')">
-  Select invited
-</button>
-<button mat-stroked-button (click)="onRunTable('!invited')">
-  Select not yet invited
-</button>
-<button mat-stroked-button (click)="onRunTable('!finished|invited')">
-  Select invited but not finished
-</button>
-<button mat-stroked-button (click)="onRunTable('!finished|started')">
-  Select started but not finished
-</button>
-<button mat-stroked-button (click)="onRunTable('finished')">
-  Select finished
-</button><br>
-<button mat-stroked-button (click)="onRunTable('payment_confirmed')">
-  Select paid and verified <mat-icon>attach_money</mat-icon>
-</button>
-<hr>
-<button (click)="showCustomEmailPanel = !showCustomEmailPanel" mat-raised-button color="primary">{{showCustomEmailPanel
-  ? 'Hide' : 'Show'}} Custom Email Panel</button>
+<div style="text-align:center;" class="buttonsection">
+  <b>Show users who are</b><br>
+  <button mat-stroked-button (click)="onRunTable('invited')">
+    invited
+  </button>
+  <button mat-stroked-button (click)="onRunTable('!invited')">
+    not yet invited
+  </button>
+  <button mat-stroked-button (click)="onRunTable('!finished|invited')">
+    invited but not finished
+  </button>
+  <button mat-stroked-button (click)="onRunTable('!finished|started')">
+    started but not finished
+  </button>
+  <button mat-stroked-button (click)="onRunTable('finished')">
+    finished
+  </button><br>
+  <button mat-stroked-button (click)="onRunTable('payment_confirmed')">
+    paid and verified <mat-icon>attach_money</mat-icon>
+  </button>
+  <hr>
+
+  <h2>
+    <code>{{ resultsLength }}</code> project participants selected
+  </h2>
+  <button (click)="showCustomEmailPanel = !showCustomEmailPanel" mat-raised-button
+    color="primary">{{showCustomEmailPanel
+    ? 'Hide' : 'Show'}} Custom Email Panel</button>
+  <button [disabled]="_LOADING" mat-stroked-button color="warn" (click)="sendProjectInvitations()">
+    Send Project Invitation Emails
+  </button><br>
+</div>
 <div *ngIf="showCustomEmailPanel">
   <h3>Custom emails</h3>
   <p>Choose an email template to send</p>
@@ -50,19 +61,14 @@
       </button>
     </mat-tab>
   </mat-tab-group>
-
 </div>
 <div>
-  <h3>
-    Your current selection is <code>{{ resultsLength }}</code> of the project
-    participants
-  </h3>
-  <button [disabled]="_LOADING" mat-stroked-button color="warn" (click)="sendProjectInvitations()">
-    Send Project Invitation Emails
-  </button><br>
-  <mat-checkbox [(ngModel)]="TEST_MODE">Test Mode [{{ TEST_MODE }}]</mat-checkbox>
+
+
+  <!-- <mat-checkbox [(ngModel)]="TEST_MODE">Test Mode [{{ TEST_MODE }}]</mat-checkbox> -->
   <div *ngIf="!TEST_MODE" style="text-align: center; color: orange">
     <h2 class="warn">Production Mode</h2>
+    <p>A quota must be in place and the project 'start_state' must be set to 'start' to send invitations</p>
   </div><br>
   <button mat-stroked-button (click)="showEmailSample = !showEmailSample">
     {{showEmailSample ? 'Hide' : 'Show'}} Email Sample

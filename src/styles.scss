@@ -286,6 +286,20 @@ mat-icon {
   color: red;
 }
 
+.nextbutton {
+  background: $sfblue;
+  color: white;
+  margin: 2px 0;
+}
+
+.nextbutton:visited {
+  color: white;
+}
+
+.buttonsection button {
+  margin: 5px;
+}
+
 /* Responsive Styles */ /* Responsive Styles */ /* Responsive Styles */ /* Responsive Styles */
 
 /* Responsive Styles */ /* Responsive Styles */ /* Responsive Styles */ /* Responsive Styles */

@@ -37,7 +37,7 @@ export class ManageParticipantsComponent implements OnInit {
   data: any;
   //filter to require non invited etc. .
   filter: string = "undefined";
-  public TEST_MODE: boolean = true;
+  public TEST_MODE: boolean = false;
   invitationErrors: any;
 
   PREVIEWING: boolean = false;
@@ -78,27 +78,6 @@ export class ManageParticipantsComponent implements OnInit {
 
   templates = [];
 
-  getTemplates() {
-    let id = this.project_id;
-    if (this.project_id) {
-      this.eTService.getAllWithProject(id).subscribe((data: any) => {
-        data.data.forEach((element) => {
-          element.transformed.body = this.emailLines(element.transformed.body);
-        });
-        this.templates = data.data;
-      });
-    }
-  }
-
-  emailLines(body: string) {
-    let lines = [];
-    body.split("*nl*").forEach((element) => {
-      lines.push(element);
-    });
-
-    return lines;
-  }
-
   ngOnInit(): void {
     this.customEmailForm = this.formBuilder.group({
       subject: ["", Validators.required],
@@ -114,6 +93,10 @@ export class ManageParticipantsComponent implements OnInit {
         this._LOADING = state.show;
       });
   }
+
+  /**
+   * Get templates for project by ID
+   */
   ngAfterViewInit() {
     this.route.paramMap.subscribe((params) => {
       this.project_id = +params.get("id");
@@ -125,12 +108,60 @@ export class ManageParticipantsComponent implements OnInit {
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
     this.runTable();
   }
+  /**
+   * Get email templates
+   */
+  getTemplates() {
+    let id = this.project_id;
+    if (this.project_id) {
+      this.eTService.getAllWithProject(id).subscribe((data: any) => {
+        data.data.forEach((element) => {
+          element.transformed.body = this.emailLines(element.transformed.body);
+        });
+        this.templates = data.data;
+      });
+    }
+  }
+
+  /**
+   * Replace tags with new lines
+   * @param body
+   */
+  emailLines(body: string) {
+    let lines = [];
+    body.split("*nl*").forEach((element) => {
+      lines.push(element);
+    });
+
+    return lines;
+  }
+
+  /**
+   * Make sure a quota is assigned and start state is correct
+   */
+  checkStartState() {
+    if (parseInt(this.project.quota) <= 0) {
+      this.alertService.error("The project quota is 0");
+      return false;
+    }
+    if (this.project.start_state !== "Open") {
+      this.alertService.error("The project start state is not open");
+      return false;
+    }
+    if (this.project.state !== "Started") {
+      this.alertService.error("The project start state is not open");
+      return false;
+    }
+
+    return true;
+  }
 
   /**
    * Send custom notification
    * @param testEmail
    */
   onSubmitCustomEmail(ids?, testEmail?: boolean, template?) {
+    if (!this.checkStartState()) return null;
     var post = this.customEmailForm.value;
     post.project_id = this.project_id;
     post.template_id = template.id;
@@ -170,6 +201,8 @@ export class ManageParticipantsComponent implements OnInit {
    * @param post
    */
   public sendSelectedNotifications(post) {
+    if (!this.checkStartState()) return null;
+
     this.pService.sendProjectInvitations(post).subscribe(
       (data: any) => {
         //if preview (test mode) is selected, show preview table and any errors
