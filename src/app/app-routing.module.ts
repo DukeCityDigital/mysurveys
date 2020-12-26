@@ -20,7 +20,7 @@ import { LogComponent } from "./core/components/log/log.component";
 import { UsersComponent } from "./core/components/users/users.component";
 import { MyProjectsComponent } from "./core/components/my-projects/my-projects.component";
 import { PayoutsComponent } from "./core/components/payouts/payouts.component";
-import { NotificationsComponent } from "./core/components/notifications/notifications.component";
+// import { NotificationsComponent } from "./core/components/notifications/notifications.component";
 import { ParticipantsComponent } from "./core/components/participants/participants.component";
 import { DataComponent } from "./core/components/data/data.component";
 import { ManageUserComponent } from "./core/components/manage-user/manage-user.component";
@@ -43,29 +43,30 @@ const routes: Routes = [
       {
         path: "settings",
         component: SettingsComponent,
-        // data: { roles: [Role.administrator] },
+        canActivate: [AuthGuard],
+
+        data: { roles: [Role.administrator] },
       },
       {
         path: "paypal",
         component: PaypalValidateComponent,
-        // data: { roles: [Role.administrator] },
       },
       {
         path: "projects",
-
         loadChildren: () =>
           import(`./core/components/projects/projects.module`).then(
             (m) => m.ProjectsModule
           ),
+        canActivate: [AuthGuard],
+        data: { roles: [Role.researcher] },
       },
       {
         path: "email-templates",
-
         loadChildren: () =>
           import(
             `./core/components/email-templates/email-templates.module`
           ).then((m) => m.EmailTemplatesModule),
-        data: { roles: [Role.researcher] },
+        data: { roles: [Role.researcher], canActivate: [AuthGuard] },
       },
       {
         path: "profile",
@@ -74,60 +75,60 @@ const routes: Routes = [
       {
         path: "friends",
         component: FriendsComponent,
-        data: { roles: [Role.administrator, Role.participant] },
+        data: {
+          roles: [Role.administrator, Role.participant],
+          canActivate: [AuthGuard],
+        },
       },
       {
         path: "log",
         component: LogComponent,
+        canActivate: [AuthGuard],
         data: { roles: [Role.administrator] },
       },
       {
         path: "payouts",
         component: PayoutsComponent,
+        canActivate: [AuthGuard],
+
         data: { roles: [Role.administrator] },
       },
-
       // {
-      //   path: "motd",
-      //   component: MotdComponent,
+      //   path: "notifications",
+      //   component: NotificationsComponent,
+      //   canActivate: [AuthGuard],
       //   data: { roles: [Role.administrator] },
       // },
       {
-        path: "notifications",
-        component: NotificationsComponent,
-        data: { roles: [Role.administrator] },
-      },
-      {
         path: "users",
         component: UsersComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         pathMatch: "full",
-        // children: [],
-        // data: { roles: [Role.administrator, Role.researcher] },
+        data: { roles: [Role.administrator] },
       },
       {
         path: "manage-user",
         component: ManageUserComponent,
-        // canActivate: [AuthGuard],
-        data: { roles: [Role.administrator, Role.researcher] },
+        canActivate: [AuthGuard],
+        data: { roles: [Role.administrator] },
       },
       {
         path: "manage-user/:id",
         component: ManageUserComponent,
-        // canActivate: [AuthGuard],
-        data: { roles: [Role.administrator, Role.researcher] },
+        canActivate: [AuthGuard],
+        data: { roles: [Role.administrator] },
       },
 
       {
         path: "participants",
         component: ParticipantsComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         data: { roles: [Role.administrator, Role.researcher] },
       },
       {
         path: "data",
         component: DataComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         data: { roles: [Role.administrator, Role.researcher] },
       },
     ],
@@ -139,7 +140,7 @@ const routes: Routes = [
     path: "selection",
     component: SelectionTableComponent,
     canActivate: [AuthGuard],
-    // data: { roles: [Role.administrator, Role.researcher] },
+    data: { roles: [Role.administrator, Role.researcher] },
   },
 
   {
@@ -150,38 +151,22 @@ const routes: Routes = [
     path: "questionnaire",
     component: QualificationComponent,
   },
-  // data: { roles: [Role.administrator] },
 
   { path: "home", component: HomeComponent },
   { path: "login", component: LoginComponent },
   { path: "login/:email", component: LoginComponent },
-
   { path: "privacy", component: PrivacyComponent },
-  // todo remove
   { path: "create", component: VerificationComponent },
-
   { path: "verify/:code", component: VerificationComponent },
-
   { path: "verify-email", component: VerifyEmailComponent },
-
   { path: "password-reset", component: PasswordResetComponent },
   { path: "change-password/:code", component: ChangePasswordComponent },
-
-  // {
-  //   path: "Projects",
-  //   loadChildren: () =>
-  //     import("./core/components/projects/projects.module").then(
-  //       (m) => m.ProjectsModule
-  //     ),
-  // },
-
   { path: "", redirectTo: "/home", pathMatch: "full" },
-
   { path: "**", component: HomeComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)], // <-- debugging purposes only)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
