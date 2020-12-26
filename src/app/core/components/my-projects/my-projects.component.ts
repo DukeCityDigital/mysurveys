@@ -70,8 +70,11 @@ export class MyProjectsComponent implements OnInit {
       let lookup = id || data.id;
       this.lookup = lookup;
     });
+    console.log(this.lookup);
 
     invitations.forEach((element: any) => {
+      console.log(element.safeid.trim(), String(this.lookup).trim());
+      console.log(String(element.safeid).trim() == String(this.lookup).trim());
       if (String(element.safeid).trim() == String(this.lookup).trim()) {
         element.verifying = true;
         this.verifyProjectCode(element.projects_projectid);
@@ -86,6 +89,7 @@ export class MyProjectsComponent implements OnInit {
   verifyProjectCode(project_id: string) {
     let post = { code: this.lookup, project_id: project_id };
     this.projectService.verify_project_code(post).subscribe((data: any) => {
+      console.log("chedk", data);
       this.projectService.my_projects().subscribe((data: any) => {
         this.invitations = data.data;
       });

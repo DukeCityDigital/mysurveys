@@ -23,7 +23,7 @@
             Responsible person: <b>{{ i.project.responsible_person }}</b>
           </li>
         </ul>
-        <div *ngIf="i.started">
+        <div *ngIf="i.started || i.finished">
           <div *ngIf="i.verifying" style="color: green; padding: 2px; font-size: 22px">
             You have returned from a survey! We're verifying your project id
           </div>

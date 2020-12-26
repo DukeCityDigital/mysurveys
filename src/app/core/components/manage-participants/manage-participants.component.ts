@@ -140,6 +140,7 @@ export class ManageParticipantsComponent implements OnInit {
    * Make sure a quota is assigned and start state is correct
    */
   checkStartState() {
+    console.log("cstart state", this.project);
     if (parseInt(this.project.quota) <= 0) {
       this.alertService.error("The project quota is 0");
       return false;
@@ -149,7 +150,7 @@ export class ManageParticipantsComponent implements OnInit {
       return false;
     }
     if (this.project.state !== "Started") {
-      this.alertService.error("The project start state is not open");
+      this.alertService.error("The project  state is not open");
       return false;
     }
 

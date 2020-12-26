@@ -35,8 +35,10 @@ export class DataComponent implements OnInit {
   getData() {
     let post = { all: true, project_id: this.project_id };
     this.projectService.getSelection(post).subscribe((data) => {
+      console.log(data);
       this.data = data.data.projectparticipants;
       this.exportData = data.data.csv;
+      console.log("exportD", this.exportData);
     });
   }
 
