@@ -61,10 +61,8 @@
 </mat-card>
 <mat-card *ngIf="emailLinkFoundAndHandled !== false" style="text-align: center;" color="primary">
   <mat-icon style="color: green; font-size: 44px; vertical-align: initial;">check_circle_outline</mat-icon>
-
   <h3> Verification code confirmed, your account has been created and you are now
     logged in! </h3>
-
   <ng-container *ngIf=" user && user.subrole ==='seed'; else friend">
     <h2>Begin by inviting friends </h2>
     <button mat-raised-button color="primary" style="background:lightblue;color:darkblue;"
@@ -72,8 +70,9 @@
   </ng-container>
   <ng-template #friend>
     <h2>
-      Please click the button below and fill out the 'Change Password' form to set your own password - thanks for
-      participating!
+      Thank you for responding to the invitation!</h2>
+    <h2>
+      Please click the button below and fill out the 'Change Password' form to set your own password
     </h2>
     <button mat-raised-button color="primary" style="background:lightblue;color:darkblue;"
       [routerLink]="'/dashboard/profile'"> Update password </button>
