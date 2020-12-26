@@ -29,5 +29,8 @@
         <button type="submit" [disabled]="userForm.invalid" mat-stroked-button color="primary">
             Update
         </button>
+        <button color="warn" (click)="deleteUser();" mat-flat-button>
+            Click to delete user from system
+        </button>
     </form>
 </mat-card>

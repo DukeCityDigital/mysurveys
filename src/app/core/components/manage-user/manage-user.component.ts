@@ -6,11 +6,12 @@ import {
   Validators,
 } from "@angular/forms";
 
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { User } from "@app/core/models/user";
 import { ParticipantService } from "@app/core/services/participant.service";
 import { first } from "rxjs/internal/operators/first";
 import { AlertService } from "../_alert";
+
 AlertService;
 @Component({
   selector: "app-manage-user",
@@ -28,7 +29,8 @@ export class ManageUserComponent implements OnInit {
     private participantService: ParticipantService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {
     this.userForm = this.formBuilder.group({
       id: [""],
@@ -45,7 +47,6 @@ export class ManageUserComponent implements OnInit {
       if (this.user_id) {
         this.getUser(this.user_id);
       } else {
-        // blankform
         // this.toggleEditCreate();
       }
     });
@@ -72,6 +73,22 @@ export class ManageUserComponent implements OnInit {
     };
     this.userForm.patchValue(formValues);
     this.userForm.controls.email.disable();
+  }
+
+  /**
+   * Delete user from DB
+   */
+  public deleteUser() {
+    let c = confirm("This will delete the user. Proceed?");
+    if (c) {
+      this.participantService
+        .delete(this.user.id)
+        .pipe(first())
+        .subscribe((data) => {
+          this.router.navigate(["users"]);
+          this.alertService.success("Deleted");
+        });
+    }
   }
 
   /**
