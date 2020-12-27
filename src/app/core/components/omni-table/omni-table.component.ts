@@ -95,6 +95,10 @@ export class OmniTableComponent implements OnInit {
   // }
 
   onPaginateChange(event) {
+    console.log(event);
+    if (event.pageIndex == 1 && event.previousPageIndex == 0) {
+      // TODO / double first page on paging / maybe backend fix
+    }
     //
     this.paginator.pageIndex = event.pageIndex;
   }

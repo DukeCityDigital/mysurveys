@@ -37,6 +37,7 @@ export class FriendsComponent implements OnInit {
   createFriendform(): FormGroup {
     return this.formBuilder.group({
       email: new FormControl(""),
+      custom_message: new FormControl(""),
     });
   }
 
@@ -65,11 +66,21 @@ export class FriendsComponent implements OnInit {
       email: this.friendForm.value.email,
       invite: true,
       remind: true,
+      custom_message: this.friendForm.value.custom_message,
     };
     this.inviteFriend(post);
   }
   onSubmitFriendInvite() {
-    let post = { email: this.friendForm.value.email, invite: true };
+    let post = {
+      email: this.friendForm.value.email,
+      invite: true,
+      custom_message: this.friendForm.value.custom_message,
+    };
+    if (this.friendForm.value.custom_message == "") {
+      delete post.custom_message;
+    }
+
     this.inviteFriend(post);
+    this.friendForm.reset();
   }
 }
