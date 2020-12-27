@@ -213,6 +213,7 @@ export class ManageParticipantsComponent implements OnInit {
           this.buildPreviewTable(data.data.PREVIEW);
         } else {
           this.alertService.success(data.data);
+          this.runTable();
         }
       },
       (error) => {
