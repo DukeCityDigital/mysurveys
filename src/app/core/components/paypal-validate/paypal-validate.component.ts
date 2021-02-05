@@ -8,6 +8,7 @@ import {
 import { AlertService } from "../_alert";
 import { ParticipantService } from "@app/core/services/participant.service";
 import { EventEmitter } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-paypal-validate",
@@ -27,7 +28,8 @@ export class PaypalValidateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
-    private participantService: ParticipantService
+    private participantService: ParticipantService,
+    private router: Router
   ) {
     this.paypalForm = this.createPaypalForm();
   }
@@ -68,10 +70,17 @@ export class PaypalValidateComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.confirmedPaypalMe = data.data;
-
           this.alertService.success("Updated", { autoClose: true });
           this.getMe();
           this.notifyParent.emit({ update: true });
+          if (this.user.subrole == "friend") {
+            confirm(
+              "Thank you for validating your PayPal! Next you will be directed to the questionnaire "
+            );
+            this.router.navigate(["/questionnaire"], {
+              queryParams: { consent: "irb", role: "seed" },
+            });
+          }
         },
         (error) => {
           if (error && error.error) {
