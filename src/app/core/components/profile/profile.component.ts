@@ -154,6 +154,8 @@ export class ProfileComponent implements OnInit {
         this.changedPassword = true;
         this.alertService.success(data.message, { autoClose: true });
         if (data.data.subrole === "friend") {
+          sessionStorage.setItem("showgdpr", "false");
+
           confirm(
             "Thank you for changing your password, you will be navigated to the questionnaire now"
           );
