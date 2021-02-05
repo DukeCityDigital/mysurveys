@@ -6,10 +6,10 @@
     <!-- No pending invitations -->
     <div *ngIf="!user.friends.length" class="alert-error">
       <!-- <h2>You haven't invited any friends yet! Please do so when ready.</h2> -->
-      <button [routerLinkActive]="['is-active-button,animate-stop']" mat-raised-button color="primary"
+      <!-- <button [routerLinkActive]="['is-active-button,animate-stop']" mat-raised-button color="primary"
         [routerLink]="'/dashboard/friends'">
         Friends
-      </button>
+      </button> -->
     </div>
     <div *ngIf="user.friends.length">
       <h3>Great - you've invited friends.</h3>

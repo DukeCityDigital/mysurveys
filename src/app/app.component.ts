@@ -123,11 +123,11 @@ export class AppComponent {
 
     participant: [
       { name: "PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
-      {
-        name: "questionnaire",
-        link: "/questionnaire",
-        icon: "question_answer",
-      },
+      // {
+      //   name: "questionnaire",
+      //   link: "/questionnaire",
+      //   icon: "question_answer",
+      // },
 
       {
         name: "my surveys",
@@ -137,11 +137,11 @@ export class AppComponent {
     ],
 
     seed: [
-      {
-        name: "questionnaire",
-        link: "/questionnaire",
-        icon: "question_answer",
-      },
+      // {
+      //   name: "questionnaire",
+      //   link: "/questionnaire",
+      //   icon: "question_answer",
+      // },
       { name: "PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
       { name: "friends", link: "/dashboard/friends", icon: "people_outline" },
 
