@@ -78,7 +78,7 @@ export class PaypalValidateComponent implements OnInit {
               "Thank you for validating your PayPal! Next you will be directed to the questionnaire "
             );
             this.router.navigate(["/questionnaire"], {
-              queryParams: { consent: "irb", role: "seed" },
+              queryParams: { consent: "irb", role: "peer" },
             });
           }
         },

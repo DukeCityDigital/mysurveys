@@ -181,6 +181,16 @@ export class QualificationComponent implements OnInit {
       .user_submit_qualification_form(qualificationForm)
       .subscribe(
         (data) => {
+          console.log("qualform");
+          console.log(data);
+          if (this.user.subrole == "friend") {
+            let c = confirm(
+              "Thank you for your form submission.  You will now be navigated to the projects page"
+            );
+            if (c) {
+              this.router.navigate(["/dashboard/my-projects"]);
+            }
+          }
           //
           this.alertService.success("Successfully submitted", {
             autoClose: true,

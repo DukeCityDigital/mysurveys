@@ -14,4 +14,5 @@ export class User {
   mustVerify?: string;
   friends?: any;
   survey_complete?: boolean;
+  subrole?: any;
 }
