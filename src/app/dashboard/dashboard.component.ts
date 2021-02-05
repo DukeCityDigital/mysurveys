@@ -50,6 +50,9 @@ export class DashboardComponent implements OnInit {
         if (element.paypal_id_status == "Ok") {
           this.friends_verified_paypal = true;
         }
+        if (element.user.email_verified_at) {
+          this.friends_verified_email = true;
+        }
       });
     }
   }

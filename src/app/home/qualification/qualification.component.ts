@@ -185,10 +185,11 @@ export class QualificationComponent implements OnInit {
           console.log(data);
           if (this.user.subrole == "friend") {
             let c = confirm(
-              "Thank you for your form submission.  You will now be navigated to the projects page"
+              "Thank you for your form submission.  You will now be navigated to PayPal validation page"
             );
             if (c) {
-              this.router.navigate(["/dashboard/my-projects"]);
+              this.router.navigate(["/dashboard/paypal"]);
+              return false;
             }
           }
           //

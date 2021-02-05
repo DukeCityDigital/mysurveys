@@ -75,11 +75,14 @@ export class PaypalValidateComponent implements OnInit {
           this.notifyParent.emit({ update: true });
           if (this.user.subrole == "friend") {
             confirm(
-              "Thank you for validating your PayPal! Next you will be directed to the questionnaire "
+              "Thank you for validating your PayPal! Next you will be directed to the surveys page "
             );
-            this.router.navigate(["/questionnaire"], {
-              queryParams: { consent: "irb", role: "peer" },
-            });
+            this.router.navigate(["/dashboard/my-projects"]);
+          } else if (this.user.subrole == "seed") {
+            confirm(
+              "Thank you for validating your PayPal! Next you will be directed to the friends page "
+            );
+            this.router.navigate(["/dashboard/friends"]);
           }
         },
         (error) => {

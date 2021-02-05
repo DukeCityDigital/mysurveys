@@ -19,19 +19,20 @@
       </div>
 
       <div *ngIf="friends_verified_email">
-        You have friends who have verified their account<br>
+        <h3>You have friends who have verified their account</h3><br>
       </div>
       <div *ngIf="friends_verified_paypal">
-        You have friends who have verified their PayPal<br>
+        <h3>You have friends who have verified their PayPal</h3><br>
       </div>
 
       <div *ngIf="friends_verified_email && friends_verified_paypal">
-        You have eligible friends! You'll receive project invitations when they are sent to your group.
+        <h2>You have eligible friends! You'll receive project invitations when they are sent to your group.</h2>
+
       </div>
 
       <button [routerLinkActive]="['is-active-button,animate-stop']" class="mat-raised-button" color="primary"
-        [routerLink]="'/dashboard/friends'">
-        Friends
+        [routerLink]="'/dashboard/my-projects'">
+        My surveys page
       </button>
     </div>
   </div>

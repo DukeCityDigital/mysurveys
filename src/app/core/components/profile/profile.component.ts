@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { RegistrationService } from "@app/core/services/registration.service";
 import { AlertService } from "../_alert";
 import { AuthService } from "@app/core/services/auth.service";
@@ -13,6 +13,7 @@ import {
 } from "@angular/forms";
 import { ParticipantService } from "@app/core/services/participant.service";
 import { tap } from "rxjs/operators";
+
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
@@ -39,7 +40,8 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private participantService: ParticipantService,
     private registrationService: RegistrationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.changeEmailForm = this.createEmailForm();
     this.changePasswordForm = this.createChangePasswordForm();
@@ -148,15 +150,21 @@ export class ProfileComponent implements OnInit {
       .pipe()
       .subscribe((data: any) => {
         console.log("changed PW for", data);
-        if (data.data.subrole === "friend") {
-          this.alertService.success(
-            "Thank you for changing your password, please make sure to validate your PayPal"
-          );
-          this.demo1TabIndex = 0;
-        }
 
         this.changedPassword = true;
         this.alertService.success(data.message, { autoClose: true });
+        if (data.data.subrole === "friend") {
+          confirm(
+            "Thank you for changing your password, you will be navigated to the questionnaire now"
+          );
+          // this.alertService.success(
+          //   "Thank you for changing your password, please make sure to validate your PayPal"
+          // );
+          // this.demo1TabIndex = 0;
+          this.router.navigate(["questionnaire"], {
+            queryParams: { consent: "irb", role: "peer" },
+          });
+        }
       });
   }
 
