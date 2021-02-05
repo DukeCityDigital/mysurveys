@@ -36,12 +36,123 @@
           <li>Make PayPal payments to the provided account</li>
           <li>Analyze the anonymized results of the studies in research</li>
         </ul>
-        <h2>
-          You must also read and agree to the full
-          <a TARGET="_BLANK" href="privacy">privacy disclosure </a>
-        </h2>
+
       </div>
       <br />
+      <div *ngIf="consentForm=='irb'">
+
+        <div *ngIf="passed_query_param_role =='seed'; else showPeer">
+          <h2>Seed Consent form</h2>
+          <p>
+            <b> Purpose of the study:</b> You are being asked to participate in a research study that is being done by
+            Mirta
+            Galesic and Henrik Olsson from the Santa Fe Institute, funded by the NSF. The purpose of this study is to
+            investigate parents’ beliefs about different issues, including vaccination and GM food. You are being asked
+            to take part in this study because you are living in the US and are at least 18 years old.
+          </p>
+
+
+          <p>This form will explain what to expect when joining the research, as well as the possible risks and benefits
+            of participation. If you have any questions, please ask one of the study researchers.</p>
+
+          <p><b>What you will do in the study:</b> Your participation will involve answering questions about yourself
+            and your
+            opinions, such as “Is growing GM crops is harmful or beneficial to the environment?”, “Are childhood
+            vaccines natural or unnatural?”, and “Do you have children under 18 years of age at home?”. You might be
+            asked to participate in up to three survey waves, each two weeks apart. A survey wave should take no more
+            than 10 minutes. You will also be asked to invite two of your friends, whose opinions are important to you
+            when thinking about parenting, to complete a short questionnaire.</p>
+
+          <p> <b>Risks:</b> There are no known risks in this research, but some individuals may experience discomfort or
+            loss
+            of privacy when answering questions.</p>
+
+          <p><b>Benefits:</b> The findings from this project will provide information on belief formation and social
+            influence.
+            Confidentiality of your information: There are no names or identifying information associated with your
+            responses. Data will be kept securely and not shared with anyone else. Your personal information will only
+            be used for compensation and will not be connected to your answers.</p>
+
+          <p><b>Payment:</b> You will receive $5 for each survey wave you participate in and $10 for each friend that
+            completes
+            the study.</p>
+
+          <p> <b>Right to withdraw from the study:</b> Your participation in this study is completely voluntary. You
+            have the right
+            to choose not to participate or to withdraw your participation at any point in this study without penalty.
+          </p>
+
+          <p>If you have any questions, concerns, or complaints about the research, please feel free to call Mirta
+            Galesic
+            or Henrik Olsson at (505) 946-2703 or email at support@mysurveys.santafe.edu. If you have questions
+            regarding
+            your rights as a research participant, or about what you should do in case of any harm to you, or if you
+            want
+            to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505) 277-2644 or
+            irb.unm.edu.</p>
+        </div>
+        <!-- begin peer IRB  -->
+        <ng-template #showPeer>
+          <h2>Peer consent form</h2>
+          <p><b>Purpose of the study:</b> You are being asked to participate in a research study that is being done by
+            Mirta
+            Galesic and Henrik Olsson from the Santa Fe Institute, funded by the NSF. The purpose of this study is to
+            investigate parents’ beliefs about different issues, including vaccination and GM food. You are being
+            asked
+            to take part in this study because your friend thought you would be interested.</p>
+
+          <p>This form will explain what to expect when joining the research, as well as the possible risks and
+            benefits
+            of participation. If you have any questions, please ask one of the study researchers.</p>
+
+          <p><b>What you will do in the study:</b> Your participation will involve answering questions about yourself
+            and
+            your
+            opinions, such as “Is growing GM crops is harmful or beneficial to the environment?”, “Are childhood
+            vaccines natural or unnatural?”, and “Do you have children under 18 years of age at home?”. You might be
+            asked to participate in one survey wave. A survey wave should take no more than 10 minutes.</p>
+
+          <p><b>Risks:</b> There are no known risks in this research, but some individuals may experience discomfort or
+            loss
+            of
+            privacy when answering questions.</p>
+
+          <p><b>Benefits:</b> The findings from this project will provide information on belief formation and social
+            influence.
+            Confidentiality of your information: There are no names or identifying information associated with your
+            responses. Data will be kept securely and not shared with anyone else. Your personal information will only
+            be used for compensation and will not be connected to your answers.</p>
+
+          <p><b>Payment:</b> You will receive $10 for signing up for the study and $5 for completing the
+            questionnaire.
+          </p>
+
+          <p><b>Right to withdraw from the study:</b> Your participation in this study is completely voluntary. You
+            have
+            the right to choose not to participate or to withdraw your participation at any point in this study
+            without
+            penalty.</p>
+
+          <p> If you have any questions, concerns, or complaints about the research, please feel free to call Mirta
+            Galesic
+            or Henrik Olsson at (505) 946-2703 or email at support@mysurveys.santafe.edu. If you have questions
+            regarding
+            your rights as a research participant, or about what you should do in case of any harm to you, or if you
+            want
+            to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505) 277-2644 or
+            irb.unm.edu.</p>
+
+
+
+
+
+        </ng-template>
+      </div>
+      <h2>
+        You must also read and agree to the full
+        <a TARGET="_BLANK" href="privacy">privacy disclosure </a>
+      </h2>
+
       <mat-checkbox [(ngModel)]="accepted_short_consent">I consent</mat-checkbox>
     </div>
     <mat-card *ngIf="!accepted_short_consent">
@@ -125,23 +236,27 @@
           <div class="fielderror" *ngIf="qualificationForm.value.us == ''">
             This field is required
           </div>
-          <hr />
-          <p>
-            To complete the study and earn payment you will need to recruit two
-            of your friends to answer questions as well. Is this OK with you?
-          </p>
-          <mat-radio-group required aria-labelledby="example-radio-group-labelfriends" class="example-radio-group"
-            formControlName="friends">
-            <mat-radio-button class="example-radio-button" value="true">
-              Yes
-            </mat-radio-button>
-            <mat-radio-button class="example-radio-button" value="false">
-              No
-            </mat-radio-button>
-          </mat-radio-group>
-          <div class="fielderror" *ngIf="qualificationForm.value.friends == ''">
-            This field is required
-          </div>
+
+          <ng-container *ngIf="passed_query_param_role !=='peer'">
+            <hr />
+            <p>
+              To complete the study and earn payment you will need to recruit two
+              of your friends to answer questions as well. Is this OK with you?
+            </p>
+            <mat-radio-group required aria-labelledby="example-radio-group-labelfriends" class="example-radio-group"
+              formControlName="friends">
+              <mat-radio-button class="example-radio-button" value="true">
+                Yes
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="false">
+                No
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="fielderror" *ngIf="qualificationForm.value.friends == ''">
+              This field is required
+            </div>
+          </ng-container>
+
         </div>
         <hr />
         <div *ngIf="!qualificationForm.valid" class="fielderror">

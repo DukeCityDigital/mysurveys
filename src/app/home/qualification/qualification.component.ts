@@ -17,7 +17,7 @@ import { User } from "@app/core/models/user";
 import { AuthService } from "@app/core/services/auth.service";
 import { AlertService } from "@app/core/components/_alert";
 import { RegistrationService } from "@app/core/services/registration.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: "app-qualification",
   templateUrl: "./qualification.component.html",
@@ -54,6 +54,8 @@ export class QualificationComponent implements OnInit {
   isOpen = true;
   user: User;
   htmlString = "";
+  consentForm: string;
+  passed_query_param_role: string;
 
   ngOnInit(): void {
     this.remakeForm();
@@ -67,8 +69,15 @@ export class QualificationComponent implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     private registrationService: RegistrationService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParams.subscribe((params) => {
+      this.consentForm = params["consent"];
+      this.passed_query_param_role = params["role"];
+      console.log(this.consentForm);
+    });
+  }
 
   /**
    * Check if user is registered and get profile if so
@@ -112,11 +121,16 @@ export class QualificationComponent implements OnInit {
     let vacOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
 
     if (
-      f.us === "true" &&
-      f.parents === "true" &&
-      f.friends === "true" &&
-      vacOk &&
-      gmOk
+      (f.us === "true" &&
+        f.parents === "true" &&
+        f.friends === "true" &&
+        vacOk &&
+        gmOk) ||
+      (this.passed_query_param_role == "peer" &&
+        f.us === "true" &&
+        f.parents === "true" &&
+        vacOk &&
+        gmOk)
     ) {
       qualified = true;
     } else {
@@ -140,6 +154,9 @@ export class QualificationComponent implements OnInit {
       us: new FormControl("", [Validators.required]),
       friends: new FormControl("", [Validators.required]),
     });
+    if (this.passed_query_param_role == "peer") {
+      this.qualificationForm.get("friends").clearValidators();
+    }
   }
 
   onSubmit() {
