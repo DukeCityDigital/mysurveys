@@ -13,8 +13,22 @@
     </div>
     <div *ngIf="user.friends.length">
       <h3>Great - you've invited friends.</h3>
-      When they've confirmed their accounts and verified PayPal you'll be
-      eligible to begin<br />
+      <div *ngIf="!friends_verified_paypal && !friends_verified_email">
+        When they've confirmed their accounts and verified PayPal you'll be
+        eligible to begin<br />
+      </div>
+
+      <div *ngIf="friends_verified_email">
+        You have friends who have verified their account<br>
+      </div>
+      <div *ngIf="friends_verified_paypal">
+        You have friends who have verified their PayPal<br>
+      </div>
+
+      <div *ngIf="friends_verified_email && friends_verified_paypal">
+        You have eligible friends! You'll receive project invitations when they are sent to your group.
+      </div>
+
       <button [routerLinkActive]="['is-active-button,animate-stop']" class="mat-raised-button" color="primary"
         [routerLink]="'/dashboard/friends'">
         Friends

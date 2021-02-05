@@ -12,6 +12,9 @@ import { UserService } from "@app/core/services/user.service";
 export class DashboardComponent implements OnInit {
   user;
 
+  friends_verified_paypal: boolean = false;
+  friends_verified_email: boolean = false;
+
   constructor(
     public alertService: AlertService,
     private router: Router,
@@ -32,6 +35,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.user);
     var hidemotd = sessionStorage.getItem("hidemotd");
     if (!hidemotd || hidemotd === "false") {
       // this.getMotd();
@@ -40,6 +44,13 @@ export class DashboardComponent implements OnInit {
     if (this.user.role === "administrator") {
       // dont do this
       // this.router.navigate(["dashboard/settings"]);
+    }
+    if (this.user.friends && this.user.friends.length) {
+      this.user.friends.forEach((element) => {
+        if (element.paypal_id_status == "Ok") {
+          this.friends_verified_paypal = true;
+        }
+      });
     }
   }
 }
