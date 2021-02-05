@@ -136,7 +136,7 @@ export class ProfileComponent implements OnInit {
     }
     this.changePasswordRequest();
   }
-
+  public demo1TabIndex = 1;
   changePasswordRequest() {
     let post = {
       password: this.changePasswordForm.value.password,
@@ -147,6 +147,14 @@ export class ProfileComponent implements OnInit {
       .changePasswordRequest(post)
       .pipe()
       .subscribe((data: any) => {
+        console.log("changed PW for", data);
+        if (data.data.subrole === "friend") {
+          this.alertService.success(
+            "Thank you for changing your password, please make sure to validate your PayPal"
+          );
+          this.demo1TabIndex = 0;
+        }
+
         this.changedPassword = true;
         this.alertService.success(data.message, { autoClose: true });
       });

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "https://www.apptest1.com/backend/public/api",
+  apiUrl: "https://mysurveys.santafe.edu/mysurveys-backend/public/api",
 };

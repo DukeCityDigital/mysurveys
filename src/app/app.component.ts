@@ -85,6 +85,17 @@ export class AppComponent {
 
   getLinks() {
     if (this.user.role) {
+      if (this.user.is_seed == 1) {
+        return this.links.seed.concat(this.links.end);
+      }
+      if (this.user.role == "administrator") {
+        return this.links.base
+          .concat(this.links[this.user.role])
+          .concat(this.links.end);
+      }
+      if (this.user.subrole == "friend") {
+        return this.links.end.concat(this.links[this.user.role]);
+      }
       return this.links.base
         .concat(this.links[this.user.role])
         .concat(this.links.end);
@@ -111,15 +122,31 @@ export class AppComponent {
     end: [{ name: "profile", link: "/dashboard/profile", icon: "person" }],
 
     participant: [
-      { name: "1. PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
+      { name: "PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
       {
-        name: "2. Questionnaire",
+        name: "questionnaire",
         link: "/questionnaire",
         icon: "question_answer",
       },
 
       {
-        name: "3. my projects",
+        name: "my surveys",
+        link: "/dashboard/my-projects",
+        icon: "assignment",
+      },
+    ],
+
+    seed: [
+      {
+        name: "questionnaire",
+        link: "/questionnaire",
+        icon: "question_answer",
+      },
+      { name: "PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
+      { name: "friends", link: "/dashboard/friends", icon: "people_outline" },
+
+      {
+        name: "my surveys",
         link: "/dashboard/my-projects",
         icon: "assignment",
       },
