@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { AlertService, Alert } from "@app/core/components/_alert";
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import {
+  MatBottomSheet,
+  MatBottomSheetRef,
+} from "@angular/material/bottom-sheet";
 
 AlertService;
 @Component({
@@ -11,20 +14,22 @@ AlertService;
 export class HomeComponent implements OnInit {
   showGdpr: boolean;
 
-  constructor(private alertService: AlertService, private _bottomSheet: MatBottomSheet) {
-
-  }
+  constructor(
+    private alertService: AlertService,
+    private _bottomSheet: MatBottomSheet
+  ) {}
   openBottomSheet(): void {
-    this._bottomSheet.open(GDPRBottomSheet)
+    this._bottomSheet.open(GDPRBottomSheet);
   }
   ngOnInit(): void {
-    var data = sessionStorage.getItem("showgdpr");
-    if (data == "false") {
-      this.showGdpr = false;
-    } else {
-      this.showGdpr = true;
-      this.openBottomSheet();
-    }
+    // GDPR hard coded for roles in this version
+    // var data = sessionStorage.getItem("showgdpr");
+    // if (data == "false") {
+    //   this.showGdpr = false;
+    // } else {
+    //   this.showGdpr = true;
+    //   this.openBottomSheet();
+    // }
   }
 
   acknowledgeGDPR() {
@@ -33,9 +38,9 @@ export class HomeComponent implements OnInit {
   }
 }
 @Component({
-  selector: 'gdpr-bottom-sheet',
-  templateUrl: 'gdpr-bottom-sheet.html',
-  styles: ['.bottom-sheet {font-size:18px;}']
+  selector: "gdpr-bottom-sheet",
+  templateUrl: "gdpr-bottom-sheet.html",
+  styles: [".bottom-sheet {font-size:18px;}"],
 })
 export class GDPRBottomSheet {
   constructor(private _bottomSheetRef: MatBottomSheetRef<HomeComponent>) {
