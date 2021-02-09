@@ -27,6 +27,31 @@
 
 
       <div *ngIf="passed_query_param_role =='seed'; else showPeer">
+
+        <h2>Your privacy</h2>
+        <p>
+          MySurveys collects your data so we can select participants for study surveys, contact participants about
+          studies and analyze the anonymized results of the studies in research.
+          This website also uses cookies to ensure you get the best experience.
+        </p>
+        <p>
+          You can find out more about our privacy policy by clicking
+          <a target="_BLANK" href="/privacy">here</a> . By continuing to use this website,
+          you acknowledge that you understand and agree to our full privacy terms.
+        </p>
+
+        <!-- <button style="margin: 5px 0 10px; background: green; color: white" (click)="acknowledgeGDPR()"
+          mat-stroked-button color="primary">
+          Accept
+        </button> -->
+        <p>
+          If you object, please <a href="https://google.com">click here</a> to leave
+          the site.
+        </p>
+
+
+
+        <hr>
         <h2>Seed Consent form</h2>
         <p>
           <b> Purpose of the study:</b> You are being asked to participate in a research study that is being done by
