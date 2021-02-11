@@ -94,7 +94,7 @@ export class AppComponent {
           .concat(this.links.end);
       }
       if (this.user.subrole == "friend") {
-        return this.links.end.concat(this.links[this.user.role]);
+        return this.links.end.concat(this.links.friend);
       }
       return this.links.base
         .concat(this.links[this.user.role])
@@ -121,6 +121,21 @@ export class AppComponent {
     ],
     end: [{ name: "profile", link: "/dashboard/profile", icon: "person" }],
 
+    friend: [
+      { name: "PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
+      // {
+      //   name: "questionnaire",
+      //   link: "/questionnaire",
+      //   icon: "question_answer",
+      // },
+
+      {
+        name: "my surveys",
+        link: "/dashboard/my-projects",
+        icon: "assignment",
+      },
+    ],
+
     participant: [
       { name: "PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
       // {
@@ -128,6 +143,7 @@ export class AppComponent {
       //   link: "/questionnaire",
       //   icon: "question_answer",
       // },
+      { name: "friends", link: "/dashboard/friends", icon: "people_outline" },
 
       {
         name: "my surveys",
