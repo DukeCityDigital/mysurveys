@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, AfterViewInit } from "@angular/core";
 import { saveAs } from "file-saver";
 import { ProjectService } from "@app/core/services/project.service";
 import { ParticipantService } from "@app/core/services/participant.service";
@@ -22,15 +22,15 @@ export class DataComponent implements OnInit {
   data: any;
   changesPending: boolean = false;
 
+  hasData: boolean = false;
+
   constructor(
     private participantService: ParticipantService,
     private projectService: ProjectService,
     private alertService: AlertService
   ) {}
 
-  ngOnInit(): void {
-    this.getData();
-  }
+  ngOnInit(): void {}
 
   getData() {
     let post = { all: true, project_id: this.project_id };
@@ -39,6 +39,7 @@ export class DataComponent implements OnInit {
       this.data = data.data.projectparticipants;
       this.exportData = data.data.csv;
       console.log("exportD", this.exportData);
+      this.hasData = true;
     });
   }
 

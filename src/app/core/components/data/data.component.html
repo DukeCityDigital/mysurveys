@@ -1,32 +1,37 @@
 <mat-card>
   <mat-card-title> Import/Export Participant Data </mat-card-title>
-  <ol>
-    <li>Export CSV <button (click)="export()">Click to Export CSV</button></li>
-    <li> Upload CSV, Review Below, and Commit
-      <input type="file" class="upload" (change)="changeListener($event.target.files)" />
-    </li>
-    <li>Export Formatted CSV <button (click)="export('paypal')">
-        Click to Export CSV formatted for PayPal
-      </button></li>
-  </ol>
-  <hr />
-  <div *ngIf="changesPending" style="overflow: scroll">
-    <button (click)="commitChanges()">Commit</button>
-    <h3>Changes pending to project participants</h3>
-    <!-- TODO pl *additional error checks to occur in production - i.e. finished requirement -->
-    <i>Hit commit to save the changes</i>
-    <table class="blueTable">
-      <thead>
-        <tr>
-          <th *ngFor="let header of headers">{{ header }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of parsedCsv; let i = index">
-          <td *ngFor="let item of row">{{ item }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <br />
+  <button mat-stroked-button (click)="getData()">Get data snapshot</button>
+
+  <div *ngIf="hasData">
+    <ol>
+      <li>Export CSV <button (click)="export()">Click to Export CSV</button></li>
+      <li> Upload CSV, Review Below, and Commit
+        <input type="file" class="upload" (change)="changeListener($event.target.files)" />
+      </li>
+      <li>Export Formatted CSV <button (click)="export('paypal')">
+          Click to Export CSV formatted for PayPal
+        </button></li>
+    </ol>
+    <hr />
+    <div *ngIf="changesPending" style="overflow: scroll">
+      <button (click)="commitChanges()">Commit</button>
+      <h3>Changes pending to project participants</h3>
+      <!-- TODO pl *additional error checks to occur in production - i.e. finished requirement -->
+      <i>Hit commit to save the changes</i>
+      <table class="blueTable">
+        <thead>
+          <tr>
+            <th *ngFor="let header of headers">{{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of parsedCsv; let i = index">
+            <td *ngFor="let item of row">{{ item }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+    </div>
   </div>
+
 </mat-card>
