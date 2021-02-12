@@ -125,7 +125,8 @@ export class QualificationComponent implements OnInit {
         f.parents === "true" &&
         f.friends === "true" &&
         (vacOk || gmOk)) ||
-      (this.passed_query_param_role == "peer" &&
+      (this.user &&
+        this.user.subrole == "friend" &&
         f.us === "true" &&
         f.parents === "true")
     ) {
@@ -133,10 +134,12 @@ export class QualificationComponent implements OnInit {
     } else {
       qualified = false;
     }
+    // debugger;
     this.qualified = qualified;
-    window.setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 300);
+    // window.setTimeout(() => {
+    //   window.scrollTo(0, 0);
+    // }, 300);
+    return this.qualified;
   }
 
   remakeForm() {
@@ -155,20 +158,30 @@ export class QualificationComponent implements OnInit {
 
   onSubmit() {
     // if no user do regular routine, otherwise send form directly
-    console.log("qualform", this.qualificationForm);
-    if (!this.authService.userValue) {
-      this.isQualified(this.qualificationForm);
+    console.log("qualform", this.qualificationForm, this.authService.userValue);
+    if (!this.qualificationForm) {
+      this.alertService.error("You must fill out the qualification form first");
+      return false;
+    }
+    debugger;
+    let f = this.qualificationForm.value;
+
+    if (this.user.subrole == "friend") {
+    } else {
+      f.seed = true;
+    }
+    if (this.isQualified(this.qualificationForm)) {
+      this.submit_qualification_form(f);
       this.submitted = true;
     } else {
-      if (!this.qualificationForm) {
-        this.alertService.error(
-          "You must fill out the qualification form first"
-        );
-      }
-      let f = this.qualificationForm.value;
-      f.seed = true;
-      this.submit_qualification_form(f);
+      this.qualified = false;
+      this.submitted = true;
+      // this.alertService.error(
+      //   "Sorry, you're not currently qualified for the study"
+      // );
     }
+
+    // this.isQualified = this.qualificationForm;
   }
   submit_qualification_form(qualificationForm?: any) {
     return this.registrationService

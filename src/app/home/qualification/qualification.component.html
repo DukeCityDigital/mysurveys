@@ -6,23 +6,17 @@
   <mat-icon style="font-size:44px;">thumb_up</mat-icon>
 </mat-card>
 
-<!-- <div *ngIf="!submitted && user && user.survey_complete !== true" class="surveyActual"> -->
-
 <div *ngIf="!submitted" class="surveyActual">
-  <!-- <button mat-stroked-button (click)="testOne()" class="TODO">Dev->qualified</button> -->
+
   <div class="centerheader">
     <h1>Welcome!</h1>
-    <!-- <div class="debug">
-            {{qualificationForm.value | json}}
-            {{'qual' + isQualified(qualificationForm)}}
-        </div> -->
+
   </div>
   <div class="info">
     <p>
       We need to get your opinion on a few things to make sure you're a good fit
       for the study. First, please read the consent form below.
     </p>
-
     <div class="consentContent">
       <h2>Your privacy</h2>
       <p>
@@ -35,18 +29,10 @@
         <a target="_BLANK" href="/privacy">here</a> . By continuing to use this website,
         you acknowledge that you understand and agree to our full privacy terms.
       </p>
-
-      <!-- <button style="margin: 5px 0 10px; background: green; color: white" (click)="acknowledgeGDPR()"
-        mat-stroked-button color="primary">
-        Accept
-      </button> -->
       <p>
         If you object, please <a href="https://google.com">click here</a> to leave
         the site.
       </p>
-
-
-
       <hr>
       <div *ngIf="passed_query_param_role =='peer'; else showSeed">
         <h2>Seed Consent form</h2>
@@ -153,6 +139,8 @@
     <mat-card *ngIf="!accepted_short_consent">
       <h2>You must consent to proceed</h2>
     </mat-card>
+
+
     <div [@openClose]="accepted_short_consent ? 'open' : 'closed'" class="open-close-container">
       <form [hidden]="!accepted_short_consent" [formGroup]="qualificationForm" (ngSubmit)="onSubmit()">
         <h2>Thanks for your consent!</h2>
@@ -262,6 +250,8 @@
         </button>
         <br /><br /><br /><br />
       </form>
+      qform {{qualificationForm.value | json }} ---qualified={{isQualified(qualificationForm)}}
+
     </div>
   </div>
 </div>
