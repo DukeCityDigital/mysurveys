@@ -34,7 +34,11 @@ export class LogComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new LogDataSource(this.adminService);
-    this.dataSource.loadlogs("", "", "asc", 0, 30);
+    this.dataSource.loadlogs("", "", "asc", 0, 10);
+    window.setTimeout(
+      () => (this.resultsLength = this.dataSource.resultsLength),
+      750
+    );
   }
 
   ngAfterViewInit(): void {
@@ -60,7 +64,7 @@ export class LogComponent implements OnInit {
       .pipe(
         tap(() => {
           this.loadLogsPage();
-          this.resultsLength = this.dataSource.resultsLength;
+          // this.resultsLength = this.dataSource.resultsLength;
         })
       )
       .subscribe();
@@ -120,6 +124,7 @@ export class LogDataSource implements DataSource<any> {
         finalize(() => this.loadingSubject.next(false))
       )
       .subscribe((logs: any) => {
+        console.log(logs);
         //
         this.resultsLength = logs.total;
         this.logSubject.next(logs.data);
