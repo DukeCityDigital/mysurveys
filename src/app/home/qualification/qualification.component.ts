@@ -133,13 +133,9 @@ export class QualificationComponent implements OnInit {
     } else {
       qualified = false;
     }
-    debugger;
     this.qualified = qualified;
-    // return qualified;
-    // window.setTimeout(() => ChromeSamples.log(counterB.seconds), 1200);
     window.setTimeout(() => {
       window.scrollTo(0, 0);
-      // window.scrollY = 0;
     }, 300);
   }
 
@@ -154,11 +150,12 @@ export class QualificationComponent implements OnInit {
     if (this.passed_query_param_role == "peer") {
       this.qualificationForm.get("friends").clearValidators();
     }
+    console.log("qualform", this.qualificationForm);
   }
 
   onSubmit() {
     // if no user do regular routine, otherwise send form directly
-
+    console.log("qualform", this.qualificationForm);
     if (!this.authService.userValue) {
       this.isQualified(this.qualificationForm);
       this.submitted = true;

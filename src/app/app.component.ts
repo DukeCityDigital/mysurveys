@@ -123,11 +123,11 @@ export class AppComponent {
 
     friend: [
       { name: "PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
-      // {
-      //   name: "questionnaire",
-      //   link: "/questionnaire",
-      //   icon: "question_answer",
-      // },
+      {
+        name: "questionnaire",
+        link: "/questionnaire",
+        icon: "question_answer",
+      },
 
       {
         name: "my surveys",
