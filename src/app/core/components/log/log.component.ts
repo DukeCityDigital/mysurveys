@@ -9,7 +9,7 @@ import {
   fromEvent,
 } from "rxjs";
 import { MatSort } from "@angular/material/sort";
-import { MatPaginator } from "@angular/material/paginator";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { DataSource } from "@angular/cdk/table";
 import { CollectionViewer } from "@angular/cdk/collections";
 
@@ -23,10 +23,12 @@ export class LogComponent implements OnInit {
   dataSource: LogDataSource;
   data: any;
   sortedData: any[];
-  resultsLength = 0;
+  resultsLength = 100;
+  pageSize = 10;
   logColumns = ["record_datetime", "message"];
-
+  pageSizeOptions: number[] = [5, 10, 25, 100];
   constructor(private adminService: AdminService) {}
+  pageEvent: PageEvent;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -34,11 +36,18 @@ export class LogComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new LogDataSource(this.adminService);
-    this.dataSource.loadlogs("", "", "asc", 0, 10);
+    this.dataSource.loadlogs("", "", "asc", 1, 10);
     window.setTimeout(
       () => (this.resultsLength = this.dataSource.resultsLength),
       750
     );
+  }
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput
+        .split(",")
+        .map((str) => +str);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -47,7 +56,7 @@ export class LogComponent implements OnInit {
         debounceTime(150),
         distinctUntilChanged(),
         tap(() => {
-          this.paginator.pageIndex = 0;
+          this.paginator.pageIndex = 1;
           this.loadLogsPage();
         })
       )
@@ -56,7 +65,7 @@ export class LogComponent implements OnInit {
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
       //
-      this.paginator.pageIndex = 0;
+      this.paginator.pageIndex = 1;
     });
 
     // on sort or paginate events, load a new page
@@ -69,6 +78,7 @@ export class LogComponent implements OnInit {
       )
       .subscribe();
   }
+
   loadLogsPage() {
     this.dataSource.loadlogs(
       this.sort.active,
@@ -107,6 +117,7 @@ export class LogDataSource implements DataSource<any> {
   }
 
   public resultsLength: number;
+  public pageIndex: number;
 
   loadlogs(
     active: string,
@@ -127,6 +138,7 @@ export class LogDataSource implements DataSource<any> {
         console.log(logs);
         //
         this.resultsLength = logs.total;
+        this.pageIndex = logs.current_page;
         this.logSubject.next(logs.data);
       });
   }
