@@ -34,7 +34,7 @@
         the site.
       </p>
       <hr>
-      <div *ngIf="passed_query_param_role =='peer'; else showSeed">
+      <div *ngIf="passed_query_param_role =='seed' || this.user && this.user.subrole !=='friend'; else showSeed">
         <h2>Seed Consent form</h2>
         <p>
           <b> Purpose of the study:</b> You are being asked to participate in a research study that is being done by
@@ -153,7 +153,7 @@
             <mat-radio-button class="example-radio-button" value="true">
               Yes
             </mat-radio-button>
-            <mat-radio-button class="example-radio-button" value="false">
+            <mat-radio-button class="example-radio-button" value="0">
               No
             </mat-radio-button>
           </mat-radio-group>
@@ -212,7 +212,7 @@
             <mat-radio-button class="example-radio-button" value="true">
               Yes
             </mat-radio-button>
-            <mat-radio-button class="example-radio-button" value="false">
+            <mat-radio-button class="example-radio-button" value="0">
               No
             </mat-radio-button>
           </mat-radio-group>
@@ -220,7 +220,7 @@
             This field is required
           </div>
 
-          <ng-container *ngIf="passed_query_param_role !=='peer'">
+          <ng-container *ngIf="passed_query_param_role =='seed' || this.user && this.user.subrole !=='friend'">
             <hr />
             <p>
               To complete the study and earn payment you will need to recruit two
@@ -231,7 +231,7 @@
               <mat-radio-button class="example-radio-button" value="true">
                 Yes
               </mat-radio-button>
-              <mat-radio-button class="example-radio-button" value="false">
+              <mat-radio-button class="example-radio-button" value="0">
                 No
               </mat-radio-button>
             </mat-radio-group>
@@ -251,7 +251,7 @@
         <br /><br /><br /><br />
       </form>
       qform {{qualificationForm.value | json }} ---qualified={{isQualified(qualificationForm)}}
-
+      <br>usr{{this.user ? this.user.subrole : ''}}
     </div>
   </div>
 </div>

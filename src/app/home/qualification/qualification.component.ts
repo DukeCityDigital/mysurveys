@@ -86,6 +86,8 @@ export class QualificationComponent implements OnInit {
     if (this.authService.userValue) {
       this.participantService.get().subscribe((data: any) => {
         this.user = data.data;
+        this.remakeForm();
+
         if (this.user.survey_complete) {
           this.submitted = true;
         }
@@ -134,11 +136,8 @@ export class QualificationComponent implements OnInit {
     } else {
       qualified = false;
     }
-    // debugger;
+
     this.qualified = qualified;
-    // window.setTimeout(() => {
-    //   window.scrollTo(0, 0);
-    // }, 300);
     return this.qualified;
   }
 
@@ -150,7 +149,10 @@ export class QualificationComponent implements OnInit {
       us: new FormControl("", [Validators.required]),
       friends: new FormControl("", [Validators.required]),
     });
-    if (this.passed_query_param_role == "peer") {
+    if (
+      this.passed_query_param_role == "peer" ||
+      (this.user && this.user.subrole == "friend")
+    ) {
       this.qualificationForm.get("friends").clearValidators();
     }
     console.log("qualform", this.qualificationForm);
@@ -170,8 +172,9 @@ export class QualificationComponent implements OnInit {
     } else {
       f.seed = true;
     }
+    this.submit_qualification_form(f);
+
     if (this.isQualified(this.qualificationForm)) {
-      this.submit_qualification_form(f);
       this.submitted = true;
     } else {
       this.qualified = false;
@@ -191,12 +194,23 @@ export class QualificationComponent implements OnInit {
           console.log("qualform");
           console.log(data);
           if (this.user.subrole == "friend") {
-            let c = confirm(
-              "Thank you for your form submission.  You will now be navigated to PayPal validation page"
-            );
-            if (c) {
-              this.router.navigate(["/dashboard/paypal"]);
-              return false;
+            if (this.isQualified(this.qualificationForm)) {
+              let c = confirm(
+                "Thank you for your form submission.  You will now be navigated to PayPal validation page"
+              );
+              if (c) {
+                this.router.navigate(["/dashboard/paypal"]);
+                return false;
+              }
+            } else {
+              this.qualified = false;
+              let c = confirm(
+                "We're sorry, you're not a fit for any of our current studies"
+              );
+              if (c) {
+                this.router.navigate(["/dashboard/questionnaire"]);
+                return false;
+              }
             }
           }
           //
