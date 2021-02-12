@@ -12,8 +12,8 @@ import { UserService } from "@app/core/services/user.service";
 export class DashboardComponent implements OnInit {
   user;
 
-  friends_verified_paypal: boolean = false;
-  friends_verified_email: boolean = false;
+  friends_verified_paypal: number;
+  friends_verified_email: number;
 
   constructor(
     public alertService: AlertService,
@@ -48,10 +48,10 @@ export class DashboardComponent implements OnInit {
     if (this.user.friends && this.user.friends.length) {
       this.user.friends.forEach((element) => {
         if (element.paypal_id_status == "Ok") {
-          this.friends_verified_paypal = true;
+          this.friends_verified_paypal += 1;
         }
         if (element.user.email_verified_at) {
-          this.friends_verified_email = true;
+          this.friends_verified_email += 1;
         }
       });
     }

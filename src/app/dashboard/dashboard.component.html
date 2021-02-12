@@ -6,22 +6,25 @@
     <!-- No pending invitations -->
 
     <div *ngIf="user.friends.length">
-      <h3>Great - you've invited friends.</h3>
-      <div *ngIf="!friends_verified_paypal && !friends_verified_email">
+      <h3>Friends invited: {{user.friends.length}}</h3>
+      <div *ngIf="!friends_verified_paypal && !friends_verified_email" style="font-weight:bold;">
         When they've confirmed their accounts and verified PayPal you'll be
         eligible to begin<br />
       </div>
+      Friends who have verified email: {{friends_verified_email ? friends_verified_email : 'None'}}<br>
+      Friends who have verified PayPal: {{friends_verified_paypal ? friends_verified_paypal : 'None'}}<br>
 
-      <div *ngIf="friends_verified_email">
-        <h3>You have friends who have verified their account</h3><br>
+      <!-- <div *ngIf="friends_verified_email">
+        <h3>You have friends who have verified their account {{friends_verified_email}}</h3><br>
       </div>
       <div *ngIf="friends_verified_paypal">
         <h3>You have friends who have verified their PayPal</h3><br>
-      </div>
+      </div> -->
 
       <div *ngIf="friends_verified_email && friends_verified_paypal">
         <h2>You have eligible friends! You'll receive project invitations when they are sent to your group.</h2>
       </div>
+      <br>
       <button [routerLinkActive]="['is-active-button,animate-stop']" class="mat-raised-button" color="primary"
         [routerLink]="'/dashboard/my-projects'">
         My surveys page
