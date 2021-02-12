@@ -127,8 +127,7 @@ export class QualificationComponent implements OnInit {
         (vacOk || gmOk)) ||
       (this.passed_query_param_role == "peer" &&
         f.us === "true" &&
-        f.parents === "true" &&
-        (vacOk || gmOk))
+        f.parents === "true")
     ) {
       qualified = true;
     } else {

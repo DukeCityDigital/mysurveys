@@ -90,6 +90,9 @@ export class LoginComponent implements OnInit {
         if (data.role === "administrator")
           this.returnUrl = "dashboard/settings";
         if (data.role === "researcher") this.returnUrl = "dashboard/projects";
+        if (data.role === "participant")
+          this.returnUrl = "dashboard/my-projects";
+
         this.router.navigate([this.returnUrl]);
       },
       (error) => {
