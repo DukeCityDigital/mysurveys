@@ -220,7 +220,7 @@
           <div class="fielderror" *ngIf="qualificationForm.value.us == ''">
             This field is required
           </div>
-          <ng-container>
+          <ng-container *ngIf="!this._USER_IS_PEER">
             <hr />
             <p>
               To complete the study and earn payment you will need to recruit two
