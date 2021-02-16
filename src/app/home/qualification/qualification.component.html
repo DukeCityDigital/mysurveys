@@ -34,7 +34,8 @@
         the site.
       </p>
       <hr>
-      <div *ngIf="passed_query_param_role =='seed' || this.user && this.user.subrole !=='friend'; else showSeed">
+      <div
+        *ngIf="!this.user || passed_query_param_role =='seed' || this.user && this.user.subrole !=='friend'; else showSeed">
         <h2>Seed Consent form</h2>
         <p>
           <b> Purpose of the study:</b> You are being asked to participate in a research study that is being done by
@@ -220,7 +221,7 @@
             This field is required
           </div>
 
-          <ng-container *ngIf="passed_query_param_role =='seed' || this.user && this.user.subrole !=='friend'">
+          <ng-container *ngIf="!_USER_IS_PEER">
             <hr />
             <p>
               To complete the study and earn payment you will need to recruit two
@@ -250,17 +251,18 @@
         </button>
         <br /><br /><br /><br />
       </form>
-      qform {{qualificationForm.value | json }} ---qualified={{isQualified(qualificationForm)}}
-      <br>usr{{this.user ? this.user.subrole : ''}}
+      <!-- qform {{qualificationForm.value | json }} ---qualified={{isQualified(qualificationForm)}}
+      <br>usr{{this.user ? this.user.subrole : ''}}<br>
+      userispeer{{_USER_IS_PEER}} -->
     </div>
   </div>
 </div>
-<mat-card *ngIf="!qualified && submitted" style="margin:12px;">
+<!-- <mat-card *ngIf="!qualified && submitted" style="margin:12px;">
   <h2>
     Thank you for your submission. Unfortunately, you aren't a match for any current studies
   </h2>
-</mat-card>
-<div *ngIf="qualified && submitted">
+</mat-card> -->
+<div *ngIf="qualified && submitted && !user">
   <mat-card style="text-align: center; margin: 12px 0" color="primary">
     <mat-icon style="color: green; font-size: 44px">check_circle_outline</mat-icon>
     <h2>

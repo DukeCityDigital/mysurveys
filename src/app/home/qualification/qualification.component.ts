@@ -48,7 +48,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class QualificationComponent implements OnInit {
   accepted_short_consent: boolean = false;
-  qualified: boolean;
+  qualified: boolean = false;
   submitted: boolean = false;
   qualificationForm;
   isOpen = true;
@@ -56,11 +56,7 @@ export class QualificationComponent implements OnInit {
   htmlString = "";
   consentForm: string;
   passed_query_param_role: string;
-
-  ngOnInit(): void {
-    this.remakeForm();
-    this.getMe();
-  }
+  _USER_IS_PEER: boolean = false;
 
   constructor(
     private participantService: ParticipantService,
@@ -76,7 +72,22 @@ export class QualificationComponent implements OnInit {
       this.consentForm = params["consent"];
       this.passed_query_param_role = params["role"];
       console.log(this.consentForm);
+      this.getUserType();
     });
+  }
+
+  ngOnInit(): void {
+    this.remakeForm();
+    this.getMe();
+  }
+
+  getUserType() {
+    if (
+      this.passed_query_param_role == "peer" ||
+      (this.user && this.user.subrole == "friend")
+    ) {
+      this._USER_IS_PEER = true;
+    }
   }
 
   /**
@@ -92,6 +103,24 @@ export class QualificationComponent implements OnInit {
           this.submitted = true;
         }
       });
+    } else {
+      this._USER_IS_PEER = false;
+    }
+  }
+
+  remakeForm() {
+    this.qualificationForm = new FormGroup({
+      parents: new FormControl("", [Validators.required]),
+      gm: new FormControl("", [Validators.required]),
+      vac: new FormControl("", [Validators.required]),
+      us: new FormControl("", [Validators.required]),
+      friends: new FormControl("", [Validators.required]),
+    });
+    if (
+      this.passed_query_param_role == "peer" ||
+      (this.user && this.user.subrole == "friend")
+    ) {
+      this.qualificationForm.get("friends").clearValidators();
     }
   }
   possibleResponses = [
@@ -141,26 +170,8 @@ export class QualificationComponent implements OnInit {
     return this.qualified;
   }
 
-  remakeForm() {
-    this.qualificationForm = new FormGroup({
-      parents: new FormControl("", [Validators.required]),
-      gm: new FormControl("", [Validators.required]),
-      vac: new FormControl("", [Validators.required]),
-      us: new FormControl("", [Validators.required]),
-      friends: new FormControl("", [Validators.required]),
-    });
-    if (
-      this.passed_query_param_role == "peer" ||
-      (this.user && this.user.subrole == "friend")
-    ) {
-      this.qualificationForm.get("friends").clearValidators();
-    }
-    console.log("qualform", this.qualificationForm);
-  }
-
   onSubmit() {
     // if no user do regular routine, otherwise send form directly
-    console.log("qualform", this.qualificationForm, this.authService.userValue);
     if (!this.qualificationForm) {
       this.alertService.error("You must fill out the qualification form first");
       return false;
@@ -168,32 +179,31 @@ export class QualificationComponent implements OnInit {
     debugger;
     let f = this.qualificationForm.value;
 
-    if (this.user.subrole == "friend") {
-    } else {
+    if (!this._USER_IS_PEER) {
       f.seed = true;
+      this.submit_qualification_form(f);
+    } else if (
+      this._USER_IS_PEER &&
+      !this.isQualified(this.qualificationForm)
+    ) {
+      alert("Sorry, you're not qualified for any current studies");
+      this.router.navigate(["my-projects"]);
+      return false;
     }
-    this.submit_qualification_form(f);
 
     if (this.isQualified(this.qualificationForm)) {
       this.submitted = true;
     } else {
       this.qualified = false;
       this.submitted = true;
-      // this.alertService.error(
-      //   "Sorry, you're not currently qualified for the study"
-      // );
     }
-
-    // this.isQualified = this.qualificationForm;
   }
   submit_qualification_form(qualificationForm?: any) {
     return this.registrationService
       .user_submit_qualification_form(qualificationForm)
       .subscribe(
         (data) => {
-          console.log("qualform");
-          console.log(data);
-          if (this.user.subrole == "friend") {
+          if (!this._USER_IS_PEER) {
             if (this.isQualified(this.qualificationForm)) {
               let c = confirm(
                 "Thank you for your form submission.  You will now be navigated to PayPal validation page"
