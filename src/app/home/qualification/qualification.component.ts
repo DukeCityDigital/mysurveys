@@ -181,7 +181,7 @@ export class QualificationComponent implements OnInit {
 
     if (!this._USER_IS_PEER) {
       f.seed = true;
-      this.submit_qualification_form(f);
+      // this.submit_qualification_form(f);
     } else if (
       this._USER_IS_PEER &&
       !this.isQualified(this.qualificationForm)
@@ -189,10 +189,13 @@ export class QualificationComponent implements OnInit {
       alert("Sorry, you're not qualified for any current studies");
       this.router.navigate(["my-projects"]);
       return false;
+    } else if (this._USER_IS_PEER && this.isQualified(this.qualificationForm)) {
+      this.submit_qualification_form(f);
     }
 
     if (this.isQualified(this.qualificationForm)) {
       this.submitted = true;
+      this.qualified = true;
     } else {
       this.qualified = false;
       this.submitted = true;
