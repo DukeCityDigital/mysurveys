@@ -155,14 +155,9 @@ export class ProfileComponent implements OnInit {
         this.alertService.success(data.message, { autoClose: true });
         if (data.data.subrole === "friend") {
           sessionStorage.setItem("showgdpr", "false");
-
           confirm(
             "Thank you for changing your password, you will be navigated to the questionnaire now"
           );
-          // this.alertService.success(
-          //   "Thank you for changing your password, please make sure to validate your PayPal"
-          // );
-          // this.demo1TabIndex = 0;
           this.router.navigate(["questionnaire"], {
             queryParams: { consent: "irb", role: "peer" },
           });

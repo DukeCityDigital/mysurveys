@@ -48,7 +48,7 @@ export class PaypalValidateComponent implements OnInit {
     });
   }
   getMe() {
-    this.participantService.get().subscribe((data: any) => {
+    this.participantService.profile().subscribe((data: any) => {
       this.user = data.data;
     });
   }

@@ -27,7 +27,7 @@ export class FriendsComponent implements OnInit {
   }
 
   getMe() {
-    this.participantService.get().subscribe((data: any) => {
+    this.participantService.profile().subscribe((data: any) => {
       this.user = data.data;
     });
   }
@@ -61,7 +61,7 @@ export class FriendsComponent implements OnInit {
   }
 
   public clickSubmitFriendInvite(email: string) {
-    this.friendForm.setValue({ email: email });
+    this.friendForm.setValue({ email: email, custom_message: "" });
     let post = {
       email: this.friendForm.value.email,
       invite: true,
