@@ -220,8 +220,7 @@
           <div class="fielderror" *ngIf="qualificationForm.value.us == ''">
             This field is required
           </div>
-
-          <ng-container *ngIf="!_USER_IS_PEER">
+          <ng-container>
             <hr />
             <p>
               To complete the study and earn payment you will need to recruit two
@@ -240,7 +239,6 @@
               This field is required
             </div>
           </ng-container>
-
         </div>
         <hr />
         <div *ngIf="!qualificationForm.valid" class="fielderror">
@@ -251,9 +249,7 @@
         </button>
         <br /><br /><br /><br />
       </form>
-      <!-- qform {{qualificationForm.value | json }} ---qualified={{isQualified(qualificationForm)}}
-      <br>usr{{this.user ? this.user.subrole : ''}}<br>
-      userispeer{{_USER_IS_PEER}} -->
+
     </div>
   </div>
 </div>

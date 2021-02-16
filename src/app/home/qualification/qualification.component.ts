@@ -8,7 +8,6 @@ import {
   transition,
   // ...
 } from "@angular/animations";
-import { setTimeout } from "timers";
 
 import { DomSanitizer } from "@angular/platform-browser";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -71,23 +70,18 @@ export class QualificationComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.consentForm = params["consent"];
       this.passed_query_param_role = params["role"];
-      console.log(this.consentForm);
-      this.getUserType();
     });
   }
 
   ngOnInit(): void {
-    this.remakeForm();
+    this.qualificationForm = new FormGroup({
+      parents: new FormControl("", [Validators.required]),
+      gm: new FormControl("", [Validators.required]),
+      vac: new FormControl("", [Validators.required]),
+      us: new FormControl("", [Validators.required]),
+      friends: new FormControl("", [Validators.required]),
+    });
     this.getMe();
-  }
-
-  getUserType() {
-    if (
-      this.passed_query_param_role == "peer" ||
-      (this.user && this.user.subrole == "friend")
-    ) {
-      this._USER_IS_PEER = true;
-    }
   }
 
   /**
@@ -95,10 +89,11 @@ export class QualificationComponent implements OnInit {
    */
   getMe() {
     if (this.authService.userValue) {
-      this.participantService.get().subscribe((data: any) => {
+      this.participantService.profile().subscribe((data: any) => {
+        console.log("getmedata", data);
+        this._USER_IS_PEER = data.data.seed_id !== null;
         this.user = data.data;
         this.remakeForm();
-
         if (this.user.survey_complete) {
           this.submitted = true;
         }
@@ -109,18 +104,8 @@ export class QualificationComponent implements OnInit {
   }
 
   remakeForm() {
-    this.qualificationForm = new FormGroup({
-      parents: new FormControl("", [Validators.required]),
-      gm: new FormControl("", [Validators.required]),
-      vac: new FormControl("", [Validators.required]),
-      us: new FormControl("", [Validators.required]),
-      friends: new FormControl("", [Validators.required]),
-    });
-    if (
-      this.passed_query_param_role == "peer" ||
-      (this.user && this.user.subrole == "friend")
-    ) {
-      this.qualificationForm.get("friends").clearValidators();
+    if (this._USER_IS_PEER) {
+      this.qualificationForm.removeControl("friends");
     }
   }
   possibleResponses = [
@@ -176,12 +161,10 @@ export class QualificationComponent implements OnInit {
       this.alertService.error("You must fill out the qualification form first");
       return false;
     }
-    debugger;
     let f = this.qualificationForm.value;
 
     if (!this._USER_IS_PEER) {
       f.seed = true;
-      // this.submit_qualification_form(f);
     } else if (
       this._USER_IS_PEER &&
       !this.isQualified(this.qualificationForm)
@@ -190,6 +173,7 @@ export class QualificationComponent implements OnInit {
       this.router.navigate(["my-projects"]);
       return false;
     } else if (this._USER_IS_PEER && this.isQualified(this.qualificationForm)) {
+      f.friends = null;
       this.submit_qualification_form(f);
     }
 
