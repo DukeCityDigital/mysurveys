@@ -6,13 +6,14 @@
     </app-category-form>
 
     <button (click)="saveSelection()" mat-stroked-button color="primary">Save selection</button>
-    <h2>There are {{data ? data.length : null}} matching users<br></h2>
-    <h3>Sample of proposed selection:</h3>
-    <!-- **TODO choose # of matching users to invite -->
+    <h2>There are {{data ? data.length : null}} matching users></h2>
+    {{selectedUSERS.length}} Users currently selected;<br> *An asterisk next to a friend ID means the user hasn't
+    completed
+    qualification questionnaire
 </mat-card>
 
 <mat-card style="border:1px solid lightblue;">
-    {{selectedUSERS.length}} Users currently selected
+
 </mat-card>
 <table class="participants participantsAll" matSort (matSortChange)="sortData($event)" matSortDirection="asc" mat-table
     [dataSource]="data">
@@ -34,12 +35,18 @@
         <td mat-cell *matCellDef="let element"> {{element.user_id }} </td>
     </ng-container>
     <ng-container matColumnDef="is_seed">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Is seed </th>
-        <td mat-cell *matCellDef="let element"> {{element.is_seed ? 'Yes' : 'No'}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Seed </th>
+        <td mat-cell *matCellDef="let element"> {{element.is_seed ? 'Yes' : element.seed_id}} </td>
     </ng-container>
     <ng-container matColumnDef="friends">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Friends </th>
-        <td mat-cell *matCellDef="let element"> {{element.friends ? element.friends.length : 'None'}} </td>
+
+        <td mat-cell *matCellDef="let element">
+            <span style="border:1px solid lightgrey;margin:2px;display:inline-block" *ngFor="let f of element.friends">
+                {{f.survey_complete ? f.user_id : f.user_id + '*'}}
+            </span>&nbsp; -
+            [{{element.friends ? element.friends.length : 'None'}}]
+        </td>
     </ng-container>
     <ng-container matColumnDef="paypal_id_status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> PP ID Status </th>
