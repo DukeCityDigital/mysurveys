@@ -18,122 +18,80 @@
       for the study. First, please read the consent form below.
     </p>
     <div class="consentContent">
-      <h2>Your privacy</h2>
-      <p>
-        MySurveys collects your data so we can select participants for study surveys, contact participants about
-        studies and analyze the anonymized results of the studies in research.
-        This website also uses cookies to ensure you get the best experience.
-      </p>
-      <p>
-        You can find out more about our privacy policy by clicking
-        <a target="_BLANK" href="/privacy">here</a> . By continuing to use this website,
-        you acknowledge that you understand and agree to our full privacy terms.
-      </p>
-      <p>
-        If you object, please <a href="https://google.com">click here</a> to leave
-        the site.
-      </p>
       <hr>
       <div
         *ngIf="!this.user || passed_query_param_role =='seed' || this.user && this.user.subrole !=='friend'; else showSeed">
-        <h2>Seed Consent form</h2>
+        <h2>Consent form</h2>
         <p>
           <b> Purpose of the study:</b> You are being asked to participate in a research study that is being done by
-          Mirta
-          Galesic and Henrik Olsson from the Santa Fe Institute, funded by the NSF. The purpose of this study is to
+          Mirta Galesic and Henrik Olsson from the Santa Fe Institute, funded by the NSF. The purpose of this study is to
           investigate parents’ beliefs about different issues, including vaccination and GM food. You are being asked
           to take part in this study because you are living in the US and are at least 18 years old.
         </p>
-
-        <p>This form will explain what to expect when joining the research, as well as the possible risks and benefits
-          of participation. If you have any questions, please ask one of the study researchers.</p>
-
-        <p><b>What you will do in the study:</b> Your participation will involve answering questions about yourself
-          and your
-          opinions, such as “Is growing GM crops is harmful or beneficial to the environment?”, “Are childhood
+        <p> 
+          <b> Study requirements:</b> To participate in the study, two of your friends will also need to sign up on this website.  
+        </p>
+        <p>
+         <b>What you will do in the study:</b> Your participation will involve answering questions about yourself
+          and your opinions, such as “Is growing GM crops harmful or beneficial to the environment?”, “Are childhood
           vaccines natural or unnatural?”, and “Do you have children under 18 years of age at home?”. You might be
-          asked to participate in up to three survey waves, each two weeks apart. A survey wave should take no more
+          asked to participate in up to three survey waves, a few weeks apart. A survey wave should take no more
           than 10 minutes. You will also be asked to invite two of your friends, whose opinions are important to you
           when thinking about parenting, to complete a short questionnaire.</p>
-
-        <p> <b>Risks:</b> There are no known risks in this research, but some individuals may experience discomfort or
-          loss
-          of privacy when answering questions.</p>
+        <p>
+          <b>Payment:</b> You will receive $5 for each survey wave you participate in (up to $15) and an additional $10 for each friend that signs up and completes the first wave. Each of your friends will get $15 for signing up and completing the first wave. 
+        </p>
+        <p> <b>Risks:</b> There are no known risks in this research, but some individuals may experience discomfort or loss of privacy when answering questions.</p>
 
         <p><b>Benefits:</b> The findings from this project will provide information on belief formation and social
           influence.
-          Confidentiality of your information: There are no names or identifying information associated with your
-          responses. Data will be kept securely and not shared with anyone else. Your personal information will only
-          be used for compensation and will not be connected to your answers.</p>
-
-        <p><b>Payment:</b> You will receive $5 for each survey wave you participate in and $10 for each friend that
-          completes
-          the study.</p>
-
-        <p> <b>Right to withdraw from the study:</b> Your participation in this study is completely voluntary. You
-          have the right
+        <p>
+          <b>Your privacy:</b> MySurveys collects your data so we can select participants for study surveys, contact participants about studies and analyze the anonymized results of the studies in research. There are no names or identifying information associated with your responses. Data will be kept securely and not shared with anyone else. Your personal information will only be used for compensation and will not be connected to your answers. This website also uses cookies to ensure you get the best experience. You can find out more about our privacy policy by clicking <a target="_BLANK" href="/privacy">here</a>. By continuing to use this website, you acknowledge that you understand and agree to our full privacy terms.
+      </p>
+        <p> 
+          <b>Right to withdraw from the study:</b> Your participation in this study is completely voluntary. You have the right
           to choose not to participate or to withdraw your participation at any point in this study without penalty.
         </p>
-
         <p>If you have any questions, concerns, or complaints about the research, please feel free to call Mirta
-          Galesic
-          or Henrik Olsson at (505) 946-2703 or email at support@mysurveys.santafe.edu. If you have questions
-          regarding
-          your rights as a research participant, or about what you should do in case of any harm to you, or if you
-          want
-          to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505) 277-2644 or
-          irb.unm.edu.</p>
+          Galesic or Henrik Olsson at (505) 946-2703 or email at support@mysurveys.santafe.edu. If you have questions
+          regarding your rights as a research participant, or about what you should do in case of any harm to you, or if you
+          want to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505) 277-2644 or
+          irb@unm.edu.</p>
       </div>
       <ng-template #showSeed>
-
-        <h2>Peer consent form</h2>
+        <h2>Consent form</h2>
         <p><b>Purpose of the study:</b> You are being asked to participate in a research study that is being done by
-          Mirta
-          Galesic and Henrik Olsson from the Santa Fe Institute, funded by the NSF. The purpose of this study is to
+          Mirta Galesic and Henrik Olsson from the Santa Fe Institute, funded by the NSF. The purpose of this study is to
           investigate parents’ beliefs about different issues, including vaccination and GM food. You are being
-          asked
-          to take part in this study because your friend thought you would be interested.</p>
-
-        <p>This form will explain what to expect when joining the research, as well as the possible risks and
-          benefits
-          of participation. If you have any questions, please ask one of the study researchers.</p>
-
-        <p><b>What you will do in the study:</b> Your participation will involve answering questions about yourself
-          and
-          your
-          opinions, such as “Is growing GM crops is harmful or beneficial to the environment?”, “Are childhood
+          asked to take part in this study because your friend thought you would be interested.
+        </p>
+        <p>
+          <b>What you will do in the study:</b> Your participation will involve answering questions about yourself
+          and your opinions, such as “Is growing GM crops harmful or beneficial to the environment?”, “Are childhood
           vaccines natural or unnatural?”, and “Do you have children under 18 years of age at home?”. You might be
-          asked to participate in one survey wave. A survey wave should take no more than 10 minutes.</p>
-
+          asked to participate in one survey wave. A survey wave should take no more than 10 minutes.
+        </p>
+       <p><b>Payment:</b> You will receive $15 for signing up and completing the study.
+        </p>
+        
         <p><b>Risks:</b> There are no known risks in this research, but some individuals may experience discomfort or
-          loss
-          of
-          privacy when answering questions.</p>
+          loss of privacy when answering questions.</p>
 
         <p><b>Benefits:</b> The findings from this project will provide information on belief formation and social
           influence.
-          Confidentiality of your information: There are no names or identifying information associated with your
-          responses. Data will be kept securely and not shared with anyone else. Your personal information will only
-          be used for compensation and will not be connected to your answers.</p>
-
-        <p><b>Payment:</b> You will receive $10 for signing up for the study and $5 for completing the
-          questionnaire.
-        </p>
+         <p>
+           <b>Your privacy:</b> MySurveys collects your data so we can select participants for study surveys, contact participants about studies and analyze the anonymized results of the studies in research. There are no names or identifying information associated with your responses. Data will be kept securely and not shared with anyone else. Your personal information will only be used for compensation and will not be connected to your answers. This website also uses cookies to ensure you get the best experience. You can find out more about our privacy policy by clicking <a target="_BLANK" href="/privacy">here</a>. By continuing to use this website, you acknowledge that you understand and agree to our full privacy terms.
+      </p>
 
         <p><b>Right to withdraw from the study:</b> Your participation in this study is completely voluntary. You
-          have
-          the right to choose not to participate or to withdraw your participation at any point in this study
-          without
-          penalty.</p>
+          have the right to choose not to participate or to withdraw your participation at any point in this study
+          without penalty.</p>
 
         <p> If you have any questions, concerns, or complaints about the research, please feel free to call Mirta
-          Galesic
-          or Henrik Olsson at (505) 946-2703 or email at support@mysurveys.santafe.edu. If you have questions
-          regarding
-          your rights as a research participant, or about what you should do in case of any harm to you, or if you
-          want
-          to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505) 277-2644 or
-          irb.unm.edu.</p>
+          Galesic or Henrik Olsson at (505) 946-2703 or email at support@mysurveys.santafe.edu. If you have questions
+          regarding your rights as a research participant, or about what you should do in case of any harm to you, or if you
+          want to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505) 277-2644 or
+          irb@unm.edu.</p>
       </ng-template>
       <mat-checkbox [(ngModel)]="accepted_short_consent">I consent</mat-checkbox>
     </div>
@@ -144,7 +102,7 @@
 
     <div [@openClose]="accepted_short_consent ? 'open' : 'closed'" class="open-close-container">
       <form [hidden]="!accepted_short_consent" [formGroup]="qualificationForm" (ngSubmit)="onSubmit()">
-        <h2>Thanks for your consent!</h2>
+        <h2>Thanks for agreeing to participate!</h2>
         <p>Please answer all of the following questions</p>
         <div class="shortConsent">
           <label id="example-radio-group-label">Do any children under the age of 18 currently live in your
@@ -170,7 +128,7 @@
             GM food made from these crops.
           </p>
           <label id="example-radio-group-labelgm">Do you think it is unsafe or safe to eat GM food? Select the
-            number that comes closest to your views
+            number that comes closest to your views. 
           </label>
 
           <mat-radio-group aria-labelledby="example-radio-group-labelgm" class="example-radio-group"
@@ -192,7 +150,7 @@
             vaccine or the Tetanus, diphtheria, and pertussis (Tdap) vaccine.
           </p>
           <label id="example-radio-group-label">Do you think childhood vaccines are unsafe or safe for healthy
-            children? Select the number that comes closest to your views
+            children? Select the number that comes closest to your views.
           </label>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
             formControlName="vac">
@@ -242,7 +200,7 @@
         </div>
         <hr />
         <div *ngIf="!qualificationForm.valid" class="fielderror">
-          Please complete all questions above to submit the form
+          Please complete all questions above to submit the form.
         </div>
         <button mat-stroked-button [disabled]="!qualificationForm.valid" color="primary" type="submit">
           Submit
@@ -262,8 +220,7 @@
   <mat-card style="text-align: center; margin: 12px 0" color="primary">
     <mat-icon style="color: green; font-size: 44px">check_circle_outline</mat-icon>
     <h2>
-      Great - it looks like you're qualified to participate. Let's get your
-      information and email verified.
+      Great - it looks like you're qualified to participate. Now, please create an account so we can invite you to studies by email and pay you through Paypal.
     </h2>
   </mat-card>
 
