@@ -34,7 +34,7 @@
 <mat-card *ngIf="registered" style="text-align: center;" color="primary">
   <mat-icon style="color: green; font-size: 44px; vertical-align: initial;">check_circle_outline</mat-icon>
   <h2>
-    We've received your request to create an account. Please check your email and spam box for a verification link.
+    Thanks for creating an account. Please check your email and spam folder for a verification link.
   </h2>
 </mat-card>
 <mat-card *ngIf="
@@ -63,7 +63,7 @@
   <h3> Verification code confirmed, your account has been created and you are now
     logged in! </h3>
   <ng-container *ngIf=" user && user.subrole ==='seed'; else friend">
-    <h2>Begin by inviting setting up PayPal </h2>
+    <h2>Next, please set up your Paypal account so we can compensate your.</h2>
     <button mat-raised-button color="primary" style="background:lightblue;color:darkblue;"
       [routerLink]="'/dashboard/paypal'"> Set up PayPal </button>
   </ng-container>
