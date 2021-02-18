@@ -80,7 +80,7 @@ export class PaypalValidateComponent implements OnInit {
             this.router.navigate(["/dashboard/my-projects"]);
           } else if (this.user.subrole == "seed") {
             confirm(
-              "Thank you for validating your PayPal! Next you will be directed to the friends page "
+              "Thank you for validating your PayPal! Next you will be directed to the page to invite your friends "
             );
             this.router.navigate(["/dashboard/friends"]);
           }
