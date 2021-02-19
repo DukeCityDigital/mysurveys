@@ -20,7 +20,7 @@
             Max Payout: <b>{{ i.project.max_payout | currency: "USD" }}</b>
           </li>
           <li>
-            Responsible person and email (will appear on the invitation): <b>{{ i.project.responsible_person }}</b>
+            Responsible person: <b>{{ i.project.responsible_person }}</b>
           </li>
         </ul>
         <div *ngIf="i.started || i.finished">
