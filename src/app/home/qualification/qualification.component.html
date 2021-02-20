@@ -23,75 +23,52 @@
         *ngIf="!this.user || passed_query_param_role =='seed' || this.user && this.user.subrole !=='friend'; else showSeed">
         <h2>Consent form</h2>
         <p>
-          <b> Purpose of the study:</b> You are being asked to participate in a research study that is being done by
-          Mirta Galesic and Henrik Olsson from the Santa Fe Institute, funded by the NSF. The purpose of this study is to
-          investigate parents’ beliefs about different issues, including vaccination and GM food. You are being asked
-          to take part in this study because you are living in the US and are at least 18 years old.
-        </p>
-        <p> 
-          <b> Study requirements:</b> To participate in the study, two of your friends will also need to sign up on this website.  
+          <b> Purpose of the study:</b> This study investigates parents’ beliefs about different issues, including vaccination and GM food. <b>This study is for groups of friends.</b>  To qualify for the study, <b>you and two of your friends</b> will need to sign up on this website. The friends will have to be from different households and live in the U.S. 
         </p>
         <p>
-         <b>What you will do in the study:</b> Your participation will involve answering questions about yourself
-          and your opinions, such as “Is growing GM crops harmful or beneficial to the environment?”, “Are childhood
-          vaccines natural or unnatural?”, and “Do you have children under 18 years of age at home?”. You might be
-          asked to participate in up to three survey waves, a few weeks apart. A survey wave should take no more
-          than 10 minutes. You will also be asked to invite two of your friends, whose opinions are important to you
-          when thinking about parenting, to complete a short questionnaire.</p>
-        <p>
-          <b>Payment:</b> You will receive $5 for each survey wave you participate in (up to $15) and an additional $10 for each friend that signs up and completes the first wave. Each of your friends will get $15 for signing up and completing the first wave. 
+          A week or two after you and your two friends have signed up, you will be invited to participate in three study waves, and your friends in one study wave. Study waves will be a few weeks apart and take no more than 10 minutes each. You will be asked questions such as “Is growing GM crops harmful or beneficial to the environment?”, “Are childhood vaccines natural or unnatural?”, and “Do you have children under 18 years of age at home?”. 
         </p>
-        <p> <b>Risks:</b> There are no known risks in this research, but some individuals may experience discomfort or loss of privacy when answering questions.</p>
+        <p>
+          <b>Payment:</b> After completing the first study wave, you will receive $10 for each friend that has signed up, and $5 for completing the study (for a total of $25). For each next study wave you participate in, you will receive an additional $5 (for up to additional $10). Each of your friends will get $10 for signing up and $5 for completing the first wave. 
+        </p>
+        <p>
+          Importantly, if none of your friends sign up, we won’t able to invite you to the study or compensate you. If only one of your friends signs up, we again won’t be able to invite you to the study or compensate you, but we will still compensate your friend for signing up. 
+        </p>
+        <p> <b>Benefits and Risks:</b>  This project will generate useful and interesting findings on how people make up their minds and influence each other.There are no known risks in this research, but some individuals may experience discomfort or perceive loss of privacy when answering questions.
+        </p>
 
-        <p><b>Benefits:</b> The findings from this project will provide information on belief formation and social
-          influence.
         <p>
-          <b>Your privacy:</b> MySurveys collects your data so we can select participants for study surveys, contact participants about studies and analyze the anonymized results of the studies in research. There are no names or identifying information associated with your responses. Data will be kept securely and not shared with anyone else. Your personal information will only be used for compensation and will not be connected to your answers. This website also uses cookies to ensure you get the best experience. You can find out more about our privacy policy by clicking <a target="_BLANK" href="/privacy">here</a>. By continuing to use this website, you acknowledge that you understand and agree to our full privacy terms.
+          <b>Your privacy:</b> MySurveys collects your data so we can select and contact participants for studies and analyze the anonymized results. There are no names or identifying information associated with your responses. Data will be kept securely and not shared with anyone else. Your personal information will only be used for compensation and will not be connected to your answers. This website also uses cookies to ensure you get the best experience. You can find out more about our privacy policy by clicking <a target="_BLANK" href="/privacy">here</a>. By continuing to use this website, you acknowledge that you understand and agree to our full privacy terms.
       </p>
         <p> 
-          <b>Right to withdraw from the study:</b> Your participation in this study is completely voluntary. You have the right
-          to choose not to participate or to withdraw your participation at any point in this study without penalty.
+          <b>Right to withdraw from the study:</b> Your participation in this study is completely voluntary. You have the right to choose not to participate or to withdraw your participation at any point in this study without penalty.
         </p>
-        <p>If you have any questions, concerns, or complaints about the research, please feel free to call Mirta
-          Galesic or Henrik Olsson at (505) 946-2703 or email at support@mysurveys.santafe.edu. If you have questions
-          regarding your rights as a research participant, or about what you should do in case of any harm to you, or if you
-          want to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505) 277-2644 or
-          irb@unm.edu.</p>
+        <p><b>Contact information:</b> This study is conducted by Mirta Galesic and Henrik Olsson from the Santa Fe Institute, funded by the NSF. If you have any questions, concerns, or complaints about the research, please feel free to call the researchers at (505) 946-2703 or email at support@mysurveys.santafe.edu. If you have questions
+          regarding your rights as a research participant, or about what you should do in case of any harm to you, or if you want to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505) 277-2644 or irb@unm.edu.
+        </p>
       </div>
       <ng-template #showSeed>
         <h2>Consent form</h2>
-        <p><b>Purpose of the study:</b> You are being asked to participate in a research study that is being done by
-          Mirta Galesic and Henrik Olsson from the Santa Fe Institute, funded by the NSF. The purpose of this study is to
-          investigate parents’ beliefs about different issues, including vaccination and GM food. You are being
-          asked to take part in this study because your friend thought you would be interested.
+      <p>
+          <b> Purpose of the study:</b> This study investigates parents’ beliefs about different issues, including vaccination and GM food. <b>This study is for groups of friends.</b>  To qualify for the study, <b>you and two of your friends</b> will need to sign up on this website. The friends will have to be from different households and live in the U.S. 
         </p>
         <p>
-          <b>What you will do in the study:</b> Your participation will involve answering questions about yourself
-          and your opinions, such as “Is growing GM crops harmful or beneficial to the environment?”, “Are childhood
-          vaccines natural or unnatural?”, and “Do you have children under 18 years of age at home?”. You might be
-          asked to participate in one survey wave. A survey wave should take no more than 10 minutes.
+            A week or two after you have signed up, you may be invited to participate in a study taking no more than 10 minutes. You will be asked questions such as “Is growing GM crops harmful or beneficial to the environment?”, “Are childhood vaccines natural or unnatural?”, and “Do you have children under 18 years of age at home?”. 
         </p>
-       <p><b>Payment:</b> You will receive $15 for signing up and completing the study.
+        <p>
+          <b>Payment:</b> You will receive $10 for signing up and an additional $5 if you complete the study that we might invite you to in a week or so. 
         </p>
-        
-        <p><b>Risks:</b> There are no known risks in this research, but some individuals may experience discomfort or
-          loss of privacy when answering questions.</p>
-
-        <p><b>Benefits:</b> The findings from this project will provide information on belief formation and social
-          influence.
-         <p>
-           <b>Your privacy:</b> MySurveys collects your data so we can select participants for study surveys, contact participants about studies and analyze the anonymized results of the studies in research. There are no names or identifying information associated with your responses. Data will be kept securely and not shared with anyone else. Your personal information will only be used for compensation and will not be connected to your answers. This website also uses cookies to ensure you get the best experience. You can find out more about our privacy policy by clicking <a target="_BLANK" href="/privacy">here</a>. By continuing to use this website, you acknowledge that you understand and agree to our full privacy terms.
+        <p> <b>Benefits and Risks:</b>  This project will generate useful and interesting findings on how people make up their minds and influence each other.There are no known risks in this research, but some individuals may experience discomfort or perceive loss of privacy when answering questions.
+        </p>
+        <p>
+          <b>Your privacy:</b> MySurveys collects your data so we can select and contact participants for studies and analyze the anonymized results. There are no names or identifying information associated with your responses. Data will be kept securely and not shared with anyone else. Your personal information will only be used for compensation and will not be connected to your answers. This website also uses cookies to ensure you get the best experience. You can find out more about our privacy policy by clicking <a target="_BLANK" href="/privacy">here</a>. By continuing to use this website, you acknowledge that you understand and agree to our full privacy terms.
       </p>
-
-        <p><b>Right to withdraw from the study:</b> Your participation in this study is completely voluntary. You
-          have the right to choose not to participate or to withdraw your participation at any point in this study
-          without penalty.</p>
-
-        <p> If you have any questions, concerns, or complaints about the research, please feel free to call Mirta
-          Galesic or Henrik Olsson at (505) 946-2703 or email at support@mysurveys.santafe.edu. If you have questions
-          regarding your rights as a research participant, or about what you should do in case of any harm to you, or if you
-          want to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505) 277-2644 or
-          irb@unm.edu.</p>
+        <p> 
+          <b>Right to withdraw from the study:</b> Your participation in this study is completely voluntary. You have the right to choose not to participate or to withdraw your participation at any point in this study without penalty.
+        </p>
+        <p><b>Contact information:</b> This study is conducted by Mirta Galesic and Henrik Olsson from the Santa Fe Institute, funded by the NSF. If you have any questions, concerns, or complaints about the research, please feel free to call the researchers at (505) 946-2703 or email at support@mysurveys.santafe.edu. If you have questions
+          regarding your rights as a research participant, or about what you should do in case of any harm to you, or if you want to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505) 277-2644 or irb@unm.edu.
+        </p>
       </ng-template>
       <mat-checkbox [(ngModel)]="accepted_short_consent">I consent</mat-checkbox>
     </div>
