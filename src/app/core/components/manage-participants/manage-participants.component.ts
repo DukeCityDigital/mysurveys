@@ -150,7 +150,7 @@ export class ManageParticipantsComponent implements OnInit {
       return false;
     }
     if (this.project.state !== "Started") {
-      this.alertService.error("The project  state is not open");
+      this.alertService.error("The project state is not Started");
       return false;
     }
 
