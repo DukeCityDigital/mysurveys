@@ -80,6 +80,7 @@ export class QualificationComponent implements OnInit {
       vac: new FormControl("", [Validators.required]),
       us: new FormControl("", [Validators.required]),
       friends: new FormControl("", [Validators.required]),
+      share_data: new FormControl("", [Validators.required]),
     });
     this.getMe();
   }
@@ -100,12 +101,15 @@ export class QualificationComponent implements OnInit {
       });
     } else {
       this._USER_IS_PEER = false;
+      this.qualificationForm.removeControl("share_answers");
     }
   }
 
   remakeForm() {
     if (this._USER_IS_PEER) {
       this.qualificationForm.removeControl("friends");
+    } else {
+      this.qualificationForm.removeControl("share_answers");
     }
   }
   possibleResponses = [
@@ -192,6 +196,8 @@ export class QualificationComponent implements OnInit {
       .user_submit_qualification_form(qualificationForm)
       .subscribe(
         (data) => {
+          console.log("data", data);
+          // return false;
           if (!this._USER_IS_PEER) {
             if (this.isQualified(this.qualificationForm)) {
               let c = confirm(

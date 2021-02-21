@@ -203,6 +203,8 @@
           <div class="fielderror" *ngIf="qualificationForm.value.us == ''">
             This field is required
           </div>
+
+
           <ng-container *ngIf="!this._USER_IS_PEER">
             <hr />
             <p>
@@ -222,6 +224,32 @@
               This field is required
             </div>
           </ng-container>
+
+
+
+          <ng-container *ngIf="this._USER_IS_PEER">
+            <hr />
+            <p>
+              Would it be ok to share your answers to the previous two questions with the friend who invited you to the
+              study?
+            </p>
+            <mat-radio-group required aria-labelledby="example-radio-group-labelfriends" class="example-radio-group"
+              formControlName="share_data">
+              <mat-radio-button class="example-radio-button" value="true">
+                Yes
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="0">
+                No
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="fielderror" *ngIf="qualificationForm.value.data == ''">
+              This field is required
+            </div>
+          </ng-container>
+
+
+
+
         </div>
         <hr />
         <div *ngIf="!qualificationForm.valid" class="fielderror">
