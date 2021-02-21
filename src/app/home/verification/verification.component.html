@@ -63,7 +63,7 @@
   <h3> Verification code confirmed, your account has been created and you are now
     logged in! </h3>
   <ng-container *ngIf=" user && user.subrole ==='seed'; else friend">
-    <h2>Next, please set up your Paypal account so we can compensate your.</h2>
+    <h2>Next, please set up your Paypal account so we can compensate you.</h2>
     <button mat-raised-button color="primary" style="background:lightblue;color:darkblue;"
       [routerLink]="'/dashboard/paypal'"> Set up PayPal </button>
   </ng-container>

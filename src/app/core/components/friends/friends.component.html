@@ -6,24 +6,31 @@
 <div *ngIf="user && user.is_seed !== null">
   <mat-card class="innercard">
     <mat-card-title> Invite friends </mat-card-title>
-     <p>
-       Now please invite some friends to join the study.
+    <p>
+      <b> Two of your friends will need to sign up on this website.</b> They could be your close friends or other
+      acquaintances, but should not live in the same household as you. Please try to invite friends that are parents of
+      young children like you. Please only invite friends that live in the U.S.
     </p>
-     <p>
-       <b> Two of your friends will need to sign up on this website.</b> They could be your close friends or other acquaintances, but should not live in the same household as you. Please try to invite friends that are parents of young children like you. Please only invite friends that live in the U.S.
+    <p>
+      As we mentioned, after completing the first study wave, you will receive $10 for each friend that has signed up,
+      and $5 for completing the study (for a total of $25). For each next study wave you participate in, you will
+      receive an additional $5 (for up to additional $10). Each of your friends will get $10 for signing up and $5 for
+      completing the first wave.
     </p>
-    <p> 
-        As we mentioned, after completing the first study wave, you will receive $10 for each friend that has signed up, and $5 for completing the study (for a total of $25). For each next study wave you participate in, you will receive an additional $5 (for up to additional $10). Each of your friends will get $10 for signing up and $5 for completing the first wave. 
-      </p> 
-    <p> 
-      Importantly, if none of your friends sign up, we won't be able to invite you to the study or compensate you. If only one of your friends signs up, we again won’t be able to invite you to the study or compensate you, but we will still compensate your friend for signing up. 
-    </p> 
-    <p> 
-      <b> You can invite more than two friends, but we will only be able to accept and compensate the first two friends that join.</b>
-      </p> 
-    <p> 
-      Once you enter a friend's contact information, they will receive the email message below. Please enter a custom message to personalize the invitation. <b>Please notify your friends separately to look out for this email and check their spam folder.</b> 
-     </p>
+    <p>
+      Importantly, if none of your friends sign up, we won't be able to invite you to the study or compensate you. If
+      only one of your friends signs up, we again won’t be able to invite you to the study or compensate you, but we
+      will still compensate your friend for signing up.
+    </p>
+    <p>
+      <b> You can invite more than two friends, but we will only be able to accept and compensate the first two friends
+        that join.</b>
+    </p>
+    <p>
+      Once you enter a friend's contact information, they will receive the email message below. Please enter a custom
+      message to personalize the invitation. <b>Please notify your friends separately to look out for this email and
+        check their spam folder.</b>
+    </p>
     <form [formGroup]="friendForm" (ngSubmit)="onSubmitFriendInvite();">
       <label for="email">Enter a friend's email address here</label>
       <input required style="border: 1px solid black; width: 100%" type="text" id="email" name="email"

@@ -1,9 +1,6 @@
-<mat-card>
+<!-- <mat-card>
   <h1 style="text-transform: capitalize">{{ user.role }} Dashboard</h1>
   <div *ngIf="user && user.role === 'participant' && user.is_seed !== null">
-    <!-- [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a href="#">Profile</a>]&nbsp;
-    <hr /> -->
-    <!-- No pending invitations -->
 
     <div *ngIf="user.friends.length">
       <h3>Friends invited: {{user.friends.length}}</h3>
@@ -14,13 +11,7 @@
       Friends who have verified email: {{friends_verified_email ? friends_verified_email : 'None'}}<br>
       Friends who have verified PayPal: {{friends_verified_paypal ? friends_verified_paypal : 'None'}}<br>
 
-      <!-- <div *ngIf="friends_verified_email">
-        <h3>You have friends who have verified their account {{friends_verified_email}}</h3><br>
-      </div>
-      <div *ngIf="friends_verified_paypal">
-        <h3>You have friends who have verified their PayPal</h3><br>
-      </div> -->
-
+ 
       <div *ngIf="friends_verified_email && friends_verified_paypal">
         <h2>You have eligible friends! You'll receive project invitations when they are sent to your group.</h2>
       </div>
@@ -35,7 +26,7 @@
       </button>
     </div>
   </div>
-  <!-- If not a seed, show welcome message  -->
+
   <div *ngIf="user && user.is_seed === null">
     [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a href="#">Profile</a>]&nbsp;
     <hr />
@@ -60,5 +51,5 @@
       Create Project
     </button>
   </div>
-</mat-card>
+</mat-card> -->
 <router-outlet></router-outlet>
