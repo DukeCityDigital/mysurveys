@@ -196,7 +196,6 @@ export class QualificationComponent implements OnInit {
       .user_submit_qualification_form(qualificationForm)
       .subscribe(
         (data) => {
-          console.log("data", data);
           // return false;
           if (!this._USER_IS_PEER) {
             if (this.isQualified(this.qualificationForm)) {
