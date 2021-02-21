@@ -133,8 +133,10 @@ export class QualificationComponent implements OnInit {
     }
     let qualified;
     this.isOpen = true;
-    let gmOk = parseInt(f.gm) !== 1 && parseInt(f.gm) !== 7;
-    let vacOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
+    // let gmOk = parseInt(f.gm) !== 1 && parseInt(f.gm) !== 7;
+    // let vacOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
+    let gmOk = true;
+    let vacOk = true;
 
     if (
       (f.us === "true" &&

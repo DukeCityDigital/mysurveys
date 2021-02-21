@@ -43,7 +43,7 @@ export class PaypalValidateComponent implements OnInit {
 
   createPaypalForm(): FormGroup {
     return this.formBuilder.group({
-      email: new FormControl("", [Validators.required, Validators.email]),
+      // email: new FormControl("", [Validators.required, Validators.email]),
       paypalme: new FormControl("", [Validators.required]),
     });
   }
