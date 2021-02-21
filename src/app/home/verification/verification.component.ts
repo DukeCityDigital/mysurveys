@@ -125,8 +125,12 @@ export class VerificationComponent implements OnInit {
           });
         },
         (error) => {
-          if (error.status == 500) {
-            this.errors.push("A user exists with that email address");
+          console.log("regerror", error);
+          if (error.status == 409) {
+            var exists = "A user exists with that email address";
+            this.errors.push(exists);
+            this.alertService.error(exists);
+            return false;
           } else if (error.status == 500) {
             this.errors.push(error);
           } else {
