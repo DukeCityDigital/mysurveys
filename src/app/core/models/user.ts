@@ -15,4 +15,5 @@ export class User {
   friends?: any;
   survey_complete?: boolean;
   subrole?: any;
+  step?: any;
 }

@@ -56,6 +56,14 @@ export class AppComponent {
     }
   }
 
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    setTimeout(() => {
+      this.navLinks = this.getLinks();
+    }, 1000);
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
@@ -84,7 +92,7 @@ export class AppComponent {
   }
 
   getLinks() {
-    if (this.user.role) {
+    if (this.user && this.user.role) {
       if (this.user.is_seed == 1) {
         return this.links.seed.concat(this.links.end);
       }

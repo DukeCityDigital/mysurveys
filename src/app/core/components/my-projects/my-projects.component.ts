@@ -71,15 +71,18 @@ export class MyProjectsComponent implements OnInit {
       this.lookup = lookup;
     });
     console.log(this.lookup);
-
-    invitations.forEach((element: any) => {
-      console.log(element.safeid.trim(), String(this.lookup).trim());
-      console.log(String(element.safeid).trim() == String(this.lookup).trim());
-      if (String(element.safeid).trim() == String(this.lookup).trim()) {
-        element.verifying = true;
-        this.verifyProjectCode(element.projects_projectid);
-      }
-    });
+    if (invitations) {
+      invitations.forEach((element: any) => {
+        console.log(element.safeid.trim(), String(this.lookup).trim());
+        console.log(
+          String(element.safeid).trim() == String(this.lookup).trim()
+        );
+        if (String(element.safeid).trim() == String(this.lookup).trim()) {
+          element.verifying = true;
+          this.verifyProjectCode(element.projects_projectid);
+        }
+      });
+    }
   }
 
   /**

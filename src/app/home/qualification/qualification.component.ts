@@ -101,15 +101,16 @@ export class QualificationComponent implements OnInit {
       });
     } else {
       this._USER_IS_PEER = false;
-      this.qualificationForm.removeControl("share_answers");
+      this.remakeForm();
     }
+    console.log(this.qualificationForm);
   }
 
   remakeForm() {
     if (this._USER_IS_PEER) {
       this.qualificationForm.removeControl("friends");
     } else {
-      this.qualificationForm.removeControl("share_answers");
+      this.qualificationForm.removeControl("share_data");
     }
   }
   possibleResponses = [

@@ -9,6 +9,7 @@ import { AlertService } from "../_alert";
 import { ParticipantService } from "@app/core/services/participant.service";
 import { EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
+import { AuthService } from "@app/core/services/auth.service";
 
 @Component({
   selector: "app-paypal-validate",
@@ -29,7 +30,8 @@ export class PaypalValidateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private alertService: AlertService,
     private participantService: ParticipantService,
-    private router: Router
+    private router: Router,
+    private authenticationService: AuthService
   ) {
     this.paypalForm = this.createPaypalForm();
   }
@@ -74,16 +76,25 @@ export class PaypalValidateComponent implements OnInit {
           this.getMe();
           this.notifyParent.emit({ update: true });
           if (this.user.subrole == "friend") {
+            if (this.authenticationService.userValue.step == "paypal") {
+              this.authenticationService.userValue.step = "";
+            }
             confirm(
               "Thank you for validating your PayPal! Next you will be directed to the surveys page "
             );
             this.router.navigate(["/dashboard/my-projects"]);
+            console.log(this.authenticationService.userValue);
           } else if (this.user.subrole == "seed") {
-            confirm(
-              "Thank you for validating your PayPal! Next you will be directed to the page to invite your friends "
-            );
+            if (this.authenticationService.userValue.step == "paypal") {
+              this.authenticationService.userValue.step = "";
+              confirm(
+                "Thank you for validating your PayPal! Next you will be directed to the page to invite your friends "
+              );
+            }
+
             this.router.navigate(["/dashboard/friends"]);
           }
+          console.log(this.authenticationService.userValue);
         },
         (error) => {
           if (error && error.error) {

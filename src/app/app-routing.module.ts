@@ -6,8 +6,9 @@ import { VerificationComponent } from "./home/verification/verification.componen
 import { PrivacyComponent } from "./home/privacy/privacy.component";
 import { LoginComponent } from "@app/home/login/login.component";
 import { DashboardComponent } from "@app/dashboard/dashboard.component";
-import { AuthGuard } from "@app/core/helpers/auth.guard";
+import { AuthGuard, StepGuard } from "@app/core/helpers/auth.guard";
 import { Role } from "@app/core/models/role";
+
 import { SelectionTableComponent } from "@app/core/components/selection-table/selection-table.component";
 import { SettingsComponent } from "@app/core/components/settings/settings.component";
 import { PasswordResetComponent } from "@app/core/components/password-reset/password-reset.component";
@@ -34,22 +35,33 @@ const routes: Routes = [
         path: "my-projects",
         component: MyProjectsComponent,
         data: { roles: [Role.participant] },
+        canActivate: [AuthGuard, StepGuard],
+      },
+      {
+        path: "friends",
+        component: FriendsComponent,
+        data: {
+          roles: [Role.participant],
+        },
+        canActivate: [AuthGuard, StepGuard],
       },
       {
         path: "my-projects/:id",
         component: MyProjectsComponent,
         data: { roles: [Role.participant] },
+        canActivate: [AuthGuard, StepGuard],
       },
       {
         path: "settings",
         component: SettingsComponent,
-        canActivate: [AuthGuard],
-
+        canActivate: [AuthGuard, StepGuard],
         data: { roles: [Role.administrator] },
       },
+
       {
         path: "paypal",
         component: PaypalValidateComponent,
+        canActivate: [AuthGuard, StepGuard],
       },
       {
         path: "projects",
@@ -57,7 +69,7 @@ const routes: Routes = [
           import(`./core/components/projects/projects.module`).then(
             (m) => m.ProjectsModule
           ),
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, StepGuard],
         data: { roles: [Role.researcher] },
       },
       {
@@ -66,20 +78,13 @@ const routes: Routes = [
           import(
             `./core/components/email-templates/email-templates.module`
           ).then((m) => m.EmailTemplatesModule),
-        data: { roles: [Role.researcher], canActivate: [AuthGuard] },
+        data: { roles: [Role.researcher], canActivate: [AuthGuard, StepGuard] },
       },
       {
         path: "profile",
         component: ProfileComponent,
       },
-      {
-        path: "friends",
-        component: FriendsComponent,
-        data: {
-          roles: [Role.administrator, Role.participant],
-          canActivate: [AuthGuard],
-        },
-      },
+
       {
         path: "log",
         component: LogComponent,
@@ -146,10 +151,12 @@ const routes: Routes = [
   {
     path: "qualification",
     component: QualificationComponent,
+    canActivate: [StepGuard],
   },
   {
     path: "questionnaire",
     component: QualificationComponent,
+    canActivate: [StepGuard],
   },
 
   { path: "home", component: HomeComponent },
