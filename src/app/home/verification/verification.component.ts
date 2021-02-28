@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -19,7 +19,7 @@ import { AlertService } from "@app/core/components/_alert";
 })
 export class VerificationComponent implements OnInit {
   @Input("qualificationForm") qualificationForm: any;
-
+  @Output() notifyParent: EventEmitter<any> = new EventEmitter();
   emailPattern = EmailPattern;
   passwordPattern = PasswordPattern;
   registered = false;
@@ -133,6 +133,7 @@ export class VerificationComponent implements OnInit {
           this.alertService.success("Successfully registered", {
             autoClose: true,
           });
+          this.notifyParent.emit(null);
         },
         (error) => {
           console.log("regerror", error);

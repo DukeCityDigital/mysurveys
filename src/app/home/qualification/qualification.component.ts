@@ -192,6 +192,10 @@ export class QualificationComponent implements OnInit {
       this.submitted = true;
     }
   }
+  hideQualificationMessage: boolean = false;
+  getNotification(evt) {
+    this.hideQualificationMessage = true;
+  }
   submit_qualification_form(qualificationForm?: any) {
     return this.registrationService
       .user_submit_qualification_form(qualificationForm)

@@ -202,7 +202,7 @@
           <div class="fielderror" *ngIf="qualificationForm.value.us == ''">
             This field is required
           </div>
-          (userpeer{{_USER_IS_PEER}})
+          <!-- (userpeer{{_USER_IS_PEER}}) -->
 
           <ng-container *ngIf="!this._USER_IS_PEER">
             <hr />
@@ -223,9 +223,6 @@
               This field is required
             </div>
           </ng-container>
-
-
-
           <ng-container *ngIf="this._USER_IS_PEER">
             <hr />
             <p>
@@ -245,10 +242,6 @@
               This field is required
             </div>
           </ng-container>
-
-
-
-
         </div>
         <hr />
         <div *ngIf="!qualificationForm.valid" class="fielderror">
@@ -268,7 +261,7 @@
   </h2>
 </mat-card>
 <div *ngIf="qualified && submitted && !user">
-  <mat-card style="text-align: center; margin: 12px 0" color="primary">
+  <mat-card *ngIf="!hideQualificationMessage" style="text-align: center; margin: 12px 0" color="primary">
     <mat-icon style="color: green; font-size: 44px">check_circle_outline</mat-icon>
     <h2>
       Great - it looks like you're qualified to participate. Now, please create an account so we can invite you to
@@ -276,5 +269,5 @@
     </h2>
   </mat-card>
 
-  <app-verification [qualificationForm]="qualificationForm"></app-verification>
+  <app-verification (notifyParent)="getNotification($event)" [qualificationForm]="qualificationForm"></app-verification>
 </div>
