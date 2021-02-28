@@ -8,7 +8,7 @@ export const VERSION = {
   semver: null,
   suffix: "8f8ba28-dirty",
   semverString: null,
-  version: "2.0221.1a",
+  version: "2.0228.2",
   description: "beta",
 };
 /* tslint:enable */

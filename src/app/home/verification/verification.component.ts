@@ -33,7 +33,8 @@ export class VerificationComponent implements OnInit {
   userEmail: string;
   user: any;
   errors = [];
-
+  //does the participant already have 2 validated friends?
+  friendsLimitReached: boolean = false;
   public reactiveForm: FormGroup = new FormGroup({});
 
   createSignupForm(): FormGroup {
@@ -85,8 +86,17 @@ export class VerificationComponent implements OnInit {
   }
 
   checkVerificationCode(code: string) {
+    // return false;
     this.registrationService.checkVerificationCode(code).subscribe(
       (data) => {
+        if (data.status == false) {
+          this.friendsLimitReached = true;
+          this.alertService.error(
+            "Thank you for your interest, but for now we have enough participants."
+          );
+          return false;
+        }
+
         if (!data.error) {
           this.user = data;
           if (data.role === "participant") {

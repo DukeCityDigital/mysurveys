@@ -38,6 +38,7 @@
   </h2>
 </mat-card>
 <mat-card *ngIf="
+    friendsLimitReached !== true && 
     emailLinkAttempt !== false &&
     emailLinkNotFound !== true &&
     emailLinkFoundAndHandled !== true &&
@@ -46,6 +47,11 @@
   " style="text-align: center;" color="primary">
   <mat-icon style="color: green; font-size: 44px; vertical-align: initial;">search</mat-icon>
   <h2>Checking verification code</h2>
+</mat-card>
+<mat-card *ngIf="friendsLimitReached == true" style="text-align:center;padding:44px;">
+  <mat-card-title>
+    Thank you for your interest, but for now we have enough participants
+  </mat-card-title>
 </mat-card>
 <mat-card *ngIf="emailLinkFoundAndHandledResearcher !== false" style="text-align: center;" color="primary">
   <mat-icon style="color: green; font-size: 44px; vertical-align: initial;">check_circle_outline</mat-icon>
