@@ -31,19 +31,28 @@
       message to personalize the invitation. <b>Please notify your friends separately to look out for this email and
         check their spam folder.</b>
     </p>
-    <form [formGroup]="friendForm" (ngSubmit)="onSubmitFriendInvite();">
-      <label for="email">Enter a friend's email address here</label>
-      <input required style="border: 1px solid black; width: 100%" type="text" id="email" name="email"
-        formControlName="email" matInput placeholder="&nbsp;Email" class="example-full-width" />
+    <div style="text-align:center;color:green;" *ngIf="this.user.verified_friends_count >1; else showFriendForm">
+      <h1>Two of your invited friends have successfully confirmed their PayPal account -- you don't need to invite
+        more</h1>
+      <mat-icon>success</mat-icon>
 
-      <br>
-      <br>
-      <label for="custom_message">Enter a custom message (appears on the first line of the invitation)</label>
-      <input style="border: 1px solid black; width: 100%" type="text" id="custom_message" name="custom_message"
-        formControlName="custom_message" matInput placeholder="&nbsp;Custom Messagel" class="example-full-width" />
-      <button type="submit" [disabled]="friendForm.value.email ==''">Submit</button>
-    </form>
-    <hr />
+
+    </div>
+    <ng-template #showFriendForm>
+      <form [formGroup]="friendForm" (ngSubmit)="onSubmitFriendInvite();">
+        <label for="email">Enter a friend's email address here</label>
+        <input required style="border: 1px solid black; width: 100%" type="text" id="email" name="email"
+          formControlName="email" matInput placeholder="&nbsp;Email" class="example-full-width" />
+
+        <br>
+        <br>
+        <label for="custom_message">Enter a custom message (appears on the first line of the invitation)</label>
+        <input style="border: 1px solid black; width: 100%" type="text" id="custom_message" name="custom_message"
+          formControlName="custom_message" matInput placeholder="&nbsp;Custom Messagel" class="example-full-width" />
+        <button type="submit" [disabled]="friendForm.value.email ==''">Submit</button>
+      </form>
+    </ng-template>
+
   </mat-card>
   <mat-card class="innercard">
     <mat-card-title> Invited friends </mat-card-title>

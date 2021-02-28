@@ -79,6 +79,7 @@ export class LoginComponent implements OnInit {
       this.loginForm.value.password
     ).subscribe(
       (data: any) => {
+        console.log(data);
         if (data.mustVerifyEmailAddress && data.email) {
           const navigationExtras: NavigationExtras = {
             state: { example: data.email },
@@ -90,9 +91,10 @@ export class LoginComponent implements OnInit {
         if (data.role === "administrator")
           this.returnUrl = "dashboard/settings";
         if (data.role === "researcher") this.returnUrl = "dashboard/projects";
-        if (data.role === "participant")
-          this.returnUrl = "dashboard/my-projects";
-        this.router.navigate([this.returnUrl]);
+        if (data.role === "participant") {
+          this.returnUrl = "dashboard/" + data.step;
+          this.router.navigate([this.returnUrl]);
+        }
       },
       (error) => {
         this.alertService.error("Invalid Login", { autoClose: true });

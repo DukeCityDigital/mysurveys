@@ -68,12 +68,13 @@ export class StepGuard implements CanActivate {
       if (user.subrole == "seed" || user.subrole == "friend") {
         console.log(user.step, state.url);
         if (user.step == "paypal" && state.url !== "/dashboard/paypal") {
+          this.router.navigate["/dashboard/paypal"];
           return false;
         }
         if (user.step == "friends" && state.url !== "/dashboard/friends") {
           return false;
         }
-        if (user.step == "survey" && state.url !== "/questionnaire") {
+        if (user.step == "questionnaire" && state.url !== "/questionnaire") {
           return false;
         }
       }
