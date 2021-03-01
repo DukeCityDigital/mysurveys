@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { AlertService } from "../_alert";
 import { ParticipantService } from "@app/core/services/participant.service";
+import { AuthService } from "@app/core/services/auth.service";
 
 @Component({
   selector: "app-friends",
@@ -15,7 +16,8 @@ export class FriendsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
-    private participantService: ParticipantService
+    private participantService: ParticipantService,
+    private authenticationService: AuthService
   ) {
     this.friendForm = this.createFriendform();
   }
@@ -49,6 +51,7 @@ export class FriendsComponent implements OnInit {
       (data: any) => {
         this.alertService.success("Invitation sent", { autoClose: true });
         this.getMe();
+        this.authenticationService.userValue.step = "";
       },
       (error) => {
         if (error && error.error && error.error.email) {

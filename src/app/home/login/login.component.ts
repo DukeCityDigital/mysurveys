@@ -88,13 +88,21 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/verify-email"], navigationExtras);
           return;
         }
-        if (data.role === "administrator")
+        if (data.role === "administrator") {
           this.returnUrl = "dashboard/settings";
-        if (data.role === "researcher") this.returnUrl = "dashboard/projects";
-        if (data.role === "participant") {
-          this.returnUrl = "dashboard/" + data.step;
-          this.router.navigate([this.returnUrl]);
         }
+        if (data.role === "researcher") {
+          this.returnUrl = "dashboard/projects";
+        }
+
+        if (data.role === "participant") {
+          let step = data.step !== "" ? data.step : "profile";
+          this.returnUrl = "dashboard/" + step;
+          if (this.returnUrl == "dashboard/questionnaire")
+            this.returnUrl = "questionnaire";
+          console.log(this.returnUrl);
+        }
+        this.router.navigate([this.returnUrl]);
       },
       (error) => {
         this.alertService.error("Invalid Login", { autoClose: true });

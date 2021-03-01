@@ -86,7 +86,7 @@ export class PaypalValidateComponent implements OnInit {
             console.log(this.authenticationService.userValue);
           } else if (this.user.subrole == "seed") {
             if (this.authenticationService.userValue.step == "paypal") {
-              this.authenticationService.userValue.step = "";
+              this.authenticationService.userValue.step = "friends";
               confirm(
                 "Thank you for validating your PayPal! Next you will be directed to the page to invite your friends "
               );

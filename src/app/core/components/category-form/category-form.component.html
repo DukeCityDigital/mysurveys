@@ -87,11 +87,14 @@
         filter out all seeds</label>
 
     </div> <br>
+
     <label for="paypal_status_ok">Paypal status ok</label>
     <input (change)="update()" type="checkbox" name="paypal_status_ok" id="paypal_status_ok"
       formControlName="paypal_status_ok" class="form-control" /><br />
-
-
+    <br>
+    <label for="paypal_status_ok">Survey Complete</label>
+    <input (change)="update()" type="checkbox" name="survey_complete" id="survey_complete"
+      formControlName="survey_complete" class="form-control" /><br />
 
     <button mat-stroked-button type="submit">
       <mat-icon>refresh</mat-icon>&nbsp;Update preview

@@ -44,6 +44,7 @@ export class CategoryFormComponent implements OnInit {
       paypal_status_ok: [""],
       include_seeds: [""],
       include_peers: [""],
+      survey_complete: [""],
     });
   }
 

@@ -8,12 +8,12 @@ import {
   transition,
   // ...
 } from "@angular/animations";
+import { AuthService } from "@app/core/services/auth.service";
 
 import { DomSanitizer } from "@angular/platform-browser";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ParticipantService } from "@app/core/services/participant.service";
 import { User } from "@app/core/models/user";
-import { AuthService } from "@app/core/services/auth.service";
 import { AlertService } from "@app/core/components/_alert";
 import { RegistrationService } from "@app/core/services/registration.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -183,7 +183,7 @@ export class QualificationComponent implements OnInit {
       f.friends = null;
       this.submit_qualification_form(f);
     }
-
+    // Seeds don't get this far
     if (this.isQualified(this.qualificationForm)) {
       this.submitted = true;
       this.qualified = true;
@@ -191,6 +191,11 @@ export class QualificationComponent implements OnInit {
       this.qualified = false;
       this.submitted = true;
     }
+    alert(
+      "Thanks for completing the questionnaire, please validate your PayPal account now"
+    );
+    this.authService.userValue.step = "paypal";
+    this.router.navigate(["/dashboard/paypal"]);
   }
   hideQualificationMessage: boolean = false;
   getNotification(evt) {
@@ -201,6 +206,7 @@ export class QualificationComponent implements OnInit {
       .user_submit_qualification_form(qualificationForm)
       .subscribe(
         (data) => {
+          console.log(data);
           // return false;
           if (!this._USER_IS_PEER) {
             if (this.isQualified(this.qualificationForm)) {

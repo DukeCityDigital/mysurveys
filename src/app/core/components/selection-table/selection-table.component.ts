@@ -119,6 +119,7 @@ export class SelectionTableComponent implements OnInit {
         paypal_status_ok: event.paypal_status_ok,
         include_peers: event.include_peers,
         include_seeds: event.include_seeds,
+        survey_complete: event.survey_complete,
       })
       .subscribe((r) => {
         this.data = r.data;

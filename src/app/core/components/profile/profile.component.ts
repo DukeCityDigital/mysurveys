@@ -4,7 +4,7 @@ import { RegistrationService } from "@app/core/services/registration.service";
 import { AlertService } from "../_alert";
 import { AuthService } from "@app/core/services/auth.service";
 import { EmailPattern, PasswordPattern } from "@app/core/helpers/patterns";
-tap;
+
 import {
   FormBuilder,
   FormControl,
@@ -158,7 +158,9 @@ export class ProfileComponent implements OnInit {
           confirm(
             "Thank you for changing your password, you will be navigated to the questionnaire now"
           );
-          this.router.navigate(["questionnaire"], {
+          this.authService.userValue.step = "questionnaire";
+
+          this.router.navigate(["/dashboard/questionnaire"], {
             queryParams: { consent: "irb", role: "peer" },
           });
         }

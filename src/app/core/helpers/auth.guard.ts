@@ -57,6 +57,7 @@ export class StepGuard implements CanActivate {
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    console.log(this.authenticationService.userValue);
     let cu = SetRole(this.authenticationService.userValue);
     const user = cu;
 
@@ -74,7 +75,13 @@ export class StepGuard implements CanActivate {
         if (user.step == "friends" && state.url !== "/dashboard/friends") {
           return false;
         }
-        if (user.step == "questionnaire" && state.url !== "/questionnaire") {
+        if (
+          user.step == "questionnaire" &&
+          state.url.indexOf("questionnaire") < 0
+        ) {
+          return false;
+        }
+        if (user.step == "profile" && state.url !== "/dashboard/profile") {
           return false;
         }
       }
