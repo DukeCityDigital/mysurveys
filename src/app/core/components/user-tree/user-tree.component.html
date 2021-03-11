@@ -21,6 +21,9 @@
         margin-left: 44px;
     }
 </style>
+<div *ngIf="!data.length">
+    Loading...
+</div>
 <div id="treeWrap">
     <div *ngFor="let seed of data" class="box userBox">
         {{seed.email}}<br>
@@ -30,10 +33,22 @@
         <h4>{{seed.friends.length? 'Friends' : null}}</h4>
         <div *ngIf="seed.show">
             <table class="blueTable">
-
                 <tr *ngFor="let item of seed.participant | keyvalue">
                     <td> {{item.key}}</td>
-                    <td>{{item.value}}</td>
+                    <td *ngIf="item.key !='projects'">{{item.value}}</td>
+                    <td *ngIf="item.key =='projects'">
+                <tr *ngFor="let i of item.value | keyvalue">
+                    <td> {{i.key}}</td>
+                </tr>
+                <tr *ngFor="let p of item.value">
+                    <td>{{p.project_title}}
+                <tr *ngFor="let i of p | keyvalue">
+                    <td> {{i.key}}</td>
+                    <td> {{i.value}}</td>
+                </tr>
+                </td>
+                </tr>
+                </td>
                 </tr>
             </table>
         </div>
@@ -46,7 +61,16 @@
                 <table class="blueTable">
                     <tr *ngFor="let item of f | keyvalue">
                         <td> {{item.key}}</td>
-                        <td>{{item.value}}</td>
+
+                        <td *ngIf="item.key !='projects'">{{item.value}}</td>
+                        <td *ngIf="item.key =='projects'">
+                            <ul>
+                                <li *ngFor="let p of item.value">{{p.project_title}}</li>
+                                <li *ngFor="let p of item.value">{{p.finished}}</li>
+
+                            </ul>
+                        </td>
+
                     </tr>
                 </table>
             </div>

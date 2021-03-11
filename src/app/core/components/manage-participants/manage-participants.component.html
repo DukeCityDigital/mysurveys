@@ -68,7 +68,6 @@
   <!-- <mat-checkbox [(ngModel)]="TEST_MODE">Test Mode [{{ TEST_MODE }}]</mat-checkbox> -->
   <div *ngIf="!TEST_MODE" style="text-align: center; color: orange">
     <h2 class="warn">Production Mode</h2>
-    <p>A quota must be in place and the project 'start_state' must be set to 'start' to send invitations</p>
   </div><br>
   <button mat-stroked-button (click)="showEmailSample = !showEmailSample">
     {{showEmailSample ? 'Hide' : 'Show'}} Email Sample
