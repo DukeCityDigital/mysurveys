@@ -59,7 +59,7 @@ export class SelectionTableComponent implements OnInit {
     "select",
     "id",
     "name",
-    "birthyear",
+    // "birthyear",
     "qualification_parents",
     "qualification_friends",
     "qualification_gm",
@@ -84,7 +84,7 @@ export class SelectionTableComponent implements OnInit {
     "friends",
     "paypal_id_status",
     "peers",
-    "birthyear",
+    // "birthyear",
     "qualification_gm",
     "qualification_vac",
   ];
