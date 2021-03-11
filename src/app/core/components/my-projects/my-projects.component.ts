@@ -4,10 +4,8 @@ import { AlertService } from "../_alert";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { AuthService } from "@app/core/services/auth.service";
 
-Router;
-map;
-Observable;
 @Component({
   selector: "app-my-projects",
   templateUrl: "./my-projects.component.html",
@@ -23,16 +21,29 @@ export class MyProjectsComponent implements OnInit {
     private alertService: AlertService,
     private projectService: ProjectService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     /**
      * Retrieve project invitations
      */
-    this.projectService.my_projects().subscribe((data: any) => {
-      this.invitations = data.data;
-      this.verifyProjectCompletion(this.invitations);
+    // this.projectService.my_projects().subscribe((data: any) => {
+    //   this.invitations = data.data;
+    // });
+    const id = this.route.snapshot.params.id;
+    this.route.queryParams.subscribe((data) => {
+      let lookup = id || data.id;
+      this.lookup = lookup;
+      if (this.lookup) {
+        // this.checkProjectCompletionCode();
+        this.verifyProjectCode(this.lookup);
+      } else {
+        this.projectService.my_projects().subscribe((data: any) => {
+          this.invitations = data.data;
+        });
+      }
     });
   }
 
@@ -41,22 +52,30 @@ export class MyProjectsComponent implements OnInit {
    * @param project
    */
   public startProject(invitation) {
-    this.projectService
-      .start_project(invitation.project.id)
-      .subscribe((data: any) => {
-        this.startingProject = true;
-        // if success is true, show alert infoing user theyre about to be redirected,
-        // then redirect to the survey link
-        this.alertService.success(data.message);
-        setTimeout(() => {
-          window.open(invitation.project.link);
-          this.startingProject = false;
-          return false;
-        }, 3000);
-        this.projectService.my_projects().subscribe((data: any) => {
-          this.invitations = data.data;
-        });
-      });
+    console.log("start", invitation.project.link);
+    window.open(invitation.project.link);
+
+    this.projectService.my_projects().subscribe((data: any) => {
+      this.invitations = data.data;
+    });
+
+    // this.projectService
+    //   .start_project(invitation.project.id)
+    //   .subscribe((data: any) => {
+    //     this.startingProject = true;
+    //     // if success is true, show alert infoing user theyre about to be redirected,
+    //     // then redirect to the survey link
+    //     // this.alertService.success(data.message);
+    //     window.open(invitation.project.link);
+
+    //     // setTimeout(() => {
+    //     //   this.startingProject = false;
+    //     //   return false;
+    //     // }, 3000);
+    //     this.projectService.my_projects().subscribe((data: any) => {
+    //       this.invitations = data.data;
+    //     });
+    //   });
     // }
   }
 
@@ -93,6 +112,12 @@ export class MyProjectsComponent implements OnInit {
     let post = { code: this.lookup, project_id: project_id };
     this.projectService.verify_project_code(post).subscribe((data: any) => {
       console.log("chedk", data);
+      if (data.data == false) {
+        alert("Project code not found, redirecting");
+        this.router.navigate(["home"]);
+        return false;
+      }
+      this.authService.quickLogin(data);
       this.projectService.my_projects().subscribe((data: any) => {
         this.invitations = data.data;
       });

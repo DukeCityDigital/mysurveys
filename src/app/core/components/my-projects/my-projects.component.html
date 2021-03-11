@@ -53,7 +53,7 @@
           <h1>Your project is starting! You will be redirected in a moment</h1>
         </div>
       </mat-card-content>
-      <mat-card-actions *ngIf="!i.started" style="text-align: center">
+      <mat-card-actions *ngIf="!i.finished" style="text-align: center">
         <h3>Click below to start the project!</h3>
         <button (click)="startProject(i)" color="primary" mat-stroked-button>
           Start Project

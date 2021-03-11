@@ -49,8 +49,8 @@ const routes: Routes = [
       {
         path: "my-projects/:id",
         component: MyProjectsComponent,
-        data: { roles: [Role.participant] },
-        canActivate: [AuthGuard, StepGuard],
+        // data: { roles: [Role.participant] },
+        // canActivate: [AuthGuard, StepGuard],
       },
       {
         path: "settings",
@@ -146,7 +146,7 @@ const routes: Routes = [
       },
     ],
 
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
 
   {
