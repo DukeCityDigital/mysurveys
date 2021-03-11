@@ -1,0 +1,55 @@
+<style>
+    #treeWrap {
+        border: 1px solid green;
+        display: inline-grid;
+    }
+
+    .box {
+        border-radius: 8px;
+        margin: 12px;
+        padding: 4px;
+    }
+
+    .userBox {
+        border: 1px solid purple;
+
+    }
+
+    .friendBox {
+        border: 1px solid green;
+
+        margin-left: 44px;
+    }
+</style>
+<div id="treeWrap">
+    <div *ngFor="let seed of data" class="box userBox">
+        {{seed.email}}<br>
+        {{seed.role}}<br>
+        {{seed.subrole}}<br>
+        <button (click)="seed.show = !seed.show">{{seed.show ? 'Hide' : 'Show'}}</button>
+        <h4>{{seed.friends.length? 'Friends' : null}}</h4>
+        <div *ngIf="seed.show">
+            <table class="blueTable">
+
+                <tr *ngFor="let item of seed.participant | keyvalue">
+                    <td> {{item.key}}</td>
+                    <td>{{item.value}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div *ngFor="let f of seed.friends" class="box friendBox">
+            <button (click)="f.show = !f.show">{{seed.show ? 'Hide' : 'Show'}}</button>
+
+            {{f.email}}
+            <div *ngIf="f.show">
+                <table class="blueTable">
+                    <tr *ngFor="let item of f | keyvalue">
+                        <td> {{item.key}}</td>
+                        <td>{{item.value}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

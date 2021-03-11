@@ -11,4 +11,8 @@ export class UserService {
     let API_URL = `${environment.apiUrl}/motd`;
     return this.http.get<any>(API_URL);
   }
+  get_user_table() {
+    let API_URL = `${environment.apiUrl}/user_table`;
+    return this.http.get<any>(API_URL);
+  }
 }

@@ -16,12 +16,8 @@
             font-size: 12px;
             border-bottom: 1px solid #1976d2;
           " *ngIf="user">
-          {{
-          user && user.email
-          ? " Logged in as " + user.email
-          : "Not logged in."
-          }}
-          <a *ngIf="!user.email" [routerLink]="'/create'">Sign up!</a>
+          Logged in as {{user.email}}
+          <a *ngIf="!user" [routerLink]="'/create'">Sign up!</a>
         </mat-list-item>
         <mat-list-item routerLink="home" class="sidenav-link" *ngIf="!user" (click)="customToggle()">
           Home
@@ -57,4 +53,5 @@
       content opened
     </mat-sidenav> -->
   </mat-sidenav-container>
+
 </div>

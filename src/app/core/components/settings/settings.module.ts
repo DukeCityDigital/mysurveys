@@ -9,9 +9,10 @@ import { MaterialBaseModule } from "@app/core/components/material-base/material-
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DataModule } from "../data/data.module";
+import { UserTreeComponent } from "../user-tree/user-tree.component";
 
 @NgModule({
-  declarations: [SettingsComponent, InviteComponent],
+  declarations: [SettingsComponent, InviteComponent, UserTreeComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,

@@ -39,7 +39,8 @@
         <button type="submit" [disabled]="userForm.invalid" mat-raised-button color="primary">
             Update
         </button>
-        <button color="warn" (click)="deleteUser();" style="width:240px;margin:44px auto;" mat-flat-button>
+        <button type="button" color="warn" (click)="deleteUser();" style="width:240px;margin:44px auto;"
+            mat-flat-button>
             Click to delete user from system
         </button>
     </form>

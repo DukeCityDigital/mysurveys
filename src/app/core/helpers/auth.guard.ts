@@ -60,7 +60,7 @@ export class StepGuard implements CanActivate {
     console.log(this.authenticationService.userValue);
     let cu = SetRole(this.authenticationService.userValue);
     const user = cu;
-
+    console.log(user);
     if (user) {
       console.log(user.step, state.url);
       if (user.step == "") {
@@ -85,6 +85,9 @@ export class StepGuard implements CanActivate {
           return false;
         }
       }
+      if (user.step == "verify" && state.url !== "/verify-email") {
+        return false;
+      }
       return true;
     }
     console.log(state.url);
@@ -94,5 +97,9 @@ export class StepGuard implements CanActivate {
     // not logged in so redirect to login page with the return url
     // this.router.navigate(["/login"], { queryParams: { returnUrl: state.url } });
     return false;
+  }
+
+  public navigate(target: string) {
+    this.router.navigate[target];
   }
 }

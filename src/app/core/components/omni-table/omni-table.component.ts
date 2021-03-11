@@ -70,7 +70,7 @@ export class OmniTableComponent implements OnInit {
       "",
       "asc",
       1,
-      10
+      30
     );
     window.setTimeout(
       () => (this.resultsLength = this.dataSource.resultsLength),

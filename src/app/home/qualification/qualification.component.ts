@@ -138,10 +138,13 @@ export class QualificationComponent implements OnInit {
     }
     let qualified;
     this.isOpen = true;
+    // removed per TDD
     // let gmOk = parseInt(f.gm) !== 1 && parseInt(f.gm) !== 7;
     // let vacOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
     let gmOk = true;
     let vacOk = true;
+
+    // TODO check for peers /friends
 
     if (
       (f.us === "true" &&
@@ -162,40 +165,81 @@ export class QualificationComponent implements OnInit {
     return this.qualified;
   }
 
+  peerQualified: boolean = false;
+
   onSubmit() {
+    console.log("submit", this.qualificationForm);
     // if no user do regular routine, otherwise send form directly
     if (!this.qualificationForm) {
       this.alertService.error("You must fill out the qualification form first");
       return false;
     }
     let f = this.qualificationForm.value;
-
+    f.qualified = this.isQualified(this.qualificationForm);
+    console.log("F qualified peer", this._USER_IS_PEER, f);
     if (!this._USER_IS_PEER) {
       f.seed = true;
-    } else if (
-      this._USER_IS_PEER &&
-      !this.isQualified(this.qualificationForm)
-    ) {
-      alert("Sorry, you're not qualified for any current studies");
-      this.router.navigate(["my-projects"]);
-      return false;
-    } else if (this._USER_IS_PEER && this.isQualified(this.qualificationForm)) {
-      f.friends = null;
-      this.submit_qualification_form(f);
-    }
-    // Seeds don't get this far
-    if (this.isQualified(this.qualificationForm)) {
-      this.submitted = true;
-      this.qualified = true;
+      if (f.qualified) {
+        // this.submit_qualification_form(f);
+        this.submitted = true;
+        this.qualified = true;
+      } else {
+        this.qualified = false;
+        this.submitted = true;
+      }
     } else {
-      this.qualified = false;
-      this.submitted = true;
+      f.friends = null;
+
+      if (f.qualified) {
+        this.submit_qualification_form(f);
+        this.submitted = true;
+        this.peerQualified = true;
+        alert(
+          "Thanks for completing the questionnaire, please validate your PayPal account now"
+        );
+        this.authService.userValue.step = "paypal";
+        this.router.navigate(["/dashboard/paypal"]);
+      } else {
+        this.peerQualified = false;
+        this.submit_qualification_form(f);
+
+        alert("Sorry, you're not qualified for any current studies");
+
+        this.router.navigate(["dashboard/my-projects"]);
+        return false;
+      }
     }
-    alert(
-      "Thanks for completing the questionnaire, please validate your PayPal account now"
-    );
-    this.authService.userValue.step = "paypal";
-    this.router.navigate(["/dashboard/paypal"]);
+
+    // if (!this._USER_IS_PEER) {
+    //   f.seed = true;
+    // } else if (
+    //   this._USER_IS_PEER &&
+    //   !this.isQualified(this.qualificationForm)
+    // ) {
+    //   alert("Sorry, you're not qualified for any current studies");
+    //   this.router.navigate(["my-projects"]);
+    //   return false;
+    // } else if (this._USER_IS_PEER && this.isQualified(this.qualificationForm)) {
+    //   f.friends = null;
+    //   this.submit_qualification_form(f);
+    // }
+    // // Seeds don't get this far
+    // if (this.isQualified(this.qualificationForm)) {
+    //   this.submitted = true;
+    //   this.qualified = true;
+    // } else {
+    //   this.qualified = false;
+    //   this.submitted = true;
+    // }
+    // if (!this._USER_IS_PEER) {
+    //   alert(
+    //     "Thanks for completing the questionnaire, please validate your PayPal account now"
+    //   );
+    //   this.authService.userValue.step = "paypal";
+    //   this.router.navigate(["/dashboard/paypal"]);
+    // } else {
+    //   this.submit_qualification_form(f);
+    // }
   }
   hideQualificationMessage: boolean = false;
   getNotification(evt) {

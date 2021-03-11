@@ -88,10 +88,16 @@ export class ManageUserComponent implements OnInit {
       this.participantService
         .delete(this.user.id)
         .pipe(first())
-        .subscribe((data) => {
-          this.router.navigate(["users"]);
-          this.alertService.success("Deleted");
-        });
+        .subscribe(
+          (data) => {
+            this.router.navigate(["/dashboard/users"]);
+            this.alertService.success(data.message);
+          },
+          (error) => {
+            console.log("sub error");
+            this.alertService.error(error.message);
+          }
+        );
     }
   }
 

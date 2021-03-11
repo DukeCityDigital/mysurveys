@@ -58,6 +58,7 @@ export class VerificationComponent implements OnInit {
   ngOnInit(): void {
     //check if passed param
     this.route.paramMap.subscribe((params: any) => {
+      console.log(params);
       if (params.params.hasOwnProperty("code") && params.params.code !== "") {
         this.authService.logout();
         this.emailLinkAttempt = true;

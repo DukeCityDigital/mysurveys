@@ -51,6 +51,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
         // window.alert(errorMessage);
         // return false
+        console.log(error);
         // const alertService = this.injector.get(AlertService);
         let msg = error.error.message || "There has been an error";
         this.alertService.error(msg, { autoClose: true });

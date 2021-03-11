@@ -25,6 +25,7 @@ import { PayoutsComponent } from "./core/components/payouts/payouts.component";
 import { ParticipantsComponent } from "./core/components/participants/participants.component";
 import { DataComponent } from "./core/components/data/data.component";
 import { ManageUserComponent } from "./core/components/manage-user/manage-user.component";
+import { UserTreeComponent } from "./core/components/user-tree/user-tree.component";
 
 const routes: Routes = [
   {
@@ -57,6 +58,12 @@ const routes: Routes = [
         canActivate: [AuthGuard, StepGuard],
         data: { roles: [Role.administrator] },
       },
+      {
+        path: "usertree",
+        component: UserTreeComponent,
+        canActivate: [AuthGuard, StepGuard],
+        data: { roles: [Role.administrator] },
+      },
 
       {
         path: "paypal",
@@ -83,6 +90,7 @@ const routes: Routes = [
       {
         path: "profile",
         component: ProfileComponent,
+        canActivate: [StepGuard],
       },
 
       {

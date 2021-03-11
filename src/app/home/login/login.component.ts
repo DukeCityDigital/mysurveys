@@ -80,14 +80,7 @@ export class LoginComponent implements OnInit {
     ).subscribe(
       (data: any) => {
         console.log(data);
-        if (data.mustVerifyEmailAddress && data.email) {
-          const navigationExtras: NavigationExtras = {
-            state: { example: data.email },
-          };
 
-          this.router.navigate(["/verify-email"], navigationExtras);
-          return;
-        }
         if (data.role === "administrator") {
           this.returnUrl = "dashboard/settings";
         }
@@ -102,7 +95,15 @@ export class LoginComponent implements OnInit {
             this.returnUrl = "questionnaire";
           console.log(this.returnUrl);
         }
-        this.router.navigate([this.returnUrl]);
+        const navigationExtras: NavigationExtras = {
+          state: { example: data.email },
+        };
+        if (data.mustVerifyEmailAddress && data.email) {
+          this.returnUrl = "/verify-email";
+          // this.router.navigate(["/verify-email"], navigationExtras);
+          // return;
+        }
+        this.router.navigate([this.returnUrl], navigationExtras);
       },
       (error) => {
         this.alertService.error("Invalid Login", { autoClose: true });

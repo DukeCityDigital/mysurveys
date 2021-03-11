@@ -160,7 +160,7 @@ export class ProfileComponent implements OnInit {
           );
           this.authService.userValue.step = "questionnaire";
 
-          this.router.navigate(["/dashboard/questionnaire"], {
+          this.router.navigate(["questionnaire"], {
             queryParams: { consent: "irb", role: "peer" },
           });
         }

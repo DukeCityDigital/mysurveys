@@ -21,6 +21,8 @@ export class SettingsComponent implements OnInit {
     private adminService: AdminService
   ) {}
 
+  userData = [{ email: "useremail@item" }];
+
   ngOnInit(): void {
     this.adminService.getSettings().subscribe((r) => {
       this.settings = r.data;

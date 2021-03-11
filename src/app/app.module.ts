@@ -38,7 +38,7 @@ import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { LoaderInterceptor } from "./core/helpers/loader.interceptor";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { TemplateCreateComponent } from './core/components/template-create/template-create.component';
+import { TemplateCreateComponent } from "./core/components/template-create/template-create.component";
 @NgModule({
   declarations: [
     AppComponent,
