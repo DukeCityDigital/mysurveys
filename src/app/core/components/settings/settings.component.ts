@@ -1,9 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AdminService } from "@app/core/services/admin.service";
-import { Project } from "@app/core/models/project.model";
 import { ProjectService } from "@app/core/services/project.service";
 import { AlertService } from "../_alert";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-settings",

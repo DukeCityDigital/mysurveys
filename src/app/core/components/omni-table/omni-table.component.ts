@@ -29,7 +29,6 @@ import {
   distinctUntilChanged,
   tap,
 } from "rxjs/operators";
-import { element } from "protractor";
 import { User } from "@app/core/models/user";
 @Component({
   selector: "app-omni-table",
