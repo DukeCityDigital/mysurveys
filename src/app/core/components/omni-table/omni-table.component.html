@@ -77,7 +77,8 @@
                                 </mat-select>
                             </ng-container>
                             <ng-template #noEdit>
-                                {{col.type ? col.type.indexOf('ed_at') >-1 ? (element[col.name] | date:'short') : element[col.name] : element[col.name]}}
+                                {{col.type ? col.type.indexOf('ed_at') >-1 ? (element[col.name] | date:'short') :
+                                element[col.name] : element[col.name]}}
                             </ng-template>
                         </td>
                     </form>
@@ -91,6 +92,6 @@
         </tr>
     </table>
     <mat-paginator (page)="onPaginateChange($event)" [length]="resultsLength" [pageSize]="10"
-        [pageSizeOptions]="[5, 10,30, 50,100,500]">
+        [pageSizeOptions]="[10,30, 50,100,500]">
     </mat-paginator>
 </mat-card>

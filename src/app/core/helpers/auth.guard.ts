@@ -58,13 +58,10 @@ export class StepGuard implements CanActivate {
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    console.log(this.authenticationService.userValue);
     let cu = SetRole(this.authenticationService.userValue);
     const user = cu;
-    console.log(user);
 
     if (user) {
-      console.log(user.step, state.url);
       if (user.role == "researcher" || user.role == "administrator") {
         return true;
       }
@@ -72,7 +69,6 @@ export class StepGuard implements CanActivate {
         return true;
       }
       var userStepUrl = GetStepUrl(user);
-      console.log("stepurl", userStepUrl, state.url);
       if (
         state.url.indexOf(userStepUrl) < 0 ||
         (user.step == "questionnaire" && state.url.indexOf("questionnaire") < 0)
@@ -90,8 +86,6 @@ export class StepGuard implements CanActivate {
     ) {
       return true;
     }
-    // not logged in so redirect to login page with the return url
-    // this.router.navigate(["/login"], { queryParams: { returnUrl: state.url } });
     return false;
   }
 

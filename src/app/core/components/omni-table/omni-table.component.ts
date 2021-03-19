@@ -55,21 +55,22 @@ export class OmniTableComponent implements OnInit {
   data: any;
   searchField: any = "id";
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild("input") input: ElementRef;
 
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
+    console.log("init");
     this.dataSource = new OmniDataSource(this.adminService);
     this.dataSource.loadomni(
       this.title.split(" ").join("").toLowerCase(),
       "",
       "",
       "asc",
-      1,
-      30
+      0,
+      10
     );
     window.setTimeout(
       () => (this.resultsLength = this.dataSource.resultsLength),
@@ -77,7 +78,40 @@ export class OmniTableComponent implements OnInit {
     );
     this.createObjectColumns();
   }
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    // server-side search
+    fromEvent(this.input.nativeElement, "keyup")
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          console.log("fromevent Tap");
+          this.loadOmniPage();
+          // this.resultsLength = this.dataSource.resultsLength;
+        })
+      )
+      .subscribe();
 
+    // reset the paginator after sorting
+    this.sort.sortChange.subscribe(() => {
+      // this.paginator.pageIndex = 1;
+      // this.resultsLength = this.dataSource.resultsLength;
+    });
+
+    // on sort or paginate events, load a new page
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => {
+          console.log("merge");
+          this.loadOmniPage();
+
+          // this.resultsLength = this.dataSource.resultsLength;
+        })
+      )
+      .subscribe();
+  }
   public submitRow(row?: any) {
     let em = {
       id: row.element.id,
@@ -95,7 +129,8 @@ export class OmniTableComponent implements OnInit {
 
   onPaginateChange(event) {
     console.log(event);
-    if (event.pageIndex == 1 && event.previousPageIndex == 0) {
+    if (event.previousPageIndex == 0) {
+      // event.pageIndex = 1;
       // TODO / double first page on paging / maybe backend fix
     }
     //
@@ -219,40 +254,6 @@ export class OmniTableComponent implements OnInit {
     this.displayedColumns = this.objectColumns.map((col) => col.name);
   }
 
-  ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-    // server-side search
-    fromEvent(this.input.nativeElement, "keyup")
-      .pipe(
-        debounceTime(150),
-        distinctUntilChanged(),
-        tap(() => {
-          this.paginator.pageIndex = 1;
-          this.loadOmniPage();
-          // this.resultsLength = this.dataSource.resultsLength;
-        })
-      )
-      .subscribe();
-
-    // reset the paginator after sorting
-    this.sort.sortChange.subscribe(() => {
-      this.paginator.pageIndex = 1;
-      // this.resultsLength = this.dataSource.resultsLength;
-    });
-
-    // on sort or paginate events, load a new page
-    merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        tap(() => {
-          this.loadOmniPage();
-
-          // this.resultsLength = this.dataSource.resultsLength;
-        })
-      )
-      .subscribe();
-  }
-
   loadOmniPage() {
     this.dataSource.loadomni(
       this.title.toLowerCase(),
@@ -269,7 +270,6 @@ export class OmniDataSource implements DataSource<any> {
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   public loading$ = this.loadingSubject.asObservable();
-
   constructor(private adminService: AdminService) {}
 
   connect(collectionViewer: CollectionViewer): Observable<any[]> {
