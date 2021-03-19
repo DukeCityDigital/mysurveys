@@ -1,55 +1,9 @@
-<!-- <mat-card>
-  <h1 style="text-transform: capitalize">{{ user.role }} Dashboard</h1>
-  <div *ngIf="user && user.role === 'participant' && user.is_seed !== null">
-
-    <div *ngIf="user.friends.length">
-      <h3>Friends invited: {{user.friends.length}}</h3>
-      <div *ngIf="!friends_verified_paypal && !friends_verified_email" style="font-weight:bold;">
-        When they've confirmed their accounts and verified PayPal you'll be
-        eligible to begin<br />
-      </div>
-      Friends who have verified email: {{friends_verified_email ? friends_verified_email : 'None'}}<br>
-      Friends who have verified PayPal: {{friends_verified_paypal ? friends_verified_paypal : 'None'}}<br>
-
- 
-      <div *ngIf="friends_verified_email && friends_verified_paypal">
-        <h2>You have eligible friends! You'll receive project invitations when they are sent to your group.</h2>
-      </div>
-      <br>
-      <button [routerLinkActive]="['is-active-button,animate-stop']" class="mat-raised-button" color="primary"
-        [routerLink]="'/dashboard/my-projects'">
-        My surveys page
-      </button>
-      <button *ngIf="user.subrole =='seed'" [routerLinkActive]="['is-active-button,animate-stop']" mat-raised-button
-        color="primary" [routerLink]="'/dashboard/friends'">
-        Friends
-      </button>
-    </div>
-  </div>
-
-  <div *ngIf="user && user.is_seed === null">
-    [ <a href="#">Invitations</a>]&nbsp; [<a href="#">Statistics</a>]&nbsp; [<a href="#">Profile</a>]&nbsp;
-    <hr />
-    No pending invitations<br />
-    <button color="primary" [routerLink]="'/dashboard/paypal'" mat-stroked-button>
-      PayPal settings
-    </button>
-  </div>
-
-  <div *ngIf="user && user.role === 'administrator'">
-    <hr />
-    <button color="primary" [routerLink]="'/dashboard/settings'" mat-stroked-button>
-      Click to view settings
-    </button>
-  </div>
-  <div *ngIf="user && user.role === 'researcher'">
-    <hr />
-    <button [routerLink]="'/dashboard/projects'" mat-stroked-button>
-      View Projects
-    </button>
-    <button [routerLink]="'/dashboard/projects/create'" mat-stroked-button>
-      Create Project
-    </button>
-  </div>
-</mat-card> -->
+<mat-card *ngIf="emptyDash" style="margin:44px;text-align:center;">
+  <button *ngIf="nextStep" color="primary" [routerLink]="nextStep" mat-stroked-button>
+    Next step: Visit the {{nextStep}} page
+  </button>
+  <button *ngIf="!nextStep" color="primary" [routerLink]="'/dashboard/my-projects'" mat-stroked-button>
+    Your required steps are complete. Click to visit your surveys page
+  </button>
+</mat-card>
 <router-outlet></router-outlet>

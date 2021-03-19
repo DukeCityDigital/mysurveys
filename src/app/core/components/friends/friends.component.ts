@@ -52,6 +52,9 @@ export class FriendsComponent implements OnInit {
         this.alertService.success("Invitation sent", { autoClose: true });
         this.getMe();
         this.authenticationService.userValue.step = "";
+        // confirm(
+        //   "Thank you for inviting friends!  You can now receive survey invitations."
+        // );
       },
       (error) => {
         if (error && error.error && error.error.email) {

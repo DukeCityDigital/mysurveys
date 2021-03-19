@@ -94,6 +94,7 @@ export class QualificationComponent implements OnInit {
         console.log("getmedata", data);
         this._USER_IS_PEER = data.data.seed_id !== null;
         this.user = data.data;
+        this.qualified = data.data.qualified;
         this.remakeForm();
         if (this.user.survey_complete) {
           this.submitted = true;

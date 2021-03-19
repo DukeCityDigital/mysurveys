@@ -10,6 +10,7 @@ import {
 import { SetRole } from "@app/core/helpers/set-role";
 
 import { AuthService } from "@app/core/services/auth.service";
+import { GetStepUrl } from "./get-step";
 
 // class Permissions {
 //   canGoToRoute(user: UserToken, id: string): boolean {
@@ -66,28 +67,42 @@ export class StepGuard implements CanActivate {
       if (user.step == "") {
         return true;
       }
-      if (user.subrole == "seed" || user.subrole == "friend") {
-        console.log(user.step, state.url);
-        if (user.step == "paypal" && state.url !== "/dashboard/paypal") {
-          this.router.navigate["/dashboard/paypal"];
-          return false;
-        }
-        if (user.step == "friends" && state.url !== "/dashboard/friends") {
-          return false;
-        }
-        if (
-          user.step == "questionnaire" &&
-          state.url.indexOf("questionnaire") < 0
-        ) {
-          return false;
-        }
-        if (user.step == "profile" && state.url !== "/dashboard/profile") {
-          return false;
-        }
-      }
-      if (user.step == "verify" && state.url !== "/verify-email") {
+      var userStepUrl = GetStepUrl(user);
+      console.log("stepurl", userStepUrl, state.url);
+      console.log("stepurl=", state.url.indexOf(userStepUrl) < 0);
+
+      if (
+        state.url.indexOf(userStepUrl) < 0 ||
+        (user.step == "questionnaire" && state.url.indexOf("questionnaire") < 0)
+      ) {
+        this.router.navigate([userStepUrl], {
+          queryParams: { returnUrl: state.url },
+        });
+
         return false;
       }
+
+      // if (user.subrole == "seed" || user.subrole == "friend") {
+      //   console.log(user.step, state.url);
+      //   if (user.step == "paypal" && state.url !== "/dashboard/paypal") {
+      //     return false;
+      //   }
+      //   if (user.step == "friends" && state.url !== "/dashboard/friends") {
+      //     return false;
+      //   }
+      //   if (
+      //     user.step == "questionnaire" &&
+      //     state.url.indexOf("questionnaire") < 0
+      //   ) {
+      //     return false;
+      //   }
+      //   if (user.step == "profile" && state.url !== "/dashboard/profile") {
+      //     return false;
+      //   }
+      // }
+      // if (user.step == "verify" && state.url !== "/verify-email") {
+      //   return false;
+      // }
       return true;
     }
     console.log(state.url);

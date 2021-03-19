@@ -1,20 +1,17 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { AuthService } from "@app/core/services/auth.service";
-import { Router } from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 import { AlertService } from "@app/core/components/_alert";
 import { UserService } from "@app/core/services/user.service";
-
+import { User } from "@app/core/models/user";
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit {
-  user;
-
-  friends_verified_paypal: number;
-  friends_verified_email: number;
-
+  user: User;
+  emptyDash: boolean = true;
   constructor(
     public alertService: AlertService,
     private router: Router,
@@ -22,8 +19,15 @@ export class DashboardComponent implements OnInit {
     private userService: UserService
   ) {
     this.authService.user.subscribe((x) => (this.user = x));
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if (val.url !== "/dashboard") {
+          this.emptyDash = false;
+        }
+      }
+    });
   }
-
+  public nextStep;
   getMotd() {
     this.userService.motd().subscribe((r) => {
       this.alertService.success(r.data, {
@@ -35,26 +39,17 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.user);
+    if (this.user) {
+      this.nextStep = this.user.step;
+    }
+    // var hidemotd = sessionStorage.getItem("hidemotd");
+    // if (!hidemotd || hidemotd === "false") {
+    //   this.getMotd();
+    // }
 
-    var hidemotd = sessionStorage.getItem("hidemotd");
-    if (!hidemotd || hidemotd === "false") {
-      // this.getMotd();
-    }
-
-    if (this.user.role === "administrator") {
-      // dont do this
-      // this.router.navigate(["dashboard/settings"]);
-    }
-    if (this.user.friends && this.user.friends.length) {
-      this.user.friends.forEach((element) => {
-        if (element.paypal_id_status == "Ok") {
-          this.friends_verified_paypal += 1;
-        }
-        if (element.user.email_verified_at) {
-          this.friends_verified_email += 1;
-        }
-      });
-    }
+    // if (this.user.role === "administrator") {
+    //   dont do this
+    //   this.router.navigate(["dashboard/settings"]);
+    // }
   }
 }

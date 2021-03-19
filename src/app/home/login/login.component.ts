@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import { EmailPattern, PasswordPattern } from "@app/core/helpers/patterns";
 import { AuthService } from "@app/core/services/auth.service";
 import { AlertService } from "@app/core/components/_alert";
+import { GetStepUrl } from "@app/core/helpers/get-step";
 
 @Component({
   selector: "app-login",
@@ -54,7 +55,6 @@ export class LoginComponent implements OnInit {
   }
 
   quickLogin(email, pass = "") {
-    // this.authService.login(email,pass)
     this.loginForm.patchValue({
       email: email,
       password: pass,
@@ -79,31 +79,19 @@ export class LoginComponent implements OnInit {
       this.loginForm.value.password
     ).subscribe(
       (data: any) => {
-        console.log(data);
-
-        if (data.role === "administrator") {
-          this.returnUrl = "dashboard/settings";
-        }
-        if (data.role === "researcher") {
-          this.returnUrl = "dashboard/projects";
-        }
-
-        if (data.role === "participant") {
-          let step = data.step !== "" ? data.step : "profile";
-          this.returnUrl = "dashboard/" + step;
-          if (this.returnUrl == "dashboard/questionnaire")
-            this.returnUrl = "questionnaire";
-          console.log(this.returnUrl);
-        }
+        var step = GetStepUrl(data);
         const navigationExtras: NavigationExtras = {
           state: { example: data.email },
         };
+        if (step == "") {
+          step = "dashboard/profile";
+        }
         if (data.mustVerifyEmailAddress && data.email) {
           this.returnUrl = "/verify-email";
-          // this.router.navigate(["/verify-email"], navigationExtras);
-          // return;
+          this.router.navigate(["/verify-email"], navigationExtras);
+          return;
         }
-        this.router.navigate([this.returnUrl], navigationExtras);
+        this.router.navigate([step], navigationExtras);
       },
       (error) => {
         this.alertService.error("Invalid Login", { autoClose: true });
