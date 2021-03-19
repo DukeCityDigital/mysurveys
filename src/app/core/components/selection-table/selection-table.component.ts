@@ -87,6 +87,7 @@ export class SelectionTableComponent implements OnInit {
     // "birthyear",
     "qualification_gm",
     "qualification_vac",
+    "add",
   ];
 
   sortedData: any[];
@@ -141,19 +142,27 @@ export class SelectionTableComponent implements OnInit {
     //
   }
 
-  public saveSelection() {
-    let r = window.confirm(
-      "Are you sure you wish to save the selection?  It will overwrite the previous selection"
-    );
-    if (r !== true) {
-      return false;
-    }
+  public saveSelection(incids?: any) {
+    console.log(incids);
     let ids = [];
-    this.selectedUSERS.forEach((element) => {
-      ids.push(element.user_id);
-    });
-
     let post = { project_id: this.project_id, users: ids };
+
+    if (!incids) {
+      let r = window.confirm(
+        "Are you sure you wish to save the selection?  It will overwrite the previous selection"
+      );
+      if (r !== true) {
+        return false;
+      }
+
+      this.selectedUSERS.forEach((element) => {
+        post.users.push(element.user_id);
+      });
+    } else {
+      post.users = incids;
+      post["update"] = true;
+    }
+
     this.projectService.createSelection(post).subscribe((r) => {
       this.alertService.success(r.data, { autoClose: true });
     });

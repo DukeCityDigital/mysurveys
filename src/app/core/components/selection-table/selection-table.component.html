@@ -70,6 +70,15 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Vaccination score</th>
         <td mat-cell *matCellDef="let element"> {{element.qualification_vac}} </td>
     </ng-container>
+    <ng-container matColumnDef="add">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> add</th>
+        <td mat-cell *matCellDef="let element">
+
+
+            <button (click)="saveSelection([element.user_id])" mat-stroked-button color="primary">
+                Add to selection</button>
+        </td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="participantColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: participantColumns;" (click)="selection.toggle(row);addToSelection(row)">
     </tr>
