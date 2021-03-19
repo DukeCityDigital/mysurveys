@@ -45,7 +45,7 @@ export class PaypalValidateComponent implements OnInit {
 
   createPaypalForm(): FormGroup {
     return this.formBuilder.group({
-      // email: new FormControl("", [Validators.required, Validators.email]),
+      email: new FormControl("", [Validators.required, Validators.email]),
       paypalme: new FormControl("", [Validators.required]),
     });
   }
@@ -83,18 +83,15 @@ export class PaypalValidateComponent implements OnInit {
               "Thank you for validating your PayPal! Next you will be directed to the surveys page "
             );
             this.router.navigate(["/dashboard/my-projects"]);
-            console.log(this.authenticationService.userValue);
           } else if (this.user.subrole == "seed") {
             if (this.authenticationService.userValue.step == "paypal") {
               this.authenticationService.userValue.step = "friends";
               confirm(
                 "Thank you for validating your PayPal! Next you will be directed to the page to invite your friends "
               );
+              this.router.navigate(["/dashboard/friends"]);
             }
-
-            this.router.navigate(["/dashboard/friends"]);
           }
-          console.log(this.authenticationService.userValue);
         },
         (error) => {
           if (error && error.error) {

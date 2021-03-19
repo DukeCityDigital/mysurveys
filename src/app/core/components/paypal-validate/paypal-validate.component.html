@@ -3,11 +3,23 @@
         PayPal
     </mat-card-title>
     <p>
-        In order to make payments, we need to have your <a target="_NEW" href="https://www.paypal.com/paypalme/grab">PayPal.Me</a> link.
+        In order to make payments, we need to have your <a target="_NEW"
+            href="https://www.paypal.com/paypalme/grab">PayPal.Me</a> link.
     </p>
     <p><b>Please enter your PayPal information below, and click submit.
         </b></p>
     <form (ngSubmit)="onSubmitPaypalForm()" [formGroup]="paypalForm">
+        <mat-form-field style="width:100%;" appearance="outline">
+            <mat-label>
+                Primary PayPal Email Address
+            </mat-label>
+            <input required type="email" id="email" name="email" formControlName="email" matInput
+                placeholder="&nbsp;Paypal Email" class="example-full-width" />
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-hint>
+                Your primary PayPal email
+            </mat-hint>
+        </mat-form-field>
         <hr>
         <mat-form-field style="width:100%;" appearance="outline">
             <mat-label>PayPal.me Link</mat-label>
