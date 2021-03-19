@@ -62,7 +62,6 @@ export class OmniTableComponent implements OnInit {
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
-    console.log("init");
     this.dataSource = new OmniDataSource(this.adminService);
     this.dataSource.loadomni(
       this.title.split(" ").join("").toLowerCase(),
@@ -87,7 +86,6 @@ export class OmniTableComponent implements OnInit {
         debounceTime(150),
         distinctUntilChanged(),
         tap(() => {
-          console.log("fromevent Tap");
           this.loadOmniPage();
           // this.resultsLength = this.dataSource.resultsLength;
         })
@@ -104,7 +102,6 @@ export class OmniTableComponent implements OnInit {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         tap(() => {
-          console.log("merge");
           this.loadOmniPage();
 
           // this.resultsLength = this.dataSource.resultsLength;
@@ -128,7 +125,6 @@ export class OmniTableComponent implements OnInit {
   // }
 
   onPaginateChange(event) {
-    console.log(event);
     if (event.previousPageIndex == 0) {
       // event.pageIndex = 1;
       // TODO / double first page on paging / maybe backend fix
@@ -294,7 +290,7 @@ export class OmniDataSource implements DataSource<any> {
     this.loadingSubject.next(true);
 
     this.adminService
-      .findOmni(model, active, filter, sortDirection, pageIndex, pageSize)
+      .findOmni(model, active, filter, sortDirection, pageIndex + 1, pageSize)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject.next(false))
