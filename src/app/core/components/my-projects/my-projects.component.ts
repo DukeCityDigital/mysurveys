@@ -52,31 +52,10 @@ export class MyProjectsComponent implements OnInit {
    * @param project
    */
   public startProject(invitation) {
-    console.log("start", invitation.project.link);
     window.open(invitation.project.link);
-
     this.projectService.my_projects().subscribe((data: any) => {
       this.invitations = data.data;
     });
-
-    // this.projectService
-    //   .start_project(invitation.project.id)
-    //   .subscribe((data: any) => {
-    //     this.startingProject = true;
-    //     // if success is true, show alert infoing user theyre about to be redirected,
-    //     // then redirect to the survey link
-    //     // this.alertService.success(data.message);
-    //     window.open(invitation.project.link);
-
-    //     // setTimeout(() => {
-    //     //   this.startingProject = false;
-    //     //   return false;
-    //     // }, 3000);
-    //     this.projectService.my_projects().subscribe((data: any) => {
-    //       this.invitations = data.data;
-    //     });
-    //   });
-    // }
   }
 
   /**
@@ -89,13 +68,8 @@ export class MyProjectsComponent implements OnInit {
       let lookup = id || data.id;
       this.lookup = lookup;
     });
-    console.log(this.lookup);
     if (invitations) {
       invitations.forEach((element: any) => {
-        console.log(element.safeid.trim(), String(this.lookup).trim());
-        console.log(
-          String(element.safeid).trim() == String(this.lookup).trim()
-        );
         if (String(element.safeid).trim() == String(this.lookup).trim()) {
           element.verifying = true;
           this.verifyProjectCode(element.projects_projectid);

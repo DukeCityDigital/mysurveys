@@ -11,12 +11,15 @@
             <mat-form-field class="login-field">
                 <input [pattern]="emailPattern" type="email" email formControlName="email" matInput required
                     placeholder="&nbsp;Email">
-                <mat-error *ngIf=" f.email.errors" class="invalid-feedback">
+                <mat-error *ngIf="f.email.errors" class="invalid-feedback">
                     <div *ngIf="f.email.errors.required">Email is required</div>
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="login-field">
                 <input placeholder="&nbsp;Password" type="password" formControlName="password" matInput required>
+                <mat-error *ngIf="f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                </mat-error>
             </mat-form-field>
             <br>
             <button [disabled]="!loginForm.valid" mat-stroked-button type="submit">Submit</button>

@@ -62,15 +62,17 @@ export class StepGuard implements CanActivate {
     let cu = SetRole(this.authenticationService.userValue);
     const user = cu;
     console.log(user);
+
     if (user) {
       console.log(user.step, state.url);
+      if (user.role == "researcher" || user.role == "administrator") {
+        return true;
+      }
       if (user.step == "") {
         return true;
       }
       var userStepUrl = GetStepUrl(user);
       console.log("stepurl", userStepUrl, state.url);
-      console.log("stepurl=", state.url.indexOf(userStepUrl) < 0);
-
       if (
         state.url.indexOf(userStepUrl) < 0 ||
         (user.step == "questionnaire" && state.url.indexOf("questionnaire") < 0)
@@ -78,35 +80,14 @@ export class StepGuard implements CanActivate {
         this.router.navigate([userStepUrl], {
           queryParams: { returnUrl: state.url },
         });
-
         return false;
       }
-
-      // if (user.subrole == "seed" || user.subrole == "friend") {
-      //   console.log(user.step, state.url);
-      //   if (user.step == "paypal" && state.url !== "/dashboard/paypal") {
-      //     return false;
-      //   }
-      //   if (user.step == "friends" && state.url !== "/dashboard/friends") {
-      //     return false;
-      //   }
-      //   if (
-      //     user.step == "questionnaire" &&
-      //     state.url.indexOf("questionnaire") < 0
-      //   ) {
-      //     return false;
-      //   }
-      //   if (user.step == "profile" && state.url !== "/dashboard/profile") {
-      //     return false;
-      //   }
-      // }
-      // if (user.step == "verify" && state.url !== "/verify-email") {
-      //   return false;
-      // }
       return true;
     }
-    console.log(state.url);
-    if (state.url.indexOf("/questionnaire") > -1) {
+    if (
+      state.url.indexOf("/questionnaire") > -1 ||
+      state.url.indexOf("/dashboard/my-projects") > -1
+    ) {
       return true;
     }
     // not logged in so redirect to login page with the return url

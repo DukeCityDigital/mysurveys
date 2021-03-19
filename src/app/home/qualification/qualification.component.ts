@@ -148,10 +148,7 @@ export class QualificationComponent implements OnInit {
     // TODO check for peers /friends
 
     if (
-      (f.us === "true" &&
-        f.parents === "true" &&
-        f.friends === "true" &&
-        (vacOk || gmOk)) ||
+      (f.us === "true" && f.parents === "true" && f.friends === "true") ||
       (this.user &&
         this.user.subrole == "friend" &&
         f.us === "true" &&

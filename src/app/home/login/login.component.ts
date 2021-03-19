@@ -34,6 +34,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("init");
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl =
+      this.route.snapshot.queryParams["returnUrl"] || "/dashboard";
     this.loginForm = this.formBuilder.group({
       email: new FormControl("", [Validators.required, Validators.email]),
       password: new FormControl("", [
@@ -43,15 +48,17 @@ export class LoginComponent implements OnInit {
         // ),
       ]),
     });
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+
     this.route.paramMap.subscribe((params: any) => {
       if (params.params.hasOwnProperty("email") && params.params.email !== "") {
-        this.loginForm.patchValue({ email: params.params.email });
+        // this.loginForm.patchValue({ email: params.params.email });
       }
     });
-
-    // get return url from route parameters or default to '/'
-    this.returnUrl =
-      this.route.snapshot.queryParams["returnUrl"] || "/dashboard";
   }
 
   quickLogin(email, pass = "") {

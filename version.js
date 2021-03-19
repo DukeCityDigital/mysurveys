@@ -1,6 +1,5 @@
 const { gitDescribeSync } = require("git-describe");
 // const { version } = require("./package.json");
-const { version } = "58";
 
 const { resolve, relative } = require("path");
 const { writeFileSync } = require("fs-extra");
@@ -9,6 +8,9 @@ const gitInfo = gitDescribeSync({
   dirtyMark: false,
   dirtySemver: false,
 });
+// const { version } = new Date().toISOString();
+version = new Date().toISOString();
+console.log(`Version version ` + version);
 
 gitInfo.version = version;
 
