@@ -34,6 +34,16 @@ import { User } from "@app/core/models/user";
   selector: "app-omni-table",
   templateUrl: "./omni-table.component.html",
   styleUrls: ["./omni-table.component.scss"],
+  styles: [
+    `
+      .mat-paginator-navigation-next {
+        display: none;
+      }
+      .mat-button-wrapper {
+        display: none !important;
+      }
+    `,
+  ],
 })
 export class OmniTableComponent implements OnInit {
   @Input() columns: any = ["id"];
@@ -54,6 +64,7 @@ export class OmniTableComponent implements OnInit {
   selection = new SelectionModel<any>(true, []);
   data: any;
   searchField: any = "id";
+  pageSize = 10;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -69,7 +80,7 @@ export class OmniTableComponent implements OnInit {
       "",
       "asc",
       0,
-      100
+      this.pageSize
     );
     window.setTimeout(
       () => (this.resultsLength = this.dataSource.resultsLength),
