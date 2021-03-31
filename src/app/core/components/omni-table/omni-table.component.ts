@@ -95,7 +95,7 @@ export class OmniTableComponent implements OnInit {
         distinctUntilChanged(),
         tap(() => {
           this.loadOmniPage();
-          // this.resultsLength = this.dataSource.resultsLength;
+          this.resultsLength = this.dataSource.resultsLength;
         })
       )
       .subscribe();
@@ -112,14 +112,10 @@ export class OmniTableComponent implements OnInit {
         tap(() => {
           this.loadOmniPage();
 
-          // this.resultsLength = this.dataSource.resultsLength;
+          this.resultsLength = this.dataSource.resultsLength;
         })
       )
       .subscribe();
-    window.setTimeout(
-      () => (this.resultsLength = this.dataSource.resultsLength),
-      750
-    );
   }
   public submitRow(row?: any) {
     let em = {
@@ -270,6 +266,10 @@ export class OmniTableComponent implements OnInit {
       this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize
+    );
+    window.setTimeout(
+      () => (this.resultsLength = this.dataSource.resultsLength),
+      750
     );
   }
 }
