@@ -82,10 +82,7 @@ export class OmniTableComponent implements OnInit {
       0,
       this.pageSize
     );
-    window.setTimeout(
-      () => (this.resultsLength = this.dataSource.resultsLength),
-      750
-    );
+
     this.createObjectColumns();
   }
   ngAfterViewInit(): void {
@@ -119,6 +116,10 @@ export class OmniTableComponent implements OnInit {
         })
       )
       .subscribe();
+    window.setTimeout(
+      () => (this.resultsLength = this.dataSource.resultsLength),
+      750
+    );
   }
   public submitRow(row?: any) {
     let em = {

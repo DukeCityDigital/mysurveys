@@ -7,7 +7,6 @@ import { User } from "@app/core/models/user";
 import { SetRole } from "@app/core/helpers/set-role";
 import { throwError } from "rxjs/internal/observable/throwError";
 import { Router } from "@angular/router";
-
 @Injectable({
   providedIn: "root",
 })

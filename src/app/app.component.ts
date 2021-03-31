@@ -1,13 +1,13 @@
 import { Component, HostListener, Input, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService as AuthenticationService } from "@app/core/services/auth.service";
+
 import { AlertService } from "./core/components/_alert";
 import { MatSidenav } from "@angular/material/sidenav";
 import { LoaderService } from "./core/services/loader.service";
 import { concatMap, delay } from "rxjs/operators";
 import { Subscription, of } from "rxjs";
 import { VERSION } from "../environments/version";
-
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",

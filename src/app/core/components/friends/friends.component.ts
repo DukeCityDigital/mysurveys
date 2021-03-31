@@ -20,6 +20,7 @@ export class FriendsComponent implements OnInit {
     private authenticationService: AuthService
   ) {
     this.friendForm = this.createFriendform();
+    this.authenticationService.user.subscribe((x) => (this.user = x));
   }
 
   ngAfterViewInit(): void {
@@ -31,6 +32,7 @@ export class FriendsComponent implements OnInit {
   getMe() {
     this.participantService.profile().subscribe((data: any) => {
       this.user = data.data;
+      console.log(this.user);
     });
   }
 
@@ -50,8 +52,10 @@ export class FriendsComponent implements OnInit {
     this.participantService.inviteFriend(post).subscribe(
       (data: any) => {
         this.alertService.success("Invitation sent", { autoClose: true });
-        this.getMe();
+        // this.getMe();
         this.authenticationService.userValue.step = "";
+        console.log(this.authenticationService.userValue);
+        debugger;
         // confirm(
         //   "Thank you for inviting friends!  You can now receive survey invitations."
         // );
