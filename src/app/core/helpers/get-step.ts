@@ -1,7 +1,9 @@
 export function GetStepUrl(user) {
+  let localstep = localStorage.getItem("step");
+
   let returnUrl = "dashboard/profile";
   console.log("getstepurl USER ", user);
-  if (user.step == "") {
+  if (localstep == "") {
     localStorage.setItem("step", "");
     return "";
   }
@@ -17,16 +19,11 @@ export function GetStepUrl(user) {
   }
 
   if (user.role === "participant") {
-    let localstep = localStorage.getItem("step");
     console.log("localstep", localstep);
-    let step = user.step !== "" ? user.step : "profile";
-    console.log("proced step", step);
-    if (localstep) {
-      step = localstep;
-    }
-    console.log("userstep", step);
+    // let step = user.step !== "" ? user.step : "profile";
+    // console.log("proced step", step);
 
-    returnUrl = "dashboard/" + step;
+    returnUrl = "dashboard/" + localstep;
     if (returnUrl == "dashboard/questionnaire") returnUrl = "questionnaire";
     console.log(returnUrl);
   }
