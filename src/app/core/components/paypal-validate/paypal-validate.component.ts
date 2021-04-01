@@ -10,6 +10,7 @@ import { ParticipantService } from "@app/core/services/participant.service";
 import { EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "@app/core/services/auth.service";
+import { GetStepUrl } from "@app/core/helpers/get-step";
 
 @Component({
   selector: "app-paypal-validate",
@@ -75,8 +76,11 @@ export class PaypalValidateComponent implements OnInit {
           this.alertService.success("Updated", { autoClose: true });
           this.getMe();
           this.notifyParent.emit({ update: true });
+          var userStepUrl = GetStepUrl(this.user);
+
           if (this.user.subrole == "friend") {
-            if (this.authenticationService.userValue.step == "paypal") {
+            if (userStepUrl == "dashboard/paypal") {
+              localStorage.setItem("step", "");
               this.authenticationService.userValue.step = "";
             }
             confirm(
@@ -84,8 +88,10 @@ export class PaypalValidateComponent implements OnInit {
             );
             this.router.navigate(["/dashboard/my-projects"]);
           } else if (this.user.subrole == "seed") {
-            if (this.authenticationService.userValue.step == "paypal") {
+            if (userStepUrl == "dashboard/paypal") {
               this.authenticationService.userValue.step = "friends";
+              localStorage.setItem("step", "friends");
+
               confirm(
                 "Thank you for validating your PayPal! Next you will be directed to the page to invite your friends "
               );

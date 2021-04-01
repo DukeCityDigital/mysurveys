@@ -86,7 +86,9 @@ export class LoginComponent implements OnInit {
       this.loginForm.value.password
     ).subscribe(
       (data: any) => {
+        localStorage.setItem("step", data.step);
         var step = GetStepUrl(data);
+        console.log("getstepurl", step);
         const navigationExtras: NavigationExtras = {
           state: { example: data.email },
         };

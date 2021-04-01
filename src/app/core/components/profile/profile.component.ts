@@ -159,6 +159,7 @@ export class ProfileComponent implements OnInit {
             "Thank you for changing your password, you will be navigated to the questionnaire now"
           );
           this.authService.userValue.step = "questionnaire";
+          localStorage.setItem("step", "questionnaire");
 
           this.router.navigate(["questionnaire"], {
             queryParams: { consent: "irb", role: "peer" },

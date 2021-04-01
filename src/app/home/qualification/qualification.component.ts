@@ -196,6 +196,8 @@ export class QualificationComponent implements OnInit {
           "Thanks for completing the questionnaire, please validate your PayPal account now"
         );
         this.authService.userValue.step = "paypal";
+        localStorage.setItem("step", "paypal");
+
         this.router.navigate(["/dashboard/paypal"]);
       } else {
         this.peerQualified = false;
