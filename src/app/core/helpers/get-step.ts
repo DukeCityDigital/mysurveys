@@ -23,10 +23,11 @@ export function GetStepUrl(user) {
     // let step = user.step !== "" ? user.step : "profile";
     // console.log("proced step", step);
 
-    returnUrl = "dashboard/" + localstep;
+    returnUrl = "/dashboard/" + localstep;
     if (returnUrl == "dashboard/questionnaire") returnUrl = "questionnaire";
-    console.log(returnUrl);
   }
+  console.log(returnUrl);
+
   return returnUrl.trim();
   debugger;
 }
