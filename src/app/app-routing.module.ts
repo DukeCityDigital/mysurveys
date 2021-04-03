@@ -31,6 +31,7 @@ const routes: Routes = [
   {
     path: "dashboard",
     component: DashboardComponent,
+    canActivate: [],
     children: [
       {
         path: "my-projects",
@@ -145,10 +146,15 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { roles: [Role.administrator, Role.researcher] },
       },
+      {
+        path: "questionnaire",
+        component: QualificationComponent,
+        // canActivate: [StepGuard],
+      },
       { path: "", redirectTo: "/home", pathMatch: "full" },
     ],
 
-    canActivate: [StepGuard],
+    // canActivate: [StepGuard],
   },
 
   {
@@ -166,7 +172,7 @@ const routes: Routes = [
   {
     path: "questionnaire",
     component: QualificationComponent,
-    canActivate: [StepGuard],
+    // canActivate: [StepGuard],
   },
 
   { path: "home", component: HomeComponent },

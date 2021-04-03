@@ -1,11 +1,12 @@
-<mat-card *ngIf="participant && participant.paypal_id_status !=='Ok'">
+<!-- <mat-card *ngIf="participant && participant.paypal_id_status !=='Ok'">
   <h3>You haven't verified your PayPal ID</h3>
 </mat-card>
 <mat-card *ngIf="participant && participant.seed_id !== null && participant.survey_complete !==true">
   <h3>You Haven't taken the initial survey</h3>
-</mat-card>
+</mat-card> -->
 <mat-tab-group [(selectedIndex)]="demo1TabIndex">
-  <mat-tab *ngIf="participant && participant.role =='participant'" label="Validate PayPal">
+  <mat-tab [disabled]="participant && !participant.changed_pw || participant.changed_pw == null"
+    *ngIf="participant && participant.role =='participant'" label="Validate PayPal">
     <app-paypal-validate (notifyParent)="getProfile()">
     </app-paypal-validate>
   </mat-tab>
@@ -17,7 +18,6 @@
         <input style="border: 1px solid black; width: 100%" type="password" id="password" name="password" password
           minlength="8" formControlName="password" matInput required placeholder="&nbsp;Current password"
           class="example-full-width" />
-
         <mat-error *ngIf="changePasswordForm.get('password').hasError('minlength')" class="invalid-feedback">
           <div>Passwords are 8 characters or longer</div>
         </mat-error>

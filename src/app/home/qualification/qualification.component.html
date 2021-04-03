@@ -4,6 +4,9 @@
     You're all set on this page
   </mat-card-title>
   <mat-icon style="font-size:44px;">thumb_up</mat-icon>
+  <br>
+  <h2 style="text-transform:uppercase;" *ngIf="user && user.step && user.step !==''">Next step: Please configure your
+    {{user.step}}</h2>
 </mat-card>
 
 <div *ngIf="!submitted" class="surveyActual">

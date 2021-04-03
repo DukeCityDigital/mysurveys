@@ -68,6 +68,10 @@ export class StepGuard implements CanActivate {
       if (user.step == "") {
         return true;
       }
+      if (state.url.indexOf("/questionnaire") > -1) {
+        return true;
+      }
+
       var userStepUrl = GetStepUrl(user);
       console.log(
         "userstepurl",
@@ -76,16 +80,15 @@ export class StepGuard implements CanActivate {
         state.url.indexOf(userStepUrl)
       );
       if (
-        state.url.indexOf(userStepUrl) < 0 ||
-        (user.step == "questionnaire" && state.url.indexOf("questionnaire") < 0)
+        state.url.indexOf(userStepUrl) < 0
+        // ||
+        // (user.step == "questionnaire" && state.url.indexOf("questionnaire") < 0)
       ) {
-        // this.router.navigate([userStepUrl], {
-        // queryParams: { returnUrl: state.url },
-        // });
         return false;
       }
       return true;
     }
+    return true;
     if (
       state.url.indexOf("/questionnaire") > -1 ||
       state.url.indexOf("/dashboard/my-projects") > -1

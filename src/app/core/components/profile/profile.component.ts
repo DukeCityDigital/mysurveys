@@ -112,6 +112,11 @@ export class ProfileComponent implements OnInit {
       .pipe(tap((user: any) => this.profileForm.patchValue(user.data)))
       .subscribe((data: any) => {
         this.participant = data.data;
+        if (
+          !this.participant.changed_pw ||
+          this.participant.changed_pw == null
+        ) {
+        }
         this.alertService.success(data.message, { autoClose: true });
       });
   }
@@ -153,7 +158,7 @@ export class ProfileComponent implements OnInit {
 
         this.changedPassword = true;
         this.alertService.success(data.message, { autoClose: true });
-        if (data.data.subrole === "friend") {
+        if (data.subrole === "friend") {
           sessionStorage.setItem("showgdpr", "false");
           confirm(
             "Thank you for changing your password, you will be navigated to the questionnaire now"

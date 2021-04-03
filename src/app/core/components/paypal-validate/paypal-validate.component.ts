@@ -79,9 +79,10 @@ export class PaypalValidateComponent implements OnInit {
           var userStepUrl = GetStepUrl(this.user);
 
           if (this.user.subrole == "friend") {
-            if (userStepUrl == "dashboard/paypal") {
+            if (userStepUrl.indexOf("paypal") > -1) {
               localStorage.setItem("step", "");
               this.authenticationService.userValue.step = "";
+              localStorage.setItem("step", "questionnaire");
             }
             confirm(
               "Thank you for validating your PayPal! Next you will be directed to the surveys page "
