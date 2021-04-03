@@ -4,6 +4,9 @@ import {
   MatBottomSheet,
   MatBottomSheetRef,
 } from "@angular/material/bottom-sheet";
+import { AuthService } from "@app/core/services/auth.service";
+import { Router } from "@angular/router";
+import { GetStepUrl } from "@app/core/helpers/get-step";
 
 AlertService;
 @Component({
@@ -16,7 +19,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private alertService: AlertService,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private authService: AuthService,
+    private router: Router
   ) {}
   openBottomSheet(): void {
     this._bottomSheet.open(GDPRBottomSheet);
@@ -30,6 +35,19 @@ export class HomeComponent implements OnInit {
     //   this.showGdpr = true;
     //   this.openBottomSheet();
     // }
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    let uv = this.authService.userValue;
+    console.log("home c uservalue", uv);
+    if (uv) {
+      let stepUrl = GetStepUrl(uv);
+      console.log("red home to stepurl", stepUrl);
+
+      this.router.navigateByUrl(stepUrl);
+    }
   }
 
   acknowledgeGDPR() {

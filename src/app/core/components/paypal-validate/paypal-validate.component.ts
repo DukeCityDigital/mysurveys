@@ -88,7 +88,7 @@ export class PaypalValidateComponent implements OnInit {
             );
             this.router.navigate(["/dashboard/my-projects"]);
           } else if (this.user.subrole == "seed") {
-            if (userStepUrl == "dashboard/paypal") {
+            if (userStepUrl.indexOf("paypal") > -1) {
               this.authenticationService.userValue.step = "friends";
               localStorage.setItem("step", "friends");
 

@@ -133,9 +133,11 @@ export class AuthService {
     localStorage.setItem("user", JSON.stringify(user));
     let u = JSON.stringify(user);
     localStorage.setItem("access_token", JSON.parse(u).access_token);
+    localStorage.setItem("step", user.step.toString());
     user = SetRole(user);
     // this.startRefreshTokenTimer();
     this.userSubject.next(user);
+    debugger;
     return user;
   }
 

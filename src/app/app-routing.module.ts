@@ -145,6 +145,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { roles: [Role.administrator, Role.researcher] },
       },
+      { path: "", redirectTo: "/home", pathMatch: "full" },
     ],
 
     canActivate: [StepGuard],

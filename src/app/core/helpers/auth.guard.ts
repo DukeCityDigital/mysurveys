@@ -69,7 +69,12 @@ export class StepGuard implements CanActivate {
         return true;
       }
       var userStepUrl = GetStepUrl(user);
-      console.log("userstepurl", userStepUrl, state.url.indexOf(userStepUrl));
+      console.log(
+        "userstepurl",
+        userStepUrl,
+        state.url,
+        state.url.indexOf(userStepUrl)
+      );
       if (
         state.url.indexOf(userStepUrl) < 0 ||
         (user.step == "questionnaire" && state.url.indexOf("questionnaire") < 0)

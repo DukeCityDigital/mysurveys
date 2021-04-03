@@ -1,6 +1,5 @@
 export function GetStepUrl(user) {
   let localstep = localStorage.getItem("step");
-
   let returnUrl = "dashboard/profile";
   console.log("getstepurl USER ", user);
   if (localstep == "") {
