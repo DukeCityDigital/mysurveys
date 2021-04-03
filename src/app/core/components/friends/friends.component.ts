@@ -33,7 +33,9 @@ export class FriendsComponent implements OnInit {
     this.participantService.profile().subscribe((data: any) => {
       this.user = data.data;
       console.log(this.user);
-      if (this.user.friends.length == 1) {
+      if (this.user.friends.length > 0) {
+        localStorage.setItem("step", "");
+
         confirm(
           "Thank you for inviting friends!  You can now receive survey invitations."
         );
@@ -57,6 +59,8 @@ export class FriendsComponent implements OnInit {
     this.participantService.inviteFriend(post).subscribe(
       (data: any) => {
         this.alertService.success("Invitation sent", { autoClose: true });
+        localStorage.setItem("step", "");
+
         this.getMe();
         this.authenticationService.userValue.step = "";
         console.log(this.authenticationService.userValue);
