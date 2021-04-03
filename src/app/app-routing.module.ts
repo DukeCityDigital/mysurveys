@@ -149,7 +149,7 @@ const routes: Routes = [
       {
         path: "questionnaire",
         component: QualificationComponent,
-        // canActivate: [StepGuard],
+        canActivate: [StepGuard],
       },
       { path: "", redirectTo: "/home", pathMatch: "full" },
     ],

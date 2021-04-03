@@ -134,7 +134,7 @@ export class AppComponent {
       { name: "PayPal", link: "/dashboard/paypal", icon: "monetization_on" },
       {
         name: "questionnaire",
-        link: "/questionnaire",
+        link: "dashboard/questionnaire",
         icon: "question_answer",
       },
 
