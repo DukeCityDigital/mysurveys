@@ -75,11 +75,14 @@ export class QualificationComponent implements OnInit {
 
   ngOnInit(): void {
     this.qualificationForm = new FormGroup({
-      parents: new FormControl("", [Validators.required]),
-      gm: new FormControl("", [Validators.required]),
       vac: new FormControl("", [Validators.required]),
-      us: new FormControl("", [Validators.required]),
+      vac_benefit: new FormControl("", [Validators.required]),
+
       friends: new FormControl("", [Validators.required]),
+
+      // parents: new FormControl("", [Validators.required]),
+      gm: new FormControl("", [Validators.required]),
+      us: new FormControl("", [Validators.required]),
       share_data: new FormControl("", [Validators.required]),
     });
     this.getMe();
@@ -114,6 +117,34 @@ export class QualificationComponent implements OnInit {
       this.qualificationForm.removeControl("share_data");
     }
   }
+
+  VacPossibleResponses = [
+    { name: "I will definitely not get the flu vaccine", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "I will definitely get the flu vaccine", value: 7 },
+  ];
+  FluPossibleResponses = [
+    { name: "I will definitely not get the flu vaccine", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "I will definitely get the flu vaccine", value: 7 },
+  ];
+  BenefitPossibleResponses = [
+    { name: "The risks completely outweigh the benefits", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "The risks and benefits are about equal", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "The benefits completely outweigh the risks", value: 7 },
+  ];
   possibleResponses = [
     { name: "Completely unsafe", value: 1 },
     { name: "", value: 2 },
@@ -123,6 +154,7 @@ export class QualificationComponent implements OnInit {
     { name: "", value: 6 },
     { name: "Completely safe", value: 7 },
   ];
+ 
 
   toggle() {
     this.isOpen = !this.isOpen;

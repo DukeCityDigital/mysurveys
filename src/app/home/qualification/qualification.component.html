@@ -24,22 +24,23 @@
         *ngIf="!this.user || passed_query_param_role =='seed' || this.user && this.user.subrole !=='friend'; else showSeed">
         <h2>Consent form</h2>
         <p>
-          <b> Purpose of the study:</b> This study investigates parents’ beliefs about different issues, including
-          vaccination and GM food. <b>This study is for groups of friends.</b> To qualify for the study, <b>you and two
-            of your friends</b> will need to sign up on this website. The friends will have to be from different
-          households and live in the U.S.
+          <b> Purpose of the study:</b> This study investigates people’s beliefs about different issues, including
+          vaccination. <b>This study is for groups of friends.</b> To participate in the study, <b>you and two
+            of your friends</b> will need to sign up on this website. The friends will have to be adults from different
+          households and live in the U.S. Please fill out the questionnaire below to see if you qualify.
         </p>
         <p>
-          A week or two after you and your two friends have signed up, you will be invited to participate in three study
-          waves, and your friends in one study wave. Study waves will be a few weeks apart and take no more than 10
-          minutes each. You will be asked questions such as “Is growing GM crops harmful or beneficial to the
-          environment?”, “Are childhood vaccines natural or unnatural?”, and “Do you have children under 18 years of age
-          at home?”.
+          A week or two after you and your two friends have signed up, you will be invited to participate in two to
+          three study
+          waves, and your friends in one study wave. Study waves will be a few weeks apart and take around 10
+          minutes each. You will be asked questions such as "Do you think flu vaccines are ineffective or effective for
+          preventing flu?"
+          and "Do you live in the U.S. and are at least 18 years old?"
         </p>
         <p>
           <b>Payment:</b> After completing the first study wave, you will receive $10 for each friend that has signed
           up, and $5 for completing the study (for a total of $25). For each next study wave you participate in, you
-          will receive an additional $5 (for up to additional $10). Each of your friends will get $10 for signing up and
+          will receive an additional $5. Each of your friends will get $10 for signing up and
           $5 for completing the first wave.
         </p>
         <p>
@@ -68,9 +69,8 @@
         </p>
         <p><b>Contact information:</b> This study is conducted by Mirta Galesic and Henrik Olsson from the Santa Fe
           Institute, funded by the NSF. If you have any questions, concerns, or complaints about the research, please
-          feel free to call the researchers at (505) 946-2703 or email at support@mysurveys.santafe.edu. If you have
-          questions
-          regarding your rights as a research participant, or about what you should do in case of any harm to you, or if
+          feel free to email at mysurveys.sfi@gmail.com. If you have questions regarding your rights as a research
+          participant, or about what you should do in case of any harm to you, or if
           you want to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505)
           277-2644 or irb@unm.edu.
         </p>
@@ -131,7 +131,8 @@
         <h2>Thanks for agreeing to participate!</h2>
         <p>Please answer all of the following questions</p>
         <div class="shortConsent">
-          <label id="example-radio-group-label">Do any children under the age of 18 currently live in your
+
+          <!-- <label id="example-radio-group-label">Do any children under the age of 18 currently live in your
             household?</label>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
             formControlName="parents">
@@ -145,67 +146,65 @@
           <div class="fielderror" *ngIf="qualificationForm.value.parents == ''">
             This field is required
           </div>
-          <hr />
-          <p>
-            Scientists have added genes to certain food crops to make them
-            insect resistant and herbicide tolerant. These are called
-            genetically modified (GM) crops. Examples of GM crops in the U.S.
-            include some corn, soybeans, and canola. The next question is about
-            GM food made from these crops.
-          </p>
-          <label id="example-radio-group-labelgm">Do you think it is unsafe or safe to eat GM food? Select the
-            number that comes closest to your views.
-          </label>
+           -->
 
-          <mat-radio-group aria-labelledby="example-radio-group-labelgm" class="example-radio-group"
-            formControlName="gm">
-            <mat-radio-button *ngFor="let response of possibleResponses" class="example-radio-button"
-              value="{{ response.value }}">
-              {{ response.value }} {{ response.name }}
-            </mat-radio-button>
-          </mat-radio-group>
-          <div class="fielderror" *ngIf="qualificationForm.value.gm == ''">
-            This field is required
-          </div>
           <hr />
-          <p>
-            A vaccine imitates an infection without inducing the disease, and
-            leads the immune system to develop immunity to that disease. The
-            next question is about vaccines currently recommended for children
-            (childhood vaccines), such as the Measles, mumps, rubella (MMR)
-            vaccine or the Tetanus, diphtheria, and pertussis (Tdap) vaccine.
-          </p>
-          <label id="example-radio-group-label">Do you think childhood vaccines are unsafe or safe for healthy
-            children? Select the number that comes closest to your views.
-          </label>
-          <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-            formControlName="vac">
-            <mat-radio-button *ngFor="let response of possibleResponses" class="example-radio-button"
-              value="{{ response.value }}">
-              {{ response.value }} {{ response.name }}
-            </mat-radio-button>
-          </mat-radio-group>
-          <div class="fielderror" *ngIf="qualificationForm.value.vac == ''">
-            This field is required
+          <div>
+            <label id="example-radio-group-label">Do you plan to get the flu vaccine in the upcoming flu season (which
+              starts in Fall 2021)?
+            </label>
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+              formControlName="vac">
+              <mat-radio-button *ngFor="let response of FluPossibleResponses" class="example-radio-button"
+                value="{{ response.value }}">
+                {{ response.value }} {{ response.name }}
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="fielderror" *ngIf="qualificationForm.value.vac == ''">
+              This field is required
+            </div>
+            <hr />
           </div>
-          <hr />
-          <p>Do you live in the U.S.?</p>
-          <!-- <label id="example-radio-group-labellocation">Do you live in the U.S.?
+          <div>
+
+
+         
+            <label id="example-radio-group-labelgm">Overall, do you think the risks of flu vaccines outweigh the benefits or the benefits outweigh the risks?
+            </label>
+
+            <mat-radio-group aria-labelledby="example-radio-group-labelgm" class="example-radio-group"
+              formControlName="vac_benefit">
+              <mat-radio-button *ngFor="let response of BenefitPossibleResponses" class="example-radio-button"
+                value="{{ response.value }}">
+                {{ response.value }} {{ response.name }}
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="fielderror" *ngIf="qualificationForm.value.vac_benefit == ''">
+              This field is required
+            </div>
+            <hr />
+          </div>
+
+          <div>
+
+
+            <p>Do you live in the U.S. and are at least 18 years old?</p>
+            <!-- <label id="example-radio-group-labellocation">Do you live in the U.S.?
                     </label> -->
-          <mat-radio-group aria-labelledby="example-radio-group-labelus" class="example-radio-group"
-            formControlName="us">
-            <mat-radio-button class="example-radio-button" value="true">
-              Yes
-            </mat-radio-button>
-            <mat-radio-button class="example-radio-button" value="0">
-              No
-            </mat-radio-button>
-          </mat-radio-group>
-          <div class="fielderror" *ngIf="qualificationForm.value.us == ''">
-            This field is required
+            <mat-radio-group aria-labelledby="example-radio-group-labelus" class="example-radio-group"
+              formControlName="us">
+              <mat-radio-button class="example-radio-button" value="true">
+                Yes
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="0">
+                No
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="fielderror" *ngIf="qualificationForm.value.us == ''">
+              This field is required
+            </div>
+            <!-- (userpeer{{_USER_IS_PEER}}) -->
           </div>
-          <!-- (userpeer{{_USER_IS_PEER}}) -->
-
           <ng-container *ngIf="!this._USER_IS_PEER">
             <hr />
             <p>
@@ -228,8 +227,9 @@
           <ng-container *ngIf="this._USER_IS_PEER">
             <hr />
             <p>
-              Would it be ok to share your answers to the previous two questions with the friend who invited you to the
-              study?
+              Would it be ok to share your answers to the questions above with your friends who might also participate
+              in the study?
+
             </p>
             <mat-radio-group required aria-labelledby="example-radio-group-labelfriends" class="example-radio-group"
               formControlName="share_data">
@@ -259,7 +259,8 @@
 </div>
 <mat-card *ngIf="!qualified && submitted" style="margin:12px;">
   <h2>
-    Thank you for your submission. Unfortunately, you aren't a match for any current studies
+    Thank you for answering the questions. Unfortunately, you do not qualify for this study. Thank you for your
+    interest.
   </h2>
 </mat-card>
 <div *ngIf="qualified && submitted && !user">
