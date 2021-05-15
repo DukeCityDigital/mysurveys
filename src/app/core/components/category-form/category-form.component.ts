@@ -22,9 +22,16 @@ export class CategoryFormComponent implements OnInit {
   ];
 
   categories = [
-    { name: "GM", value: "qualification_gm" },
-    { name: "VAC", value: "qualification_vac" },
-    { name: "AGE", value: "birthyear" },
+    // { name: "GM", value: "qualification_gm" },
+    { name: "VAC-EFFECTIVE", value: "qualification_vac_effective" },
+    { name: "VAC-BENEFIT", value: "qualification_vac_benefit" },
+    { name: "VAC-EFFECTIVE", value: "qualification_vac_effective" },
+    { name: "VAC-HARMFUL", value: "qualification_vac_harmful" },
+    { name: "VAC-PHARMA", value: "qualification_vac_harmful" },
+
+
+
+
   ];
 
   constructor(private formBuilder: FormBuilder) {}

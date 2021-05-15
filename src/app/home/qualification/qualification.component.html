@@ -150,29 +150,25 @@
 
           <hr />
           <div>
-            <label id="example-radio-group-label">Do you plan to get the flu vaccine in the upcoming flu season (which
-              starts in Fall 2021)?
+            <label id="example-radio-group-label">Do you plan to get the flu vaccine in the upcoming flu season (which starts in Fall 2021)?
             </label>
             <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-              formControlName="vac">
+              formControlName="vac_receive">
               <mat-radio-button *ngFor="let response of FluPossibleResponses" class="example-radio-button"
                 value="{{ response.value }}">
                 {{ response.value }} {{ response.name }}
               </mat-radio-button>
             </mat-radio-group>
-            <div class="fielderror" *ngIf="qualificationForm.value.vac == ''">
+            <div class="fielderror" *ngIf="qualificationForm.value.vac_receive == ''">
               This field is required
             </div>
             <hr />
           </div>
+
           <div>
-
-
-         
-            <label id="example-radio-group-labelgm">Overall, do you think the risks of flu vaccines outweigh the benefits or the benefits outweigh the risks?
+            <label id="example-radio-group-label">Overall, do you think the risks of flu vaccines outweigh the benefits or the benefits outweigh the risks?
             </label>
-
-            <mat-radio-group aria-labelledby="example-radio-group-labelgm" class="example-radio-group"
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
               formControlName="vac_benefit">
               <mat-radio-button *ngFor="let response of BenefitPossibleResponses" class="example-radio-button"
                 value="{{ response.value }}">
@@ -184,15 +180,61 @@
             </div>
             <hr />
           </div>
-
           <div>
+            <label id="example-radio-group-label">Do you think flu vaccines are ineffective or effective for preventing the flu?
+            </label>
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+              formControlName="vac_effective">
+              <mat-radio-button *ngFor="let response of VacEffectiveResponses" class="example-radio-button"
+                value="{{ response.value }}">
+                {{ response.value }} {{ response.name }}
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="fielderror" *ngIf="qualificationForm.value.vac_effective == ''">
+              This field is required
+            </div>
+            <hr />
+          </div>
+          <div>
+            <label id="example-radio-group-label">Do you think flu vaccines can be harmful to one's health?
+            </label>
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+              formControlName="vac_harmful">
+              <mat-radio-button *ngFor="let response of VacEffectiveResponses" class="example-radio-button"
+                value="{{ response.value }}">
+                {{ response.value }} {{ response.name }}
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="fielderror" *ngIf="qualificationForm.value.vac_harmful == ''">
+              This field is required
+            </div>
+            <hr />
+          </div>
+          <div>
+            <label id="example-radio-group-label">Do you think big pharmaceutical companies benefit too much from flu vaccines at the expense of patients, or that both big pharmaceutical companies and patients benefit equally? 
+            </label>
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+              formControlName="vac_pharma">
+              <mat-radio-button *ngFor="let response of VacEffectiveResponses" class="example-radio-button"
+                value="{{ response.value }}">
+                {{ response.value }} {{ response.name }}
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="fielderror" *ngIf="qualificationForm.value.vac_pharma == ''">
+              This field is required
+            </div>
+            <hr />
+          </div>
 
+          
+          <div>
+            <p>
+              Would you be willing to share your answers to the questions above with your friends who might also participate
+              in the study?
 
-            <p>Do you live in the U.S. and are at least 18 years old?</p>
-            <!-- <label id="example-radio-group-labellocation">Do you live in the U.S.?
-                    </label> -->
-            <mat-radio-group aria-labelledby="example-radio-group-labelus" class="example-radio-group"
-              formControlName="us">
+            </p>
+            <mat-radio-group required aria-labelledby="example-radio-group-labelfriends" class="example-radio-group"
+              formControlName="share">
               <mat-radio-button class="example-radio-button" value="true">
                 Yes
               </mat-radio-button>
@@ -200,12 +242,53 @@
                 No
               </mat-radio-button>
             </mat-radio-group>
-            <div class="fielderror" *ngIf="qualificationForm.value.us == ''">
+            <div class="fielderror" *ngIf="qualificationForm.value.share == ''">
+              This field is required
+            </div>          
+            <hr>
+          </div>
+          <div>
+            <p>
+              Would you be willing to share information about flu vaccines from other sources (e.g., doctors, scientists) with your friends? 
+            </p>
+            <mat-radio-group required aria-labelledby="example-radio-group-labelfriends" class="example-radio-group"
+              formControlName="share_info">
+              <mat-radio-button class="example-radio-button" value="true">
+                Yes
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="0">
+                No
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="fielderror" *ngIf="qualificationForm.value.share_info == ''">
               This field is required
             </div>
-            <!-- (userpeer{{_USER_IS_PEER}}) -->
+
+
+            <hr>
+          </div>         
+
+         
+      
+
+          <p>Do you live in the U.S. and are at least 18 years old?</p>
+          <!-- <label id="example-radio-group-labellocation">Do you live in the U.S.?
+                    </label> -->
+          <mat-radio-group aria-labelledby="example-radio-group-labelus" class="example-radio-group"
+            formControlName="us">
+            <mat-radio-button class="example-radio-button" value="true">
+              Yes
+            </mat-radio-button>
+            <mat-radio-button class="example-radio-button" value="0">
+              No
+            </mat-radio-button>
+          </mat-radio-group>
+          <div class="fielderror" *ngIf="qualificationForm.value.us == ''">
+            This field is required
           </div>
-          <ng-container *ngIf="!this._USER_IS_PEER">
+          <!-- (userpeer{{_USER_IS_PEER}}) -->
+
+          <!-- <ng-container *ngIf="!this._USER_IS_PEER">
             <hr />
             <p>
               To complete the study and earn payment you will need to recruit two
@@ -223,27 +306,8 @@
             <div class="fielderror" *ngIf="qualificationForm.value.friends == ''">
               This field is required
             </div>
-          </ng-container>
-          <ng-container *ngIf="this._USER_IS_PEER">
-            <hr />
-            <p>
-              Would it be ok to share your answers to the questions above with your friends who might also participate
-              in the study?
-
-            </p>
-            <mat-radio-group required aria-labelledby="example-radio-group-labelfriends" class="example-radio-group"
-              formControlName="share_data">
-              <mat-radio-button class="example-radio-button" value="true">
-                Yes
-              </mat-radio-button>
-              <mat-radio-button class="example-radio-button" value="0">
-                No
-              </mat-radio-button>
-            </mat-radio-group>
-            <div class="fielderror" *ngIf="qualificationForm.value.data == ''">
-              This field is required
-            </div>
-          </ng-container>
+          </ng-container> -->
+        
         </div>
         <hr />
         <div *ngIf="!qualificationForm.valid" class="fielderror">

@@ -43,8 +43,16 @@ export class SelectionTableComponent implements OnInit {
   data: any;
 
   categories = [
+    { name: "Vac", value: "vac_receive" },
+    { name: "Vac Benefit", value: "vac_benefit" },
+    { name: "Vac Effective", value: "vac_effective" },
+    { name: "Vac Harmful", value: "vac_harmful" },
+    { name: "Vac Pharma", value: "vac_pharma" },
+
+
+
+    
     { name: "GM", value: "gm" },
-    { name: "Vac", value: "vac" },
     { name: "", value: "gm" },
   ];
 
@@ -85,8 +93,12 @@ export class SelectionTableComponent implements OnInit {
     "paypal_id_status",
     "peers",
     // "birthyear",
-    "qualification_gm",
-    "qualification_vac",
+    "vac_benefit",
+    "vac_effective",
+    "vac_harmful",
+    "vac_pharma",
+    // "qualification_gm",
+    // "qualification_vac",
     "add",
   ];
 

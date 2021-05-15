@@ -75,15 +75,18 @@ export class QualificationComponent implements OnInit {
 
   ngOnInit(): void {
     this.qualificationForm = new FormGroup({
-      vac: new FormControl("", [Validators.required]),
+      vac_receive: new FormControl("", [Validators.required]),
       vac_benefit: new FormControl("", [Validators.required]),
+      vac_effective: new FormControl("", [Validators.required]),
+      share: new FormControl("", [Validators.required]),
 
-      friends: new FormControl("", [Validators.required]),
 
-      // parents: new FormControl("", [Validators.required]),
-      gm: new FormControl("", [Validators.required]),
+      vac_harmful: new FormControl("", [Validators.required]),
+      vac_pharma: new FormControl("", [Validators.required]),
+
+      share_info: new FormControl("", [Validators.required]),
+      // friends: new FormControl("", [Validators.required]),
       us: new FormControl("", [Validators.required]),
-      share_data: new FormControl("", [Validators.required]),
     });
     this.getMe();
   }
@@ -117,7 +120,24 @@ export class QualificationComponent implements OnInit {
       this.qualificationForm.removeControl("share_data");
     }
   }
-
+  VacPharmaResponses = [
+    { name: "Big pharmaceutical companies benefit too much at the expense of patients", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "Both big pharmaceutical companies and patients benefit equally", value: 7 },
+  ];
+  VacHarmfulResponses = [
+    { name: "Very harmful", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "Not harmful at all", value: 7 },
+  ];
   VacPossibleResponses = [
     { name: "I will definitely not get the flu vaccine", value: 1 },
     { name: "", value: 2 },
@@ -126,6 +146,15 @@ export class QualificationComponent implements OnInit {
     { name: "", value: 5 },
     { name: "", value: 6 },
     { name: "I will definitely get the flu vaccine", value: 7 },
+  ];
+  VacEffectiveResponses = [
+    { name: "Very ineffective", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "Very effective", value: 7 },
   ];
   FluPossibleResponses = [
     { name: "I will definitely not get the flu vaccine", value: 1 },
@@ -173,23 +202,36 @@ export class QualificationComponent implements OnInit {
     this.isOpen = true;
     // removed per TDD
     // let gmOk = parseInt(f.gm) !== 1 && parseInt(f.gm) !== 7;
-    // let vacOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
-    let gmOk = true;
-    let vacOk = true;
+    let fluOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
+    let benefitOk = parseInt(f.vac_benefit) !== 1 && parseInt(f.vac_benefit) !== 7;
+
+    let usOk = f.us === "true";
+    let shareOk = f.share === "true";
+
+    if (fluOk && benefitOk && shareOk && usOk) {
+      qualified = true;
+
+    } else {
+      qualified = false;
+
+    }
+
+    // let gmOk = true;
+    // let vacOk = true;
 
     // TODO check for peers /friends
 
-    if (
-      (f.us === "true" && f.parents === "true" && f.friends === "true") ||
-      (this.user &&
-        this.user.subrole == "friend" &&
-        f.us === "true" &&
-        f.parents === "true")
-    ) {
-      qualified = true;
-    } else {
-      qualified = false;
-    }
+    // if (
+    //   (f.us === "true" && f.parents === "true" && f.friends === "true") ||
+    //   (this.user &&
+    //     this.user.subrole == "friend" &&
+    //     f.us === "true" &&
+    //     f.parents === "true")
+    // ) {
+    //   qualified = true;
+    // } else {
+    //   qualified = false;
+    // }
 
     this.qualified = qualified;
     return this.qualified;

@@ -62,13 +62,25 @@
         <td mat-cell *matCellDef="let element"> {{element.birthyear}} </td>
     </ng-container> -->
 
-    <ng-container matColumnDef="qualification_gm">
+    <!-- <ng-container matColumnDef="qualification_gm">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> GM score</th>
         <td mat-cell *matCellDef="let element"> {{element.qualification_gm}} </td>
+    </ng-container> -->
+    <ng-container matColumnDef="vac_benefit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vaccination benefit</th>
+        <td mat-cell *matCellDef="let element"> {{element.qualification_vac_benefit}} </td>
     </ng-container>
-    <ng-container matColumnDef="qualification_vac">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vaccination score</th>
-        <td mat-cell *matCellDef="let element"> {{element.qualification_vac}} </td>
+    <ng-container matColumnDef="vac_effective">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vaccination effective</th>
+        <td mat-cell *matCellDef="let element"> {{element.qualification_vac_effective}} </td>
+    </ng-container>
+    <ng-container matColumnDef="vac_harmful">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vaccination harmful</th>
+        <td mat-cell *matCellDef="let element"> {{element.qualification_vac_harmful}} </td>
+    </ng-container>
+    <ng-container matColumnDef="vac_pharma">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vaccination pharma</th>
+        <td mat-cell *matCellDef="let element"> {{element.qualification_vac_pharma}} </td>
     </ng-container>
     <ng-container matColumnDef="add">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Add to Selection</th>
