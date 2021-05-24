@@ -44,7 +44,7 @@
           $5 for completing the first wave.
         </p>
         <p>
-          Importantly, if none of your friends sign up, we won’t able to invite you to the study or compensate you. If
+          Importantly, if none of your friends sign up, we won’t be able to invite you to the study or compensate you. If
           only one of your friends signs up, we again won’t be able to invite you to the study or compensate you, but we
           will still compensate your friend for signing up.
         </p>
@@ -69,7 +69,7 @@
         </p>
         <p><b>Contact information:</b> This study is conducted by Mirta Galesic and Henrik Olsson from the Santa Fe
           Institute, funded by the NSF. If you have any questions, concerns, or complaints about the research, please
-          feel free to email at mysurveys.sfi@gmail.com. If you have questions regarding your rights as a research
+          feel free to email at mysurveysteam@gmail.com. If you have questions regarding your rights as a research
           participant, or about what you should do in case of any harm to you, or if
           you want to obtain information or offer input, please contact the UNM Office of the IRB (OIRB) at (505)
           277-2644 or irb@unm.edu.
@@ -200,7 +200,7 @@
             </label>
             <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
               formControlName="vac_harmful">
-              <mat-radio-button *ngFor="let response of VacEffectiveResponses" class="example-radio-button"
+              <mat-radio-button *ngFor="let response of VacHarmfulResponses" class="example-radio-button"
                 value="{{ response.value }}">
                 {{ response.value }} {{ response.name }}
               </mat-radio-button>
@@ -215,7 +215,7 @@
             </label>
             <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
               formControlName="vac_pharma">
-              <mat-radio-button *ngFor="let response of VacEffectiveResponses" class="example-radio-button"
+              <mat-radio-button *ngFor="let response of VacPharmaResponses" class="example-radio-button"
                 value="{{ response.value }}">
                 {{ response.value }} {{ response.name }}
               </mat-radio-button>

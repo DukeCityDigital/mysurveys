@@ -203,12 +203,14 @@ export class QualificationComponent implements OnInit {
     // removed per TDD
     // let gmOk = parseInt(f.gm) !== 1 && parseInt(f.gm) !== 7;
     let fluOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
+    let vacReceive = parseInt(f.vac_receive) !== 1 && parseInt(f.vac_receive) !== 7;
+
     let benefitOk = parseInt(f.vac_benefit) !== 1 && parseInt(f.vac_benefit) !== 7;
 
     let usOk = f.us === "true";
     let shareOk = f.share === "true";
 
-    if (fluOk && benefitOk && shareOk && usOk) {
+    if (vacReceive && benefitOk && shareOk && usOk) {
       qualified = true;
 
     } else {
