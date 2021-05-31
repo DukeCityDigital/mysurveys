@@ -193,6 +193,31 @@ export class QualificationComponent implements OnInit {
    * Show if a user is qualified
    *
    */
+  // isQualified(f) {
+  //   f = f.value;
+  //   if (!this.qualificationForm) {
+  //     return false;
+  //   }
+  //   let qualified;
+  //   this.isOpen = true; 
+  //   let fluOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
+  //   let vacReceive = parseInt(f.vac_receive) !== 1 && parseInt(f.vac_receive) !== 7;
+
+  //   let benefitOk = parseInt(f.vac_benefit) !== 1 && parseInt(f.vac_benefit) !== 7;
+
+  //   let usOk = f.us === "true";
+  //   let shareOk = f.share === "true";
+
+  //   if (vacReceive && benefitOk && shareOk && usOk) {
+  //     qualified = true;
+
+  //   } else {
+  //     qualified = false;
+
+  //   }
+  //   this.qualified = qualified;
+  //   return this.qualified;
+  // }
   isQualified(f) {
     f = f.value;
     if (!this.qualificationForm) {
@@ -200,41 +225,26 @@ export class QualificationComponent implements OnInit {
     }
     let qualified;
     this.isOpen = true;
-    // removed per TDD
-    // let gmOk = parseInt(f.gm) !== 1 && parseInt(f.gm) !== 7;
-    let fluOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
+    // updated per TDD
     let vacReceive = parseInt(f.vac_receive) !== 1 && parseInt(f.vac_receive) !== 7;
-
+​
     let benefitOk = parseInt(f.vac_benefit) !== 1 && parseInt(f.vac_benefit) !== 7;
-
+​
+    let effectiveOk = parseInt(f.vac_effective) !== 1 && parseInt(f.vac_effective) !== 7;
+​
+    let harmfulOk = parseInt(f.vac_harmful) !== 1 && parseInt(f.vac_harmful) !== 7;
+​
+    let pharmaOk = parseInt(f.vac_pharma) !== 1 && parseInt(f.vac_pharma) !== 7;
+​
     let usOk = f.us === "true";
     let shareOk = f.share === "true";
-
-    if (vacReceive && benefitOk && shareOk && usOk) {
+    let share_infoOk = f.share_info === "true";
+​
+    if (vacReceive && benefitOk && effectiveOk && harmfulOk && pharmaOk && shareOk && share_infoOk && usOk) {
       qualified = true;
-
     } else {
       qualified = false;
-
     }
-
-    // let gmOk = true;
-    // let vacOk = true;
-
-    // TODO check for peers /friends
-
-    // if (
-    //   (f.us === "true" && f.parents === "true" && f.friends === "true") ||
-    //   (this.user &&
-    //     this.user.subrole == "friend" &&
-    //     f.us === "true" &&
-    //     f.parents === "true")
-    // ) {
-    //   qualified = true;
-    // } else {
-    //   qualified = false;
-    // }
-
     this.qualified = qualified;
     return this.qualified;
   }

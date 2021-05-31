@@ -137,7 +137,6 @@ export class AuthService {
     user = SetRole(user);
     // this.startRefreshTokenTimer();
     this.userSubject.next(user);
-    debugger;
     return user;
   }
 

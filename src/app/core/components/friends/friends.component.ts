@@ -64,7 +64,6 @@ export class FriendsComponent implements OnInit {
         this.getMe();
         this.authenticationService.userValue.step = "";
         console.log(this.authenticationService.userValue);
-        debugger;
         // confirm(
         //   "Thank you for inviting friends!  You can now receive survey invitations."
         // );

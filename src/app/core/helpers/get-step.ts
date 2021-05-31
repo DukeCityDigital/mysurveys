@@ -28,5 +28,4 @@ export function GetStepUrl(user) {
   console.log(returnUrl);
 
   return returnUrl.trim();
-  debugger;
 }
