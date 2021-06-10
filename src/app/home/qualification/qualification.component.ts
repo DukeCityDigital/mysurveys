@@ -193,32 +193,7 @@ export class QualificationComponent implements OnInit {
    * Show if a user is qualified
    *
    */
-  // isQualified(f) {
-  //   f = f.value;
-  //   if (!this.qualificationForm) {
-  //     return false;
-  //   }
-  //   let qualified;
-  //   this.isOpen = true; 
-  //   let fluOk = parseInt(f.vac) !== 1 && parseInt(f.vac) !== 7;
-  //   let vacReceive = parseInt(f.vac_receive) !== 1 && parseInt(f.vac_receive) !== 7;
-
-  //   let benefitOk = parseInt(f.vac_benefit) !== 1 && parseInt(f.vac_benefit) !== 7;
-
-  //   let usOk = f.us === "true";
-  //   let shareOk = f.share === "true";
-
-  //   if (vacReceive && benefitOk && shareOk && usOk) {
-  //     qualified = true;
-
-  //   } else {
-  //     qualified = false;
-
-  //   }
-  //   this.qualified = qualified;
-  //   return this.qualified;
-  // }
-  isQualified(f) {
+   isQualified(f) {
     f = f.value;
     if (!this.qualificationForm) {
       return false;
@@ -240,7 +215,7 @@ export class QualificationComponent implements OnInit {
     let shareOk = f.share === "true";
     let share_infoOk = f.share_info === "true";
 ​
-    if (vacReceive && benefitOk && effectiveOk && harmfulOk && pharmaOk && shareOk && share_infoOk && usOk) {
+    if (shareOk && share_infoOk && usOk) {
       qualified = true;
     } else {
       qualified = false;
