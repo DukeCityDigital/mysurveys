@@ -36,7 +36,9 @@ export class DataComponent implements OnInit {
     let post = { all: true, project_id: this.project_id };
     this.projectService.getSelection(post).subscribe((data) => {
       console.log(data);
-      this.data = data.data.projectparticipants;
+      // this.data = data.data.projectparticipants;
+      this.data = data.data.v2csv;
+
       this.exportData = data.data.csv;
       console.log("exportD", this.exportData);
       this.hasData = true;
@@ -126,6 +128,8 @@ export class DataComponent implements OnInit {
     );
     csv.unshift(header.join(","));
     let csvArray = csv.join("\r\n");
+
+    console.log('csvarray',csvArray)
     var blob = new Blob([csvArray], { type: "text/csv" });
     saveAs(
       blob,
