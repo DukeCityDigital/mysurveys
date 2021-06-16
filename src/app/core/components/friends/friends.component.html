@@ -7,51 +7,131 @@
   <mat-card class="innercard">
     <mat-card-title> Invite friends </mat-card-title>
     <p>
-      <b> Two of your friends will need to sign up on this website.</b> They could be your close friends or other
-      acquaintances, but should not live in the same household as you. Please only invite friends that  are over 18 years old and live in the U.S.
+      <b> Two of your friends will need to sign up on this website.</b> They
+      could be your close friends or other acquaintances, but should not live in
+      the same household as you. Please only invite friends that are over 18
+      years old and live in the U.S.
     </p>
     <p>
-      As we mentioned, after completing the first study wave, you will receive $10 for each friend that has signed up,
-      and $5 for completing the study (for a total of $25). For each next study wave you participate in, you will
-      receive an additional $5 (for up to additional $10). Each of your friends will get $10 for signing up and $5 for
-      completing the first wave.
+      As we mentioned, after completing the first study wave, you will receive
+      $10 for each friend that has signed up, and $5 for completing the study
+      (for a total of $25). For each next study wave you participate in, you
+      will receive an additional $5 (for up to additional $10). Each of your
+      friends will get $10 for signing up and $5 for completing the first wave.
     </p>
     <p>
-      Importantly, if none of your friends sign up, we won't be able to invite you to the study or compensate you. If
-      only one of your friends signs up, we again won’t be able to invite you to the study or compensate you, but we
-      will still compensate your friend for signing up.
+      Importantly, if none of your friends sign up, we won't be able to invite
+      you to the study or compensate you. If only one of your friends signs up,
+      we again won’t be able to invite you to the study or compensate you, but
+      we will still compensate your friend for signing up.
     </p>
     <p>
-      <b> You can invite more than two friends, but we will only be able to accept and compensate the first two friends
-        that join.</b>
+      <b>
+        You can invite more than two friends, but we will only be able to accept
+        and compensate the first two friends that join.</b
+      >
     </p>
     <p>
-      Once you enter a friend's contact information, they will receive the email message below. Please enter a custom
-      message to personalize the invitation. <b>Please notify your friends separately to look out for this email and
-        check their spam folder.</b>
+      Once you enter a friend's contact information, they will receive the email
+      message below. Please enter a custom message to personalize the
+      invitation.
+      <b
+        >Please notify your friends separately to look out for this email and
+        check their spam folder.</b
+      >
     </p>
-    <div style="text-align:center;color:green;" *ngIf="this.user.verified_friends_count >1; else showFriendForm">
-      <h1>Two of your invited friends have successfully confirmed their PayPal account -- you don't need to invite
-        more</h1>
+    <form (ngSubmit)="onSubmitProfileChange()" [formGroup]="profileForm">
+      <p>Please enter your nickname</p>
+      <input
+        style="border: 1px solid black"
+        type="nickname"
+        id="nickname"
+        name="nickname"
+        nickname
+        formControlName="nickname"
+        matInput
+        required
+        placeholder="&nbsp;Nickname"
+        class="example-full-width"
+      />
+      <br />
+      <button
+        class="button createbutton"
+        type="submit"
+        [disabled]="!profileForm.valid"
+        mat-stroked-button
+      >
+        Request nickname change
+      </button>
+    </form>
+    <hr />
+
+    <div
+      style="text-align: center; color: green"
+      *ngIf="this.user.verified_friends_count > 1; else showFriendForm"
+    >
+      <h1>
+        Two of your invited friends have successfully confirmed their PayPal
+        account -- you don't need to invite more
+      </h1>
       <mat-icon>success</mat-icon>
-
-
     </div>
     <ng-template #showFriendForm>
-      <form [formGroup]="friendForm" (ngSubmit)="onSubmitFriendInvite();">
-        <label for="email">Enter a friend's email address here</label>
-        <input required style="border: 1px solid black; width: 100%" type="text" id="email" name="email"
-          formControlName="email" matInput placeholder="&nbsp;Email" class="example-full-width" />
+      <form [formGroup]="friendForm" (ngSubmit)="onSubmitFriendInvite()">
+        <label for="nickname">Enter your friend's Nickname here</label>
+        <input
+          required
+          style="border: 1px solid black; width: 100%"
+          type="text"
+          id="nickname"
+          name="nickname"
+          formControlName="nickname"
+          matInput
+          placeholder="&nbsp;Nickname"
+          class="example-full-width"
+        />
 
-        <br>
-        <br>
-        <label for="custom_message">Enter a custom message (appears on the first line of the invitation)</label>
-        <input style="border: 1px solid black; width: 100%" type="text" id="custom_message" name="custom_message"
-          formControlName="custom_message" matInput placeholder="&nbsp;Custom Messagel" class="example-full-width" />
-        <button type="submit" [disabled]="friendForm.value.email ==''">Submit</button>
+        <br />
+        <br />
+        <label for="email">Enter a friend's email address here</label>
+        <input
+          required
+          style="border: 1px solid black; width: 100%"
+          type="text"
+          id="email"
+          name="email"
+          formControlName="email"
+          matInput
+          placeholder="&nbsp;Email"
+          class="example-full-width"
+        />
+
+        <br />
+        <br />
+        <label for="custom_message"
+          >Enter a custom message (appears on the first line of the
+          invitation)</label
+        >
+        <input
+          style="border: 1px solid black; width: 100%"
+          type="text"
+          id="custom_message"
+          name="custom_message"
+          formControlName="custom_message"
+          matInput
+          placeholder="&nbsp;Custom Messagel"
+          class="example-full-width"
+        />
+        <button
+          type="submit"
+          [disabled]="
+            friendForm.value.email == '' || friendForm.value.nickname == ''
+          "
+        >
+          Submit
+        </button>
       </form>
     </ng-template>
-
   </mat-card>
   <mat-card class="innercard">
     <mat-card-title> Invited friends </mat-card-title>
@@ -69,15 +149,17 @@
         <td>{{ f.user.updated_at | date: "short" }}</td>
         <td>
           {{
-          f.user.email_verified_at
-          ? (f.user.email_verified_at | date: "short")
-          : "No"
+            f.user.email_verified_at
+              ? (f.user.email_verified_at | date: "short")
+              : "No"
           }}
         </td>
         <td>{{ f.paypal_id_status }}</td>
         <td>
-          <button [disabled]="f.user.email.verified_at"
-            (click)="clickSubmitFriendInvite(f.user.email); friendForm.reset()">
+          <button
+            [disabled]="f.user.email.verified_at"
+            (click)="clickSubmitFriendInvite(f.user.email); friendForm.reset()"
+          >
             Send reminder
           </button>
         </td>
@@ -87,7 +169,13 @@
   </mat-card>
   <mat-card class="innercard">
     <mat-card-title>Example of friend invitation email</mat-card-title>
-    <table class="wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="
+    <table
+      class="wrapper"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      style="
         box-sizing: border-box;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
           Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
@@ -100,17 +188,27 @@
         margin: 0;
         padding: 0;
         width: 100%;
-      ">
+      "
+    >
       <tbody>
         <tr>
-          <td align="center" style="
+          <td
+            align="center"
+            style="
               box-sizing: border-box;
               font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
                 Helvetica, Arial, sans-serif, 'Apple Color Emoji',
                 'Segoe UI Emoji', 'Segoe UI Symbol';
               position: relative;
-            ">
-            <table class="content" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="
+            "
+          >
+            <table
+              class="content"
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="
                 box-sizing: border-box;
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                   Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
@@ -122,10 +220,13 @@
                 margin: 0;
                 padding: 0;
                 width: 100%;
-              ">
+              "
+            >
               <tbody>
                 <tr>
-                  <td class="header" style="
+                  <td
+                    class="header"
+                    style="
                       box-sizing: border-box;
                       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                         Roboto, Helvetica, Arial, sans-serif,
@@ -133,8 +234,10 @@
                       position: relative;
                       padding: 25px 0;
                       text-align: center;
-                    ">
-                    <a style="
+                    "
+                  >
+                    <a
+                      style="
                         box-sizing: border-box;
                         font-family: -apple-system, BlinkMacSystemFont,
                           'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
@@ -146,7 +249,8 @@
                         font-weight: bold;
                         text-decoration: none;
                         display: inline-block;
-                      ">
+                      "
+                    >
                       MySurveys
                     </a>
                   </td>
@@ -154,7 +258,12 @@
 
                 <!-- Email Body -->
                 <tr>
-                  <td class="body" width="100%" cellpadding="0" cellspacing="0" style="
+                  <td
+                    class="body"
+                    width="100%"
+                    cellpadding="0"
+                    cellspacing="0"
+                    style="
                       box-sizing: border-box;
                       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                         Roboto, Helvetica, Arial, sans-serif,
@@ -169,9 +278,16 @@
                       margin: 0;
                       padding: 0;
                       width: 100%;
-                    ">
-                    <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0"
-                      role="presentation" style="
+                    "
+                  >
+                    <table
+                      class="inner-body"
+                      align="center"
+                      width="570"
+                      cellpadding="0"
+                      cellspacing="0"
+                      role="presentation"
+                      style="
                         box-sizing: border-box;
                         font-family: -apple-system, BlinkMacSystemFont,
                           'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
@@ -190,11 +306,14 @@
                         margin: 0 auto;
                         padding: 0;
                         width: 570px;
-                      ">
+                      "
+                    >
                       <!-- Body content -->
                       <tbody>
                         <tr>
-                          <td class="content-cell" style="
+                          <td
+                            class="content-cell"
+                            style="
                               box-sizing: border-box;
                               font-family: -apple-system, BlinkMacSystemFont,
                                 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
@@ -203,8 +322,10 @@
                               position: relative;
                               max-width: 100vw;
                               padding: 32px;
-                            ">
-                            <h1 style="
+                            "
+                          >
+                            <h1
+                              style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -216,10 +337,12 @@
                                 font-weight: bold;
                                 margin-top: 0;
                                 text-align: left;
-                              ">
+                              "
+                            >
                               Hello!
                             </h1>
-                            <p style="
+                            <p
+                              style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -230,11 +353,13 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              ">
+                              "
+                            >
                               You've been invited as a participant on the
                               MySurveys platform.
                             </p>
-                            <p style="
+                            <p
+                              style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -245,11 +370,13 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              ">
+                              "
+                            >
                               Your temporary password is on the next line,
                               please change it after logging in.
                             </p>
-                            <p style="
+                            <p
+                              style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -260,10 +387,12 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              ">
+                              "
+                            >
                               7kj730lj9h41
                             </p>
-                            <p style="
+                            <p
+                              style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -274,12 +403,19 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              ">
+                              "
+                            >
                               Please click the button below to verify your email
                               address.
                             </p>
-                            <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0"
-                              role="presentation" style="
+                            <table
+                              class="action"
+                              align="center"
+                              width="100%"
+                              cellpadding="0"
+                              cellspacing="0"
+                              role="presentation"
+                              style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -293,10 +429,13 @@
                                 padding: 0;
                                 text-align: center;
                                 width: 100%;
-                              ">
+                              "
+                            >
                               <tbody>
                                 <tr>
-                                  <td align="center" style="
+                                  <td
+                                    align="center"
+                                    style="
                                       box-sizing: border-box;
                                       font-family: -apple-system,
                                         BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -304,8 +443,14 @@
                                         'Apple Color Emoji', 'Segoe UI Emoji',
                                         'Segoe UI Symbol';
                                       position: relative;
-                                    ">
-                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation"
+                                    "
+                                  >
+                                    <table
+                                      width="100%"
+                                      border="0"
+                                      cellpadding="0"
+                                      cellspacing="0"
+                                      role="presentation"
                                       style="
                                         box-sizing: border-box;
                                         font-family: -apple-system,
@@ -314,10 +459,13 @@
                                           'Apple Color Emoji', 'Segoe UI Emoji',
                                           'Segoe UI Symbol';
                                         position: relative;
-                                      ">
+                                      "
+                                    >
                                       <tbody>
                                         <tr>
-                                          <td align="center" style="
+                                          <td
+                                            align="center"
+                                            style="
                                               box-sizing: border-box;
                                               font-family: -apple-system,
                                                 BlinkMacSystemFont, 'Segoe UI',
@@ -326,8 +474,14 @@
                                                 'Segoe UI Emoji',
                                                 'Segoe UI Symbol';
                                               position: relative;
-                                            ">
-                                            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="
+                                            "
+                                          >
+                                            <table
+                                              border="0"
+                                              cellpadding="0"
+                                              cellspacing="0"
+                                              role="presentation"
+                                              style="
                                                 box-sizing: border-box;
                                                 font-family: -apple-system,
                                                   BlinkMacSystemFont, 'Segoe UI',
@@ -337,10 +491,12 @@
                                                   'Segoe UI Emoji',
                                                   'Segoe UI Symbol';
                                                 position: relative;
-                                              ">
+                                              "
+                                            >
                                               <tbody>
                                                 <tr>
-                                                  <td style="
+                                                  <td
+                                                    style="
                                                       box-sizing: border-box;
                                                       font-family: -apple-system,
                                                         BlinkMacSystemFont,
@@ -351,8 +507,13 @@
                                                         'Segoe UI Emoji',
                                                         'Segoe UI Symbol';
                                                       position: relative;
-                                                    ">
-                                                    <a class="button button-primary" style="
+                                                    "
+                                                  >
+                                                    <a
+                                                      class="
+                                                        button button-primary
+                                                      "
+                                                      style="
                                                         box-sizing: border-box;
                                                         font-family: -apple-system,
                                                           BlinkMacSystemFont,
@@ -378,8 +539,10 @@
                                                           #2d3748;
                                                         border-top: 8px solid
                                                           #2d3748;
-                                                      ">Please Verify Email
-                                                      Address</a>
+                                                      "
+                                                      >Please Verify Email
+                                                      Address</a
+                                                    >
                                                   </td>
                                                 </tr>
                                               </tbody>
@@ -392,7 +555,8 @@
                                 </tr>
                               </tbody>
                             </table>
-                            <p style="
+                            <p
+                              style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -403,11 +567,13 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              ">
+                              "
+                            >
                               If you are not expecting an invitation, no further
                               action is required.
                             </p>
-                            <p style="
+                            <p
+                              style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -418,12 +584,18 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              ">
+                              "
+                            >
                               Regards,<br />
                               MySurveys
                             </p>
 
-                            <table class="subcopy" width="100%" cellpadding="0" cellspacing="0" role="presentation"
+                            <table
+                              class="subcopy"
+                              width="100%"
+                              cellpadding="0"
+                              cellspacing="0"
+                              role="presentation"
                               style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
@@ -434,10 +606,12 @@
                                 border-top: 1px solid #e8e5ef;
                                 margin-top: 25px;
                                 padding-top: 25px;
-                              ">
+                              "
+                            >
                               <tbody>
                                 <tr>
-                                  <td style="
+                                  <td
+                                    style="
                                       box-sizing: border-box;
                                       font-family: -apple-system,
                                         BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -445,8 +619,10 @@
                                         'Apple Color Emoji', 'Segoe UI Emoji',
                                         'Segoe UI Symbol';
                                       position: relative;
-                                    ">
-                                    <p style="
+                                    "
+                                  >
+                                    <p
+                                      style="
                                         box-sizing: border-box;
                                         font-family: -apple-system,
                                           BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -458,12 +634,15 @@
                                         margin-top: 0;
                                         text-align: left;
                                         font-size: 14px;
-                                      ">
+                                      "
+                                    >
                                       If you’re having trouble clicking the "
                                       Please Verify Email Address" button, copy
                                       and paste the URL below into your web
                                       browser:
-                                      <span class="break-all" style="
+                                      <span
+                                        class="break-all"
+                                        style="
                                           box-sizing: border-box;
                                           font-family: -apple-system,
                                             BlinkMacSystemFont, 'Segoe UI',
@@ -472,7 +651,9 @@
                                             'Segoe UI Emoji', 'Segoe UI Symbol';
                                           position: relative;
                                           word-break: break-all;
-                                        "><a style="
+                                        "
+                                        ><a
+                                          style="
                                             box-sizing: border-box;
                                             font-family: -apple-system,
                                               BlinkMacSystemFont, 'Segoe UI',
@@ -482,7 +663,10 @@
                                               'Segoe UI Symbol';
                                             position: relative;
                                             color: #3869d4;
-                                          ">verify/e843622507d35514eea9964a6f961c0ba7cddf5f</a></span>
+                                          "
+                                          >verify/e843622507d35514eea9964a6f961c0ba7cddf5f</a
+                                        ></span
+                                      >
                                     </p>
                                   </td>
                                 </tr>
@@ -496,14 +680,22 @@
                 </tr>
 
                 <tr>
-                  <td style="
+                  <td
+                    style="
                       box-sizing: border-box;
                       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                         Roboto, Helvetica, Arial, sans-serif,
                         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
                       position: relative;
-                    ">
-                    <table class="footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation"
+                    "
+                  >
+                    <table
+                      class="footer"
+                      align="center"
+                      width="570"
+                      cellpadding="0"
+                      cellspacing="0"
+                      role="presentation"
                       style="
                         box-sizing: border-box;
                         font-family: -apple-system, BlinkMacSystemFont,
@@ -518,10 +710,14 @@
                         padding: 0;
                         text-align: center;
                         width: 570px;
-                      ">
+                      "
+                    >
                       <tbody>
                         <tr>
-                          <td class="content-cell" align="center" style="
+                          <td
+                            class="content-cell"
+                            align="center"
+                            style="
                               box-sizing: border-box;
                               font-family: -apple-system, BlinkMacSystemFont,
                                 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
@@ -530,8 +726,10 @@
                               position: relative;
                               max-width: 100vw;
                               padding: 32px;
-                            ">
-                            <p style="
+                            "
+                          >
+                            <p
+                              style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -543,7 +741,8 @@
                                 color: #b0adc5;
                                 font-size: 12px;
                                 text-align: center;
-                              ">
+                              "
+                            >
                               © 2020 MySurveys. All rights reserved.
                             </p>
                           </td>
