@@ -41,7 +41,7 @@
       >
     </p>
     <form (ngSubmit)="onSubmitProfileChange()" [formGroup]="profileForm">
-      <p>Please enter your nickname</p>
+      <p>Please enter your own name or nickname that your friends would recognize</p>
       <input
         style="border: 1px solid black"
         type="nickname"
@@ -78,7 +78,7 @@
     </div>
     <ng-template #showFriendForm>
       <form [formGroup]="friendForm" (ngSubmit)="onSubmitFriendInvite()">
-        <label for="nickname">Enter your friend's Nickname here</label>
+        <label for="nickname">Enter your friend's name or nickname</label>
         <input
           required
           style="border: 1px solid black; width: 100%"
