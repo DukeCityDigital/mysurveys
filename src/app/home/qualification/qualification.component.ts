@@ -78,14 +78,11 @@ export class QualificationComponent implements OnInit {
       vac_receive: new FormControl("", [Validators.required]),
       vac_benefit: new FormControl("", [Validators.required]),
       vac_effective: new FormControl("", [Validators.required]),
-      share: new FormControl("", [Validators.required]),
-
-
       vac_harmful: new FormControl("", [Validators.required]),
       vac_pharma: new FormControl("", [Validators.required]),
+      share: new FormControl("", [Validators.required]),
 
       share_info: new FormControl("", [Validators.required]),
-      // friends: new FormControl("", [Validators.required]),
       us: new FormControl("", [Validators.required]),
     });
     this.getMe();

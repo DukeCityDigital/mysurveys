@@ -130,14 +130,11 @@
     <mat-card *ngIf="!accepted_short_consent">
       <h2>You must consent to proceed</h2>
     </mat-card>
-
-
     <div [@openClose]="accepted_short_consent ? 'open' : 'closed'" class="open-close-container">
       <form [hidden]="!accepted_short_consent" [formGroup]="qualificationForm" (ngSubmit)="onSubmit()">
         <h2>Thanks for agreeing to participate!</h2>
         <p>Please answer all of the following questions</p>
         <div class="shortConsent">
-
           <!-- <label id="example-radio-group-label">Do any children under the age of 18 currently live in your
             household?</label>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
@@ -153,7 +150,6 @@
             This field is required
           </div>
            -->
-
           <hr />
           <div>
             <label id="example-radio-group-label">Do you plan to get the flu vaccine in the upcoming flu season (which starts in Fall 2021)?
@@ -170,7 +166,6 @@
             </div>
             <hr />
           </div>
-
           <div>
             <label id="example-radio-group-label">Overall, do you think the risks of flu vaccines outweigh the benefits or the benefits outweigh the risks?
             </label>
@@ -230,9 +225,7 @@
               This field is required
             </div>
             <hr />
-          </div>
-
-          
+          </div>          
           <div>
             <p>
               Would you be willing to share your answers to the questions above with your friends who might also participate
@@ -269,14 +262,8 @@
             <div class="fielderror" *ngIf="qualificationForm.value.share_info == ''">
               This field is required
             </div>
-
-
             <hr>
-          </div>         
-
-         
-      
-
+          </div>  
           <p>Do you live in the U.S. and are at least 18 years old?</p>
           <!-- <label id="example-radio-group-labellocation">Do you live in the U.S.?
                     </label> -->
