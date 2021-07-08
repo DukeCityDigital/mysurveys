@@ -55,6 +55,8 @@ export class QualificationComponent implements OnInit {
   htmlString = "";
   consentForm: string;
   passed_query_param_role: string;
+  passed_query_param_source: string;
+
   _USER_IS_PEER: boolean = false;
 
   constructor(
@@ -70,6 +72,7 @@ export class QualificationComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.consentForm = params["consent"];
       this.passed_query_param_role = params["role"];
+      this.passed_query_param_source = params["source"];
     });
   }
 
@@ -232,6 +235,7 @@ export class QualificationComponent implements OnInit {
     }
     let f = this.qualificationForm.value;
     f.qualified = this.isQualified(this.qualificationForm);
+    f.source = this.passed_query_param_source;
     console.log("F qualified peer", this._USER_IS_PEER, f);
     if (!this._USER_IS_PEER) {
       f.seed = true;
