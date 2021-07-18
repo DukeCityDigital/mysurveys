@@ -88,10 +88,17 @@
 
     </div> <br>
 
-    <label for="paypal_status_ok">Paypal status ok</label>
+    <label>Paypal Status Options</label>
+    <select name="paypal_status" id="paypal_status" formControlName="paypal_status" class="form-control">
+      <option *ngFor="let s of paypalStatusOptions" [value]="s.value">
+        {{ s.name }}
+      </option>
+    </select>
+
+    <!-- <label for="paypal_status_ok">Paypal status ok</label>
     <input (change)="update()" type="checkbox" name="paypal_status_ok" id="paypal_status_ok"
       formControlName="paypal_status_ok" class="form-control" /><br />
-    <br>
+    <br> -->
     <label for="paypal_status_ok">Survey Complete</label>
     <input (change)="update()" type="checkbox" name="survey_complete" id="survey_complete"
       formControlName="survey_complete" class="form-control" /><br />

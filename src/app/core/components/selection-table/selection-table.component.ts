@@ -130,6 +130,8 @@ export class SelectionTableComponent implements OnInit {
         eligible_peers: event.eligible_peers,
         eligible_seed: event.eligible_seed,
         paypal_status_ok: event.paypal_status_ok,
+        paypal_status: event.paypal_status,
+
         include_peers: event.include_peers,
         include_seeds: event.include_seeds,
         survey_complete: event.survey_complete,
