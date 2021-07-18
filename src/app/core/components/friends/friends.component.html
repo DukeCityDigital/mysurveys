@@ -123,7 +123,9 @@
         <button
           type="submit"
           [disabled]="
-            friendForm.value.email == '' || friendForm.value.nickname == ''
+            friendForm.value.email == '' ||
+            friendForm.value.nickname == '' ||
+            profileForm.value.nickname == ''
           "
         >
           Submit
