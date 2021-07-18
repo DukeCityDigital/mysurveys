@@ -28,9 +28,13 @@ export class CategoryFormComponent implements OnInit {
     { name: "VAC-EFFECTIVE", value: "qualification_vac_effective" },
     { name: "VAC-HARMFUL", value: "qualification_vac_harmful" },
     { name: "VAC-PHARMA", value: "qualification_vac_harmful" },
+  ];
 
+  paypalStatusOptions = [
+    { name: "Any", value: "Any" },
 
-
+    { name: "New", value: "New" },
+    { name: "Ok", value: "Ok" },
 
   ];
 
@@ -48,7 +52,9 @@ export class CategoryFormComponent implements OnInit {
       ]),
       eligible_seed: [""],
       eligible_peers: [""],
-      paypal_status_ok: [""],
+      // paypal_status_ok: [""],
+      paypal_status: [""],
+
       include_seeds: [""],
       include_peers: [""],
       survey_complete: [""],
