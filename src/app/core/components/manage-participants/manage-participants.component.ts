@@ -47,6 +47,7 @@ export class ManageParticipantsComponent implements OnInit {
   testEmailForm: FormGroup;
   project_id: number;
   selectedIds = [];
+  selectedTabIndex = 0;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   localParticipantService;
@@ -72,7 +73,7 @@ export class ManageParticipantsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loaderService: LoaderService,
     private eTService: EmailTemplateService
-  ) {}
+  ) { }
   private subscription: Subscription;
   public _LOADING: boolean = false;
 
@@ -108,6 +109,13 @@ export class ManageParticipantsComponent implements OnInit {
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
     this.runTable();
   }
+
+  sendCustomIndividualEmail(emailId, userId) {
+
+  }
+
+
+
   /**
    * Get email templates
    */
@@ -165,7 +173,7 @@ export class ManageParticipantsComponent implements OnInit {
     if (!this.checkStartState()) return null;
     var post = this.customEmailForm.value;
     post.project_id = this.project_id;
-    post.template_id = template.id;
+    post.template_id = template;
     if (post.link === "" || !post.link) {
       delete post["link"];
     }
@@ -178,6 +186,11 @@ export class ManageParticipantsComponent implements OnInit {
       post.ids = this.selectedIds;
     }
 
+    if (ids) {
+      post.ids = ids;
+
+    }
+
     this.projectService
       .send_custom_message(post)
       .pipe(first())
@@ -188,12 +201,12 @@ export class ManageParticipantsComponent implements OnInit {
               autoClose: true,
               id: "da",
             });
-            this.project = data.data;
+            // this.project = data.data;
           } else {
             this.alertService.error(data.message.message);
           }
         },
-        (error) => {}
+        (error) => { }
       );
   }
 
@@ -355,7 +368,7 @@ export class ManageParticipantsComponent implements OnInit {
  * Mini service for table results
  */
 export class LocalParticipantService {
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient) { }
 
   getParticipants(
     sort: string,
@@ -365,9 +378,8 @@ export class LocalParticipantService {
     filter?: string
   ): Observable<any> {
     const href = environment.apiUrl;
-    const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&filter=${filter}&order=${order}&page=${
-      page + 1
-    }`;
+    const requestUrl = `${href}/project_participants?project_id=${project_id}&sort=${sort}&filter=${filter}&order=${order}&page=${page + 1
+      }`;
     //
     return this._httpClient.get<any>(requestUrl);
   }
