@@ -28,9 +28,9 @@ export class DataComponent implements OnInit {
     private participantService: ParticipantService,
     private projectService: ProjectService,
     private alertService: AlertService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   getData() {
     let post = { all: true, project_id: this.project_id };
@@ -90,7 +90,7 @@ export class DataComponent implements OnInit {
       element.forEach((element, i) => {
         if (element !== "") {
         }
-        item[this.headers[i]] = element;
+        item[this.headers[i]] = element.replace(/"/g, "");
       });
       upload.push(item);
     });
@@ -103,7 +103,7 @@ export class DataComponent implements OnInit {
   /**
    * Read data from uploaded CSV
    */
-  public import() {}
+  public import() { }
 
   /**
    * Download project participant data
@@ -129,15 +129,15 @@ export class DataComponent implements OnInit {
     csv.unshift(header.join(","));
     let csvArray = csv.join("\r\n");
 
-    console.log('csvarray',csvArray)
+    console.log('csvarray', csvArray)
     var blob = new Blob([csvArray], { type: "text/csv" });
     saveAs(
       blob,
       new Date() +
-        "-mysurvey-project_" +
-        this.project_id +
-        "_participants" +
-        ".csv"
+      "-mysurvey-project_" +
+      this.project_id +
+      "_participants" +
+      ".csv"
     );
   }
 }
