@@ -91,6 +91,7 @@ export class SelectionTableComponent implements OnInit {
     "is_seed",
     "friends",
     "paypal_id_status",
+    'source',
     "peers",
     // "birthyear",
     "vac_benefit",

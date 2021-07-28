@@ -28,6 +28,8 @@ export class CategoryFormComponent implements OnInit {
     { name: "VAC-EFFECTIVE", value: "qualification_vac_effective" },
     { name: "VAC-HARMFUL", value: "qualification_vac_harmful" },
     { name: "VAC-PHARMA", value: "qualification_vac_harmful" },
+    { name: "source", value: "source" },
+
   ];
 
   paypalStatusOptions = [
