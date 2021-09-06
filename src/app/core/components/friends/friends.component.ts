@@ -44,7 +44,7 @@ export class FriendsComponent implements OnInit {
           localStorage.setItem("step", "");
 
           confirm(
-            "Thank you for inviting friends!  You can now receive survey invitations."
+            "Thank you for inviting friends!"
           );
         }
       });
