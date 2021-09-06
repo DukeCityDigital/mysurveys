@@ -123,12 +123,11 @@ export class FriendsComponent implements OnInit {
     );
   }
 
-  public clickSubmitFriendInvite(email: string) {
-    this.friendForm.setValue({ email: email, custom_message: "" });
+  public clickSubmitFriendInvite(email: string, nickname:string) {
+    // this.friendForm.setValue({ email: email, custom_message: "" });
     let post = {
-      email: this.friendForm.value.email,
-      nickname: this.friendForm.value.nickname,
-
+      email: email,
+      nickname: nickname,
       invite: true,
       remind: true,
       custom_message: this.friendForm.value.custom_message,

@@ -158,7 +158,7 @@
         <td>
           <button
             [disabled]="f.user.email.verified_at"
-            (click)="clickSubmitFriendInvite(f.user.email); friendForm.reset()"
+            (click)="clickSubmitFriendInvite(f.user.email, f.user.nickname); friendForm.reset()"
           >
             Send reminder
           </button>

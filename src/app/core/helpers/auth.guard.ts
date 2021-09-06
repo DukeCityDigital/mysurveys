@@ -62,7 +62,6 @@ export class StepGuard implements CanActivate {
     const user = cu;
     var userStepUrl = GetStepUrl(user);
 
-    console.log("user", user, state.url);
     if (user) {
       if (user.role == "researcher" || user.role == "administrator") {
         return true;

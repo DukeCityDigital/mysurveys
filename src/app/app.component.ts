@@ -54,7 +54,6 @@ export class AppComponent {
     if (this.screenWidth > 680) {
       this.opened = true;
     }
-    console.log(this.user);
   }
 
   ngAfterViewInit(): void {

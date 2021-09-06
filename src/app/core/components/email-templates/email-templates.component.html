@@ -46,7 +46,7 @@
             </mat-expansion-panel-header>
             <form [formGroup]="emailTemplateForm" (ngSubmit)="submitForm()" novalidate class="formbox">
                 <label>Subject: </label>
-                <input mat-input type="text" formControlName="subject" class="form-control" maxlength="20">
+                <input mat-input type="text" formControlName="subject" class="form-control" maxlength="120">
                 <button mat-stroked-button type="submit">Submit</button>
             </form>
         </mat-expansion-panel>
