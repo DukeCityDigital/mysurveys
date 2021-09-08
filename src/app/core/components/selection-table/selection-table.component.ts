@@ -48,10 +48,6 @@ export class SelectionTableComponent implements OnInit {
     { name: "Vac Effective", value: "vac_effective" },
     { name: "Vac Harmful", value: "vac_harmful" },
     { name: "Vac Pharma", value: "vac_pharma" },
-
-
-
-    
     { name: "GM", value: "gm" },
     { name: "", value: "gm" },
   ];
@@ -122,7 +118,7 @@ export class SelectionTableComponent implements OnInit {
     private alertService: AlertService,
     private route: ActivatedRoute,
     private _httpClient: HttpClient
-  ) {}
+  ) { }
 
   update(event) {
     this.projectService
@@ -184,31 +180,62 @@ export class SelectionTableComponent implements OnInit {
     });
   }
 
-  public makeSafeID() {
-    return (
-      Math.random().toString(36).substring(2, 4) +
-      Math.random().toString(36).substring(2, 4)
-    );
-  }
+  // public makeSafeID() {
+  //   return (
+  //     Math.random().toString(36).substring(2, 4) +
+  //     Math.random().toString(36).substring(2, 4)
+  //   );
+  // }
 
   sortData(sort: Sort) {
-    const data = this.users.slice();
+    console.log('sortdata', sort)
+    // const data = this.users.slice();
+    console.log(this.data);
+    const data = this.data.slice();
+
     if (!sort.active || sort.direction === "") {
       this.sortedData = data;
       return;
     }
 
-    this.sortedData = data.sort((a, b) => {
+    this.data = data.sort((a, b) => {
       const isAsc = sort.direction === "asc";
+      console.log(sort.active)
       switch (sort.active) {
+        case "qualification_friends":
+          return compare(a.qualification_friends, b.qualification_friends, isAsc);
         case "qualification_gm":
           return compare(a.qualification_gm, b.qualification_gm, isAsc);
+        case "qualification_parents":
+          return compare(a.qualification_parents, b.qualification_parents, isAsc);
+        case "qualification_us":
+          return compare(a.qualification_us, b.qualification_us, isAsc);
         case "qualification_vac":
           return compare(a.qualification_vac, b.qualification_vac, isAsc);
-        case "family_name":
-          return compare(a.family_name, b.family_name, isAsc);
-        case "birthyear":
-          return compare(a.birthyear, b.birthyear, isAsc);
+        case "vac_benefit":
+          return compare(a.qualification_vac_benefit, b.qualification_vac_benefit, isAsc);
+        case "vac_effective":
+          return compare(a.qualification_vac_effective, b.qualification_vac_effective, isAsc);
+        case "vac_harmful":
+          return compare(a.qualification_vac_harmful, b.qualification_vac_harmful, isAsc);
+        case "vac_pharma":
+          return compare(a.qualification_vac_pharma, b.qualification_vac_pharma, isAsc);
+        case "vac_receive":
+          return compare(a.qualification_vac_receive, b.qualification_vac_receive, isAsc);
+        case "id":
+          return compare(a.id, b.id, isAsc);
+        case "is_seed":
+          return compare(a.is_seed, b.is_seed, isAsc);
+        case "paypal_id_status":
+          return compare(a.paypal_id_status, b.paypal_id_status, isAsc);
+        case "source":
+          var a = a.source ? a.source : '0';
+          var b = b.source ? b.source : '0';
+          return compare(a, b, isAsc);
+        case "peers":
+          return compare(a.verified_friends_count, b.verified_friends_count, isAsc);
+        case "created_at":
+          return compare(a.created_at, b.created_at, isAsc);
         default:
           return 0;
       }
@@ -231,7 +258,7 @@ export class SelectionTableComponent implements OnInit {
     return numSelected === numRows;
   }
 
-  isInSelection() {}
+  isInSelection() { }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle(checked?: boolean) {
@@ -252,9 +279,8 @@ export class SelectionTableComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? "select" : "deselect"} all`;
     }
-    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
-      row.id + 1
-    }`;
+    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${row.id + 1
+      }`;
   }
   resultsLength = 0;
 
@@ -272,7 +298,7 @@ export class SelectionTableComponent implements OnInit {
   }
   selectionService;
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   filterData(filterValue?, position?) {
     this.dataSource.filterPredicate = function customFilter(
@@ -299,7 +325,7 @@ export class SelectionTableComponent implements OnInit {
 import { environment } from "../../../../environments/environment";
 
 export class SelectionService {
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient) { }
 
   getSelection(
     sort: string,
@@ -311,7 +337,7 @@ export class SelectionService {
     const requestUrl = `${href}/participants?project_id=${project_id}&sort=${sort}&order=${order}&page=${
       // const requestUrl = `${href}/participants?project_id=${project_id}&sort=${sort}&order=${order}&page=${
       page + 1
-    }`;
+      }`;
     //
     return this._httpClient.get<any>(requestUrl);
   }
