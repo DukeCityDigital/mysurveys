@@ -85,6 +85,8 @@ export class SelectionTableComponent implements OnInit {
   participantColumns: string[] = [
     "id",
     "created_at",
+    "currentProject",
+
     "is_seed",
     "friends",
     "paypal_id_status",
@@ -104,7 +106,8 @@ export class SelectionTableComponent implements OnInit {
 
   dataSource = new MatTableDataSource<User>(this.USERS);
   selection = new SelectionModel<User>(true, []);
-
+  c = [];
+  invitedUsers = [];
   filterYear: string;
   maxYear: number = 2010;
   minYear: number = 1930;
@@ -135,7 +138,24 @@ export class SelectionTableComponent implements OnInit {
         survey_complete: event.survey_complete,
       })
       .subscribe((r) => {
+
+        r.data.forEach(element => {
+          element.projects.forEach(element2 => {
+            console.log('currentprojectest',element,element2);
+
+            if (element2.projects_projectid ==this.project_id) {
+              element.currentProject = element2;
+              if (this.invitedUsers.indexOf(element) ==-1) {
+                this.invitedUsers.push(element);
+
+              }
+              console.log('currentprojectmatch',element,element2);
+
+            }
+          });
+        });
         this.data = r.data;
+        console.log(this.data);
         //
         this.selectedUSERS = r.data;
       });
@@ -234,6 +254,10 @@ export class SelectionTableComponent implements OnInit {
           return compare(a, b, isAsc);
         case "peers":
           return compare(a.verified_friends_count, b.verified_friends_count, isAsc);
+        case "friends":
+            return compare(a.friends, b.friends, isAsc);
+        case "currentProject":
+            return compare(a.currentProject.invited, b.currentProject.invited, isAsc);
         case "created_at":
           return compare(a.created_at, b.created_at, isAsc);
         default:
