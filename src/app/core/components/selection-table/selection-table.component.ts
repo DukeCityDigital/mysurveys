@@ -41,7 +41,7 @@ export class SelectionTableComponent implements OnInit {
   selectedUSERS = [];
   selectedStatus: any;
   data: any;
-
+  @ViewChild('categoryForm' /* #name or Type*/, {static: false}) child;
   categories = [
     { name: "Vac", value: "vac_receive" },
     { name: "Vac Benefit", value: "vac_benefit" },
@@ -174,6 +174,34 @@ export class SelectionTableComponent implements OnInit {
     //
   }
 
+public removeSelection(incid) {
+  let post = { project_id: this.project_id, users: incid };
+  this.projectService.removeFromSelection(post).subscribe((r) => {
+
+
+    // this.invitedUsers.forEach(element => {
+    //   if (element.id == incid) {
+    //     element.currentProject = undefined;
+    //   }
+      
+    // });
+    // this.invitedUsers.forEach(element => {
+    //   if (element.id == incid) {
+    //     var ind = this.invitedUsers.indexOf(element);
+    //     this.invitedUsers.splice(ind);
+    //   }
+      
+    // });
+    this.alertService.success(r.data, { autoClose: true });
+    this.child.update();
+
+
+  });
+
+
+
+}
+
   public saveSelection(incids?: any) {
     console.log(incids);
     let ids = [];
@@ -197,6 +225,8 @@ export class SelectionTableComponent implements OnInit {
 
     this.projectService.createSelection(post).subscribe((r) => {
       this.alertService.success(r.data, { autoClose: true });
+    this.child.update();
+
     });
   }
 
@@ -347,6 +377,7 @@ export class SelectionTableComponent implements OnInit {
   }
 }
 import { environment } from "../../../../environments/environment";
+import { CategoryFormComponent } from "../category-form/category-form.component";
 
 export class SelectionService {
   constructor(private _httpClient: HttpClient) { }

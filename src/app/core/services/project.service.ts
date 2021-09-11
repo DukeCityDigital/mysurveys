@@ -137,6 +137,11 @@ export class ProjectService {
       .post<any>(this.apiServer + "/create_selection", post, this.httpOptions)
       .pipe(catchError(this.errorHandler));
   }
+  removeFromSelection(post): Observable<any> {
+    return this.httpClient
+      .post<any>(this.apiServer + "/remove_from_selection", post, this.httpOptions)
+      .pipe(catchError(this.errorHandler));
+  }
   delete(id) {
     return this.httpClient.delete<any>(
       this.apiServer + "/projects/" + id,
