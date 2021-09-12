@@ -53,8 +53,18 @@ export class ManageParticipantsComponent implements OnInit {
   localParticipantService;
   // table columns
   displayedColumns: string[] = [
+    "id",
     "created_at",
-    "participants_userid",
+    // "participants_userid",
+    "is_seed",
+    "friends",
+    "paypal_id_status",
+    'source',
+    "peers",
+    "vac_benefit",
+    "vac_effective",
+    "vac_harmful",
+    "vac_pharma",
     "safeid",
     "invited",
     "amount_to_pay",
@@ -63,6 +73,22 @@ export class ManageParticipantsComponent implements OnInit {
     "userparam1",
     "actions",
   ];
+  // to add 
+
+  // "id",
+  // "created_at",
+  // "currentProject",
+  // "is_seed",
+  // "friends",
+  // "paypal_id_status",
+  // 'source',
+  // "peers",
+  // "vac_benefit",
+  // "vac_effective",
+  // "vac_harmful",
+  // "vac_pharma",
+  // "add",
+
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,

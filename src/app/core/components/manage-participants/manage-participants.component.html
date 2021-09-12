@@ -18,8 +18,7 @@
   <button mat-stroked-button (click)="onRunTable('!finished|started')">
     started but not finished
   </button>
-  <button mat-stroked-button (click)="onRunTable('finished')">finished</button
-  ><br />
+  <button mat-stroked-button (click)="onRunTable('finished')">finished</button><br />
   <button mat-stroked-button (click)="onRunTable('payment_confirmed')">
     paid and verified <mat-icon>attach_money</mat-icon>
   </button>
@@ -28,21 +27,11 @@
   <h2>
     <code>{{ resultsLength }}</code> project participants selected
   </h2>
-  <button
-    (click)="showCustomEmailPanel = !showCustomEmailPanel"
-    mat-raised-button
-    color="primary"
-  >
+  <button (click)="showCustomEmailPanel = !showCustomEmailPanel" mat-raised-button color="primary">
     {{ showCustomEmailPanel ? "Hide" : "Show" }} Custom Email Panel
   </button>
-  <button
-    [disabled]="_LOADING"
-    mat-stroked-button
-    color="warn"
-    (click)="sendProjectInvitations()"
-  >
-    Send Project Invitation Emails</button
-  ><br />
+  <button [disabled]="_LOADING" mat-stroked-button color="warn" (click)="sendProjectInvitations()">
+    Send Project Invitation Emails</button><br />
 </div>
 <div *ngIf="showCustomEmailPanel">
   <h3>Custom emails</h3>
@@ -60,20 +49,10 @@
           {{ line }}
         </p>
       </div>
-      <button
-        color="primary"
-        mat-raised-button
-        (click)="onSubmitCustomEmail(false, true, t.id)"
-        mat-button
-      >
+      <button color="primary" mat-raised-button (click)="onSubmitCustomEmail(false, true, t.id)" mat-button>
         Send me (currently logged in user) a test of the custom email
       </button>
-      <button
-        color="warn"
-        mat-raised-button
-        (click)="onSubmitCustomEmail(false, false, t.id)"
-        mat-button
-      >
+      <button color="warn" mat-raised-button (click)="onSubmitCustomEmail(false, false, t.id)" mat-button>
         Send the custom email to all selected participants
       </button>
     </mat-tab>
@@ -86,16 +65,9 @@
   </div>
   <br />
   <button mat-stroked-button (click)="showEmailSample = !showEmailSample">
-    {{ showEmailSample ? "Hide" : "Show" }} Email Sample</button
-  ><br />
+    {{ showEmailSample ? "Hide" : "Show" }} Email Sample</button><br />
   <div *ngIf="showEmailSample">
-    <table
-      class="wrapper"
-      width="100%"
-      cellpadding="0"
-      cellspacing="0"
-      role="presentation"
-      style="
+    <table class="wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="
         box-sizing: border-box;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
           Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
@@ -108,27 +80,17 @@
         margin: 0;
         padding: 0;
         width: 100%;
-      "
-    >
+      ">
       <tbody>
         <tr>
-          <td
-            align="center"
-            style="
+          <td align="center" style="
               box-sizing: border-box;
               font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
                 Helvetica, Arial, sans-serif, 'Apple Color Emoji',
                 'Segoe UI Emoji', 'Segoe UI Symbol';
               position: relative;
-            "
-          >
-            <table
-              class="content"
-              width="100%"
-              cellpadding="0"
-              cellspacing="0"
-              role="presentation"
-              style="
+            ">
+            <table class="content" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="
                 box-sizing: border-box;
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                   Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
@@ -140,13 +102,10 @@
                 margin: 0;
                 padding: 0;
                 width: 100%;
-              "
-            >
+              ">
               <tbody>
                 <tr>
-                  <td
-                    class="header"
-                    style="
+                  <td class="header" style="
                       box-sizing: border-box;
                       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                         Roboto, Helvetica, Arial, sans-serif,
@@ -154,10 +113,8 @@
                       position: relative;
                       padding: 25px 0;
                       text-align: center;
-                    "
-                  >
-                    <a
-                      style="
+                    ">
+                    <a style="
                         box-sizing: border-box;
                         font-family: -apple-system, BlinkMacSystemFont,
                           'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
@@ -169,20 +126,14 @@
                         font-weight: bold;
                         text-decoration: none;
                         display: inline-block;
-                      "
-                    >
+                      ">
                       MySurveys
                     </a>
                   </td>
                 </tr>
                 <!-- Email Body -->
                 <tr>
-                  <td
-                    class="body"
-                    width="100%"
-                    cellpadding="0"
-                    cellspacing="0"
-                    style="
+                  <td class="body" width="100%" cellpadding="0" cellspacing="0" style="
                       box-sizing: border-box;
                       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                         Roboto, Helvetica, Arial, sans-serif,
@@ -197,16 +148,9 @@
                       margin: 0;
                       padding: 0;
                       width: 100%;
-                    "
-                  >
-                    <table
-                      class="inner-body"
-                      align="center"
-                      width="570"
-                      cellpadding="0"
-                      cellspacing="0"
-                      role="presentation"
-                      style="
+                    ">
+                    <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0"
+                      role="presentation" style="
                         box-sizing: border-box;
                         font-family: -apple-system, BlinkMacSystemFont,
                           'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
@@ -225,14 +169,11 @@
                         margin: 0 auto;
                         padding: 0;
                         width: 570px;
-                      "
-                    >
+                      ">
                       <!-- Body content -->
                       <tbody>
                         <tr>
-                          <td
-                            class="content-cell"
-                            style="
+                          <td class="content-cell" style="
                               box-sizing: border-box;
                               font-family: -apple-system, BlinkMacSystemFont,
                                 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
@@ -241,10 +182,8 @@
                               position: relative;
                               max-width: 100vw;
                               padding: 32px;
-                            "
-                          >
-                            <h1
-                              style="
+                            ">
+                            <h1 style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -256,12 +195,10 @@
                                 font-weight: bold;
                                 margin-top: 0;
                                 text-align: left;
-                              "
-                            >
+                              ">
                               Greetings [name]!
                             </h1>
-                            <p
-                              style="
+                            <p style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -272,12 +209,10 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              "
-                            >
+                              ">
                               You are invited to join the following study:
                             </p>
-                            <p
-                              style="
+                            <p style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -288,12 +223,10 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              "
-                            >
+                              ">
                               Project title: signup
                             </p>
-                            <p
-                              style="
+                            <p style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -304,12 +237,10 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              "
-                            >
+                              ">
                               Project description: Sample project description
                             </p>
-                            <p
-                              style="
+                            <p style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -320,14 +251,12 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              "
-                            >
+                              ">
                               The payment for participation is $0.00 USD. The
                               study will be open until 2020-09-29 00:00:00 or
                               until enough people participate.
                             </p>
-                            <p
-                              style="
+                            <p style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -338,13 +267,11 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              "
-                            >
+                              ">
                               If you have any questions, please contact
                               support@mysurvey.santafe.edu
                             </p>
-                            <p
-                              style="
+                            <p style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -355,19 +282,12 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              "
-                            >
+                              ">
                               Please click on the link below to log in to your
                               account or copy and paste it into your browser.
                             </p>
-                            <table
-                              class="action"
-                              align="center"
-                              width="100%"
-                              cellpadding="0"
-                              cellspacing="0"
-                              role="presentation"
-                              style="
+                            <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0"
+                              role="presentation" style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -381,13 +301,10 @@
                                 padding: 0;
                                 text-align: center;
                                 width: 100%;
-                              "
-                            >
+                              ">
                               <tbody>
                                 <tr>
-                                  <td
-                                    align="center"
-                                    style="
+                                  <td align="center" style="
                                       box-sizing: border-box;
                                       font-family: -apple-system,
                                         BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -395,14 +312,8 @@
                                         'Apple Color Emoji', 'Segoe UI Emoji',
                                         'Segoe UI Symbol';
                                       position: relative;
-                                    "
-                                  >
-                                    <table
-                                      width="100%"
-                                      border="0"
-                                      cellpadding="0"
-                                      cellspacing="0"
-                                      role="presentation"
+                                    ">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation"
                                       style="
                                         box-sizing: border-box;
                                         font-family: -apple-system,
@@ -411,13 +322,10 @@
                                           'Apple Color Emoji', 'Segoe UI Emoji',
                                           'Segoe UI Symbol';
                                         position: relative;
-                                      "
-                                    >
+                                      ">
                                       <tbody>
                                         <tr>
-                                          <td
-                                            align="center"
-                                            style="
+                                          <td align="center" style="
                                               box-sizing: border-box;
                                               font-family: -apple-system,
                                                 BlinkMacSystemFont, 'Segoe UI',
@@ -426,14 +334,8 @@
                                                 'Segoe UI Emoji',
                                                 'Segoe UI Symbol';
                                               position: relative;
-                                            "
-                                          >
-                                            <table
-                                              border="0"
-                                              cellpadding="0"
-                                              cellspacing="0"
-                                              role="presentation"
-                                              style="
+                                            ">
+                                            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="
                                                 box-sizing: border-box;
                                                 font-family: -apple-system,
                                                   BlinkMacSystemFont, 'Segoe UI',
@@ -443,12 +345,10 @@
                                                   'Segoe UI Emoji',
                                                   'Segoe UI Symbol';
                                                 position: relative;
-                                              "
-                                            >
+                                              ">
                                               <tbody>
                                                 <tr>
-                                                  <td
-                                                    style="
+                                                  <td style="
                                                       box-sizing: border-box;
                                                       font-family: -apple-system,
                                                         BlinkMacSystemFont,
@@ -459,13 +359,10 @@
                                                         'Segoe UI Emoji',
                                                         'Segoe UI Symbol';
                                                       position: relative;
-                                                    "
-                                                  >
-                                                    <a
-                                                      class="
+                                                    ">
+                                                    <a class="
                                                         button button-primary
-                                                      "
-                                                      style="
+                                                      " style="
                                                         box-sizing: border-box;
                                                         font-family: -apple-system,
                                                           BlinkMacSystemFont,
@@ -491,9 +388,7 @@
                                                           #2d3748;
                                                         border-top: 8px solid
                                                           #2d3748;
-                                                      "
-                                                      >http://EXAMPLE.com/my-projects</a
-                                                    >
+                                                      ">http://EXAMPLE.com/my-projects</a>
                                                   </td>
                                                 </tr>
                                               </tbody>
@@ -506,8 +401,7 @@
                                 </tr>
                               </tbody>
                             </table>
-                            <p
-                              style="
+                            <p style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -518,18 +412,12 @@
                                 line-height: 1.5em;
                                 margin-top: 0;
                                 text-align: left;
-                              "
-                            >
+                              ">
                               Regards,<br />
                               MySurveys
                             </p>
 
-                            <table
-                              class="subcopy"
-                              width="100%"
-                              cellpadding="0"
-                              cellspacing="0"
-                              role="presentation"
+                            <table class="subcopy" width="100%" cellpadding="0" cellspacing="0" role="presentation"
                               style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
@@ -540,12 +428,10 @@
                                 border-top: 1px solid #e8e5ef;
                                 margin-top: 25px;
                                 padding-top: 25px;
-                              "
-                            >
+                              ">
                               <tbody>
                                 <tr>
-                                  <td
-                                    style="
+                                  <td style="
                                       box-sizing: border-box;
                                       font-family: -apple-system,
                                         BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -553,10 +439,8 @@
                                         'Apple Color Emoji', 'Segoe UI Emoji',
                                         'Segoe UI Symbol';
                                       position: relative;
-                                    "
-                                  >
-                                    <p
-                                      style="
+                                    ">
+                                    <p style="
                                         box-sizing: border-box;
                                         font-family: -apple-system,
                                           BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -568,15 +452,12 @@
                                         margin-top: 0;
                                         text-align: left;
                                         font-size: 14px;
-                                      "
-                                    >
+                                      ">
                                       If you’re having trouble clicking the
                                       "http://EXAMPLE.com/my-projects" button,
                                       copy and paste the URL below into your web
                                       browser:
-                                      <span
-                                        class="break-all"
-                                        style="
+                                      <span class="break-all" style="
                                           box-sizing: border-box;
                                           font-family: -apple-system,
                                             BlinkMacSystemFont, 'Segoe UI',
@@ -585,9 +466,7 @@
                                             'Segoe UI Emoji', 'Segoe UI Symbol';
                                           position: relative;
                                           word-break: break-all;
-                                        "
-                                        ><a
-                                          style="
+                                        "><a style="
                                             box-sizing: border-box;
                                             font-family: -apple-system,
                                               BlinkMacSystemFont, 'Segoe UI',
@@ -597,10 +476,7 @@
                                               'Segoe UI Symbol';
                                             position: relative;
                                             color: #3869d4;
-                                          "
-                                          >/my-projects</a
-                                        ></span
-                                      >
+                                          ">/my-projects</a></span>
                                     </p>
                                   </td>
                                 </tr>
@@ -613,22 +489,14 @@
                   </td>
                 </tr>
                 <tr>
-                  <td
-                    style="
+                  <td style="
                       box-sizing: border-box;
                       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                         Roboto, Helvetica, Arial, sans-serif,
                         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
                       position: relative;
-                    "
-                  >
-                    <table
-                      class="footer"
-                      align="center"
-                      width="570"
-                      cellpadding="0"
-                      cellspacing="0"
-                      role="presentation"
+                    ">
+                    <table class="footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation"
                       style="
                         box-sizing: border-box;
                         font-family: -apple-system, BlinkMacSystemFont,
@@ -643,14 +511,10 @@
                         padding: 0;
                         text-align: center;
                         width: 570px;
-                      "
-                    >
+                      ">
                       <tbody>
                         <tr>
-                          <td
-                            class="content-cell"
-                            align="center"
-                            style="
+                          <td class="content-cell" align="center" style="
                               box-sizing: border-box;
                               font-family: -apple-system, BlinkMacSystemFont,
                                 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
@@ -659,10 +523,8 @@
                               position: relative;
                               max-width: 100vw;
                               padding: 32px;
-                            "
-                          >
-                            <p
-                              style="
+                            ">
+                            <p style="
                                 box-sizing: border-box;
                                 font-family: -apple-system, BlinkMacSystemFont,
                                   'Segoe UI', Roboto, Helvetica, Arial,
@@ -674,8 +536,7 @@
                                 color: #b0adc5;
                                 font-size: 12px;
                                 text-align: center;
-                              "
-                            >
+                              ">
                               © 2020 MySurveys. All rights reserved.
                             </p>
                           </td>
@@ -718,24 +579,65 @@
   </mat-card>
 </div>
 <div>
-  <table
-    style="width: 100%"
-    mat-table
-    [dataSource]="data"
-    class="example-table"
-    matSort
-    matSortActive="created_at"
-    matSortDisableClear
-    matSortDirection="desc"
-  >
-    <ng-container matColumnDef="participants_userid">
-      <th mat-header-cell *matHeaderCellDef>#</th>
-      <td mat-cell *matCellDef="let row">{{ row.participants_userid }}</td>
+  <table style="width: 100%" mat-table [dataSource]="data" class="example-table" matSort matSortActive="created_at"
+    matSortDisableClear matSortDirection="desc">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>id</th>
+      <td mat-cell *matCellDef="let row">{{ row.id }}</td>
     </ng-container>
     <ng-container matColumnDef="safeid">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>SafeID</th>
       <td mat-cell *matCellDef="let row">{{ row.safeid }}</td>
     </ng-container>
+    <ng-container matColumnDef="is_seed">
+      <th mat-header-cell *matHeaderCellDef >is_seed</th>
+      <td mat-cell *matCellDef="let row">{{ row.is_seed}}</td>
+    </ng-container>
+    <ng-container matColumnDef="friends">
+      <th mat-header-cell *matHeaderCellDef >friends</th>   
+      <td mat-cell *matCellDef="let element">
+        <span style="border:1px solid lightgrey;margin:2px;display:inline-block" *ngFor="let f of element.friends">
+          {{f.survey_complete ? f.user_id : f.user_id + '*'}}
+        </span>&nbsp; -
+        [{{element.friends ? element.friends.length : 'None'}}]
+      </td>
+    
+
+
+
+
+
+
+    </ng-container>
+    <ng-container matColumnDef="paypal_id_status">
+      <th mat-header-cell *matHeaderCellDef >paypal_id_status</th>
+      <td mat-cell *matCellDef="let row">{{ row.paypal_id_status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="source">
+      <th mat-header-cell *matHeaderCellDef >source</th>
+      <td mat-cell *matCellDef="let row">{{ row.source}}</td>
+    </ng-container>
+    <ng-container matColumnDef="peers">
+      <th mat-header-cell *matHeaderCellDef >peers</th>
+      <td mat-cell *matCellDef="let row">{{ row.peers}}</td>
+    </ng-container>
+    <ng-container matColumnDef="vac_benefit">
+      <th mat-header-cell *matHeaderCellDef >vac_benefit</th>
+      <td mat-cell *matCellDef="let row">{{ row.vac_benefit}}</td>
+    </ng-container>
+    <ng-container matColumnDef="vac_effective">
+      <th mat-header-cell *matHeaderCellDef >vac_effective</th>
+      <td mat-cell *matCellDef="let row">{{ row.vac_effective}}</td>
+    </ng-container>
+    <ng-container matColumnDef="vac_harmful">
+      <th mat-header-cell *matHeaderCellDef>vac_harmful</th>
+      <td mat-cell *matCellDef="let row">{{ row.vac_harmful}}</td>
+    </ng-container>
+    <ng-container matColumnDef="vac_pharma">
+      <th mat-header-cell *matHeaderCellDef >vac_pharma</th>
+      <td mat-cell *matCellDef="let row">{{ row.vac_pharma}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="invited">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Invited</th>
       <td mat-cell *matCellDef="let row">
@@ -761,24 +663,19 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let row">
-        <button
-          [disabled]="!row.invited"
-          (click)="sendProjectReminders([row.participants_userid])"
-        >
+        <button [disabled]="!row.invited" (click)="sendProjectReminders([row.participants_userid])">
           Remind
         </button>
         <button (click)="sendProjectInvitations([row.participants_userid])">
           Send Invitation
         </button>
-        <button
-          (click)="
+        <button (click)="
             onSubmitCustomEmail(
               [row.participants_userid],
               false,
               selectedTabIndex + 1
             )
-          "
-        >
+          ">
           Send Selected Email
         </button>
         <!-- <button (click)="onSubmitCustomEmail(row.user_id)">Send Custom Email
