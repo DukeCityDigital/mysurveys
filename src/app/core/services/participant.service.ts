@@ -67,6 +67,14 @@ export class ParticipantService {
     );
   }
 
+  remindFriend(post): Observable<Participant> {
+    return this.httpClient.post<Participant>(
+      this.apiServer + "/remind_friend",
+      post,
+      this.httpOptions
+    );
+  }
+
   validatePaypal(email, paypalme): Observable<any> {
     return this.httpClient.post<any>(
       this.apiServer + "/validate_paypal",

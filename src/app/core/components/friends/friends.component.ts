@@ -108,6 +108,42 @@ export class FriendsComponent implements OnInit {
 
         this.getMe();
         this.authenticationService.userValue.step = "";
+        this.friendForm.reset();
+
+        // confirm(
+        //   "Thank you for inviting friends!  You can now receive survey invitations."
+        // );
+      },
+      (error) => {
+        if (error && error.error && error.error.email) {
+          this.alertService.error(error.error.email, { autoClose: true });
+        } else if (error) {
+          this.alertService.error(error.error, { autoClose: true });
+        }
+      }
+    );
+  }
+
+  // public clickSubmitFriendInvite(email: string, nickname:string) {
+  //   // this.friendForm.setValue({ email: email, custom_message: "" });
+
+  // }
+
+  sendFriendReminderButton(email: string, nickname: string) {
+    let post = {
+      email: email,
+      nickname: nickname,
+      // invite: true,
+      // remind: true,
+      // custom_message: this.friendForm.value.custom_message,
+    };
+    this.participantService.remindFriend(post).subscribe(
+      (data: any) => {
+        this.alertService.success("Invitation sent", { autoClose: true });
+        localStorage.setItem("step", "");
+
+        this.getMe();
+        this.authenticationService.userValue.step = "";
         console.log(this.authenticationService.userValue);
         // confirm(
         //   "Thank you for inviting friends!  You can now receive survey invitations."
@@ -123,22 +159,10 @@ export class FriendsComponent implements OnInit {
     );
   }
 
-  public clickSubmitFriendInvite(email: string, nickname:string) {
-    // this.friendForm.setValue({ email: email, custom_message: "" });
-    let post = {
-      email: email,
-      nickname: nickname,
-      invite: true,
-      remind: true,
-      custom_message: this.friendForm.value.custom_message,
-    };
-    this.inviteFriend(post);
-  }
   onSubmitFriendInvite() {
     let post = {
       email: this.friendForm.value.email,
       nickname: this.friendForm.value.nickname,
-
       invite: true,
       custom_message: this.friendForm.value.custom_message,
     };
@@ -147,6 +171,7 @@ export class FriendsComponent implements OnInit {
     }
     console.log(post);
     this.inviteFriend(post);
-    this.friendForm.reset();
   }
+
+
 }
