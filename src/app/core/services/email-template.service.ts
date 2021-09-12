@@ -55,7 +55,7 @@ export class EmailTemplateService {
   }
   delete(id) {
     return this.httpClient.delete<any>(
-      this.apiServer + "/email_templates" + id,
+      this.apiServer + "/email_templates/" + id,
       this.httpOptions
     );
   }

@@ -16,7 +16,7 @@ export class EmailTemplatesComponent implements OnInit {
     public fb: FormBuilder,
     private router: Router,
     private alertService: AlertService
-  ) {}
+  ) { }
 
   emailTemplateForm: FormGroup;
   project_id: any;
@@ -67,7 +67,7 @@ export class EmailTemplatesComponent implements OnInit {
   }
 
   updateForm() {
-    this.eTService.create(this.emailTemplateForm.value).subscribe((res) => {});
+    this.eTService.create(this.emailTemplateForm.value).subscribe((res) => { });
   }
 
   update(template) {
@@ -94,6 +94,11 @@ export class EmailTemplatesComponent implements OnInit {
     let test = confirm("Are you sure you want to delete the template");
     if (test) {
       return this.eTService.delete(id).subscribe((response) => {
+        this.alertService.success("Created successfully", {
+          autoClose: true,
+        });
+
+        this.getTemplates();
         // var index = this.projects.findIndex((x) => x.id == id);
         // this.projects.splice(index, 1);
       });
