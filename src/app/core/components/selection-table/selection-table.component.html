@@ -73,6 +73,14 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Source </th>
         <td mat-cell *matCellDef="let element"> {{element.source}} </td>
     </ng-container>
+    <ng-container matColumnDef="valid">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Valid </th>
+        <td mat-cell *matCellDef="let element"> {{element.valid}} </td>
+    </ng-container>
+    <ng-container matColumnDef="group">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> group </th>
+        <td mat-cell *matCellDef="let element"> {{element.group}} </td>
+    </ng-container>
     <ng-container matColumnDef="peers">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Verified Friends / Peers </th>
         <td mat-cell *matCellDef="let element"> {{element.verified_friends_count}} </td>

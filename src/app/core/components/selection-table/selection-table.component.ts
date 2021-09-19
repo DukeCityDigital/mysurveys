@@ -59,29 +59,29 @@ export class SelectionTableComponent implements OnInit {
     { name: "Eligible Peer", value: "eligible-peer" },
   ];
 
-  displayedColumns: string[] = [
-    "select",
-    "id",
-    "name",
-    // "birthyear",
-    "qualification_parents",
-    "qualification_friends",
-    "qualification_gm",
-    "qualification_vac",
-    "qualification_us",
-    "email",
-    "created_at",
-    "last_login",
-    "last_update",
-    "banned",
-    "banned_reason",
-    "banned_date",
-    "activated",
-    "registration_key",
-    "is_seed",
+  // displayedColumns: string[] = [
+  //   "select",
+  //   "id",
+  //   "name",
+  //   // "birthyear",
+  //   "qualification_parents",
+  //   "qualification_friends",
+  //   "qualification_gm",
+  //   "qualification_vac",
+  //   "qualification_us",
+  //   "email",
+  //   "created_at",
+  //   "last_login",
+  //   "last_update",
+  //   "banned",
+  //   "banned_reason",
+  //   "banned_date",
+  //   "activated",
+  //   "registration_key",
+  //   "is_seed",
 
-    // TODO switch for nickname
-  ];
+  //   // TODO switch for nickname
+  // ];
   participantColumns: string[] = [
     "id",
     "created_at",
@@ -102,6 +102,9 @@ export class SelectionTableComponent implements OnInit {
     // "qualification_gm",
     // "qualification_vac",
     "add",
+    "valid",
+    "group",
+
   ];
 
   sortedData: any[];
@@ -276,6 +279,10 @@ public removeSelection(incid) {
           return compare(a.qualification_vac_receive, b.qualification_vac_receive, isAsc);
         case "id":
           return compare(a.id, b.id, isAsc);
+        case "valid":
+          return compare(a.valid, b.valid, isAsc);
+        case "group":
+          return compare(a.group, b.group, isAsc);
         case "is_seed":
           return compare(a.is_seed, b.is_seed, isAsc);
         case "paypal_id_status":

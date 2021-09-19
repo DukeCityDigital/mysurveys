@@ -29,6 +29,9 @@ export class CategoryFormComponent implements OnInit {
     { name: "VAC-HARMFUL", value: "qualification_vac_harmful" },
     { name: "VAC-PHARMA", value: "qualification_vac_harmful" },
     { name: "source", value: "source" },
+    { name: "valid", value: "valid" },
+    { name: "group", value: "group" },
+
 
   ];
 
