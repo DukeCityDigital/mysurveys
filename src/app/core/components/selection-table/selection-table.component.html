@@ -39,13 +39,16 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Created </th>
         <td mat-cell *matCellDef="let element"> {{element.created_at }} </td>
     </ng-container>
-    <ng-container matColumnDef="currentProject">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Project status </th>
-        <td mat-cell *matCellDef="let element">{{element.currentProject ? 'Project Participant' : ''}}<br>
-            {{element.currentProject?.invited ? 'Invited:  ' + element.currentProject?.invited : ""}}<br>
-            {{element.currentProject?.payment_confirmed ? 'Payment Confirmed: ' + element.currentProject?.payment_confirmed : ""}}  
-
-        
+    <ng-container matColumnDef="projectParticipantInvited">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>participantInvited</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.projectParticipantInvited}}
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="projectParticipantPaymentConfirmed">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>paymentConfirmed</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.projectParticipantPaymentConfirmed}}
         </td>
     </ng-container>
     <ng-container matColumnDef="is_seed">

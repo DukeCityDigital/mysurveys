@@ -85,7 +85,9 @@ export class SelectionTableComponent implements OnInit {
   participantColumns: string[] = [
     "id",
     "created_at",
-    "currentProject",
+    "projectParticipantInvited",
+    "projectParticipantPaymentConfirmed",
+
 
     "is_seed",
     "friends",
