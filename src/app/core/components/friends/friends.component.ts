@@ -38,7 +38,9 @@ export class FriendsComponent implements OnInit {
 
       .subscribe((data: any) => {
         this.user = data.data;
-        console.log(this.user);
+        // var re = /**buttonlink**/gi; 
+        var b = this.user.template.body.replace("*buttonlink*", ""); 
+        this.user.emailExampleLines = b.split("*nl*");
 
         if (this.user.friends.length > 0) {
           localStorage.setItem("step", "");
