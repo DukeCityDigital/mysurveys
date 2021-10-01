@@ -120,32 +120,24 @@ export class QualificationComponent implements OnInit {
       this.qualificationForm.removeControl("share_data");
     }
   }
-  VacPharmaResponses = [
-    { name: "Big pharmaceutical companies benefit too much at the expense of patients", value: 1 },
+
+  CovidPossibleResponses = [
+    { name: "I will definitely not get the vaccine", value: 1 },
     { name: "", value: 2 },
     { name: "", value: 3 },
     { name: "", value: 4 },
     { name: "", value: 5 },
     { name: "", value: 6 },
-    { name: "Both big pharmaceutical companies and patients benefit equally", value: 7 },
+    { name: "I will definitely get or have already got the vaccine", value: 7 },
   ];
-  VacHarmfulResponses = [
-    { name: "Very harmful", value: 1 },
+  CovidHonestyResponses = [
+    { name: "They are not telling us everything", value: 1 },
     { name: "", value: 2 },
     { name: "", value: 3 },
     { name: "", value: 4 },
     { name: "", value: 5 },
     { name: "", value: 6 },
-    { name: "Not harmful at all", value: 7 },
-  ];
-  VacPossibleResponses = [
-    { name: "I will definitely not get the flu vaccine", value: 1 },
-    { name: "", value: 2 },
-    { name: "", value: 3 },
-    { name: "", value: 4 },
-    { name: "", value: 5 },
-    { name: "", value: 6 },
-    { name: "I will definitely get the flu vaccine", value: 7 },
+    { name: "They are telling us everything", value: 7 },
   ];
   VacEffectiveResponses = [
     { name: "Very ineffective", value: 1 },
@@ -156,7 +148,37 @@ export class QualificationComponent implements OnInit {
     { name: "", value: 6 },
     { name: "Very effective", value: 7 },
   ];
-  FluPossibleResponses = [
+  VacHarmfulResponses = [
+    { name: "Very harmful", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "Not harmful at all", value: 7 },
+  ];
+  VacPressureResponses = [
+    { name: "There is too much pressure", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "There is not enough pressure", value: 7 },
+  ];
+
+
+  VacPharmaResponses = [
+    { name: "Big pharmaceutical companies benefit too much at the expense of patients", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "Both big pharmaceutical companies and patients benefit equally", value: 7 },
+  ];
+
+  VacPossibleResponses = [
     { name: "I will definitely not get the flu vaccine", value: 1 },
     { name: "", value: 2 },
     { name: "", value: 3 },
@@ -165,6 +187,17 @@ export class QualificationComponent implements OnInit {
     { name: "", value: 6 },
     { name: "I will definitely get the flu vaccine", value: 7 },
   ];
+ 
+  FluPossibleResponses = [
+    { name: "I will definitely not get the vaccine", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "I will definitely get or have already got the vaccine", value: 7 },
+  ];
+  
   BenefitPossibleResponses = [
     { name: "The risks completely outweigh the benefits", value: 1 },
     { name: "", value: 2 },
