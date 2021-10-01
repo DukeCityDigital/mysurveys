@@ -41,10 +41,8 @@ export class FriendsComponent implements OnInit {
         // var re = /**buttonlink**/gi; 
         var b = this.user.template.body.replace("*buttonlink*", ""); 
         this.user.emailExampleLines = b.split("*nl*");
-
         if (this.user.friends.length > 0) {
           localStorage.setItem("step", "");
-
           confirm(
             "Thank you for inviting friends!"
           );
