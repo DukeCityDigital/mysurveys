@@ -121,11 +121,12 @@
           class="example-full-width"
         />
         <button
+        mat-button
           type="submit"
           [disabled]="
             friendForm.value.email == '' ||
             friendForm.value.nickname == '' ||
-            profileForm.value.nickname == ''
+            profileForm.value.nickname == '' ||  profileForm.value.nickname == undefined 
           "
         >
           Send friend invitation
