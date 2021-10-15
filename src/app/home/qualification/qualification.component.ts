@@ -121,7 +121,17 @@ export class QualificationComponent implements OnInit {
     }
   }
 
-Flu1PossibleResponses = [
+  FluPossibleResponses = [
+    { name: "I will definitely not get the vaccine", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "I will definitely get the vaccine or have already gotten the vaccine", value: 7 },
+  ];
+
+  Flu1PossibleResponses = [
     { name: "I will definitely not get the vaccine", value: 1 },
     { name: "", value: 2 },
     { name: "", value: 3 },
@@ -131,7 +141,7 @@ Flu1PossibleResponses = [
     { name: "I will definitely get the vaccine or have already got the vaccine", value: 7 },
   ];
 
-Flu2PossibleResponses = [
+  Flu2PossibleResponses = [
     { name: "The risks completely outweigh the benefits", value: 1 },
     { name: "", value: 2 },
     { name: "", value: 3 },
@@ -237,17 +247,9 @@ Flu2PossibleResponses = [
     { name: "", value: 6 },
     { name: "I will definitely get the flu vaccine", value: 7 },
   ];
- 
-  FluPossibleResponses = [
-    { name: "I will definitely not get the vaccine", value: 1 },
-    { name: "", value: 2 },
-    { name: "", value: 3 },
-    { name: "", value: 4 },
-    { name: "", value: 5 },
-    { name: "", value: 6 },
-    { name: "I will definitely get or have already got the vaccine", value: 7 },
-  ];
-  
+
+
+
   BenefitPossibleResponses = [
     { name: "The risks completely outweigh the benefits", value: 1 },
     { name: "", value: 2 },
@@ -266,7 +268,7 @@ Flu2PossibleResponses = [
     { name: "", value: 6 },
     { name: "Completely safe", value: 7 },
   ];
- 
+
 
   toggle() {
     this.isOpen = !this.isOpen;
@@ -276,7 +278,7 @@ Flu2PossibleResponses = [
    * Show if a user is qualified
    *
    */
-   isQualified(f) {
+  isQualified(f) {
     f = f.value;
     if (!this.qualificationForm) {
       return false;
@@ -285,19 +287,19 @@ Flu2PossibleResponses = [
     this.isOpen = true;
     // updated per TDD
     let vacReceive = parseInt(f.vac_receive) !== 1 && parseInt(f.vac_receive) !== 7;
-​
+
     let benefitOk = parseInt(f.vac_benefit) !== 1 && parseInt(f.vac_benefit) !== 7;
-​
+
     let effectiveOk = parseInt(f.vac_effective) !== 1 && parseInt(f.vac_effective) !== 7;
-​
+
     let harmfulOk = parseInt(f.vac_harmful) !== 1 && parseInt(f.vac_harmful) !== 7;
-​
+
     let pharmaOk = parseInt(f.vac_pharma) !== 1 && parseInt(f.vac_pharma) !== 7;
-​
+
     let usOk = f.us === "true";
     let shareOk = f.share === "true";
     let share_infoOk = f.share_info === "true";
-​
+
     if (shareOk && share_infoOk && usOk) {
       qualified = true;
     } else {
