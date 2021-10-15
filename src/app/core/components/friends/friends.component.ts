@@ -89,6 +89,8 @@ setSavedNickname() {
     }
     this.participantService.update(this.profileForm.value).subscribe((data) => {
       this.getProfile();
+    this.savednickname = true;
+
     });
   }
   participant: any;
@@ -98,7 +100,7 @@ setSavedNickname() {
       .profile()
       .pipe(tap((user: any) => this.profileForm.patchValue(user.data)))
       .subscribe((data: any) => {
-       this.setSavedNickname();
+      //  this.setSavedNickname();
         
         this.participant = data.data;
         if (
