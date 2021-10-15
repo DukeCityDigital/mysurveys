@@ -13,6 +13,7 @@ import { tap } from "rxjs/operators";
 export class FriendsComponent implements OnInit {
   friendForm: FormGroup;
   user: any;
+  savednickname :boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,7 +38,10 @@ export class FriendsComponent implements OnInit {
       .pipe(tap((user: any) => this.profileForm.patchValue(user.data)))
 
       .subscribe((data: any) => {
+        
         this.user = data.data;
+        console.log(this.user);
+       this.setSavedNickname();
         // var re = /**buttonlink**/gi; 
         var b = this.user.template.body.replace("*buttonlink*", ""); 
         this.user.emailExampleLines = b.split("*nl*");
@@ -49,6 +53,13 @@ export class FriendsComponent implements OnInit {
         }
       });
   }
+
+setSavedNickname() {
+  console.log(this.user);
+  if (this.user.nickname) {
+    this.savednickname = true;
+  }
+}
 
   ngOnInit(): void { }
 
@@ -87,6 +98,8 @@ export class FriendsComponent implements OnInit {
       .profile()
       .pipe(tap((user: any) => this.profileForm.patchValue(user.data)))
       .subscribe((data: any) => {
+       this.setSavedNickname();
+        
         this.participant = data.data;
         if (
           !this.participant.changed_pw ||

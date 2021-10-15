@@ -121,6 +121,37 @@ export class QualificationComponent implements OnInit {
     }
   }
 
+Flu1PossibleResponses = [
+    { name: "I will definitely not get the vaccine", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "I will definitely get the vaccine or have already got the vaccine", value: 7 },
+  ];
+
+Flu2PossibleResponses = [
+    { name: "The risks completely outweigh the benefits", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "The risks and benefits are about equal", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "The benefits completely outweigh the risks", value: 7 },
+  ];
+  Flu3PossibleResponses = [
+    { name: "Very ineffective", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "Very effective", value: 7 },
+  ];
+
+
+
   CovidPossibleResponses = [
     { name: "I will definitely not get the vaccine", value: 1 },
     { name: "", value: 2 },

@@ -61,6 +61,9 @@
       >
        Save my nickname
       </button>
+      <div *ngIf="!savednickname" style="color:orange;">
+        You must enter and save your nickname to continue
+      </div>
     </form>
     <hr />
 
@@ -126,7 +129,7 @@
           [disabled]="
             friendForm.value.email == '' ||
             friendForm.value.nickname == '' ||
-            profileForm.value.nickname == '' ||  profileForm.value.nickname == undefined 
+            profileForm.value.nickname == '' ||  profileForm.value.nickname == undefined  || !savednickname
           "
         >
           Send friend invitation

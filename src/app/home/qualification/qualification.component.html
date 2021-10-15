@@ -60,10 +60,10 @@
             below to see if you qualify.
           </p>
           <p>
-            A few days later after you and your two friends have signed up, you will be invited to participate in a main
-            survey that will take around 10 minutes. You will be asked questions such as "Do you think COVID-19 vaccines
-            are very harmful for one's health or are not harmful at all?" and "Do you live in the U.S. and are at least
-            18 years old?". You will also have the opportunity to participate and get paid for taking part in similar
+            A few days later after you and your two friends have signed up, you will be invited to participate in a 
+            main survey that will take around 10 minutes. You will be asked questions such as "Do you think flu 
+            vaccines are ineffective or effective for preventing flu?" and "Do you live in the U.S. and are at least 
+            18 years old?". You will also have the opportunity to participate and get paid for taking part in similar 
             surveys in the future.
           </p>
           <p>
@@ -153,10 +153,10 @@
           </p>
 
           <p>
-            A few days later after you and your friend have signed up you will be invited to participate in a main
-            survey taking no more than 10 minutes. You will be asked questions such as "Do you think COVID-19 vaccines
-            are very harmful for one's health or are not harmful at all?" and "Do you live in the U.S. and are at least
-            18 years old?"
+            A few days later after you and your friend have signed up you will be invited to participate in a study 
+            taking no more than 10 minutes. you will be asked questions such as "Do you think flu vaccines are 
+            ineffective or effective for preventing flu?" and "Do you live in the U.S. and are at least 18 years 
+            old?"
           </p>
           <!-- <p>
           A week or two after you have signed up, you may be invited to participate in a study taking no more than 10
@@ -234,11 +234,11 @@
         </div>
         <hr />
         <div>
-          <label id="example-radio-group-label">Do you think you will get the COVID-19 vaccine or not?
+          <label id="example-radio-group-label">Do you plan to get the flu vaccine during this flu season?
           </label>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
             formControlName="vac_receive">
-            <mat-radio-button *ngFor="let response of CovidPossibleResponses" class="example-radio-button"
+            <mat-radio-button *ngFor="let response of FluPossibleResponses" class="example-radio-button"
               value="{{ response.value }}">
               {{ response.value }} {{ response.name }}
             </mat-radio-button>
@@ -249,12 +249,12 @@
         </div>
         <hr />
         <div>
-          <label id="example-radio-group-label">Overall, do you think public health officials are not telling us
-            everything they know about COVID-19 vaccines, or they are telling us everything?
+          <label id="example-radio-group-label">Overall, do you think the risks of flu vaccines outweigh the benefits or the benefits outweigh the 
+            risks?
           </label>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
             formControlName="vac_benefit">
-            <mat-radio-button *ngFor="let response of CovidHonestyResponses" class="example-radio-button"
+            <mat-radio-button *ngFor="let response of Flu2PossibleResponses" class="example-radio-button"
               value="{{ response.value }}">
               {{ response.value }} {{ response.name }}
             </mat-radio-button>
@@ -265,12 +265,12 @@
           <hr />
         </div>
         <div>
-          <label id="example-radio-group-label">Do you think COVID-19 vaccines are ineffective or effective for
-            reducing COVID-19 cases and preventing related hospitalizations and deaths?
+          <label id="example-radio-group-label">Do you think flu vaccines are ineffective or effective for preventing the flu?
+
           </label>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
             formControlName="vac_effective">
-            <mat-radio-button *ngFor="let response of VacEffectiveResponses" class="example-radio-button"
+            <mat-radio-button *ngFor="let response of Flu3PossibleResponses" class="example-radio-button"
               value="{{ response.value }}">
               {{ response.value }} {{ response.name }}
             </mat-radio-button>
@@ -281,12 +281,11 @@
           <hr />
         </div>
         <div>
-          <label id="example-radio-group-label">Do you think COVID-19 vaccines are very harmful for one's health or
-            are not harmful at all?
+          <label id="example-radio-group-label">Do you think flu vaccines can be very harmful for one's health or are not harmful at all?
           </label>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
             formControlName="vac_harmful">
-            <mat-radio-button *ngFor="let response of VacHarmfulResponses" class="example-radio-button"
+            <mat-radio-button *ngFor="let response of Flu4PossibleResponses" class="example-radio-button"
               value="{{ response.value }}">
               {{ response.value }} {{ response.name }}
             </mat-radio-button>
@@ -298,11 +297,12 @@
         </div>
         <div>
           <label id="example-radio-group-label">
-            Do you think that there is too much or not enough pressure on Americans to get a COVID-19 vaccine?
+            Do you think big pharmaceutical companies benefit too much from flu vaccines at the expense 
+of patients, or that both big pharmaceutical companies and patients benefit equally?
           </label>
           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
             formControlName="vac_pharma">
-            <mat-radio-button *ngFor="let response of VacPressureResponses" class="example-radio-button"
+            <mat-radio-button *ngFor="let response of Flu5PossibleResponses" class="example-radio-button"
               value="{{ response.value }}">
               {{ response.value }} {{ response.name }}
             </mat-radio-button>
@@ -333,8 +333,8 @@
         </div>
         <div>
           <p>
-            Would you be willing to share information about COVID-19 vaccines from other sources (e.g., doctors,
-            scientists) with your friends?
+            Would you be willing to share information about flu vaccines from other sources (e.g., doctors, 
+scientists) with your friends?
           </p>
           <mat-radio-group required aria-labelledby="example-radio-group-labelfriends" class="example-radio-group"
             formControlName="share_info">
