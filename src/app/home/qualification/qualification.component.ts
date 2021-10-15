@@ -149,6 +149,25 @@ Flu2PossibleResponses = [
     { name: "", value: 6 },
     { name: "Very effective", value: 7 },
   ];
+  Flu4PossibleResponses = [
+    { name: "Very harmful", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "Not harmful at all", value: 7 },
+  ];
+
+  Flu5PossibleResponses = [
+    { name: "Big pharmaceutical companies benefit too much at the expense of patients", value: 1 },
+    { name: "", value: 2 },
+    { name: "", value: 3 },
+    { name: "", value: 4 },
+    { name: "", value: 5 },
+    { name: "", value: 6 },
+    { name: "Both big pharmaceutical companies and patients benefit equally", value: 7 },
+  ];
 
 
 
